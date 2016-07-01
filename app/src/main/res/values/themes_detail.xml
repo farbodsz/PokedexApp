@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.Detail.Type" />
+
+    <style name="AppTheme.Detail.Type.Normal">
+        <item name="colorPrimary">@color/type_normal_primary</item>
+        <item name="colorPrimaryDark">@color/type_normal_primary_dark</item>
+        <item name="colorAccent">@color/type_normal_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Fire">
+        <item name="colorPrimary">@color/type_fire_primary</item>
+        <item name="colorPrimaryDark">@color/type_fire_primary_dark</item>
+        <item name="colorAccent">@color/type_fire_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Fighting">
+        <item name="colorPrimary">@color/type_fighting_primary</item>
+        <item name="colorPrimaryDark">@color/type_fighting_primary_dark</item>
+        <item name="colorAccent">@color/type_fighting_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Water">
+        <item name="colorPrimary">@color/type_water_primary</item>
+        <item name="colorPrimaryDark">@color/type_water_primary_dark</item>
+        <item name="colorAccent">@color/type_water_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Flying">
+        <item name="colorPrimary">@color/type_flying_primary</item>
+        <item name="colorPrimaryDark">@color/type_flying_primary_dark</item>
+        <item name="colorAccent">@color/type_flying_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Grass">
+        <item name="colorPrimary">@color/type_grass_primary</item>
+        <item name="colorPrimaryDark">@color/type_grass_primary_dark</item>
+        <item name="colorAccent">@color/type_grass_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Poison">
+        <item name="colorPrimary">@color/type_poison_primary</item>
+        <item name="colorPrimaryDark">@color/type_poison_primary_dark</item>
+        <item name="colorAccent">@color/type_poison_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Electric">
+        <item name="colorPrimary">@color/type_electric_primary</item>
+        <item name="colorPrimaryDark">@color/type_electric_primary_dark</item>
+        <item name="colorAccent">@color/type_electric_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Ground">
+        <item name="colorPrimary">@color/type_ground_primary</item>
+        <item name="colorPrimaryDark">@color/type_ground_primary_dark</item>
+        <item name="colorAccent">@color/type_ground_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Psychic">
+        <item name="colorPrimary">@color/type_psychic_primary</item>
+        <item name="colorPrimaryDark">@color/type_psychic_primary_dark</item>
+        <item name="colorAccent">@color/type_psychic_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Rock">
+        <item name="colorPrimary">@color/type_rock_primary</item>
+        <item name="colorPrimaryDark">@color/type_rock_primary_dark</item>
+        <item name="colorAccent">@color/type_rock_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Ice">
+        <item name="colorPrimary">@color/type_ice_primary</item>
+        <item name="colorPrimaryDark">@color/type_ice_primary_dark</item>
+        <item name="colorAccent">@color/type_ice_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Bug">
+        <item name="colorPrimary">@color/type_bug_primary</item>
+        <item name="colorPrimaryDark">@color/type_bug_primary_dark</item>
+        <item name="colorAccent">@color/type_bug_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Dragon">
+        <item name="colorPrimary">@color/type_dragon_primary</item>
+        <item name="colorPrimaryDark">@color/type_dragon_primary_dark</item>
+        <item name="colorAccent">@color/type_dragon_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Ghost">
+        <item name="colorPrimary">@color/type_ghost_primary</item>
+        <item name="colorPrimaryDark">@color/type_ghost_primary_dark</item>
+        <item name="colorAccent">@color/type_ghost_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Dark">
+        <item name="colorPrimary">@color/type_dark_primary</item>
+        <item name="colorPrimaryDark">@color/type_dark_primary_dark</item>
+        <item name="colorAccent">@color/type_dark_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Steel">
+        <item name="colorPrimary">@color/type_steel_primary</item>
+        <item name="colorPrimaryDark">@color/type_steel_primary_dark</item>
+        <item name="colorAccent">@color/type_steel_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Type.Fairy">
+        <item name="colorPrimary">@color/type_fairy_primary</item>
+        <item name="colorPrimaryDark">@color/type_fairy_primary_dark</item>
+        <item name="colorAccent">@color/type_fairy_accent</item>
+    </style>
+
+    <style name="AppTheme.Detail.Colour" />
+    <style name="AppTheme.Detail.Colour.Black">
+        <item name="colorPrimary">@color/pkmnColor_black_primary</item>
+        <item name="colorPrimaryDark">@color/pkmnColor_black_primary_dark</item>
+        <item name="colorAccent">@color/pkmnColor_black_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Colour.Blue">
+        <item name="colorPrimary">@color/pkmnColor_blue_primary</item>
+        <item name="colorPrimaryDark">@color/pkmnColor_blue_primary_dark</item>
+        <item name="colorAccent">@color/pkmnColor_blue_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Colour.Brown">
+        <item name="colorPrimary">@color/pkmnColor_brown_primary</item>
+        <item name="colorPrimaryDark">@color/pkmnColor_brown_primary_dark</item>
+        <item name="colorAccent">@color/pkmnColor_brown_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Colour.Grey">
+        <item name="colorPrimary">@color/pkmnColor_grey_primary</item>
+        <item name="colorPrimaryDark">@color/pkmnColor_grey_primary_dark</item>
+        <item name="colorAccent">@color/pkmnColor_grey_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Colour.Green">
+        <item name="colorPrimary">@color/pkmnColor_green_primary</item>
+        <item name="colorPrimaryDark">@color/pkmnColor_green_primary_dark</item>
+        <item name="colorAccent">@color/pkmnColor_green_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Colour.Pink">
+        <item name="colorPrimary">@color/pkmnColor_pink_primary</item>
+        <item name="colorPrimaryDark">@color/pkmnColor_pink_primary_dark</item>
+        <item name="colorAccent">@color/pkmnColor_pink_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Colour.Purple">
+        <item name="colorPrimary">@color/pkmnColor_purple_primary</item>
+        <item name="colorPrimaryDark">@color/pkmnColor_purple_primary_dark</item>
+        <item name="colorAccent">@color/pkmnColor_purple_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Colour.Red">
+        <item name="colorPrimary">@color/pkmnColor_red_primary</item>
+        <item name="colorPrimaryDark">@color/pkmnColor_red_primary_dark</item>
+        <item name="colorAccent">@color/pkmnColor_red_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Colour.White">
+        <item name="colorPrimary">@color/pkmnColor_white_primary</item>
+        <item name="colorPrimaryDark">@color/pkmnColor_white_primary_dark</item>
+        <item name="colorAccent">@color/pkmnColor_white_accent</item>
+    </style>
+    <style name="AppTheme.Detail.Colour.Yellow">
+        <item name="colorPrimary">@color/pkmnColor_yellow_primary</item>
+        <item name="colorPrimaryDark">@color/pkmnColor_yellow_primary_dark</item>
+        <item name="colorAccent">@color/pkmnColor_yellow_accent</item>
+    </style>
+
+</resources>

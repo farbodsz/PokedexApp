@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- TODO: Add Portuguese (Brazil), German (Germany), Spanish (US, Spain), Polish (Poland), Italian (Italy) languages if possible -->
+    <!-- Also add new databases (e.g. Pokedex_it) for Italian and read from that Pokedex database -->
+
+
+    <!-- APP AND ACTIVITIES -->
+    <string name="app_name">Pokédex Free</string>
+    <string name="title_activity_splash" translatable="false">@string/app_name</string>
+    <string name="title_activity_welcome" translatable="false">@string/app_name</string>
+    <string name="title_activity_pokedex">National Pokédex</string>
+    <string name="title_activity_abilities">Ability Dex</string>
+    <string name="title_activity_moves">Move Dex</string>
+    <string name="title_activity_natures">Nature Dex</string>
+    <string name="title_activity_locations">Location Dex</string>
+    <string name="title_activity_compare">Comparison</string>
+    <string name="title_activity_favourites">Favourites</string>
+    <string name="title_activity_team">Your Team</string>
+    <string name="title_activity_experience_calculator">Experience Calculator</string>
+    <string name="title_activity_detail">Pokémon Detail</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_about">About</string>
+    <string name="title_activity_changelog">Changelog</string>
+    <string name="title_activity_advanced_filter">Advanced Filter</string>
+    <string name="title_activity_filter_results">Advanced Filter</string>
+    <string name="title_activity_search_results">Search</string>
+    <string name="title_activity_pkmn_image_detail">Pokémon Image Detail</string>
+    <string name="title_activity_pkmn_type_detail">Type effectiveness</string>
+    <string name="title_activity_ability_detail">Ability</string>
+    <string name="title_activity_moves_detail">Move</string>
+    <string name="title_activity_nature_detail">Nature</string>
+    <string name="title_activity_property_detail">Property</string>
+
+
+    <!-- ACTIONS -->
+    <string name="action_settings">Settings</string>
+    <string name="action_about">About</string>
+    <string name="action_help">Help</string>
+    <string name="action_search">Search</string>
+    <string name="action_filter">Filter</string>
+    <string name="action_sort">Sort</string>
+    <string name="action_sort_id">By ID</string>
+    <string name="action_sort_name">By name</string>
+    <string name="action_play_cry">Play cry</string>
+    <string name="action_play_cry_of">Play %1$s\'s cry</string>
+    <string name="action_previous">Previous</string>
+    <string name="action_next">Next</string>
+    <string name="action_favourite">Add to favourites</string>
+    <string name="action_favourite_remove">Remove from favourites</string>
+    <string name="action_compare">Compare</string>
+    <string name="action_buyPro">Buy Pro</string>
+    <string name="action_clear_all">Clear all</string>
+    <string name="action_add">Add</string>
+    <string name="action_undo">Undo</string>
+    <string name="action_calculate_experience">Calculate EXP</string>
+    <string name="action_calculate_experience_of">%1$s\'s EXP</string>
+
+
+    <!-- DIALOG TEXTS -->
+    <string name="dialog_ok_got_it">OK, got it</string>
+    <string name="dialog_cancel">Cancel</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    <string name="dialog_title_compare_pokemon">Choose a Pokémon to compare against…</string>
+    <string name="dialog_title_compare_pokemon_forms">Compare Pokémon forms?</string>
+    <string name="dialog_msg_compare_pokemon_forms">This Pokémon has alternate forms. Do you want to compare to one of its other forms?</string>
+    <string name="dialog_title_clear_favourites">Clear Favourites?</string>
+    <string name="dialog_msg_clear_favourites">Are you sure you want to remove all Pokémon from the Favourites list?</string>
+
+
+    <!-- GENERAL ACTIONS -->
+    <string name="show_pokemon">Show Pokémon</string>
+    <string name="show_pokemon_moves">Show Pokémon moves</string>
+
+
+    <!-- INFO DIALOG TEXTS -->
+    <string name="move_type">Type:</string>
+    <string name="move_category">Category:</string>
+    <string name="move_contest">Contest:</string>
+    <string name="move_pp">PP:</string>
+    <string name="move_power">Power:</string>
+    <string name="move_accuracy">Accuracy:</string>
+    <string name="move_generation">Introduced in gen:</string>
+    <string name="nature_stat_increased">Increased Stat:</string>
+    <string name="nature_stat_decreased">Decreased Stat:</string>
+    <string name="type_comparison_immune">Immune</string>
+    <string name="type_comparison_strong">Strong</string>
+    <string name="type_comparison_weak">Weak</string>
+
+
+    <!-- NAV DRAWER HEADERS -->
+    <string name="navigation_item_pokedex" translatable="false">@string/title_activity_pokedex</string>
+    <string name="navigation_item_abilities" translatable="false">@string/title_activity_abilities</string>
+    <string name="navigation_item_moves" translatable="false">@string/title_activity_moves</string>
+    <string name="navigation_item_natures" translatable="false">@string/title_activity_natures</string>
+    <string name="navigation_item_locations" translatable="false">@string/title_activity_locations</string>
+    <string name="navigation_item_favourites" translatable="false">@string/title_activity_favourites</string>
+    <string name="navigation_item_team" translatable="false">@string/title_activity_team</string>
+    <string name="navigation_item_experience" translatable="false">@string/title_activity_experience_calculator</string>
+
+
+    <!-- TAB HEADERS -->
+    <string name="tab_pkmn_detail_general">General</string>
+    <string name="tab_pkmn_detail_evolutions">Forms</string>
+    <string name="tab_pkmn_detail_moves">Moves</string>
+
+
+    <!-- INFORMATION TEXTS -->
+    <string name="header_general">General Information</string>
+    <string name="header_pokemon">Pokémon</string>
+    <string name="header_classification">Classification</string>
+    <string name="header_ability">Ability</string>
+    <string name="header_abilities">Abilities</string>
+    <string name="header_ability_1">Ability 1</string>
+    <string name="header_ability_2">Ability 2</string>
+    <string name="header_ability_h">Hidden Ability</string>
+    <string name="header_type">Type</string>
+    <string name="header_types">Types</string>
+    <string name="header_type_1">Type 1</string>
+    <string name="header_type_2">Type 2</string>
+    <string name="header_appearance">Physical Attributes</string>
+    <string name="header_height">Height</string>
+    <string name="header_mass">Mass</string>
+    <string name="header_statistics">Statistics</string>
+    <string name="header_stats">Stats</string>
+    <string name="header_stat_hp">HP</string>
+    <string name="header_stat_atk">Attack</string>
+    <string name="header_stat_def">Defense</string>
+    <string name="header_stat_spA">Sp. Atk</string>
+    <string name="header_stat_spD">Sp. Def</string>
+    <string name="header_stat_spe">Speed</string>
+    <string name="header_stat_total">Total</string>
+    <string name="header_stat_average">Average</string>
+    <string name="header_gender">Gender ratio</string>
+    <string name="header_gender_male">Male</string>
+    <string name="header_gender_female">Female</string>
+    <string name="header_training">Training</string>
+    <string name="header_catch_rate">Catch rate</string>
+    <string name="header_levelling_rate">Levelling Rate</string>
+    <string name="header_base_happiness">Base Happiness</string>
+    <string name="header_exp_growth">Experience to Lvl. 100</string>
+    <string name="header_exp_growth_shortened">EXP to Lvl 100</string>
+    <string name="header_base_egg_steps">Base Egg Steps</string>
+    <string name="header_base_egg_cycles">Base Egg Cycles</string>
+    <string name="header_more_information">More information</string>
+    <string name="header_generation">Generation</string>
+    <string name="header_colour">Colour</string>
+    <string name="header_shape">Shape</string>
+    <string name="header_habitat">Habitat</string>
+    <string name="header_evolutions">Evolutions</string>
+    <string name="header_tools">Tools</string>
+    <string name="header_tools_experience">@string/action_calculate_experience</string>
+    <string name="header_forms">Forms</string>
+    <string name="header_moves">Moves</string>
+    <string name="header_moves_levelup">By level-up</string>
+    <string name="header_moves_tutor">By tutoring</string>
+    <string name="header_moves_machine">By TM/HM</string>
+    <string name="header_moves_form">By form change</string>
+    <string name="header_level">Level</string>
+    <string name="header_location_regions">Regions</string>
+
+
+    <!-- DESCRIPTIONS OF PROPERTIES (used in detail dialog) -->
+    <string name="description_catch">Higher catch rates mean that the Pokémon is easier to catch, up to a maximum of 255,
+        but other factors such as PokéBall type and Pokémon health also affect how easily a Pokémon can be caught in-game.
+        \n\nThis Pokémon has a catch rate of %1$s.</string>
+    <string name="description_happiness">Friendship, commonly referred to as happiness, is a measurement of how much a Pokémon is attached to its Trainer and enjoys being in their care.
+        It can be raised or lowered - certain events such as gaining a level or walking raise it whilst faining or the use of herbal medicines decrease it.
+        Friendship (happiness) can also affect the evolution of certain Pokémon, the power of Return and Frustration, and the availability of a few in-game items and Ribbons.
+        \n\nThis Pokémon has a base happiness of %1$s.</string>
+    <string name="description_levelling">The levelling rate is a term to describe the rate at which a Pokémon can gain experience points.
+        \n\nFor example, this Pokémon can grow and level-up at a %1$s rate.</string>
+    <string name="description_exp">The amount of experience an individual Pokémon has is an indication of how much it has battled.
+        \n\nThis Pokémon will have %1$s experience points at level 100.</string>
+    <string name="description_generation">This Pokémon was introduced in Generation %1$s of the Pokémon games.</string>
+    <string name="description_mass">This Pokémon weighs %1$s kilograms.</string>
+    <string name="description_height">This Pokémon is %1$s metres tall.</string>
+    <string name="description_colour">This Pokémon is listed as being the colour %1$s in the Pokédex.</string>
+    <string name="description_shape">This Pokémon has a %1$s (%2$s) shaped body</string>
+    <string name="description_habitat">In Pokémon FireRed and LeafGreen, Pokémon were given habitats, showing Pokémon that are closely related nearer to each other.
+        Pokémon with a National Pokédex number higher than 386 do not have a habitat since they were not obtainable in FireRed and LeafGreen.
+        \n\nThis Pokémon\'s habitat is %1$s.</string>
+    <string name="description_egg_steps">An egg of this Pokémon species will take %1$s steps to hatch.</string>
+    <string name="description_egg_cycles">An Egg cycle is a unit of time measured in steps that determines how long it will take for a Pokémon Egg to hatch.
+        The number of Egg cycles required to hatch an Egg is stored in the same number that would be the friendship value for normal Pokémon.
+        \n\nAn egg of this Pokémon species will take %1$s cycles to hatch.</string>
+
+
+    <!-- FILTER AND SORT TEXTS  -->
+    <string name="title_filtered_pokedex">Filtered Pokédex</string>
+    <string name="title_filtered_abilities">Filtered Abilities</string>
+    <string name="title_filtered_moves">Filtered Moves</string>
+    <string name="title_filtered_locations">Filtered Locations</string>
+    <string name="search_hint_pokedex">Search by ID or name</string>
+    <string name="sort_by_id">Sorted by ID</string>
+    <string name="sort_by_name">Sorted by name</string>
+    <string name="sort_by_id_already">Already sorted by ID</string>
+    <string name="sort_by_name_already">Already sorted by name</string>
+    <string name="filter_advanced_prompt">Enter the details of the Pokémon and press \'Filter\' to filter the results.
+        You do not have to enter all details, just the ones you want to filter by.</string>
+    <string name="filter_name">Name</string>
+    <string name="filter_stats_avg">Average Stats</string>
+    <string name="filter_stats_avg_method">Filter type</string>
+    <string name="filter_stats_avg_value">Stat value</string>
+    <string name="filter_levelling">Growth</string>
+    <string name="filter_button_advanced">Advanced Search</string>
+    <string name="filter_moves_method">Learn method</string>
+    <string name="filter_game_version">Game version</string>
+    <string name="filter_button_go">Go</string>
+
+
+    <!-- MESSAGES (TOASTS/SNACKBARS) -->
+    <string name="misc_requires_pro">This feature requires the full version of the app</string>
+    <string name="misc_no_results">No results found</string>
+    <string name="add_favourites">Add Favourite Pokémon</string>
+    <string name="add_favourites_description">You can add a Pokémon to the Favourites list by going to its detail page and pressing the star (favourites) icon at the top right.</string>
+    <string name="favourites_error">ERROR: This Pokémon is not in the favourites list</string>
+    <string name="favourites_cleared">Favourites has been cleared</string>
+    <string name="filter_error">You must specify at least one filter</string>
+    <string name="mark_favourites">%1$s has been %2$s Favourites</string>
+    <!-- POKEMON has been MARK_TYPE favourites -->
+    <string name="null_alternate_forms">%1$s does not have any alternate forms</string>
+    <string name="location_no_pokemon">No Pokémon found at this location</string>
+
+
+    <!-- EXPERIENCE CALCULATOR -->
+    <string name="experience_select_pokemon">Select a Pokémon</string>
+    <string name="experience_select_levelling_rate">Choose levelling rate</string>
+    <string name="experience_calculate">Calculate</string>
+    <string name="experience_description">total exp to be at Level %1$s with %2$s growth</string>
+
+    <!-- SPLASH AND ABOUT PAGE -->
+    <string name="welcome_message">Welcome to %1$s!</string>
+    <string name="about_app_info">%1$s app
+        \nVersion: %2$s</string>
+    <string name="about_copyrights">Copyright Notice</string>
+    <string name="about_changelog">View all changes and improvements made since the first beta releases.</string>
+    <string name="about_changelog_action">See changelog</string>
+    <string name="about_settings">Go to the Pokédex Settings page.</string>
+    <string name="about_settings_action">Open settings</string>
+    <string name="about_feedback">Feedback</string>
+    <string name="about_feedback_desc">If you have any feedback or suggestions (for example, what you would like to see in a future release), tell us via our feedback email address:
+        \n\nfeedback.phoenixenterprise@gmail.com</string>
+    <string name="about_feedback_action">Send feedback</string>
+    <string name="about_help_translate">Help us Translate</string>
+    <string name="about_help_translate_desc">You can help us translate this app into your language! If you\'re interested, let us know at our developer email address:
+        \n\ndevelopers.phoenixenterprise@gmail.com</string>
+
+
+    <!-- INIT DB SCREEN -->
+    <string name="initialise_title">Initialising databases</string>
+    <string name="initialise_msg">Please wait whilst we load the databases for the first time, in order for searching and filtering to be as fast as possible.
+        This may take up to 3 minutes.</string>
+    <string name="initialise_loading">Loading (%1$s)</string>
+    <string name="initialise_wait_prompt">Please wait until the loading has finished to avoid crashes</string>
+    <string name="initialise_setup_desc">Setting up the %1$s database…</string>
+    <string name="initialise_finished">Initialisation completed</string>
+
+
+    <!-- DRAWER TOGGLE -->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+
+    <!-- IMAGE CONTENT DESCRIPTIONS -->
+    <string name="img_desc_banner">App Banner</string>
+    <string name="img_desc_pokemon">Pokémon Image</string>
+
+
+    <!-- DUMMY TEXTS -->
+    <string name="dummy_id" translatable="false"># 537</string>
+    <string name="dummy_pokemon" translatable="false">A Pokémon</string>
+    <string name="dummy_form" translatable="false">A Form</string>
+    <string name="dummy_ability" translatable="false">An ability</string>
+    <string name="dummy_gender" translatable="false">Gender</string>
+    <string name="dummy_classification" translatable="false">A classification</string>
+    <string name="dummy_type" translatable="false">Type</string>
+    <string name="dummy_height" translatable="false">12.3 m</string>
+    <string name="dummy_weight" translatable="false">109 kg</string>
+    <string name="dummy_stat" translatable="false">AZ</string>
+    <string name="dummy_catch_rate" translatable="false">A catch rate</string>
+    <string name="dummy_levelling_rate" translatable="false">A levelling rate</string>
+    <string name="dummy_happiness" translatable="false">Quite happy</string>
+    <string name="dummy_exp_growth" translatable="false">Exp growth</string>
+    <string name="dummy_egg_steps" translatable="false">Egg steps</string>
+    <string name="dummy_egg_cycles" translatable="false">Egg cycles</string>
+    <string name="dummy_generation" translatable="false">Gen</string>
+    <string name="dummy_color" translatable="false">Some color</string>
+    <string name="dummy_shape" translatable="false">A shape</string>
+    <string name="dummy_habitat" translatable="false">Habitat</string>
+    <string name="dummy_description" translatable="false">Lorem ipsum text or whatever it is meant to be</string>
+    <string name="dummy_move" translatable="false">A move</string>
+    <string name="dummy_nature" translatable="false">A nature</string>
+    <string name="dummy_property" translatable="false">A property</string>
+    <string name="dummy_about_app" translatable="false">App Info</string>
+    <string name="hello_world" translatable="false">Hello world!</string>
+    <string name="title_activity_location_detail">Location Detail</string>
+
+</resources>

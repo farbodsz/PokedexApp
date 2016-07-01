@@ -1,0 +1,709 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:scrollbarStyle="outsideOverlay"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <!-- POKEMON INFO -->
+        <include layout="@layout/fragment_detail_main_info_banner" />
+
+        <!-- ABILITIES -->
+        <android.support.v7.widget.CardView
+            style="@style/AppTheme.CardView.SidePadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/card_padding_vertical"
+                android:paddingBottom="@dimen/card_padding_vertical" >
+                <TextView
+                    android:text="@string/header_abilities"
+                    style="@style/AppTheme.CardView.Text.Title.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/card_padding_vertical"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_top">
+                    <TextView
+                        android:id="@+id/detailM_tvAbility1_title"
+                        android:text="@string/header_ability_1"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/detailM_tvAbility1_info"
+                        android:text="@string/dummy_ability"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/detailM_llAbility2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_top" >
+                    <TextView
+                        android:id="@+id/detailM_tvAbility2_title"
+                        android:text="@string/header_ability_2"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/detailM_tvAbility2_info"
+                        android:text="@string/dummy_ability"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/detailM_llAbilityH"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/detailM_tvAbilityH_title"
+                        android:text="@string/header_ability_h"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/detailM_tvAbilityH_info"
+                        android:text="@string/dummy_ability"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <!-- GENDER RATIO -->
+        <android.support.v7.widget.CardView
+            style="@style/AppTheme.CardView.SidePadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/card_padding_vertical"
+                android:paddingBottom="@dimen/card_padding_vertical">
+                <TextView
+                    android:text="@string/header_gender"
+                    style="@style/AppTheme.CardView.Text.Title.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/card_padding_vertical" />
+                <ProgressBar
+                    android:id="@+id/detailM_barGender"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:progressDrawable="@drawable/progress_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <TextView
+                        android:id="@+id/detailM_tvGenderMale"
+                        android:text="@string/dummy_gender"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="italic"
+                        android:textColor="@color/progress_gender_male"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/detailM_tvGenderFemale"
+                        android:text="@string/dummy_gender"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="italic"
+                        android:textColor="@color/progress_gender_female"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <!-- STATS-->
+        <android.support.v7.widget.CardView
+            style="@style/AppTheme.CardView.SidePadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/card_padding_vertical"
+                android:paddingBottom="@dimen/card_padding_vertical" >
+                <TextView
+                    android:text="@string/header_stats"
+                    style="@style/AppTheme.CardView.Text.Title.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/card_padding_vertical"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <TextView
+                        android:text="@string/header_stat_hp"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/weight_stat_title"/>
+                    <ProgressBar
+                        android:id="@+id/detailM_barStatHP"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:progressDrawable="@drawable/progress_stats"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="@integer/weight_stat_bar"/>
+                    <TextView
+                        android:id="@+id/detailM_tvStatHP_number"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/weight_stat_value"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top_statBars" >
+                    <TextView
+                        android:text="@string/header_stat_atk"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/weight_stat_title" />
+                    <ProgressBar
+                        android:id="@+id/detailM_barStatAtk"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:progressDrawable="@drawable/progress_stats"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="@integer/weight_stat_bar" />
+                    <TextView
+                        android:id="@+id/detailM_tvStatAtk_number"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/weight_stat_value" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top_statBars" >
+                    <TextView
+                        android:text="@string/header_stat_def"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/weight_stat_title" />
+                    <ProgressBar
+                        android:id="@+id/detailM_barStatDef"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:progressDrawable="@drawable/progress_stats"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="@integer/weight_stat_bar" />
+                    <TextView
+                        android:id="@+id/detailM_tvStatDef_number"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/weight_stat_value" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top_statBars" >
+                    <TextView
+                        android:text="@string/header_stat_spA"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/weight_stat_title" />
+                    <ProgressBar
+                        android:id="@+id/detailM_barStatSpA"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:progressDrawable="@drawable/progress_stats"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="@integer/weight_stat_bar" />
+                    <TextView
+                        android:id="@+id/detailM_tvStatSpA_number"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/weight_stat_value" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top_statBars" >
+                    <TextView
+                        android:text="@string/header_stat_spD"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/weight_stat_title" />
+                    <ProgressBar
+                        android:id="@+id/detailM_barStatSpD"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:progressDrawable="@drawable/progress_stats"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="@integer/weight_stat_bar" />
+                    <TextView
+                        android:id="@+id/detailM_tvStatSpD_number"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/weight_stat_value" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top_statBars" >
+                    <TextView
+                        android:text="@string/header_stat_spe"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/weight_stat_title" />
+                    <ProgressBar
+                        android:id="@+id/detailM_barStatSpe"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:progressDrawable="@drawable/progress_stats"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="@integer/weight_stat_bar" />
+                    <TextView
+                        android:id="@+id/detailM_tvStatSpe_number"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/weight_stat_value" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top_statBars" >
+                    <TextView
+                        android:text="@string/header_stat_total"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="bold|italic"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/weight_stat_title" />
+                    <ProgressBar
+                        android:id="@+id/detailM_barStatTotal"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:progressDrawable="@drawable/progress_stats"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="@integer/weight_stat_bar" />
+                    <TextView
+                        android:id="@+id/detailM_tvStatTotal_number"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="bold|italic"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/weight_stat_value" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top_statBars" >
+                    <TextView
+                        android:text="@string/header_stat_average"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="italic"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/weight_stat_title" />
+                    <ProgressBar
+                        android:id="@+id/detailM_barStatAvg"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:progressDrawable="@drawable/progress_stats"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="@integer/weight_stat_bar" />
+                    <TextView
+                        android:id="@+id/detailM_tvStatAvg_number"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="italic"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="@integer/weight_stat_value" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <!-- TRAINING -->
+        <android.support.v7.widget.CardView
+            style="@style/AppTheme.CardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/card_padding_vertical">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/card_padding_lateral"
+                    android:paddingRight="@dimen/card_padding_lateral"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="@string/header_training"
+                        style="@style/AppTheme.CardView.Text.Title.Medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/card_padding_vertical" />
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_top" >
+                        <TextView
+                            android:text="@string/header_catch_rate"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:textStyle="bold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                        <TextView
+                            android:id="@+id/detailM_tvCatchrate_info"
+                            android:text="@string/dummy_catch_rate"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_top" >
+                        <TextView
+                            android:text="@string/header_base_happiness"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:textStyle="bold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                        <TextView
+                            android:id="@+id/detailM_tvHappiness_info"
+                            android:text="@string/dummy_levelling_rate"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_top" >
+                        <!-- TODO: Over 80 views here -->
+                        <TextView
+                            android:text="@string/header_levelling_rate"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:textStyle="bold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                        <TextView
+                            android:id="@+id/detailM_tvLevellingrate_info"
+                            android:text="@string/dummy_levelling_rate"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_top" >
+                        <TextView
+                            android:text="@string/header_exp_growth_shortened"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:textStyle="bold"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                        <TextView
+                            android:id="@+id/detailM_tvExpgrowth_info"
+                            android:text="@string/dummy_exp_growth"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+                </LinearLayout>
+                <FrameLayout
+                    android:padding="@dimen/card_padding_actions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/detailM_btnCalcExp"
+                        android:text="@string/header_tools_experience"
+                        style="@style/AppTheme.Button.Flat"
+                        android:layout_gravity="end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </FrameLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <!-- APPEARANCE -->
+        <android.support.v7.widget.CardView
+            style="@style/AppTheme.CardView.SidePadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/card_padding_vertical"
+                android:paddingBottom="@dimen/card_padding_vertical">
+                <TextView
+                    android:text="@string/header_appearance"
+                    style="@style/AppTheme.CardView.Text.Title.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/card_padding_vertical"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top" >
+                    <TextView
+                        android:text="@string/header_height"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/detailM_tvHeight"
+                        android:text="@string/dummy_height"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top" >
+                    <TextView
+                        android:text="@string/header_mass"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/detailM_tvMass"
+                        android:text="@string/dummy_weight"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"  />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top" >
+                    <TextView
+                        android:text="@string/header_colour"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/detailM_tvColor_info"
+                        android:text="@string/dummy_color"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top" >
+                    <TextView
+                        android:text="@string/header_shape"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/detailM_tvShape_info"
+                        android:text="@string/dummy_shape"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <!-- MORE INFORMATION -->
+        <android.support.v7.widget.CardView
+            style="@style/AppTheme.CardView.SidePadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/card_padding_vertical"
+                android:paddingBottom="@dimen/card_padding_vertical">
+                <TextView
+                    android:text="@string/header_more_information"
+                    style="@style/AppTheme.CardView.Text.Title.Medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/card_padding_vertical"/>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top" >
+                    <TextView
+                        android:text="@string/header_generation"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/detailM_tvGeneration_info"
+                        android:text="@string/dummy_generation"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/detailM_llHabitat"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top" >
+                    <TextView
+                        android:text="@string/header_habitat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/detailM_tvHabitat_info"
+                        android:text="@string/dummy_habitat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top" >
+                    <TextView
+                        android:text="@string/header_base_egg_steps"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/detailM_tvBaseeggsteps_info"
+                        android:text="@string/dummy_egg_steps"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top" >
+                    <TextView
+                        android:text="@string/header_base_egg_cycles"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:textStyle="bold"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/detailM_tvBaseeggcycles_info"
+                        android:text="@string/dummy_egg_cycles"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</ScrollView>

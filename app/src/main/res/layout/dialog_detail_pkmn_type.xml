@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/AppTheme.CardView"
+    app:cardUseCompatPadding="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.phoenixenterprise.pokedex.dialog.PkmnTypeDetailActivity">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/card_padding_vertical_large"
+        android:paddingBottom="@dimen/card_padding_vertical_large">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/card_padding_lateral"
+            android:paddingRight="@dimen/card_padding_lateral">
+
+            <TextView
+                android:id="@+id/pkmnTypeDetail_tvTitle"
+                android:text="@string/dummy_pokemon"
+                style="@style/AppTheme.CardView.Text.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="@string/title_activity_pkmn_type_detail"
+                style="@style/AppTheme.CardView.Text.Subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/card_padding_vertical"/>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/pkmnTypeDetail_tvImmune"
+                    android:text="@string/type_comparison_immune"
+                    style="@style/AppTheme.CardView.Text.Title.Small"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/pkmnTypeDetail_tvStrong"
+                    android:text="@string/type_comparison_strong"
+                    style="@style/AppTheme.CardView.Text.Title.Small"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+                <TextView
+                    android:id="@+id/pkmnTypeDetail_tvWeak"
+                    android:text="@string/type_comparison_weak"
+                    style="@style/AppTheme.CardView.Text.Title.Small"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_top" >
+                <ListView
+                    android:id="@+id/pkmnTypeDetail_lvImmune"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+                <ListView
+                    android:id="@+id/pkmnTypeDetail_lvStrong"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+                <ListView
+                    android:id="@+id/pkmnTypeDetail_lvWeak"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

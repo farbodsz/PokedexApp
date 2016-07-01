@@ -1,0 +1,193 @@
+ID,,Name,,Effect,,Introduced in gen
+1,,Stench,,The stench may cause the target to flinch.,,3
+2,,Drizzle,,The Pok{E[ACUTE]}mon makes it rain if it appears in battle.,,3
+3,,Speed Boost,,The Pok{E[ACUTE]}mon's Speed stat is gradually boosted.,,3
+4,,Battle Armor,,The Pok{E[ACUTE]}mon is protected against critical hits.,,3
+5,,Sturdy,,The Pok{E[ACUTE]}mon is protected against 1-hit KO attacks.,,3
+6,,Damp,,Prevents combatants from self destructing.,,3
+7,,Limber,,The Pok{E[ACUTE]}mon is protected from paralysis.,,3
+8,,Sand Veil,,Boosts the Pok{E[ACUTE]}mon's evasion in a sandstorm.,,3
+9,,Static,,Contact with the Pok{E[ACUTE]}mon may cause paralysis.,,3
+10,,Volt Absorb,,Restores HP if hit by an Electric-type move.,,3
+11,,Water Absorb,,Restores HP if hit by a Water-type move.,,3
+12,,Oblivious,,Prevents the Pok{E[ACUTE]}mon from becoming infatuated.,,3
+13,,Cloud Nine,,Eliminates the effects of weather.,,3
+14,,Compound Eyes,,The Pok{E[ACUTE]}mon's accuracy is boosted.,,3
+15,,Insomnia,,Prevents the Pok{E[ACUTE]}mon from falling asleep.,,3
+16,,Color Change,,Changes the Pok{E[ACUTE]}mon's type to the foe's move.,,3
+17,,Immunity,,Prevents the Pok{E[ACUTE]}mon from getting poisoned.,,3
+18,,Flash Fire,,Powers up Fire-type moves if hit by a fire move.,,3
+19,,Shield Dust,,Blocks the added effects of attacks taken.,,3
+20,,Own Tempo,,Prevents the Pok{E[ACUTE]}mon from becoming confused.,,3
+21,,Suction Cups,,Negates moves that force switching out.,,3
+22,,Intimidate,,Lowers the foe's Attack stat.,,3
+23,,Shadow Tag,,Prevents the foe from escaping.,,3
+24,,Rough Skin,,Inflicts damage to the foe on contact.,,3
+25,,Wonder Guard,,Only supereffective moves will hit.,,3
+26,,Levitate,,Gives full immunity to all Ground-type moves.,,3
+27,,Effect Spore,,"Contact with the Pok{E[ACUTE]}mon may paralyze, poison or cause sleep.",,3
+28,,Synchronize,,"Passes on a burn, poison or paralysis to the foe.",,3
+29,,Clear Body,,Prevents the Pok{E[ACUTE]}mon's stats from being lowered.,,3
+30,,Natural Cure,,All status problems are healed upon switching out.,,3
+31,,Lightning Rod,,The Pok{E[ACUTE]}mon draws in all Electric-type moves.,,3
+32,,Serene Grace,,Boosts the likelihood of added effects appearing.,,3
+33,,Swift Swim,,Boosts the Pok{E[ACUTE]}mon's Speed in rain.,,3
+34,,Chlorophyll,,Boosts the Pok{E[ACUTE]}mon's Speed in sunshine.,,3
+35,,Illuminate,,Raises the likelihood of meeting wild Pok{E[ACUTE]}mon.,,3
+36,,Trace,,The Pok{E[ACUTE]}mon copies a foe's ability.,,3
+37,,Huge Power,,Raises the Attack stat.,,3
+38,,Poison Point,,Contact with the Pok{E[ACUTE]}mon may poison the foe.,,3
+39,,Inner Focus,,The Pok{E[ACUTE]}mon is protected from flinching.,,3
+40,,Magma Armor,,Prevents the Pok{E[ACUTE]}mon from becoming frozen.,,3
+41,,Water Veil,,Prevents the Pok{E[ACUTE]}mon from getting a burn.,,3
+42,,Magnet Pull,,Prevents Steel-type Pok{E[ACUTE]}mon from escaping.,,3
+43,,Soundproof,,Gives full immunity to all sound-based moves.,,3
+44,,Rain Dish,,The Pok{E[ACUTE]}mon gradually recovers HP in rain.,,3
+45,,Sand Stream,,The Pok{E[ACUTE]}mon summons a sandstorm in battle.,,3
+46,,Pressure,,The Pok{E[ACUTE]}mon raises the foe's PP usage.,,3
+47,,Thick Fat,,Raises resistance to Fire and Ice type moves.,,3
+48,,Early Bird,,The Pok{E[ACUTE]}mon awakens quickly from sleep.,,3
+49,,Flame Body,,Contact with the Pok{E[ACUTE]}mon may burn the foe.,,3
+50,,Run Away,,Enables sure getaway from wild Pok{E[ACUTE]}mon.,,3
+51,,Keen Eye,,Prevents the Pok{E[ACUTE]}mon from losing accuracy.,,3
+52,,Hyper Cutter,,Prevents the Attack stat from being lowered.,,3
+53,,Pickup,,The Pok{E[ACUTE]}mon may pick up items.,,3
+54,,Truant,,The Pok{E[ACUTE]}mon can't attack on consecutive turns.,,3
+55,,Hustle,,"Boosts the Attack stat, but lowers accuracy.",,3
+56,,Cute Charm,,Contact with the Pok{E[ACUTE]}mon may cause infatuation.,,3
+57,,Plus,,"Boosts Sp.Atk if another Pok{E[ACUTE]}mon has the ""Minus"" ability.",,3
+58,,Minus,,"Boosts Sp.Atk if another Pok{E[ACUTE]}mon has the ""Plus"" ability.",,3
+59,,Forecast,,Transforms with the weather.,,3
+60,,Sticky Hold,,Protects the Pok{E[ACUTE]}mon from item theft.,,3
+61,,Shed Skin,,The Pok{E[ACUTE]}mon may heal its own status problems.,,3
+62,,Guts,,Boosts Attack if there is a status problem.,,3
+63,,Marvel Scale,,Boosts Defense if there is a status problem.,,3
+64,,Liquid Ooze,,Inflicts damage on foes using any HP draining move.,,3
+65,,Overgrow,,Powers up Grass-type moves in a pinch.,,3
+66,,Blaze,,Powers up Fire-type moves in a pinch.,,3
+67,,Torrent,,Powers up Water-type moves in a pinch.,,3
+68,,Swarm,,Powers up Bug-type moves in a pinch.,,3
+69,,Rock Head,,Protects the Pok{E[ACUTE]}mon from recoil damage.,,3
+70,,Drought,,The Pok{E[ACUTE]}mon makes it sunny if it is in battle.,,3
+71,,Arena Trap,,Prevents the foe from fleeing.,,3
+72,,Vital Spirit,,Prevents the Pok{E[ACUTE]}mon from falling asleep.,,3
+73,,White Smoke,,Prevents the Pok{E[ACUTE]}mon's stats from being lowered.,,3
+74,,Pure Power,,Boosts the power of physical attacks.,,3
+75,,Shell Armor,,The Pok{E[ACUTE]}mon is protected against critical hits.,,3
+76,,Air Lock,,Eliminates the effects of weather.,,3
+76,,Cacophony,,Avois sound-based moves.,,3
+77,,Tangled Feet,,Raises evasion if the Pok{E[ACUTE]}mon is confused.,,4
+78,,Motor Drive,,Raises Speed if hit by an Electric-type move.,,4
+79,,Rivalry,,Raises Attack if the foe is of the same gender.,,4
+80,,Steadfast,,Raises Speed each time the Pok{E[ACUTE]}mon flinches.,,4
+81,,Snow Cloak,,Raises evasion in a hailstorm.,,4
+82,,Gluttony,,Encourages the early use of a held berry.,,4
+83,,Anger Point,,Raises Attack upon taking a critical hit.,,4
+84,,Unburden,,Raises Speed if a held item is used.,,4
+85,,Heatproof,,Weakens the power of Fire-type moves.,,4
+86,,Simple,,The Pok{E[ACUTE]}mon is prone to wild stat changes.,,4
+87,,Dry Skin,,Reduces HP if it is hot. Water restores HP.,,4
+88,,Download,,Adjusts power according to the foe's lowest defensive stat,,4
+89,,Iron Fist,,Boosts the power of punching moves.,,4
+90,,Poison Heal,,Restores HP if the Pok{E[ACUTE]}mon is poisoned.,,4
+91,,Adaptability,,Powers up the moves of the same type.,,4
+92,,Skill Link,,Increases the frequency of multi-strike moves.,,4
+93,,Hydration,,Heals status problems if it is raining.,,4
+94,,Solar Power,,"Boosts Sp.Atk, but lowers HP in sunshine.",,4
+95,,Quick Feet,,Boosts Speed if there is a status problem.,,4
+96,,Normalize,,All the Pok{E[ACUTE]}mon's moves become Normal-type.,,4
+97,,Sniper,,Powers up moves if they become critical hits.,,4
+98,,Magic Guard,,The Pok{E[ACUTE]}mon only takes damage from attacks.,,4
+99,,No Guard,,Ensures the Pok{E[ACUTE]}mon and its foe's attacks land.,,4
+100,,Stall,,The Pok{E[ACUTE]}mon moves after even slower foes.,,4
+101,,Technician,,Powers up the Pok{E[ACUTE]}mon's weaker moves.,,4
+102,,Leaf Guard,,Prevents status problems in sunny weather.,,4
+103,,Klutz,,The Pok{E[ACUTE]}mon is prevented from using held items.,,4
+104,,Mold Breaker,,Moves can be used regardless of abilities.,,4
+105,,Super Luck,,Heightens the critical-hit ratios of moves.,,4
+106,,Aftermath,,Damages the foe landing the finishing hit.,,4
+107,,Anticipation,,Senses the foe's dangerous moves.,,4
+108,,Forewarn,,Determines what moves the foe has.,,4
+109,,Unaware,,Ignores any change in stats by the foe.,,4
+110,,Tinted Lens,,Powers up 'not very effective' moves.,,4
+111,,Filter,,Powers down supereffective moves.,,4
+112,,Slow Start,,Temporarily halves Attack and Speed.,,4
+113,,Scrappy,,Enables moves to hit Ghost-type foes.,,4
+114,,Storm Drain,,The Pok{E[ACUTE]}mon draws in all Water-type moves.,,4
+115,,Ice Body,,The Pok{E[ACUTE]}mon regains HP in a hailstorm.,,4
+116,,Solid Rock,,Powers down supereffective moves.,,4
+117,,Snow Warning,,The Pok{E[ACUTE]}mon summons a hailstorm in battle.,,4
+118,,Honey Gather,,The Pok{E[ACUTE]}mon may gather honey from somewhere.,,4
+119,,Frisk,,The Pok{E[ACUTE]}mon can check the foe's held item.,,4
+120,,Reckless,,Powers up moves that have recoil in damage.,,4
+121,,Multitype,,Changes type to match the held Plate.,,4
+122,,Flower Gift,,Powers up party Pok{E[ACUTE]}mon when it is sunny.,,4
+123,,Bad Dreams,,Reduces a sleeping foe's HP.,,4
+124,,Pickpocket,,Steals attacking Pok{E[ACUTE]}mon's held item on contact.,,5
+125,,Sheer Force,,"Strengthens moves with extra effects to 1.3x of their power, but prevents their extra effects.",,5
+126,,Contrary,,Inverts stat modifieres.,,5
+127,,Unnerve,,Prevents opposing Pok{E[ACUTE]}mon from eating held berries.,,5
+128,,Defiant,,Raises Attack by two stages upon having any stat lowered.,,5
+129,,Defeatist,,Halves Attack and Sp.Atk when the Pok{E[ACUTE]}mon is below 50% HP.,,5
+130,,Cursed Body,,Has a 30% chance of disabling any move that hits the Pok{E[ACUTE]}mon.,,5
+131,,Healer,,Has a 30% chance of curing each adkacent ally of any major status ailment after each turn.,,5
+132,,Friend Guard,,Decreases damage inflicted against ally Pok{E[ACUTE]}mon.,,5
+133,,Weak Armor,,Raises Speed and lowers Defense by one stage each upon being hit by any move.,,5
+134,,Heavy Metal,,Doubles the Pok{E[ACUTE]}mon's weight.,,4
+135,,Light Metal,,Halves the Pok{E[ACUTE]}mon's weight.,,5
+136,,Multiscale,,Halves damage taken from full HP.,,5
+137,,Toxic Boost,,Increases Attack to 1.5x when poisoned.,,5
+138,,Flare Boost,,Increases Sp.Atk to 1.5x when burned.,,5
+139,,Harvest,,Restores any held berry after the turn on which it is used.,,5
+140,,Telepathy,,Protects against damaging moves from friendly Pok{E[ACUTE]}mon.,,5
+141,,Moody,,Raises a random stat by two stages and lowers another by one stage after each turn.,,5
+142,,Overcoat,,Protects against damage from weather.,,5
+143,,Poison Touch,,Has a 20-30% change of poisoning Pok{E[ACUTE]}mon upon contact when attacking.,,5
+144,,Regenerator,,Heals for 1/3 of the maximum HP upon leaving battle.,,5
+145,,Big Pecks,,Protects the Pok{E[ACUTE]}mon from Defense-lowering atacks.,,5
+146,,Sand Rush,,Doubles Speed during a sandstorm.,,5
+147,,Wonder Skin,,Has a 50% chance of protecting against non-damaging moves that inflict major status ailments.,,5
+148,,Analytic,,Strengthens moves when moving last.,,5
+149,,Illusion,,Takes the appearance of the last conscious party Pok{E[ACUTE]}mon upon being sent out until hit by a damaging move.,,5
+150,,Imposter,,Transforms upon entering battle.,,5
+151,,Infiltrator,,"Ignores Light Screen, Reflect, and Safeguard.",,5
+152,,Mummy,,Contact with this Pok{E[ACUTE]}mon spreads this ability.,,5
+153,,Moxie,,Raises the Attack stat by one stage upon 'KO'-ing a Pok{E[ACUTE]}mon.,,5
+154,,Justified,,Raises Attack when hit by Dark--type moves.,,5
+155,,Rattled,,"Raises the Speed stat by one stage upon being hit by a Dark, Ghost, or Bug type move.",,5
+156,,Magic Bounce,,Reflects most non-damaging moves back at their user.,,5
+157,,Sap Sipper,,"Absorbs Grass moves, raising Attack by one stage.",,5
+158,,Prankster,,Raises non-damaging moves' priority by one stage.,,5
+159,,Sand Force,,"Strengthens Rock, Ground, and Steel type moves to 1.3x of their power during a sandstorm.",,5
+160,,Iron Barbs,,Damages attacking Pok{E[ACUTE]}mon for 1/8 of their maximum HP on contact.,,5
+161,,Zen Mode,,Changes the Pok{E[ACUTE]}mon's shape when HP is halved.,,5
+162,,Victory Star,,Raises moves' accuracy to 1.1x for friendly Pok{E[ACUTE]}mon.,,5
+163,,Turboblaze,,Moves can be used regardless of abilities.,,5
+164,,Teravolt,,Moves can be used regardless of abilities.,,5
+165,,Aroma Veil,,Protects allies from attacks that limit their move choices.,,6
+166,,Flower Veil,,Prevents lowering of ally Grass-type Pok{E[ACUTE]}mon's stats.,,6
+167,,Cheek Pouch,,Restores HP as well when the Pok{E[ACUTE]}mon eats a berry.,,6
+168,,Protean,,Changes the Pok{E[ACUTE]}mon's type to the same type of the move it is using.,,6
+169,,Fur Coat,,Halves damage from physical moves.,,6
+170,,Magician,,The Pok{E[ACUTE]}mon steals the held item it hits with a move.,,6
+171,,Bulletproof,,Protects the Pok{E[ACUTE]}mon from some ball and bomb moves.,,6
+172,,Competitive,,Boosts the Sp.Atk stat when a stat is lowered.,,6
+173,,Strong Jaw,,The Pok{E[ACUTE]}mon's strong jaw gives it tremendous biting power.,,6
+174,,Refrigerate,,Normal-type moves become Ice-type moves.,,6
+175,,Sweet Veil,,Prevents itself and its allies from falling asleep.,,6
+176,,Stance Change,,The Pok{E[ACUTE]}mon changes form depending on how it battles.,,6
+177,,Gale Wings,,Gives priority to Flying-type moves.,,6
+178,,Mega Launcher,,Powers up aura and pulse moves.,,6
+179,,Grass Pelt,,Boosts the Defense stat in grassy terrain.,,6
+180,,Symbiosis,,The Pok{E[ACUTE]}mon can pass an item to an ally,,6
+181,,Tough Claws,,Powers up moves that make direct contact.,,6
+182,,Pixilate,,Normal-type moves become Fairy-type moves.,,6
+183,,Gooey,,Contact with the Pok{E[ACUTE]}mon lowers the attacker's Speed stat.,,6
+184,,Aerilate,,Normal-type moves become Flying-type moves.,,6
+185,,Parental Bond,,Parent and child attack together.,,6
+186,,Dark Aura,,Powers up each Pok{E[ACUTE]}mon's Dark-type move(s).,,6
+187,,Fairy Aura,,Powers up each Pok{E[ACUTE]}mon's Fairy-type moves.,,6
+188,,Aura Break,,"The effects of ""Aura"" abilities are reversed.",,6
+189,,Primordial Sea,,Causes heavy rain.,,6
+190,,Desolate Land,,Creates harsh sunlight.,,6
+191,,Delta Stream,,Eliminates weather effects and eliminates weaknesses of Flying-type Pok{E[ACUTE]}mon.,,6

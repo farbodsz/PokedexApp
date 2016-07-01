@@ -1,0 +1,57 @@
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true" >
+
+    <!-- The main content view -->
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/main_adView">
+            <android.support.design.widget.AppBarLayout
+                android:fitsSystemWindows="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/main_toolbar"
+                    style="@style/AppTheme.Toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_scrollFlags="scroll|enterAlways"/>
+                <include layout="@layout/blank" /> <!-- This is to prevent bugs -->
+            </android.support.design.widget.AppBarLayout>
+
+            <include layout="@layout/fragment_misc_no_results"
+                android:id="@+id/main_frag_noResults"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/main_rv"
+                style="@style/AppTheme.RecyclerView.StandardList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </android.support.design.widget.CoordinatorLayout>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/main_adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id" />
+    </RelativeLayout>
+
+    <!-- The navigation drawer -->
+    <include layout="@layout/navdrawer"
+        android:id="@+id/main_navigationView" />
+
+</android.support.v4.widget.DrawerLayout>

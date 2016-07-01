@@ -1,0 +1,26 @@
+Nature,Increased stat,Decr stat
+Adamant,A,SA
+Bashful,,
+Bold,D,A
+Brave,A,Sp
+Calm,SD,A
+Careful,SD,SA
+Docile,,
+Gentle,SD,D
+Hardy,,
+Hasty,Sp,D
+Impish,D,SA
+Jolly,Sp,SA
+Lax,D,SD
+Lonely,A,D
+Mild,SA,D
+Modest,SA,A
+Naive,Sp,SD
+Naughty,A,SD
+Quiet,SA,Sp
+Quirky,,
+Rash,SA,SD
+Relaxed,D,Sp
+Sassy,SD,Sp
+Serious,,
+Timid,Sp,A

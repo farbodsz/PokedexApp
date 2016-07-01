@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="filter_name">
+        <item>No filter</item>
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+        <item>G</item>
+        <item>H</item>
+        <item>I</item>
+        <item>J</item>
+        <item>K</item>
+        <item>L</item>
+        <item>M</item>
+        <item>N</item>
+        <item>O</item>
+        <item>P</item>
+        <item>Q</item>
+        <item>R</item>
+        <item>S</item>
+        <item>T</item>
+        <item>U</item>
+        <item>V</item>
+        <item>W</item>
+        <item>X</item>
+        <item>Y</item>
+        <item>Z</item>
+    </string-array>
+
+    <string-array name="filter_type">
+        <item>No filter</item>
+        <item>Normal</item>
+        <item>Fire</item>
+        <item>Fighting</item>
+        <item>Water</item>
+        <item>Flying</item>
+        <item>Grass</item>
+        <item>Poison</item>
+        <item>Electric</item>
+        <item>Ground</item>
+        <item>Psychic</item>
+        <item>Rock</item>
+        <item>Ice</item>
+        <item>Bug</item>
+        <item>Dragon</item>
+        <item>Ghost</item>
+        <item>Dark</item>
+        <item>Steel</item>
+        <item>Fairy</item>
+    </string-array>
+
+    <string-array name="filter_numberSort">
+        <item>No filter</item>
+        <item>Below</item>
+        <item>Equal to</item>
+        <item>Over</item>
+    </string-array>
+
+    <string-array name="filter_levellingRate">
+        <item>No filter</item>
+        <item>Fluctuating</item>
+        <item>Slow</item>
+        <item>Medium Slow</item>
+        <item>Medium Fast</item>
+        <item>Fast</item>
+        <item>Erratic</item>
+    </string-array>
+
+    <string-array name="filter_gen">
+        <item>No filter</item>
+        <item>I</item>
+        <item>II</item>
+        <item>III</item>
+        <item>IV</item>
+        <item>V</item>
+        <item>VI</item>
+    </string-array>
+
+    <string-array name="filter_gen_abilities">
+        <item>No filter</item>
+        <item>III</item>
+        <item>IV</item>
+        <item>V</item>
+        <item>VI</item>
+    </string-array>
+
+    <string-array name="game_versions">
+        <item>Red and Blue</item>
+        <item>Yellow</item>
+        <item>Gold and Silver</item>
+        <item>Crystal</item>
+        <item>Ruby and Sapphire</item>
+        <item>Emerald</item>
+        <item>FireRed and LeafGreen</item>
+        <item>Diamond and Pearl</item>
+        <item>Platinum</item>
+        <item>HeartGold and SoulSilver</item>
+        <item>Black and White</item>
+        <item>Black 2 and White 2</item>
+        <item>X and Y</item>
+    </string-array>
+
+
+    <string-array name="list_letters">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+        <item>E</item>
+        <item>F</item>
+        <item>G</item>
+        <item>H</item>
+        <item>I</item>
+        <item>J</item>
+        <item>K</item>
+        <item>L</item>
+        <item>M</item>
+        <item>N</item>
+        <item>O</item>
+        <item>P</item>
+        <item>Q</item>
+        <item>R</item>
+        <item>S</item>
+        <item>T</item>
+        <item>U</item>
+        <item>V</item>
+        <item>W</item>
+        <item>X</item>
+        <item>Y</item>
+        <item>Z</item>
+    </string-array>
+
+    <string-array name="list_types">
+        <item>Normal</item>
+        <item>Fire</item>
+        <item>Fighting</item>
+        <item>Water</item>
+        <item>Flying</item>
+        <item>Grass</item>
+        <item>Poison</item>
+        <item>Electric</item>
+        <item>Ground</item>
+        <item>Psychic</item>
+        <item>Rock</item>
+        <item>Ice</item>
+        <item>Bug</item>
+        <item>Dragon</item>
+        <item>Ghost</item>
+        <item>Dark</item>
+        <item>Steel</item>
+        <item>Fairy</item>
+    </string-array>
+
+    <string-array name="list_levelling_rates">
+        <item>Fluctuating</item>
+        <item>Slow</item>
+        <item>Medium Slow</item>
+        <item>Medium Fast</item>
+        <item>Fast</item>
+        <item>Erratic</item>
+    </string-array>
+
+    <string-array name="list_gens">
+        <item>I</item>
+        <item>II</item>
+        <item>III</item>
+        <item>IV</item>
+        <item>V</item>
+        <item>VI</item>
+    </string-array>
+
+    <string-array name="list_gens_abilities">
+        <item>III</item>
+        <item>IV</item>
+        <item>V</item>
+        <item>VI</item>
+    </string-array>
+    
+    <string-array name="list_move_categories">
+        <item>Physical</item>
+        <item>Special</item>
+        <item>Status</item>
+    </string-array>
+
+    <string-array name="list_move_contest">
+        <item>Beautiful</item>
+        <item>Clever</item>
+        <item>Cool</item>
+        <item>Cute</item>
+        <item>Tough</item>
+    </string-array>
+
+    <string-array name="list_location_regions">
+        <item>Kanto</item>
+        <item>Johto</item>
+        <item>Hoenn</item>
+        <item>Sinnoh</item>
+        <item>Unova</item>
+        <item>Kalos</item>
+        <item>Not a location</item>
+    </string-array>
+    
+</resources>

@@ -1,0 +1,1383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:scrollbarStyle="outsideOverlay"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.phoenixenterprise.pokedex.CompareActivity"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <LinearLayout
+        android:id="@+id/compare_llMainScroll"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/compare_pokemon_bar"
+            style="@style/AppTheme.Toolbar"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:baselineAligned="false">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+                <ImageView
+                    android:id="@+id/compare_imgvPokemon_1"
+                    android:src="@drawable/img_unknown"
+                    android:contentDescription="@string/img_desc_pokemon"
+                    android:scaleType="fitCenter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top_8"
+                    android:layout_marginBottom="@dimen/margin_top_8" />
+                <TextView
+                    android:id="@+id/compare_tvPokedexID_1"
+                    android:text="@string/dummy_id"
+                    android:textSize="@dimen/text_comparison_pkmnID"
+                    android:textColor="@color/text_white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/compare_tvTitle_1"
+                    android:text="@string/dummy_pokemon"
+                    android:textSize="@dimen/text_comparison_pkmnName"
+                    android:textColor="@color/text_white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/compare_tvForm_1"
+                    android:text="@string/dummy_form"
+                    android:textStyle="italic"
+                    android:textSize="@dimen/text_comparison_pkmnForm"
+                    android:textColor="@color/text_white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+                <ImageView
+                    android:id="@+id/compare_imgvPokemon_2"
+                    android:src="@drawable/img_unknown"
+                    android:contentDescription="@string/img_desc_pokemon"
+                    android:scaleType="fitCenter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top_8"
+                    android:layout_marginBottom="@dimen/margin_top_8" />
+                <TextView
+                    android:id="@+id/compare_tvPokedexID_2"
+                    android:text="@string/dummy_id"
+                    android:textSize="@dimen/text_comparison_pkmnID"
+                    android:textColor="@color/text_white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/compare_tvTitle_2"
+                    android:text="@string/dummy_pokemon"
+                    android:textSize="@dimen/text_comparison_pkmnName"
+                    android:textColor="@color/text_white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/compare_tvForm_2"
+                    android:text="@string/dummy_form"
+                    android:textStyle="italic"
+                    android:textSize="@dimen/text_comparison_pkmnForm"
+                    android:textColor="@color/text_white"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- GENERAL INFORMATION -->
+        <android.support.v7.widget.CardView
+            style="@style/AppTheme.CardView.SidePadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/card_padding_vertical"
+                android:paddingBottom="@dimen/card_padding_vertical">
+
+                <TextView
+                    android:text="@string/header_general"
+                    style="@style/AppTheme.CardView.Text.Title.Medium"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/card_padding_vertical"/>
+
+                <TextView
+                    android:text="@string/header_types"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+                        <TextView
+                            android:id="@+id/compare_tvType1_1"
+                            android:text="@string/dummy_type"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/margin_sides"
+                            android:layout_marginStart="@dimen/margin_sides"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                        <TextView
+                            android:id="@+id/compare_tvType2_1"
+                            android:text="@string/dummy_type"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_marginRight="@dimen/margin_sides"
+                            android:layout_marginEnd="@dimen/margin_sides"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+                        <TextView
+                            android:id="@+id/compare_tvType1_2"
+                            android:text="@string/dummy_type"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_marginLeft="@dimen/margin_sides"
+                            android:layout_marginStart="@dimen/margin_sides"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                        <TextView
+                            android:id="@+id/compare_tvType2_2"
+                            android:text="@string/dummy_type"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_marginRight="@dimen/margin_sides"
+                            android:layout_marginEnd="@dimen/margin_sides"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/header_classification"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/compare_tvClassification_1"
+                        android:text="@string/header_classification"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/compare_tvClassification_2"
+                        android:text="@string/header_classification"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <!-- ABILITIES -->
+        <android.support.v7.widget.CardView
+            style="@style/AppTheme.CardView.SidePadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/card_padding_vertical"
+                android:paddingBottom="@dimen/card_padding_vertical" >
+                <TextView
+                    android:text="@string/header_abilities"
+                    style="@style/AppTheme.CardView.Text.Title.Medium"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/card_padding_vertical" />
+
+                <TextView
+                    android:id="@+id/compare_tvHeaderAbility1"
+                    android:text="@string/header_ability_1"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <TextView
+                        android:id="@+id/compare_tvAbility1_1"
+                        android:text="@string/dummy_ability"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/compare_tvAbility1_2"
+                        android:text="@string/dummy_ability"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/compare_tvHeaderAbility2"
+                    android:text="@string/header_ability_2"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:id="@+id/compare_llAbility2"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <TextView
+                        android:id="@+id/compare_tvAbility2_1"
+                        android:text="@string/dummy_ability"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/compare_tvAbility2_2"
+                        android:text="@string/dummy_ability"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/compare_tvHeaderAbilityH"
+                    android:text="@string/header_ability_h"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:id="@+id/compare_llAbilityH"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/compare_tvAbilityH_1"
+                        android:text="@string/dummy_ability"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/compare_tvAbilityH_2"
+                        android:text="@string/dummy_ability"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <!-- GENDER -->
+        <android.support.v7.widget.CardView
+            style="@style/AppTheme.CardView.SidePadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/card_padding_vertical"
+                android:paddingBottom="@dimen/card_padding_vertical" >
+                <TextView
+                    android:text="@string/header_gender"
+                    style="@style/AppTheme.CardView.Text.Title.Medium"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/card_padding_vertical" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:baselineAligned="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top" >
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/margin_sides"
+                        android:layout_marginEnd="@dimen/margin_sides">
+                        <ProgressBar
+                            android:id="@+id/compare_barGender_1"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_gender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <LinearLayout
+                            android:id="@+id/compare_llGendertext_1"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+                            <TextView
+                                android:id="@+id/compare_tvGenderMale_1"
+                                android:text="@string/dummy_gender"
+                                style="@style/AppTheme.CardView.Text.Supporting.Large"
+                                android:textStyle="italic"
+                                android:textColor="@color/progress_gender_male"
+                                android:gravity="center"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+                            <TextView
+                                android:id="@+id/compare_tvGenderFemale_1"
+                                android:text="@string/dummy_gender"
+                                style="@style/AppTheme.CardView.Text.Supporting.Large"
+                                android:textStyle="italic"
+                                android:textColor="@color/progress_gender_female"
+                                android:gravity="center"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/margin_sides"
+                        android:layout_marginStart="@dimen/margin_sides">
+                        <ProgressBar
+                            android:id="@+id/compare_barGender_2"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_gender"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+                            <TextView
+                                android:id="@+id/compare_tvGenderMale_2"
+                                android:text="@string/dummy_gender"
+                                style="@style/AppTheme.CardView.Text.Supporting.Large"
+                                android:textStyle="italic"
+                                android:textColor="@color/progress_gender_male"
+                                android:gravity="center"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+                            <TextView
+                                android:id="@+id/compare_tvGenderFemale_2"
+                                android:text="@string/dummy_gender"
+                                style="@style/AppTheme.CardView.Text.Supporting.Large"
+                                android:textStyle="italic"
+                                android:textColor="@color/progress_gender_female"
+                                android:gravity="center"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <!-- STATS -->
+        <android.support.v7.widget.CardView
+            style="@style/AppTheme.CardView.SidePadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/compare_rlStats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/card_padding_vertical"
+                android:paddingBottom="@dimen/card_padding_vertical" >
+                <TextView
+                    android:text="@string/header_statistics"
+                    style="@style/AppTheme.CardView.Text.Title.Medium"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/card_padding_vertical"/>
+
+                <TextView
+                    android:id="@+id/compare_tvHeaderStatHP"
+                    android:text="@string/header_stat_hp"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <!-- TODO: Over 80 views here -->
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:baselineAligned="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/margin_sides"
+                        android:layout_marginEnd="@dimen/margin_sides" >
+                        <TextView
+                            android:id="@+id/compare_tvStatHP_1"
+                            android:text="@string/dummy_stat"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/weight_stat_value_comparisonactivity" />
+                        <ProgressBar
+                            android:id="@+id/compare_barStatHP_1"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_stats_comparison"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="@integer/weight_stat_bar_comparisonactivity" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/margin_sides"
+                        android:layout_marginStart="@dimen/margin_sides" >
+                        <ProgressBar
+                            android:id="@+id/compare_barStatHP_2"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_stats_comparison"
+                            android:rotation="180"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="@integer/weight_stat_bar_comparisonactivity" />
+                        <TextView
+                            android:id="@+id/compare_tvStatHP_2"
+                            android:text="@string/dummy_stat"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/weight_stat_value_comparisonactivity" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/header_stat_atk"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:baselineAligned="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/margin_sides"
+                        android:layout_marginEnd="@dimen/margin_sides" >
+                        <TextView
+                            android:id="@+id/compare_tvStatAtk_1"
+                            android:text="@string/dummy_stat"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/weight_stat_value_comparisonactivity" />
+                        <ProgressBar
+                            android:id="@+id/compare_barStatAtk_1"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_stats_comparison"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="@integer/weight_stat_bar_comparisonactivity" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/margin_sides"
+                        android:layout_marginStart="@dimen/margin_sides" >
+                        <ProgressBar
+                            android:id="@+id/compare_barStatAtk_2"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_stats_comparison"
+                            android:rotation="180"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="@integer/weight_stat_bar_comparisonactivity" />
+                        <TextView
+                            android:id="@+id/compare_tvStatAtk_2"
+                            android:text="@string/dummy_stat"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/weight_stat_value_comparisonactivity" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/header_stat_def"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:baselineAligned="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/margin_sides"
+                        android:layout_marginEnd="@dimen/margin_sides" >
+                        <TextView
+                            android:id="@+id/compare_tvStatDef_1"
+                            android:text="@string/dummy_stat"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/weight_stat_value_comparisonactivity" />
+                        <ProgressBar
+                            android:id="@+id/compare_barStatDef_1"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_stats_comparison"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="@integer/weight_stat_bar_comparisonactivity" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/margin_sides"
+                        android:layout_marginStart="@dimen/margin_sides" >
+                        <ProgressBar
+                            android:id="@+id/compare_barStatDef_2"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_stats_comparison"
+                            android:rotation="180"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="@integer/weight_stat_bar_comparisonactivity" />
+                        <TextView
+                            android:id="@+id/compare_tvStatDef_2"
+                            android:text="@string/dummy_stat"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/weight_stat_value_comparisonactivity" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/header_stat_spA"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:baselineAligned="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/margin_sides"
+                        android:layout_marginEnd="@dimen/margin_sides" >
+                        <TextView
+                            android:id="@+id/compare_tvStatSpA_1"
+                            android:text="@string/dummy_stat"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/weight_stat_value_comparisonactivity" />
+                        <ProgressBar
+                            android:id="@+id/compare_barStatSpA_1"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_stats_comparison"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="@integer/weight_stat_bar_comparisonactivity" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/margin_sides"
+                        android:layout_marginStart="@dimen/margin_sides" >
+                        <ProgressBar
+                            android:id="@+id/compare_barStatSpA_2"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_stats_comparison"
+                            android:rotation="180"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="@integer/weight_stat_bar_comparisonactivity" />
+                        <TextView
+                            android:id="@+id/compare_tvStatSpA_2"
+                            android:text="@string/dummy_stat"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/weight_stat_value_comparisonactivity" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/header_stat_spD"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:id="@+id/compare_llStatSpD"
+                    android:orientation="horizontal"
+                    android:baselineAligned="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/margin_sides"
+                        android:layout_marginEnd="@dimen/margin_sides" >
+                        <TextView
+                            android:id="@+id/compare_tvStatSpD_1"
+                            android:text="@string/dummy_stat"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/weight_stat_value_comparisonactivity" />
+                        <ProgressBar
+                            android:id="@+id/compare_barStatSpD_1"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_stats_comparison"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="@integer/weight_stat_bar_comparisonactivity" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/margin_sides"
+                        android:layout_marginStart="@dimen/margin_sides" >
+                        <ProgressBar
+                            android:id="@+id/compare_barStatSpD_2"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_stats_comparison"
+                            android:rotation="180"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="@integer/weight_stat_bar_comparisonactivity" />
+                        <TextView
+                            android:id="@+id/compare_tvStatSpD_2"
+                            android:text="@string/dummy_stat"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/weight_stat_value_comparisonactivity" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/header_stat_spe"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:baselineAligned="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/margin_sides"
+                        android:layout_marginEnd="@dimen/margin_sides" >
+                        <TextView
+                            android:id="@+id/compare_tvStatSpe_1"
+                            android:text="@string/dummy_stat"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/weight_stat_value_comparisonactivity" />
+                        <ProgressBar
+                            android:id="@+id/compare_barStatSpe_1"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_stats_comparison"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="@integer/weight_stat_bar_comparisonactivity" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/margin_sides"
+                        android:layout_marginStart="@dimen/margin_sides" >
+                        <ProgressBar
+                            android:id="@+id/compare_barStatSpe_2"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_stats_comparison"
+                            android:rotation="180"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="@integer/weight_stat_bar_comparisonactivity" />
+                        <TextView
+                            android:id="@+id/compare_tvStatSpe_2"
+                            android:text="@string/dummy_stat"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/weight_stat_value_comparisonactivity" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/header_stat_total"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:baselineAligned="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/margin_sides"
+                        android:layout_marginEnd="@dimen/margin_sides" >
+                        <TextView
+                            android:id="@+id/compare_tvStatTotal_1"
+                            android:text="@string/dummy_stat"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/weight_stat_value_comparisonactivity" />
+                        <ProgressBar
+                            android:id="@+id/compare_barStatTotal_1"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_stats_comparison"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="@integer/weight_stat_bar_comparisonactivity" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/margin_sides"
+                        android:layout_marginStart="@dimen/margin_sides" >
+                        <ProgressBar
+                            android:id="@+id/compare_barStatTotal_2"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_stats_comparison"
+                            android:rotation="180"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="@integer/weight_stat_bar_comparisonactivity" />
+                        <TextView
+                            android:id="@+id/compare_tvStatTotal_2"
+                            android:text="@string/dummy_stat"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/weight_stat_value_comparisonactivity" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/header_stat_average"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:baselineAligned="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/margin_sides"
+                        android:layout_marginEnd="@dimen/margin_sides" >
+                        <TextView
+                            android:id="@+id/compare_tvStatAvg_1"
+                            android:text="@string/dummy_stat"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/weight_stat_value_comparisonactivity" />
+                        <ProgressBar
+                            android:id="@+id/compare_barStatAvg_1"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_stats_comparison"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="@integer/weight_stat_bar_comparisonactivity" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="@dimen/margin_sides"
+                        android:layout_marginStart="@dimen/margin_sides" >
+                        <ProgressBar
+                            android:id="@+id/compare_barStatAvg_2"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:progressDrawable="@drawable/progress_stats_comparison"
+                            android:rotation="180"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="@integer/weight_stat_bar_comparisonactivity" />
+                        <TextView
+                            android:id="@+id/compare_tvStatAvg_2"
+                            android:text="@string/dummy_stat"
+                            style="@style/AppTheme.CardView.Text.Supporting.Large"
+                            android:gravity="center"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="@integer/weight_stat_value_comparisonactivity" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <!-- TRAINING -->
+        <android.support.v7.widget.CardView
+            style="@style/AppTheme.CardView.SidePadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/compare_rlStats"
+                android:paddingTop="@dimen/card_padding_vertical"
+                android:paddingBottom="@dimen/card_padding_vertical" >
+                <TextView
+                    android:text="@string/header_training"
+                    style="@style/AppTheme.CardView.Text.Title.Medium"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/card_padding_vertical"/>
+
+                <TextView
+                    android:text="@string/header_catch_rate"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/compare_tvCatchrate_1"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/compare_tvCatchrate_2"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/header_base_happiness"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/compare_tvHappiness_1"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/compare_tvHappiness_2"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/header_levelling_rate"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <TextView
+                        android:id="@+id/compare_tvLevellingrate_1"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/compare_tvLevellingrate_2"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/header_exp_growth"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:id="@+id/compare_llExpgrowth"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <TextView
+                        android:id="@+id/compare_tvExpgrowth_1"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/compare_tvExpgrowth_2"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <!-- APPEARANCE -->
+        <android.support.v7.widget.CardView
+            style="@style/AppTheme.CardView.SidePadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/card_padding_vertical"
+                android:paddingBottom="@dimen/card_padding_vertical" >
+                <TextView
+                    android:id="@+id/compare_tvHeaderAppearance"
+                    android:text="@string/header_appearance"
+                    style="@style/AppTheme.CardView.Text.Title.Medium"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/card_padding_vertical" />
+
+                <TextView
+                    android:text="@string/header_height"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <TextView
+                        android:id="@+id/compare_tvHeight_1"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/compare_tvHeight_2"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/header_mass"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/compare_tvMass_1"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/compare_tvMass_2"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/header_colour"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/compare_tvColor_1"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/compare_tvColor_2"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/header_shape"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/compare_tvShape_1"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/compare_tvShape_2"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <!-- MORE INFORMATION -->
+        <android.support.v7.widget.CardView
+            style="@style/AppTheme.CardView.SidePadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/compare_rlStats"
+                android:paddingTop="@dimen/card_padding_vertical"
+                android:paddingBottom="@dimen/card_padding_vertical" >
+                <TextView
+                    android:text="@string/header_more_information"
+                    style="@style/AppTheme.CardView.Text.Title.Medium"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/card_padding_vertical"/>
+
+                <TextView
+                    android:text="@string/header_generation"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/compare_tvGeneration_1"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/compare_tvGeneration_2"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/compare_tvHeaderHabitat"
+                    android:text="@string/header_habitat"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <TextView
+                        android:id="@+id/compare_tvHabitat_1"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/compare_tvHabitat_2"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/header_base_egg_steps"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <TextView
+                        android:id="@+id/compare_tvBaseeggsteps_1"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/compare_tvBaseeggsteps_2"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <TextView
+                    android:text="@string/header_base_egg_cycles"
+                    style="@style/AppTheme.CardView.Text.Subtitle"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_top"/>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <TextView
+                        android:id="@+id/compare_tvBaseeggcycles_1"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/compare_tvBaseeggcycles_2"
+                        android:text="@string/dummy_stat"
+                        style="@style/AppTheme.CardView.Text.Supporting.Large"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

@@ -1,0 +1,50 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.phoenixenterprise.pokedex.CompareActivity">
+
+    <item android:id="@+id/action_calculate_experience"
+        android:title="@string/header_tools_experience"
+        android:icon="@drawable/ic_assessment_white_48dp"
+        android:orderInCategory="2"
+        app:showAsAction="never" >
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/action_calculate_experience_pkmn1"
+                    android:title="@string/action_calculate_experience"
+                    android:orderInCategory="0" />
+                <item
+                    android:id="@+id/action_calculate_experience_pkmn2"
+                    android:title="@string/action_calculate_experience"
+                    android:orderInCategory="1" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:id="@+id/action_play_cry"
+        android:title="@string/action_play_cry"
+        android:icon="@drawable/ic_volume_up_white_48dp"
+        android:orderInCategory="4"
+        app:showAsAction="never" >
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/action_play_cry_pkmn1"
+                    android:title="@string/action_calculate_experience"
+                    android:orderInCategory="0" />
+                <item
+                    android:id="@+id/action_play_cry_pkmn2"
+                    android:title="@string/action_calculate_experience"
+                    android:orderInCategory="1" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:icon="@drawable/ic_settings_white_48dp"
+        android:orderInCategory="9"
+        app:showAsAction="never" />
+
+</menu>

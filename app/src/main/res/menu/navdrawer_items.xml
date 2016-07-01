@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/navigation_group_1" android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_item_pokedex"
+            android:title="@string/navigation_item_pokedex"
+            android:icon="@drawable/ic_pokeball_black_48dp"/>
+        <item
+            android:id="@+id/navigation_item_abilities"
+            android:title="@string/navigation_item_abilities"
+            android:icon="@drawable/ic_pokeball_black_48dp"/>
+        <item
+            android:id="@+id/navigation_item_moves"
+            android:title="@string/navigation_item_moves"
+            android:icon="@drawable/ic_pokeball_black_48dp"/>
+        <item
+            android:id="@+id/navigation_item_natures"
+            android:title="@string/navigation_item_natures"
+            android:icon="@drawable/ic_pokeball_black_48dp"/>
+        <item
+            android:id="@+id/navigation_item_locations"
+            android:title="@string/navigation_item_locations"
+            android:icon="@drawable/ic_pokeball_black_48dp"/>
+    </group>
+
+    <group android:id="@+id/navigation_group_2" android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_item_favourites"
+            android:title="@string/navigation_item_favourites"
+            android:icon="@drawable/ic_star_outline_black_48dp"/>
+        <item
+            android:visible="false"
+            android:id="@+id/navigation_item_team"
+            android:title="@string/navigation_item_team"
+            android:icon="@drawable/ic_assignment_black_48dp"/>
+    </group>
+
+    <group android:id="@+id/navigation_group_3" android:checkableBehavior="single">
+        <item
+            android:id="@+id/navigation_item_experience"
+            android:title="@string/navigation_item_experience"
+            android:icon="@drawable/ic_assessment_black_48dp"/>
+    </group>
+</menu>

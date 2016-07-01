@@ -1,0 +1,114 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.phoenixenterprise.pokedex.WelcomeActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/welcome_buttonBar"
+        android:layout_alignParentTop="true">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="224dp"
+            android:background="@color/theme_primary_dark">
+
+            <ImageView
+                android:src="@mipmap/ic_launcher"
+                android:contentDescription="@string/app_name"
+                android:scaleType="fitCenter"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:layout_width="240dp"
+                android:layout_height="120dp"/>
+        </FrameLayout>
+
+        <ScrollView
+            android:overScrollMode="never"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="172dp" />
+                <android.support.v7.widget.CardView
+                    style="@style/AppTheme.CardView.SidePadding"
+                    app:cardElevation="2dp"
+                    app:cardPreventCornerOverlap="false"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/card_padding_vertical"
+                        android:paddingBottom="@dimen/card_padding_vertical">
+
+                        <TextView
+                            android:id="@+id/welcome_title"
+                            android:text="@string/app_name"
+                            android:textColor="@color/theme_primary"
+                            style="@style/AppTheme.CardView.Text.Title"
+                            android:textSize="@dimen/welcome_text_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/welcome_subtitle"
+                            android:text="@string/app_name"
+                            style="@style/AppTheme.CardView.Text.Subtitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_top"
+                            android:paddingBottom="@dimen/card_padding_vertical"/>
+
+                        <TextView
+                            android:id="@+id/welcome_body"
+                            android:text="@string/app_name"
+                            style="@style/AppTheme.CardView.Text.Supporting"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp" />
+            </LinearLayout>
+
+        </ScrollView>
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/welcome_buttonBar"
+        style="@style/AppTheme.LinearLayout.Footer"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true">
+        <Button
+            android:id="@+id/welcome_btnChangelog"
+            android:text="@string/title_activity_changelog"
+            android:textColor="?android:textColorSecondary"
+            style="@style/AppTheme.Button.Flat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <Button
+            android:id="@+id/welcome_btnContinue"
+            android:text="@string/dialog_ok_got_it"
+            android:textColor="@color/theme_primary_dark"
+            style="@style/AppTheme.Button.Flat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- LINEARLAYOUT -->
+    <style name="AppTheme.LinearLayout.Footer" parent="Widget.AppCompat.ButtonBar">
+        <item name="android:background">@color/white</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:gravity">center_vertical|end</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+</resources>

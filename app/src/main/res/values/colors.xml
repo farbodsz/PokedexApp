@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- MAIN BRANDING COLOURS -->
+    <color name="theme_primary">#F44336</color>
+    <color name="theme_primary_dark">#D32F2F</color>
+    <color name="theme_primary_light">#E57373</color>
+    <color name="theme_accent">#03A9F4</color> <!-- Not used for tabs -->
+    <color name="theme_text_primary">@color/text_white</color>
+    <color name="theme_text_secondary">#FFCDD2</color>
+
+    <!-- THEME COLOURS -->
+    <color name="pokedex_primary">@color/theme_primary</color>
+    <color name="pokedex_primary_dark">@color/theme_primary_dark</color>
+    <color name="pokedex_accent">#D50000</color>
+    <color name="abilities_primary">#FF9800</color>
+    <color name="abilities_primary_dark">#F57C00</color>
+    <color name="abilities_accent">#FF6D00</color>
+    <color name="moves_primary">#2196F3</color>
+    <color name="moves_primary_dark">#1976D2</color>
+    <color name="moves_accent">#2962FF</color>
+    <color name="natures_primary">#4CAF50</color>
+    <color name="natures_primary_dark">#388E3C</color>
+    <color name="natures_accent">#00C853</color>
+    <color name="locations_primary">#00BCD4</color>
+    <color name="locations_primary_dark">#0097A7</color>
+    <color name="locations_accent">#FF4081</color>
+    <color name="compare_primary">#E91E63</color>
+    <color name="compare_primary_dark">#C2185B</color>
+    <color name="favourites_primary">#03A9F4</color>
+    <color name="favourites_primary_dark">#0288D1</color>
+    <color name="team_primary">#795548</color>
+    <color name="team_primary_dark">#5D4037</color>
+    <color name="tools_primary">#3F51B5</color>
+    <color name="tools_primary_dark">#303F9F</color>
+    <color name="tools_accent">#F50057</color>
+    <color name="search_primary">#607D8B</color>
+    <color name="search_primary_dark">#455A64</color>
+    <color name="about_primary">#9E9E9E</color>
+    <color name="about_primary_dark">#616161</color>
+    <color name="about_accent">@color/theme_accent</color>
+
+    <!-- PROGRESS BARS -->
+    <color name="progress_gender_male">#2196F3</color>
+    <color name="progress_gender_female">#E91E63</color>
+    <color name="init_load">#388E3C</color>
+
+    <!-- POKEMON TYPES -->
+    <color name="type_normal_primary">#9E9E9E</color>
+    <color name="type_normal_primary_dark">#616161</color>
+    <color name="type_normal_accent">#BDBDBD</color>
+    <color name="type_fire_primary">#FF9800</color>
+    <color name="type_fire_primary_dark">#F57C00</color>
+    <color name="type_fire_accent">#F57C00</color>
+    <color name="type_fighting_primary">#F44336</color>
+    <color name="type_fighting_primary_dark">#D32F2F</color>
+    <color name="type_fighting_accent">#D32F2F</color>
+    <color name="type_water_primary">#2196F3</color>
+    <color name="type_water_primary_dark">#1976D2</color>
+    <color name="type_water_accent">#1976D2</color>
+    <color name="type_flying_primary">#009688</color>
+    <color name="type_flying_primary_dark">#00796B</color>
+    <color name="type_flying_accent">#B388FF</color>
+    <color name="type_grass_primary">#4CAF50</color>
+    <color name="type_grass_primary_dark">#388E3C</color>
+    <color name="type_grass_accent">#64DD17</color>
+    <color name="type_poison_primary">#9C27B0</color>
+    <color name="type_poison_primary_dark">#7B1FA2</color>
+    <color name="type_poison_accent">#7B1FA2</color>
+    <color name="type_electric_primary">#FFC107</color>
+    <color name="type_electric_primary_dark">#FFA000</color>
+    <color name="type_electric_accent">#FFD740</color>
+    <color name="type_ground_primary">#FFB74D</color>
+    <color name="type_ground_primary_dark">#FFA726</color>
+    <color name="type_ground_accent">#FFD180</color>
+    <color name="type_psychic_primary">#E91E63</color>
+    <color name="type_psychic_primary_dark">#C2185B</color>
+    <color name="type_psychic_accent">#C2185B</color>
+    <color name="type_rock_primary">#FF8A65</color>
+    <color name="type_rock_primary_dark">#FF7043</color>
+    <color name="type_rock_accent">#FF7043</color>
+    <color name="type_ice_primary">#4DB6AC</color>
+    <color name="type_ice_primary_dark">#26A69A</color>
+    <color name="type_ice_accent">#1DE9B6</color>
+    <color name="type_bug_primary">#CDDC39</color>
+    <color name="type_bug_primary_dark">#AFB42B</color>
+    <color name="type_bug_accent">#AFB42B</color>
+    <color name="type_dragon_primary">#3F51B5</color>
+    <color name="type_dragon_primary_dark">#303F9F</color>
+    <color name="type_dragon_accent">#283593</color>
+    <color name="type_ghost_primary">#673AB7</color>
+    <color name="type_ghost_primary_dark">#512DA8</color>
+    <color name="type_ghost_accent">#512DA8</color>
+    <color name="type_dark_primary">#795548</color>
+    <color name="type_dark_primary_dark">#5D4037</color>
+    <color name="type_dark_accent">#5D4037</color>
+    <color name="type_steel_primary">#BDBDBD</color>
+    <color name="type_steel_primary_dark">#9E9E9E</color>
+    <color name="type_steel_accent">#9E9E9E</color>
+    <color name="type_fairy_primary">#F06292</color>
+    <color name="type_fairy_primary_dark">#EC407A</color>
+    <color name="type_fairy_accent">#EC407A</color>
+    <color name="type_normal">@color/type_normal_accent</color>
+    <color name="type_fire">@color/type_fire_accent</color>
+    <color name="type_fighting">@color/type_fighting_accent</color>
+    <color name="type_water">@color/type_water_accent</color>
+    <color name="type_flying">@color/type_flying_accent</color>
+    <color name="type_grass">@color/type_grass_accent</color>
+    <color name="type_poison">@color/type_poison_accent</color>
+    <color name="type_electric">@color/type_electric_accent</color>
+    <color name="type_ground">@color/type_ground_accent</color>
+    <color name="type_psychic">@color/type_psychic_accent</color>
+    <color name="type_rock">@color/type_rock_accent</color>
+    <color name="type_ice">@color/type_ice_accent</color>
+    <color name="type_bug">@color/type_bug_accent</color>
+    <color name="type_dragon">@color/type_dragon_accent</color>
+    <color name="type_ghost">@color/type_ghost_accent</color>
+    <color name="type_dark">@color/type_dark_accent</color>
+    <color name="type_steel">@color/type_steel_accent</color>
+    <color name="type_fairy">@color/type_fairy_accent</color>
+    <color name="type_normal_old">#A8A878</color>
+    <color name="type_fire_old">#F08030</color>
+    <color name="type_fighting_old">#C03028</color>
+    <color name="type_water_old">#6890F0</color>
+    <color name="type_flying_old">#A890F0</color>
+    <color name="type_grass_old">#78C850</color>
+    <color name="type_poison_old">#A040A0</color>
+    <color name="type_electric_old">#F8D030</color>
+    <color name="type_ground_old">#E0C068</color>
+    <color name="type_psychic_old">#F85888</color>
+    <color name="type_rock_old">#B8A038</color>
+    <color name="type_ice_old">#98D8D8</color>
+    <color name="type_bug_old">#A8B820</color>
+    <color name="type_dragon_old">#7038F8</color>
+    <color name="type_ghost_old">#705898</color>
+    <color name="type_dark_old">#705848</color>
+    <color name="type_steel_old">#B8B8D0</color>
+    <color name="type_fairy_old">#EE99AC</color>
+
+    <!-- POKEMON COLOURS -->
+    <color name="pkmnColor_black_primary">#424242</color>
+    <color name="pkmnColor_black_primary_dark">#212121</color>
+    <color name="pkmnColor_black_accent">#9E9E9E</color>
+    <color name="pkmnColor_blue_primary">#2196F3</color>
+    <color name="pkmnColor_blue_primary_dark">#1976D2</color>
+    <color name="pkmnColor_blue_accent">#FF4081</color>
+    <color name="pkmnColor_brown_primary">#795548</color>
+    <color name="pkmnColor_brown_primary_dark">#5D4037</color>
+    <color name="pkmnColor_brown_accent">#607D8B</color>
+    <color name="pkmnColor_grey_primary">#9E9E9E</color>
+    <color name="pkmnColor_grey_primary_dark">#616161</color>
+    <color name="pkmnColor_grey_accent">#FF5722</color>
+    <color name="pkmnColor_green_primary">#4CAF50</color>
+    <color name="pkmnColor_green_primary_dark">#388E3C</color>
+    <color name="pkmnColor_green_accent">#03A9F4</color>
+    <color name="pkmnColor_pink_primary">#E91E63</color>
+    <color name="pkmnColor_pink_primary_dark">#C2185B</color>
+    <color name="pkmnColor_pink_accent">#7C4DFF</color>
+    <color name="pkmnColor_purple_primary">#9C27B0</color>
+    <color name="pkmnColor_purple_primary_dark">#7B1FA2</color>
+    <color name="pkmnColor_purple_accent">#448AFF</color>
+    <color name="pkmnColor_red_primary">#F44336</color>
+    <color name="pkmnColor_red_primary_dark">#D32F2F</color>
+    <color name="pkmnColor_red_accent">#448AFF</color>
+    <color name="pkmnColor_white_primary">#BDBDBD</color>
+    <color name="pkmnColor_white_primary_dark">#757575</color>
+    <color name="pkmnColor_white_accent">#9E9E9E</color>
+    <color name="pkmnColor_yellow_primary">#FFC107</color>
+    <color name="pkmnColor_yellow_primary_dark">#FFA000</color>
+    <color name="pkmnColor_yellow_accent">#FF5722</color>
+
+    <!-- MOVE CATEGORIES -->
+    <color name="category_physical">#C92112</color>
+    <color name="category_physical_text">#F67A1A</color>
+    <color name="category_special">#4F5870</color>
+    <color name="category_special_text">#FFFFFF</color>
+    <color name="category_status">#8C888C</color>
+    <color name="category_status_text">#FFFFFF</color>
+
+    <!-- CONTEST CATEGORIES -->
+    <color name="contest_cool">#F08030</color>
+    <color name="contest_beautiful">#6890F0</color>
+    <color name="contest_cute">#F85888</color>
+    <color name="contest_clever">#78C850</color>
+    <color name="contest_tough">#F8D030</color>
+
+    <!-- STANDARD (as per Material Design Guidelines) -->
+    <color name="white">@android:color/white</color>
+    <color name="text_black">#DE000000</color>
+    <color name="text_black_secondary">#8A000000</color>
+    <color name="divider_black">#1F000000</color>
+    <color name="text_white">@color/white</color>
+    <color name="text_white_secondary">#B3FFFFFF</color>
+    <color name="window_background">#FFF5F5F5</color>
+    <color name="grey">#BDBDBD</color> <!-- Grey-400 -->
+
+    <!-- NAVIGATION DRAWER -->
+    <color name="navdrawer_background">#FFFFFFFF</color>
+    <color name="navdrawer_background_selected">#EEEEEE</color>
+    <color name="navdrawer_text_main_selected">@color/theme_primary</color>
+    <color name="navdrawer_text_main">@color/text_black</color>
+    <color name="navdrawer_text_subheader">@color/text_black_secondary</color>
+    <color name="navdrawer_icon_tint">#888</color>
+    <color name="navdrawer_icon_tint_selected">@color/theme_primary</color>
+
+</resources>

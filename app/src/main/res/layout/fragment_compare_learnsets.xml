@@ -1,0 +1,79 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.phoenixenterprise.pokedex.CompareActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            style="@style/AppTheme.HeaderBar"
+            android:background="?colorPrimary"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/card_padding_vertical"
+            android:paddingBottom="@dimen/card_padding_vertical"
+            android:paddingLeft="@dimen/card_padding_lateral"
+            android:paddingRight="@dimen/card_padding_lateral" >
+            <com.farbod.labelledspinner.LabelledSpinner
+                android:id="@+id/compareL_spinnerMethod"
+                custom:labelText="@string/filter_moves_method"
+                custom:widgetColor="@color/text_white"
+                style="@style/AppTheme.HeaderBarText.Secondary.Larger"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <com.farbod.labelledspinner.LabelledSpinner
+                android:id="@+id/compareL_spinnerGame"
+                custom:labelText="@string/filter_game_version"
+                custom:widgetColor="@color/text_white"
+                style="@style/AppTheme.HeaderBarText.Secondary.Larger"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/compareL_btnGo"
+                android:text="@string/filter_button_go"
+                style="@style/AppTheme.Button.Raised"
+                android:layout_gravity="bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <View
+                android:background="?colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="56dp" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false">
+                <LinearLayout
+                    android:id="@+id/compareL_llContainer_1"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+                    <!-- Cards will be added here programmatically -->
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/compareL_llContainer_2"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" >
+                    <!-- Cards will be added here programmatically -->
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</ScrollView>

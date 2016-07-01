@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false" >
+
+    <!-- COLUMN 1 -->
+    <RelativeLayout
+        style="@style/AppTheme.HeaderBar"
+        android:background="?colorPrimary"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:paddingTop="@dimen/card_padding_vertical"
+        android:paddingBottom="@dimen/card_padding_vertical"
+        android:paddingLeft="@dimen/card_padding_lateral"
+        android:paddingRight="@dimen/card_padding_lateral" >
+        <com.phoenixenterprise.pokedex.widget.LabelledSpinner
+            android:id="@+id/detailL_spinnerMethod"
+            custom:labelText="@string/filter_moves_method"
+            custom:widgetColor="@color/text_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <com.phoenixenterprise.pokedex.widget.LabelledSpinner
+            android:id="@+id/detailL_spinnerGame"
+            custom:labelText="@string/filter_game_version"
+            custom:widgetColor="@color/text_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/detailL_spinnerMethod"/>
+        <Button
+            android:id="@+id/detailL_btnGo"
+            android:text="@string/filter_button_go"
+            style="@style/AppTheme.Button.Raised"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+
+    <!-- COLUMN 2 -->
+    <ScrollView
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5" >
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/detailL_llContainer"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                <!-- Cards will be added here programmatically -->
+            </LinearLayout>
+        </FrameLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- APP AND ACTIVITIES -->
+    <string name="title_activity_favourites">Favorites</string>
+
+
+    <!-- ACTIONS -->
+    <string name="action_favourite">Add to favorites</string>
+    <string name="action_favourite_remove">Remove from favorites</string>
+
+
+    <!-- DIALOG TEXTS -->
+    <string name="dialog_title_clear_favourites">Clear Favorites?</string>
+    <string name="dialog_msg_clear_favourites">Are you sure you want to remove all Pokémon from the Favorites list?</string>
+
+
+    <!-- INFORMATION TEXTS -->
+    <string name="header_levelling_rate">Leveling Rate</string>
+    <string name="header_colour">Color</string>
+
+
+    <!-- DESCRIPTIONS OF PROPERTIES (used in detail dialog) -->
+    <string name="description_levelling">The leveling rate is a term to describe the rate at which a Pokémon can gain experience points.
+        \n\nFor example, this Pokémon can grow and level-up at a %1$s rate.</string>
+    <string name="description_colour">This Pokémon is listed as being the color %1$s in the Pokédex.</string>
+
+
+    <!-- MESSAGES (TOASTS/SNACKBARS) -->
+    <string name="add_favourites">Add Favorite Pokémon</string>
+    <string name="add_favourites_description">You can add a Pokémon to the Favorites list by going to its detail page and pressing the star (favorites) icon at the top right.</string>
+    <string name="favourites_error">ERROR: This Pokémon is not in the favorites list</string>
+    <string name="favourites_cleared">Favorites has been cleared</string>
+    <string name="filter_error">You must specify at least one filter</string>
+    <string name="mark_favourites">%1$s has been %2$s Favorites</string> <!-- POKEMON has been MARK_TYPE favorites -->
+
+
+    <!-- EXPERIENCE CALCULATOR -->
+    <string name="experience_select_levelling_rate">Choose leveling rate</string>
+
+
+    <!-- INIT DB SCREEN -->
+    <string name="initialise_title">Initializing databases</string>
+    <string name="initialise_finished">Initialization completed</string>
+
+</resources>

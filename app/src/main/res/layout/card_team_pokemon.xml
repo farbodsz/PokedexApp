@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/teamCard_cv"
+    android:orientation="vertical"
+    style="@style/AppTheme.CardView.SidePadding"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/teamCard_ll"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/card_padding_vertical"
+        android:paddingBottom="@dimen/card_padding_vertical" >
+
+        <TextView
+            android:id="@+id/teamCard_tvName"
+            android:text="Fletchinder"
+            style="@style/AppTheme.CardView.Text.Title.Medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/teamCard_tvForm"
+            android:text="Incarnate Giratina"
+            android:textStyle="italic"
+            style="@style/AppTheme.CardView.Text.Supporting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_top"/>
+
+        <TextView
+            android:id="@+id/teamCard_tvNationalId"
+            android:text="# 001"
+            style="@style/AppTheme.CardView.Text.Subtitle"
+            android:gravity="end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_top"/>
+
+        <ImageView
+            android:id="@+id/teamCard_image"
+            android:visibility="visible"
+            android:src="@drawable/img_unknown"
+            android:contentDescription="@string/img_desc_pokemon"
+            android:scaleType="fitCenter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_top"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/teamCard_tvType1"
+                android:text="Type1"
+                style="@style/AppTheme.CardView.Text.Supporting"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/teamCard_tvType2"
+                android:text="Type2"
+                style="@style/AppTheme.CardView.Text.Supporting"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

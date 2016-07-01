@@ -1,0 +1,131 @@
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/experience_drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.phoenixenterprise.pokedex.ExperienceCalculatorActivity"
+    android:fitsSystemWindows="true" >
+
+    <!-- The main content view -->
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <android.support.design.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/experience_adView">
+            <android.support.design.widget.AppBarLayout
+                android:fitsSystemWindows="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/experience_toolbar"
+                    style="@style/AppTheme.Toolbar"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"/>
+                <include layout="@layout/blank" /> <!-- This is to prevent bugs -->
+            </android.support.design.widget.AppBarLayout>
+
+            <android.support.v4.widget.NestedScrollView
+                android:scrollbarStyle="outsideOverlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+                <android.support.v7.widget.CardView
+                    style="@style/AppTheme.CardView.SidePadding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/card_padding_vertical"
+                        android:paddingBottom="@dimen/card_padding_vertical">
+                        <TextView
+                            android:text="@string/action_calculate_experience"
+                            style="@style/AppTheme.CardView.Text.Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingBottom="@dimen/card_padding_vertical" />
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <RadioGroup
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2">
+                                <RadioButton
+                                    android:id="@+id/experience_radioPokemon"
+                                    android:text="@string/experience_select_pokemon"
+                                    android:checked="true"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                                <RadioButton
+                                    android:id="@+id/experience_radioLevellingRate"
+                                    android:text="@string/experience_select_levelling_rate"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                            </RadioGroup>
+                            <LinearLayout
+                                android:orientation="vertical"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3">
+                                <com.farbod.labelledspinner.LabelledSpinner
+                                    android:id="@+id/experience_spinnerPokemonOrGrowth"
+                                    app:labelText="@string/header_pokemon"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+                                <com.farbod.labelledspinner.LabelledSpinner
+                                    android:id="@+id/experience_spinnerLevel"
+                                    app:labelText="@string/header_level"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/experience_btnCalc"
+                            android:text="@string/experience_calculate"
+                            style="@style/AppTheme.Button.Raised"
+                            android:layout_marginTop="@dimen/card_padding_actions"
+                            android:layout_gravity="end"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/experience_tvAnswer"
+                            style="@style/AppTheme.CardView.Text.Title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="@dimen/card_padding_vertical_large"/>
+                        <TextView
+                            android:id="@+id/experience_tvDescription"
+                            style="@style/AppTheme.CardView.Text.Subtitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </android.support.v4.widget.NestedScrollView>
+        </android.support.design.widget.CoordinatorLayout>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/experience_adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id" />
+    </RelativeLayout>
+
+    <!-- The navigation drawer -->
+    <include android:id="@+id/experience_navigationView" layout="@layout/navdrawer" />
+
+</android.support.v4.widget.DrawerLayout>

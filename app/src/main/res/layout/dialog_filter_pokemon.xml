@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/card_padding_vertical_large"
+    android:paddingBottom="@dimen/card_padding_vertical_large">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/card_padding_lateral"
+        android:paddingRight="@dimen/card_padding_lateral">
+
+        <TextView
+            android:id="@+id/dialogFilter_tvTitle"
+            android:text="@string/action_filter"
+            style="@style/AppTheme.CardView.Text.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            android:id="@+id/dialogFilter_llName"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/abc_action_button_min_height_material"
+            android:layout_marginTop="@dimen/margin_top_medium" >
+            <TextView
+                android:id="@+id/dialogFilter_tvName"
+                android:text="@string/filter_name"
+                style="@style/AppTheme.CardView.Text.Supporting"
+                android:gravity="center|start"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+            <Spinner
+                android:id="@+id/dialogFilter_spinnerName"
+                android:gravity="center|start"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dialogFilter_llType"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/abc_action_button_min_height_material">
+            <TextView
+                android:id="@+id/dialogFilter_tvType"
+                android:text="@string/header_type"
+                style="@style/AppTheme.CardView.Text.Supporting"
+                android:gravity="center|start"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+            <Spinner
+                android:id="@+id/dialogFilter_spinnerType"
+                android:gravity="center|start"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/dialogFilter_llLevelling"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/abc_action_button_min_height_material">
+            <TextView
+                android:id="@+id/dialogFilter_tvLevelling"
+                android:text="@string/filter_levelling"
+                style="@style/AppTheme.CardView.Text.Supporting"
+                android:gravity="center|start"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+            <Spinner
+                android:id="@+id/dialogFilter_spinnerLevelling"
+                android:gravity="center|start"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/card_padding_actions"
+        android:paddingRight="@dimen/card_padding_actions">
+        <Button
+            android:id="@+id/dialogFilter_btnAdvanced"
+            android:text="@string/filter_button_advanced"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,48 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.phoenixenterprise.pokedex.DetailActivity">
+
+    <item android:id="@+id/action_calculate_experience"
+        android:title="@string/header_tools_experience"
+        android:icon="@drawable/ic_assessment_white_48dp"
+        android:orderInCategory="3"
+        app:showAsAction="ifRoom" />
+
+    <item android:id="@+id/action_play_cry"
+        android:title="@string/action_play_cry"
+        android:icon="@drawable/ic_volume_up_white_48dp"
+        android:orderInCategory="4"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/action_favourite"
+        android:title="@string/action_favourite"
+        android:icon="@drawable/ic_star_outline_white_48dp"
+        android:orderInCategory="5"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/action_previous"
+        android:title="@string/action_previous"
+        android:icon="@drawable/ic_chevron_left_white_48dp"
+        android:orderInCategory="6"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/action_compare"
+        android:title="@string/action_compare"
+        android:icon="@drawable/ic_compare_white_48dp"
+        android:orderInCategory="7"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/action_next"
+        android:title="@string/action_next"
+        android:icon="@drawable/ic_chevron_right_white_48dp"
+        android:orderInCategory="8"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:icon="@drawable/ic_settings_white_48dp"
+        android:orderInCategory="9"
+        app:showAsAction="never" />
+
+</menu>

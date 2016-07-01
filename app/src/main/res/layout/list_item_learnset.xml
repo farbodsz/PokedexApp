@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="6dp"
+    android:paddingRight="6dp"
+    android:background="?android:attr/selectableItemBackground" >
+
+    <TextView
+        android:id="@+id/item_learnset_text1"
+        android:textSize="@dimen/lvAdv_txtSize"
+        android:textColor="@color/text_black_secondary"
+        android:gravity="end|center_vertical"
+        android:minEms="1"
+        android:maxEms="3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall" />
+
+    <TextView
+        android:id="@+id/item_learnset_text2"
+        android:textSize="@dimen/lvAdv_txtSize"
+        android:textColor="@color/text_black"
+        android:gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:layout_toRightOf="@+id/item_learnset_text1"
+        android:layout_toEndOf="@+id/item_learnset_text1"
+        android:layout_marginLeft="@dimen/lvAdv_marginTxts"
+        android:layout_marginStart="@dimen/lvAdv_marginTxts"/>
+</RelativeLayout>

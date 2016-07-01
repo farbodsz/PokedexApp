@@ -1,0 +1,137 @@
+<resources>
+
+    <style name="Base.AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorButtonNormal">?colorAccent</item>
+    </style>
+
+    <style name="AppTheme" parent="Base.AppTheme">
+        <item name="colorPrimary">@color/theme_primary</item>
+        <item name="colorPrimaryDark">@color/theme_primary_dark</item>
+        <item name="colorAccent">@color/theme_accent</item>
+    </style>
+
+    <style name="AppTheme.Detail" />
+    <!-- See other detail pages in other files -->
+
+    <style name="AppTheme.AbilityDex" parent="Base.AppTheme">
+        <item name="colorPrimary">@color/abilities_primary</item>
+        <item name="colorPrimaryDark">@color/abilities_primary_dark</item>
+        <item name="colorAccent">@color/abilities_accent</item>
+    </style>
+
+    <style name="AppTheme.MoveDex" parent="Base.AppTheme">
+        <item name="colorPrimary">@color/moves_primary</item>
+        <item name="colorPrimaryDark">@color/moves_primary_dark</item>
+        <item name="colorAccent">@color/moves_accent</item>
+    </style>
+
+    <style name="AppTheme.NatureDex" parent="Base.AppTheme">
+        <item name="colorPrimary">@color/natures_primary</item>
+        <item name="colorPrimaryDark">@color/natures_primary_dark</item>
+        <item name="colorAccent">@color/natures_accent</item>
+    </style>
+
+    <style name="AppTheme.LocationDex" parent="Base.AppTheme">
+        <item name="colorPrimary">@color/locations_primary</item>
+        <item name="colorPrimaryDark">@color/locations_primary_dark</item>
+        <item name="colorAccent">@color/locations_accent</item>
+    </style>
+
+    <style name="AppTheme.Comparison" parent="Base.AppTheme">
+        <item name="colorPrimary">@color/compare_primary</item>
+        <item name="colorPrimaryDark">@color/compare_primary_dark</item>
+        <item name="colorAccent">@color/compare_primary_dark</item>
+        <item name="colorButtonNormal">@color/compare_primary</item>
+    </style>
+
+    <style name="AppTheme.Favourites" parent="Base.AppTheme">
+        <item name="colorPrimary">@color/favourites_primary</item>
+        <item name="colorPrimaryDark">@color/favourites_primary_dark</item>
+        <item name="colorAccent">@color/favourites_primary_dark</item>
+    </style>
+
+    <style name="AppTheme.Team" parent="Base.AppTheme">
+        <item name="colorPrimary">@color/team_primary</item>
+        <item name="colorPrimaryDark">@color/team_primary_dark</item>
+        <item name="colorAccent">@color/team_primary_dark</item>
+    </style>
+
+    <style name="AppTheme.Tools" parent="Base.AppTheme">
+        <item name="colorPrimary">@color/tools_primary</item>
+        <item name="colorPrimaryDark">@color/tools_primary_dark</item>
+        <item name="colorAccent">@color/tools_accent</item>
+    </style>
+
+    <style name="AppTheme.Filter" parent="Base.AppTheme">
+        <item name="colorPrimary">@color/search_primary</item>
+        <item name="colorPrimaryDark">@color/search_primary_dark</item>
+        <item name="colorAccent">@color/search_primary_dark</item>
+    </style>
+
+    <style name="AppTheme.Search" parent="Base.AppTheme">
+        <item name="colorPrimary">@color/search_primary</item>
+        <item name="colorPrimaryDark">@color/search_primary_dark</item>
+        <item name="colorAccent">@color/search_primary_dark</item>
+    </style>
+
+    <style name="AppTheme.About" parent="Base.AppTheme">
+        <item name="colorPrimary">@color/about_primary</item>
+        <item name="colorPrimaryDark">@color/about_primary_dark</item>
+        <item name="colorAccent">@color/about_accent</item>
+    </style>
+
+    <style name="AppTheme.Changelog" parent="AppTheme.About" />
+
+    <style name="AppTheme.Splash" parent="Base.AppTheme">
+        <item name="colorPrimary">@color/theme_primary</item>
+        <item name="colorPrimaryDark">@color/theme_primary_dark</item>
+    </style>
+
+    <style name="AppTheme.NavDrawer">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+    <style name="AppTheme.AbilityDex.NavDrawer">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+    <style name="AppTheme.MoveDex.NavDrawer">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+    <style name="AppTheme.NatureDex.NavDrawer">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+    <style name="AppTheme.LocationDex.NavDrawer">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+    <style name="AppTheme.Favourites.NavDrawer">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+    <style name="AppTheme.Team.NavDrawer">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+    <style name="AppTheme.Tools.NavDrawer">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+
+    <style name="AppTheme.Dialog" parent="Base.Theme.AppCompat.Light.Dialog.MinWidth">
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+    <style name="AppTheme.Dialog.PokemonDetail">
+        <item name="colorAccent">@color/pokedex_accent</item>
+    </style>
+    <style name="AppTheme.Dialog.AbilityDetail">
+        <item name="colorAccent">@color/abilities_accent</item>
+    </style>
+    <style name="AppTheme.Dialog.MoveDetail">
+        <item name="colorAccent">@color/moves_accent</item>
+    </style>
+    <style name="AppTheme.Dialog.NatureDetail">
+        <item name="colorAccent">@color/natures_accent</item>
+    </style>
+    <style name="AppTheme.Dialog.PropertyDetail">
+        <item name="colorAccent">@color/pokedex_accent</item>
+    </style>
+
+</resources>

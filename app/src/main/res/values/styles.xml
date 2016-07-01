@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- APP BARS -->
+    <style name="AppTheme.Toolbar">
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
+    <style name="AppTheme.TabLayout">
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.TabLayout.TextAppearance">
+        <item name="android:textColor">@color/text_white_secondary</item>
+    </style>
+
+    <style name="AppTheme.HeaderBar">
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
+    <!-- BUTTON -->
+    <style name="AppTheme.Button" />
+
+    <style name="AppTheme.Button.Raised" parent="Widget.AppCompat.Button">
+        <!-- Button background color is set with colorButtonNormal -->
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
+    <style name="AppTheme.Button.Flat" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">?colorAccent</item>
+    </style>
+
+    <!-- CARDVIEW -->
+    <style name="AppTheme.CardView" parent="CardView.Light">
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
+    <style name="AppTheme.CardView.SidePadding">
+        <item name="contentPaddingLeft">@dimen/card_padding_lateral</item>
+        <item name="contentPaddingRight">@dimen/card_padding_lateral</item>
+    </style>
+
+    <style name="AppTheme.CardView.Text" parent="TextAppearance.AppCompat"></style>
+
+    <style name="AppTheme.CardView.Text.Title">
+        <item name="android:textSize">@dimen/card_text_primary_title</item>
+    </style>
+
+    <style name="AppTheme.CardView.Text.Title.Medium">
+        <item name="android:textSize">@dimen/card_text_primary_title_medium</item>
+    </style>
+
+    <style name="AppTheme.CardView.Text.Title.Small">
+        <item name="android:textSize">@dimen/card_text_primary_title_small</item>
+    </style>
+
+    <style name="AppTheme.CardView.Text.Subtitle">
+        <item name="android:textSize">@dimen/card_text_primary_subtitle</item>
+        <item name="android:textColor">@color/text_black_secondary</item>
+    </style>
+
+    <style name="AppTheme.CardView.Text.Supporting">
+        <item name="android:textSize">@dimen/card_text_supporting</item>
+    </style>
+
+    <style name="AppTheme.CardView.Text.Supporting.Large">
+        <item name="android:textSize">@dimen/card_text_supporting_large</item>
+    </style>
+
+    <!-- EDITTEXT -->
+    <style name="AppTheme.EditText">
+        <item name="android:textSize">@dimen/edittext_text</item>
+    </style>
+
+    <!-- LINEARLAYOUT -->
+    <style name="AppTheme.LinearLayout" />
+
+    <style name="AppTheme.LinearLayout.StandardList">
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="AppTheme.LinearLayout.StandardList.SidePadding">
+        <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
+    </style>
+
+    <style name="AppTheme.LinearLayout.Footer" parent="Widget.AppCompat.ButtonBar">
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">center_vertical|end</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+    <!-- RECYCLERVIEW -->
+    <style name="AppTheme.RecyclerView" />
+
+    <style name="AppTheme.RecyclerView.StandardList">
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
+    </style>
+
+    <!-- TEXTVIEW -->
+    <style name="AppTheme.TextView" />
+
+    <style name="AppTheme.TextView.DrawerSubhead">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/navdrawer_text_subheader</item>
+        <item name="android:minHeight">@dimen/list_item_height</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <!-- HEADER BAR (e.g. Pokemon Detail header) -->
+    <style name="AppTheme.HeaderBarText" parent="TextAppearance.AppCompat.Headline" />
+
+    <style name="AppTheme.HeaderBarText.Primary">
+        <item name="android:textSize">@dimen/card_text_primary_title</item>
+        <item name="android:textColor">@color/text_white</item>
+    </style>
+
+    <style name="AppTheme.HeaderBarText.Primary.Small">
+        <item name="android:textSize">@dimen/card_text_supporting</item>
+    </style>
+
+    <style name="AppTheme.HeaderBarText.Primary.Medium">
+        <item name="android:textSize">@dimen/card_text_supporting_large</item>
+    </style>
+
+    <style name="AppTheme.HeaderBarText.Secondary">
+        <item name="android:textSize">@dimen/card_text_primary_subtitle</item>
+        <item name="android:textColor">@color/text_white_secondary</item>
+    </style>
+
+    <style name="AppTheme.HeaderBarText.Secondary.Larger">
+        <item name="android:textSize">@dimen/card_text_supporting_large</item>
+    </style>
+
+</resources>

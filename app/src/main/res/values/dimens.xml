@@ -1,0 +1,73 @@
+<resources>
+
+    <!-- DEFAULT SCREEN MARGINS -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!-- MY DIMENS -->
+    <dimen name="text_page_message">18sp</dimen>
+    <dimen name="text_small">14sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_large">20sp</dimen>
+    <dimen name="text_xLarge">24sp</dimen>
+
+    <dimen name="card_text_primary_title">@dimen/text_xLarge</dimen>
+    <dimen name="card_text_primary_title_medium">19sp</dimen>
+    <dimen name="card_text_primary_title_small">@dimen/text_small</dimen>
+    <dimen name="card_text_primary_subtitle">@dimen/text_small</dimen>
+    <dimen name="card_text_supporting">@dimen/text_small</dimen>
+    <dimen name="card_text_supporting_large">@dimen/text_medium</dimen>
+    <dimen name="card_padding_lateral">16dp</dimen>
+    <dimen name="card_padding_vertical">16dp</dimen>
+    <dimen name="card_padding_vertical_large">24dp</dimen>
+    <dimen name="card_padding_actions">8dp</dimen>
+    <dimen name="card_padding_actions_vertical_layout">4dp</dimen>
+    <dimen name="card_headerbar_height_total">72dp</dimen>
+    <dimen name="card_headerbar_height_content">40dp</dimen>
+
+    <dimen name="padding_micro">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+
+    <dimen name="edittext_text">@dimen/text_medium</dimen>
+
+    <dimen name="toolbar_expanded_height">128dp</dimen>
+    <dimen name="toolbar_expanded_title_margin">72dp</dimen>
+    <dimen name="toolbar_text_title">@dimen/text_large</dimen>
+
+    <dimen name="status_bar_height">24dp</dimen>
+
+    <dimen name="list_margin_top">8dp</dimen>
+    <dimen name="list_item_height">48dp</dimen>
+
+    <dimen name="keyline_16">16dp</dimen>
+    <dimen name="keyline_72">72dp</dimen>
+
+    <dimen name="navdrawer_width">280dp</dimen>
+
+    <dimen name="welcome_text_title">@dimen/text_large</dimen>
+
+
+    <!-- =========== UNSORTED =============== -->
+    <dimen name="text_comparison_pkmnID">16sp</dimen>
+    <dimen name="text_comparison_pkmnName">19sp</dimen>
+    <dimen name="text_comparison_pkmnForm">15sp</dimen>
+    <dimen name="text_typeDetail_text">15.5sp</dimen>
+    <dimen name="margin_top">4dp</dimen>
+    <dimen name="margin_top_8">8dp</dimen>
+    <dimen name="margin_top_imgTxt">10dp</dimen>
+    <dimen name="margin_top_statBars">2dp</dimen>
+    <dimen name="margin_top_medium">16dp</dimen>
+    <dimen name="margin_top_large">24dp</dimen>
+    <dimen name="margin_sides">6dp</dimen>
+    <integer name="weight_stat_title">2</integer>
+    <integer name="weight_stat_bar">6</integer>
+    <integer name="weight_stat_value">1</integer>
+    <integer name="weight_stat_bar_comparisonactivity">3</integer>
+    <integer name="weight_stat_value_comparisonactivity">1</integer>
+    <dimen name="imageView_comparison_maxHeight">60dp</dimen>
+    <dimen name="lvAdv_marginTxts">16dp</dimen>
+    <dimen name="lvAdv_txtSize">16sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+</resources>

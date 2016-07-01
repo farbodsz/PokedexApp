@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="?colorPrimaryDark"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/img_desc_banner"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="36dp"/>
+
+        <TextView
+            android:text="@string/initialise_title"
+            android:textColor="@color/text_white"
+            android:textSize="32sp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"/>
+
+        <TextView
+            android:text="@string/initialise_msg"
+            android:textColor="@color/text_white_secondary"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:paddingLeft="@dimen/padding_medium"
+            android:paddingRight="@dimen/padding_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp" />
+
+        <ProgressBar
+            android:id="@+id/initDb_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/progress_init_db"
+            android:paddingLeft="56dp"
+            android:paddingRight="56dp"
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:layout_marginTop="42dp" />
+
+        <TextView
+            android:id="@+id/initDb_info"
+            android:text="@string/initialise_loading"
+            android:textColor="@color/text_white"
+            android:textSize="25sp"
+            android:textStyle="italic"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:paddingLeft="@dimen/padding_medium"
+            android:paddingRight="@dimen/padding_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"/>
+
+        <TextView
+            android:id="@+id/initDb_setup_description"
+            android:text="@string/initialise_setup_desc"
+            android:textColor="@color/text_white_secondary"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:paddingLeft="@dimen/padding_medium"
+            android:paddingRight="@dimen/padding_medium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="@dimen/padding_medium"/>
+    </LinearLayout>
+</ScrollView>
