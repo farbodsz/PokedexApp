@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.phoenixenterprise.pokedex.AboutActivity">
+    tools:context="com.satsumasoftware.pokedex.AboutActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:orientation="vertical"

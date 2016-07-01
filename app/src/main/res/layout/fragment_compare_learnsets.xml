@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.phoenixenterprise.pokedex.CompareActivity">
+    tools:context="com.satsumasoftware.pokedex.CompareActivity">
 
     <LinearLayout
         android:orientation="vertical"

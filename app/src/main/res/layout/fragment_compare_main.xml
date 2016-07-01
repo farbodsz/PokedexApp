@@ -6,7 +6,7 @@
     android:scrollbarStyle="outsideOverlay"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.phoenixenterprise.pokedex.CompareActivity"
+    tools:context="com.satsumasoftware.pokedex.CompareActivity"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
     <LinearLayout
         android:id="@+id/compare_llMainScroll"

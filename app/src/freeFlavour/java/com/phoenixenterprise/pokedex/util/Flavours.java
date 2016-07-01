@@ -1,4 +1,4 @@
-package com.phoenixenterprise.pokedex.util;
+package com.satsumasoftware.pokedex.util;
 
 public class Flavours {
 

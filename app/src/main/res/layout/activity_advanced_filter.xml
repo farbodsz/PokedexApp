@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
-    tools:context="com.phoenixenterprise.pokedex.AdvancedFilterActivity">
+    tools:context="com.satsumasoftware.pokedex.AdvancedFilterActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/advancedFilter_appBarLayout"

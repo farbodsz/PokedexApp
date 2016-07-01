@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.phoenixenterprise.pokedex"
+    package="com.satsumasoftware.pokedex"
     android:installLocation="auto">
 
     <!-- Include required permissions for Google Mobile Ads to run -->
@@ -24,7 +24,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".SplashActivity"
+            android:name="com.satsumasoftware.pokedex.SplashActivity"
             android:label="@string/title_activity_splash"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
@@ -34,14 +34,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".InitialiseDBActivity"
+            android:name="com.satsumasoftware.pokedex.InitialiseDBActivity"
             android:label="@string/title_activity_welcome"
             android:screenOrientation="locked" />
         <activity
-            android:name=".WelcomeActivity"
+            android:name="com.satsumasoftware.pokedex.WelcomeActivity"
             android:label="@string/title_activity_welcome" />
         <activity
-            android:name=".PokedexActivity"
+            android:name="com.satsumasoftware.pokedex.PokedexActivity"
             android:label="@string/title_activity_pokedex"
             android:theme="@style/AppTheme.NavDrawer">
             <meta-data
@@ -49,81 +49,81 @@
                 android:value=".SearchResultsActivity" />
         </activity>
         <activity
-            android:name=".AbilitiesActivity"
+            android:name="com.satsumasoftware.pokedex.AbilitiesActivity"
             android:label="@string/title_activity_abilities"
             android:theme="@style/AppTheme.AbilityDex.NavDrawer" />
         <activity
-            android:name=".MovesActivity"
+            android:name="com.satsumasoftware.pokedex.MovesActivity"
             android:label="@string/title_activity_moves"
             android:theme="@style/AppTheme.MoveDex.NavDrawer" />
         <activity
-            android:name=".NaturesActivity"
+            android:name="com.satsumasoftware.pokedex.NaturesActivity"
             android:label="@string/title_activity_natures"
             android:theme="@style/AppTheme.NatureDex.NavDrawer" />
         <activity
-            android:name=".LocationsActivity"
+            android:name="com.satsumasoftware.pokedex.LocationsActivity"
             android:label="@string/title_activity_locations"
             android:theme="@style/AppTheme.LocationDex.NavDrawer" />
         <activity
-            android:name=".FavouritesActivity"
+            android:name="com.satsumasoftware.pokedex.FavouritesActivity"
             android:label="@string/title_activity_favourites"
             android:theme="@style/AppTheme.Favourites.NavDrawer" />
         <activity
-            android:name=".TeamActivity"
+            android:name="com.satsumasoftware.pokedex.TeamActivity"
             android:label="@string/title_activity_team"
             android:theme="@style/AppTheme.Team.NavDrawer" />
         <activity
-            android:name=".ExperienceCalculatorActivity"
+            android:name="com.satsumasoftware.pokedex.ExperienceCalculatorActivity"
             android:label="@string/title_activity_experience_calculator"
             android:theme="@style/AppTheme.Tools.NavDrawer" />
         <activity
-            android:name=".DetailActivity"
+            android:name="com.satsumasoftware.pokedex.DetailActivity"
             android:label="@string/title_activity_detail"
-            android:parentActivityName=".PokedexActivity"
+            android:parentActivityName="com.satsumasoftware.pokedex.PokedexActivity"
             android:theme="@style/AppTheme.Detail">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.phoenixenterprise.pokedex.PokedexActivity" />
+                android:value="com.satsumasoftware.pokedex.PokedexActivity" />
         </activity>
         <activity
-            android:name=".CompareActivity"
+            android:name="com.satsumasoftware.pokedex.CompareActivity"
             android:label="@string/title_activity_compare"
             android:theme="@style/AppTheme.Comparison" />
         <activity
-            android:name=".LocationDetailActivity"
+            android:name="com.satsumasoftware.pokedex.LocationDetailActivity"
             android:label="@string/title_activity_location_detail"
-            android:parentActivityName=".PokedexActivity"
+            android:parentActivityName="com.satsumasoftware.pokedex.PokedexActivity"
             android:theme="@style/AppTheme.LocationDex">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.phoenixenterprise.pokedex.PokedexActivity" />
+                android:value="com.satsumasoftware.pokedex.PokedexActivity" />
         </activity>
         <activity
-            android:name=".AdvancedFilterActivity"
+            android:name="com.satsumasoftware.pokedex.AdvancedFilterActivity"
             android:label="@string/title_activity_advanced_filter"
-            android:parentActivityName=".PokedexActivity"
+            android:parentActivityName="com.satsumasoftware.pokedex.PokedexActivity"
             android:windowSoftInputMode="stateHidden"> <!-- This hides the keyboard upon entering the activity -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.phoenixenterprise.pokedex.PokedexActivity" />
+                android:value="com.satsumasoftware.pokedex.PokedexActivity" />
         </activity>
         <activity
-            android:name=".FilterResultsActivity"
+            android:name="com.satsumasoftware.pokedex.FilterResultsActivity"
             android:label="@string/title_activity_filter_results"
-            android:parentActivityName=".PokedexActivity"
+            android:parentActivityName="com.satsumasoftware.pokedex.PokedexActivity"
             android:theme="@style/AppTheme.Filter">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.phoenixenterprise.pokedex.PokedexActivity" />
+                android:value="com.satsumasoftware.pokedex.PokedexActivity" />
         </activity>
         <activity
-            android:name=".SearchResultsActivity"
+            android:name="com.satsumasoftware.pokedex.SearchResultsActivity"
             android:label="@string/title_activity_search_results"
-            android:parentActivityName=".PokedexActivity"
+            android:parentActivityName="com.satsumasoftware.pokedex.PokedexActivity"
             android:theme="@style/AppTheme.Search">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.phoenixenterprise.pokedex.PokedexActivity" />
+                android:value="com.satsumasoftware.pokedex.PokedexActivity" />
 
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -134,43 +134,43 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity
-            android:name=".SettingsActivity"
+            android:name="com.satsumasoftware.pokedex.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".PokedexActivity">
+            android:parentActivityName="com.satsumasoftware.pokedex.PokedexActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.phoenixenterprise.pokedex.PokedexActivity" />
+                android:value="com.satsumasoftware.pokedex.PokedexActivity" />
         </activity>
         <activity
-            android:name=".AboutActivity"
+            android:name="com.satsumasoftware.pokedex.AboutActivity"
             android:label="@string/title_activity_about"
             android:theme="@style/AppTheme.About" />
         <activity
-            android:name=".ChangelogActivity"
+            android:name="com.satsumasoftware.pokedex.ChangelogActivity"
             android:label="@string/title_activity_changelog"
             android:theme="@style/AppTheme.Changelog"/>
         <activity
-            android:name=".dialog.PkmnImageDetailActivity"
+            android:name="com.satsumasoftware.pokedex.dialog.PkmnImageDetailActivity"
             android:label="@string/title_activity_pkmn_image_detail"
             android:theme="@style/AppTheme.Dialog.PokemonDetail" />
         <activity
-            android:name=".dialog.PkmnTypeDetailActivity"
+            android:name="com.satsumasoftware.pokedex.dialog.PkmnTypeDetailActivity"
             android:label="@string/title_activity_pkmn_type_detail"
             android:theme="@style/AppTheme.Dialog.PokemonDetail" />
         <activity
-            android:name=".dialog.AbilityDetailActivity"
+            android:name="com.satsumasoftware.pokedex.dialog.AbilityDetailActivity"
             android:label="@string/title_activity_ability_detail"
             android:theme="@style/AppTheme.Dialog.AbilityDetail" />
         <activity
-            android:name=".dialog.MovesDetailActivity"
+            android:name="com.satsumasoftware.pokedex.dialog.MovesDetailActivity"
             android:label="@string/title_activity_moves_detail"
             android:theme="@style/AppTheme.Dialog.MoveDetail" />
         <activity
-            android:name=".dialog.NatureDetailActivity"
+            android:name="com.satsumasoftware.pokedex.dialog.NatureDetailActivity"
             android:label="@string/title_activity_nature_detail"
             android:theme="@style/AppTheme.Dialog.NatureDetail" />
         <activity
-            android:name=".dialog.PropertyDetailActivity"
+            android:name="com.satsumasoftware.pokedex.dialog.PropertyDetailActivity"
             android:label="@string/title_activity_property_detail"
             android:theme="@style/AppTheme.Dialog.PropertyDetail" />
     </application>

@@ -6,7 +6,7 @@
     android:id="@+id/experience_drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.phoenixenterprise.pokedex.ExperienceCalculatorActivity"
+    tools:context="com.satsumasoftware.pokedex.ExperienceCalculatorActivity"
     android:fitsSystemWindows="true" >
 
     <!-- The main content view -->

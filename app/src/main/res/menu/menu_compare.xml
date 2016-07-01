@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.phoenixenterprise.pokedex.CompareActivity">
+    tools:context="com.satsumasoftware.pokedex.CompareActivity">
 
     <item android:id="@+id/action_calculate_experience"
         android:title="@string/header_tools_experience"

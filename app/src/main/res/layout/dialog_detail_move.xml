@@ -7,7 +7,7 @@
     app:cardUseCompatPadding="false"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.phoenixenterprise.pokedex.dialog.MovesDetailActivity">
+    tools:context="com.satsumasoftware.pokedex.dialog.MovesDetailActivity">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

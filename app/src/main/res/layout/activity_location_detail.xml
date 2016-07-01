@@ -4,7 +4,7 @@
     android:id="@+id/detail_rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.phoenixenterprise.pokedex.LocationDetailActivity">
+    tools:context="com.satsumasoftware.pokedex.LocationDetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/detail_headerBar"

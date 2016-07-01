@@ -5,7 +5,7 @@
     android:id="@+id/locationDetail_frag_sv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.phoenixenterprise.pokedex.LocationDetailActivity">
+    tools:context="com.satsumasoftware.pokedex.LocationDetailActivity">
 
     <LinearLayout
         android:id="@+id/locationDetail_frag_llContainer"

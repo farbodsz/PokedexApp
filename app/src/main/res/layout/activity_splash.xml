@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/theme_primary_dark"
-    tools:context="com.phoenixenterprise.pokedex.SplashActivity">
+    tools:context="com.satsumasoftware.pokedex.SplashActivity">
     <ImageView
         android:src="@drawable/app_banner"
         android:contentDescription="@string/app_name"
