@@ -2,16 +2,16 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="@dimen/navdrawer_width"
+    android:layout_width="@dimen/nav_drawer_width"
     android:layout_height="match_parent"
     android:layout_gravity="end"
-    android:background="@color/text_white"
+    android:background="@color/mdu_text_white"
     android:fitsSystemWindows="false">
 
     <TextView
         style="@style/AppTheme.CardView.Text.Title.Medium"
         android:text="@string/action_filter"
-        android:textSize="@dimen/toolbar_text_title"
+        android:textSize="@dimen/text_large"
         android:gravity="start|center_vertical"
         android:layout_marginLeft="@dimen/card_padding_lateral"
         android:layout_marginStart="@dimen/card_padding_lateral"
@@ -27,17 +27,17 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/keyline_16">
+            android:paddingBottom="@dimen/mdu_padding_normal">
 
             <LinearLayout
                 android:id="@+id/filterDrawer_llNameSpinners_group"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/keyline_16"
-                android:layout_marginStart="@dimen/keyline_16"
-                android:layout_marginRight="@dimen/keyline_16"
-                android:layout_marginEnd="@dimen/keyline_16">
+                android:layout_marginLeft="@dimen/mdu_keyline_1"
+                android:layout_marginStart="@dimen/mdu_keyline_1"
+                android:layout_marginRight="@dimen/mdu_keyline_1"
+                android:layout_marginEnd="@dimen/mdu_keyline_1">
                 <TextView
                     android:text="@string/filter_name"
                     style="@style/AppTheme.TextView.DrawerSubhead"
@@ -46,10 +46,10 @@
                 <Spinner
                     android:id="@+id/filterDrawer_spinnerName"
                     android:gravity="center|start"
-                    android:height="@dimen/list_item_height"
+                    android:height="@dimen/filter_drawer_spinner_height"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_top" />
+                    android:layout_marginBottom="@dimen/mdu_spacing_micro" />
             </LinearLayout>
 
             <LinearLayout
@@ -62,8 +62,8 @@
                     style="@style/AppTheme.TextView.DrawerSubhead"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/keyline_16"
-                    android:layout_marginStart="@dimen/keyline_16" />
+                    android:layout_marginLeft="@dimen/mdu_keyline_1"
+                    android:layout_marginStart="@dimen/mdu_keyline_1" />
                 <LinearLayout
                     android:id="@+id/filterDrawer_llName_content"
                     style="@style/AppTheme.LinearLayout.StandardList"
@@ -76,15 +76,15 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/list_margin_top">
+                android:layout_marginTop="@dimen/mdu_spacing_normal">
                 <include layout="@layout/divider" />
                 <TextView
-                    android:text="@string/header_type"
+                    android:text="@string/attr_type"
                     style="@style/AppTheme.TextView.DrawerSubhead"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/keyline_16"
-                    android:layout_marginStart="@dimen/keyline_16" />
+                    android:layout_marginLeft="@dimen/mdu_keyline_1"
+                    android:layout_marginStart="@dimen/mdu_keyline_1" />
                 <LinearLayout
                     android:id="@+id/filterDrawer_llType_content"
                     style="@style/AppTheme.LinearLayout.StandardList"
@@ -97,15 +97,15 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/list_margin_top">
+                android:layout_marginTop="@dimen/mdu_spacing_normal">
                 <include layout="@layout/divider" />
                 <TextView
                     android:text="@string/filter_levelling"
                     style="@style/AppTheme.TextView.DrawerSubhead"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/keyline_16"
-                    android:layout_marginStart="@dimen/keyline_16" />
+                    android:layout_marginLeft="@dimen/mdu_keyline_1"
+                    android:layout_marginStart="@dimen/mdu_keyline_1" />
                 <LinearLayout
                     android:id="@+id/filterDrawer_llGrowth_content"
                     style="@style/AppTheme.LinearLayout.StandardList"
@@ -118,15 +118,15 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/list_margin_top">
+                android:layout_marginTop="@dimen/mdu_spacing_normal">
                 <include layout="@layout/divider" />
                 <TextView
-                    android:text="@string/header_generation"
+                    android:text="@string/attr_generation"
                     style="@style/AppTheme.TextView.DrawerSubhead"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/keyline_16"
-                    android:layout_marginStart="@dimen/keyline_16" />
+                    android:layout_marginLeft="@dimen/mdu_keyline_1"
+                    android:layout_marginStart="@dimen/mdu_keyline_1" />
                 <LinearLayout
                     android:id="@+id/filterDrawer_llGen_content"
                     style="@style/AppTheme.LinearLayout.StandardList"
@@ -139,25 +139,23 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/list_margin_top">
+                android:layout_marginTop="@dimen/mdu_spacing_normal">
                 <include layout="@layout/divider" />
                 <TextView
                     android:text="@string/filter_button_advanced"
                     style="@style/AppTheme.TextView.DrawerSubhead"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/keyline_16"
-                    android:layout_marginStart="@dimen/keyline_16" />
+                    android:layout_marginLeft="@dimen/mdu_keyline_1"
+                    android:layout_marginStart="@dimen/mdu_keyline_1" />
                 <Button
                     android:id="@+id/filterDrawer_btnAdvanced"
                     android:text="@string/filter_button_advanced"
                     style="?buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/keyline_16"
-                    android:layout_marginStart="@dimen/keyline_16"
-                    android:layout_marginRight="@dimen/keyline_16"
-                    android:layout_marginEnd="@dimen/keyline_16" />
+                    android:layout_marginLeft="@dimen/mdu_keyline_1"
+                    android:layout_marginStart="@dimen/mdu_keyline_1" />
             </LinearLayout>
 
             <LinearLayout
@@ -165,15 +163,15 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/list_margin_top">
+                android:layout_marginTop="@dimen/mdu_spacing_normal">
                 <include layout="@layout/divider" />
                 <TextView
                     android:text="@string/header_location_regions"
                     style="@style/AppTheme.TextView.DrawerSubhead"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/keyline_16"
-                    android:layout_marginStart="@dimen/keyline_16" />
+                    android:layout_marginLeft="@dimen/mdu_keyline_1"
+                    android:layout_marginStart="@dimen/mdu_keyline_1" />
                 <LinearLayout
                     android:id="@+id/filterDrawer_llLocRegions_content"
                     style="@style/AppTheme.LinearLayout.StandardList"

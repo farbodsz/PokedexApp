@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootView"
+    style="@style/AppTheme.CardView.SidePadding"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/card_padding_vertical"
+        android:paddingBottom="@dimen/card_padding_vertical" >
+        <!-- Content will be added dynamically -->
+
+        <!-- e.g.
+        <include layout="@layout/card_detail_pokemon_info_title" />
+        <include layout="@layout/card_detail_pokemon_info_row" />
+        <include layout="@layout/card_detail_pokemon_info_row" />
+        -->
+    </LinearLayout>
+</android.support.v7.widget.CardView>

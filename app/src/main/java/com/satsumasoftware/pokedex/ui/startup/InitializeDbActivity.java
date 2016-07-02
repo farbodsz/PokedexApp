@@ -1,0 +1,219 @@
+package com.satsumasoftware.pokedex.ui.startup;
+
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.satsumasoftware.pokedex.R;
+import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
+import com.satsumasoftware.pokedex.db.AbilityFlavorDBHelper;
+import com.satsumasoftware.pokedex.db.AbilityProseDBHelper;
+import com.satsumasoftware.pokedex.db.EggGroupProseDBHelper;
+import com.satsumasoftware.pokedex.db.EncounterConditionsDBHelper;
+import com.satsumasoftware.pokedex.db.EncounterSlotsDBHelper;
+import com.satsumasoftware.pokedex.db.EncountersDBHelper;
+import com.satsumasoftware.pokedex.db.ExperienceDBHelper;
+import com.satsumasoftware.pokedex.db.LocationAreaEncounterRatesDBHelper;
+import com.satsumasoftware.pokedex.db.LocationAreasDBHelper;
+import com.satsumasoftware.pokedex.db.LocationNamesDBHelper;
+import com.satsumasoftware.pokedex.db.LocationsDBHelper;
+import com.satsumasoftware.pokedex.db.MoveEffectProseDBHelper;
+import com.satsumasoftware.pokedex.db.MovesDBHelper;
+import com.satsumasoftware.pokedex.db.NaturesDBHelper;
+import com.satsumasoftware.pokedex.db.PokemonDBHelper;
+import com.satsumasoftware.pokedex.db.PokemonMovesDBHelper;
+import com.satsumasoftware.pokedex.util.DatabaseUtils;
+import com.satsumasoftware.pokedex.util.FavoriteUtils;
+
+import java.util.ArrayList;
+
+public class InitializeDbActivity extends AppCompatActivity {
+
+    private static final String LOG_TAG = "InitializeDBActivity";
+
+    // STOPSHIP TODO remove this?
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_initialise_db);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setTitle("");
+
+        final ProgressBar progressMain = (ProgressBar) findViewById(R.id.progress_main);
+        final ProgressBar progressBarDetail = (ProgressBar) findViewById(R.id.progress_detail);
+
+        final TextView currentDbName = (TextView) findViewById(R.id.current_db_name);
+        final TextView currentDbStatus = (TextView) findViewById(R.id.current_db_status);
+
+        final TextView updatedDbList = (TextView) findViewById(R.id.updated_databases_list);
+        final TextView completedDbNum = (TextView) findViewById(R.id.completed_databases_num);
+        final TextView completedDbLines = (TextView) findViewById(R.id.completed_lines);
+
+        FavoriteUtils.doFavouritesTempConversion(this);
+
+        Log.d(LOG_TAG, "Starting to initialise DBs");
+
+        final SQLiteOpenHelper[] helpers = {
+                new AbilitiesDBHelper(this),
+                new AbilityFlavorDBHelper(this),
+                new AbilityProseDBHelper(this),
+                new EggGroupProseDBHelper(this),
+                new EncounterConditionsDBHelper(this),
+                new EncountersDBHelper(this),
+                new EncounterSlotsDBHelper(this),
+                new ExperienceDBHelper(this),
+                new LocationAreaEncounterRatesDBHelper(this),
+                new LocationAreasDBHelper(this),
+                new LocationNamesDBHelper(this),
+                new LocationsDBHelper(this),
+                new MoveEffectProseDBHelper(this),
+                new MovesDBHelper(this),
+                new NaturesDBHelper(this),
+                new PokemonDBHelper(this),
+                new PokemonMovesDBHelper(this)
+        };
+        final String[] tableNames = {
+                AbilitiesDBHelper.TABLE_NAME,
+                AbilityFlavorDBHelper.TABLE_NAME,
+                AbilityProseDBHelper.TABLE_NAME,
+                EggGroupProseDBHelper.TABLE_NAME,
+                EncounterConditionsDBHelper.TABLE_NAME,
+                EncountersDBHelper.TABLE_NAME,
+                EncounterSlotsDBHelper.TABLE_NAME,
+                ExperienceDBHelper.TABLE_NAME,
+                LocationAreaEncounterRatesDBHelper.TABLE_NAME,
+                LocationAreasDBHelper.TABLE_NAME,
+                LocationNamesDBHelper.TABLE_NAME,
+                LocationsDBHelper.TABLE_NAME,
+                MoveEffectProseDBHelper.TABLE_NAME,
+                MovesDBHelper.TABLE_NAME,
+                NaturesDBHelper.TABLE_NAME,
+                PokemonDBHelper.TABLE_NAME,
+                PokemonMovesDBHelper.TABLE_NAME
+        };
+        final int[] lineCounts = {
+                252, // Abilities
+                7829, // Ability Flavor
+                572, // Ability Prose
+                91, // Egg Group Prose
+                20, // Encounter Conditions
+                46531, // Encounters
+                489, // Encounter Slots
+                601, // Experience
+                3866, // Location Area Encounter Rates
+                717, // Location Areas
+                2102, // Location Names
+                690, // Locations
+                1063, // Move Effect Prose
+                640, // Moves
+                26, // Natures
+                914, // Pokemon
+                366541 // Pokemon Moves
+        };
+        // i.e. ___ database
+
+        //progressBar.setMax(100);
+
+        new AsyncTask<Void, Boolean, Void>() {
+
+            private int mLoop;
+            private int mCompletedDbs = 0;
+            private int mCompletedLines = 0;
+            private int mSumOfLines;
+
+            @Override
+            protected void onPreExecute() {
+                mSumOfLines = 0;
+                for (int lineCount : lineCounts) {
+                    mSumOfLines += lineCount;
+                }
+                progressMain.setMax(mSumOfLines);
+                progressMain.setProgress(0);
+                progressBarDetail.setIndeterminate(true);
+
+                updatedDbList.setText("");
+                completedDbNum.setText("0 databases complete");
+                completedDbLines.setText("(approx. 0 lines)");
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                String[] currentVersions = DatabaseUtils.getDbVersionArray();
+                String[] savedDbVersions;
+                if (DatabaseUtils.getSavedDbVersionString(InitializeDbActivity.this) != null) {
+                    savedDbVersions = DatabaseUtils.getSavedDbVersionArray(InitializeDbActivity.this);
+                } else {
+                    ArrayList<String> tempSavedDbArrayList = new ArrayList<>();
+                    for (String ignored : currentVersions) {
+                        tempSavedDbArrayList.add("0");
+                    }
+                    savedDbVersions = tempSavedDbArrayList.toArray(new String[tempSavedDbArrayList.size()]);
+                }
+                for (int i = 0; i < helpers.length-1; i++) {
+                    mLoop = i;
+                    publishProgress(false);
+                    Log.d(LOG_TAG, "background processes - starting loop #" + i);
+
+                    if (!savedDbVersions[i].equals(currentVersions[i])) {
+                        // this database has been updated
+                        SQLiteOpenHelper helper = helpers[i];
+                        SQLiteDatabase db = helper.getReadableDatabase();
+                        Cursor cursor = db.query(true, tableNames[i], null, null, null, null, null, null, null);
+                        cursor.moveToFirst();
+                        cursor.close();
+                        System.gc();
+                    }
+
+                    publishProgress(true);
+                    Log.d(LOG_TAG, "background processes - running total has been published - loop #" + i + " complete");
+
+                    if (isCancelled()) {
+                        cancel(true);
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            protected void onProgressUpdate(Boolean... values) {
+                boolean hasCompleted = values[0];
+                if (!hasCompleted) {
+                    currentDbName.setText(tableNames[mLoop]);
+                    currentDbStatus.setText("Creating db from " + lineCounts[mLoop] + "+ lines");
+                } else {
+                    mCompletedDbs++;
+                    mCompletedLines += lineCounts[mLoop];
+                    updatedDbList.setText(updatedDbList.getText().toString() + tableNames[mLoop-1] + "\n");
+                    completedDbNum.setText(mCompletedDbs + " of " + tableNames.length + " databases complete");
+                    completedDbLines.setText("(approx. " + mCompletedLines + " lines)");
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                DatabaseUtils.markDatabaseUpgraded(getBaseContext());
+                Log.d(LOG_TAG, "Completed initialising DBs");
+                startActivity(new Intent(InitializeDbActivity.this, WelcomeActivity.class));
+                finish();
+            }
+        }.execute();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(this, R.string.initialise_wait_prompt, Toast.LENGTH_SHORT).show();
+    }
+}

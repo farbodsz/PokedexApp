@@ -18,18 +18,18 @@
             android:paddingBottom="@dimen/card_padding_vertical"
             android:paddingLeft="@dimen/card_padding_lateral"
             android:paddingRight="@dimen/card_padding_lateral" >
-            <com.farbod.labelledspinner.LabelledSpinner
+            <com.satsuware.usefulviews.LabelledSpinner
                 android:id="@+id/detailL_spinnerMethod"
                 custom:labelText="@string/filter_moves_method"
-                custom:widgetColor="@color/text_white"
+                custom:widgetColor="@color/mdu_text_white"
                 style="@style/AppTheme.HeaderBarText.Secondary.Larger"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
-            <com.farbod.labelledspinner.LabelledSpinner
+            <com.satsuware.usefulviews.LabelledSpinner
                 android:id="@+id/detailL_spinnerGame"
                 custom:labelText="@string/filter_game_version"
-                custom:widgetColor="@color/text_white"
+                custom:widgetColor="@color/mdu_text_white"
                 style="@style/AppTheme.HeaderBarText.Secondary.Larger"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

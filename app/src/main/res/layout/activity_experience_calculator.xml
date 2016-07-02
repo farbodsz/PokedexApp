@@ -6,7 +6,7 @@
     android:id="@+id/experience_drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.satsumasoftware.pokedex.ExperienceCalculatorActivity"
+    tools:context=".ui.ExperienceCalculatorActivity"
     android:fitsSystemWindows="true" >
 
     <!-- The main content view -->
@@ -36,78 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" >
-                <android.support.v7.widget.CardView
-                    style="@style/AppTheme.CardView.SidePadding"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/card_padding_vertical"
-                        android:paddingBottom="@dimen/card_padding_vertical">
-                        <TextView
-                            android:text="@string/action_calculate_experience"
-                            style="@style/AppTheme.CardView.Text.Title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingBottom="@dimen/card_padding_vertical" />
-
-                        <RadioGroup
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <RadioButton
-                                android:id="@+id/experience_radioPokemon"
-                                android:text="@string/experience_select_pokemon"
-                                android:checked="true"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                            <RadioButton
-                                android:id="@+id/experience_radioLevellingRate"
-                                android:text="@string/experience_select_levelling_rate"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </RadioGroup>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <com.farbod.labelledspinner.LabelledSpinner
-                                android:id="@+id/experience_spinnerPokemonOrGrowth"
-                                app:labelText="@string/header_pokemon"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"/>
-                            <com.farbod.labelledspinner.LabelledSpinner
-                                android:id="@+id/experience_spinnerLevel"
-                                app:labelText="@string/header_level"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1" />
-                        </LinearLayout>
-
-                        <Button
-                            android:id="@+id/experience_btnCalc"
-                            android:text="@string/experience_calculate"
-                            style="@style/AppTheme.Button.Raised"
-                            android:layout_marginTop="@dimen/card_padding_actions"
-                            android:layout_gravity="end"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                        <TextView
-                            android:id="@+id/experience_tvAnswer"
-                            style="@style/AppTheme.CardView.Text.Title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="@dimen/card_padding_vertical_large"/>
-                        <TextView
-                            android:id="@+id/experience_tvDescription"
-                            style="@style/AppTheme.CardView.Text.Subtitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
+                <include layout="@layout/activity_experience_calculator_card" />
             </android.support.v4.widget.NestedScrollView>
         </android.support.design.widget.CoordinatorLayout>
 

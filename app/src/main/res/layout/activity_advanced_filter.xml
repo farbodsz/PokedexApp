@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
-    tools:context="com.satsumasoftware.pokedex.AdvancedFilterActivity">
+    tools:context=".ui.AdvancedFilterActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/advancedFilter_appBarLayout"
@@ -58,7 +58,7 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:background="@color/white"
+                android:background="@color/mdu_white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="@dimen/card_padding_lateral"
@@ -87,7 +87,7 @@
                         android:layout_weight="1" >
                         <EditText
                             android:id="@+id/advancedFilter_etSpecies"
-                            android:hint="@string/header_classification"
+                            android:hint="@string/attr_classification"
                             style="@style/AppTheme.EditText"
                             android:inputType="textNoSuggestions"
                             android:layout_width="match_parent"
@@ -98,32 +98,32 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
-                    <com.farbod.labelledspinner.LabelledSpinner
+                    <com.satsuware.usefulviews.LabelledSpinner
                         android:id="@+id/advancedFilter_spinnerType1"
-                        custom:labelText="@string/header_type_1"
+                        custom:labelText="@string/attr_type_1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
-                    <com.farbod.labelledspinner.LabelledSpinner
+                    <com.satsuware.usefulviews.LabelledSpinner
                         android:id="@+id/advancedFilter_spinnerType2"
-                        custom:labelText="@string/header_type_2"
+                        custom:labelText="@string/attr_type_2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
                 </LinearLayout>
-                <com.farbod.labelledspinner.LabelledSpinner
+                <com.satsuware.usefulviews.LabelledSpinner
                     android:id="@+id/advancedFilter_spinnerAbility"
-                    custom:labelText="@string/header_ability"
+                    custom:labelText="@string/attr_ability"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-                <com.farbod.labelledspinner.LabelledSpinner
+                <com.satsuware.usefulviews.LabelledSpinner
                     android:id="@+id/advancedFilter_spinnerGrowth"
                     custom:labelText="@string/filter_levelling"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-                <com.farbod.labelledspinner.LabelledSpinner
+                <com.satsuware.usefulviews.LabelledSpinner
                     android:id="@+id/advancedFilter_spinnerGeneration"
-                    custom:labelText="@string/header_generation"
+                    custom:labelText="@string/attr_generation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <Button

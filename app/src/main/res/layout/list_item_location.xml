@@ -7,24 +7,24 @@
     android:background="?android:attr/selectableItemBackground">
 
     <TextView
-        android:id="@+id/item_location_text1"
-        android:textSize="@dimen/lvAdv_txtSize"
-        android:textColor="@color/text_black"
+        android:id="@+id/text1"
+        android:textSize="@dimen/list_text_size"
+        android:textColor="@color/mdu_text_black"
         android:gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
 
     <TextView
-        android:id="@+id/item_location_text2"
-        android:textSize="@dimen/lvAdv_txtSize"
-        android:textColor="@color/text_black_secondary"
+        android:id="@+id/text2"
+        android:textSize="@dimen/list_text_size"
+        android:textColor="@color/mdu_text_black_secondary"
         android:gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:layout_toRightOf="@+id/item_location_text1"
-        android:layout_toEndOf="@+id/item_location_text1"
-        android:layout_marginLeft="@dimen/lvAdv_marginTxts"
-        android:layout_marginStart="@dimen/lvAdv_marginTxts"/>
+        android:layout_toRightOf="@id/text1"
+        android:layout_toEndOf="@id/text1"
+        android:layout_marginLeft="@dimen/mdu_keyline_1"
+        android:layout_marginStart="@dimen/mdu_keyline_1"/>
 </RelativeLayout>

@@ -10,6 +10,18 @@
             android:summaryOn="@string/pref_combinedNames_summaryOn"
             android:summaryOff="@string/pref_combinedNames_summaryOff"
             android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="pref_abilities_sort_default_az"
+            android:title="@string/pref_sortAbilities"
+            android:summaryOn="@string/pref_sortAbilities_summaryOn"
+            android:summaryOff="@string/pref_sortAbilities_summaryOff"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="pref_moves_sort_default_az"
+            android:title="@string/pref_sortMoves"
+            android:summaryOn="@string/pref_sortMoves_summaryOn"
+            android:summaryOff="@string/pref_sortMoves_summaryOff"
+            android:defaultValue="false" />
     </PreferenceCategory>
 
     <PreferenceCategory

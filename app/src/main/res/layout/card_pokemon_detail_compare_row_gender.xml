@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginRight="@dimen/mdu_spacing_micro"
+        android:layout_marginEnd="@dimen/mdu_spacing_micro">
+        <ProgressBar
+            android:id="@+id/progressBar_1"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/progress_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/genderMale_1"
+                android:text="@string/dummy_gender"
+                style="@style/AppTheme.CardView.Text.Supporting.Large"
+                android:textStyle="italic"
+                android:textColor="@color/progress_gender_male"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/genderFemale_1"
+                android:text="@string/dummy_gender"
+                style="@style/AppTheme.CardView.Text.Supporting.Large"
+                android:textStyle="italic"
+                android:textColor="@color/progress_gender_female"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="@dimen/mdu_spacing_micro"
+        android:layout_marginStart="@dimen/mdu_spacing_micro">
+        <ProgressBar
+            android:id="@+id/progressBar_2"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/progress_gender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/genderMale_2"
+                android:text="@string/dummy_gender"
+                style="@style/AppTheme.CardView.Text.Supporting.Large"
+                android:textStyle="italic"
+                android:textColor="@color/progress_gender_male"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/genderFemale_2"
+                android:text="@string/dummy_gender"
+                style="@style/AppTheme.CardView.Text.Supporting.Large"
+                android:textStyle="italic"
+                android:textColor="@color/progress_gender_female"
+                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

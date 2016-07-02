@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.satsumasoftware.pokedex.AboutActivity">
+    tools:context=".ui.AboutActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:orientation="vertical"
@@ -27,8 +27,8 @@
             android:scrollbarStyle="outsideOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingLeft="@dimen/horizontal_margin"
+            android:paddingRight="@dimen/horizontal_margin"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" >
             <LinearLayout
                 android:orientation="horizontal"
@@ -40,243 +40,18 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
-                    <!-- ABOUT -->
-                    <android.support.v7.widget.CardView
-                        style="@style/AppTheme.CardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <ImageView
-                                android:src="@drawable/nav_image"
-                                android:contentDescription="@string/img_desc_banner"
-                                android:scaleType="centerCrop"
-                                android:adjustViewBounds="true"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-                            <LinearLayout
-                                android:orientation="vertical"
-                                android:paddingTop="@dimen/card_padding_vertical_large"
-                                android:paddingBottom="@dimen/card_padding_vertical"
-                                android:paddingLeft="@dimen/card_padding_lateral"
-                                android:paddingRight="@dimen/card_padding_lateral"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" >
-                                <TextView
-                                    style="@style/AppTheme.CardView.Text.Title"
-                                    android:text="@string/title_activity_about"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                            </LinearLayout>
-                            <TextView
-                                android:id="@+id/about_tvAppInfo"
-                                style="@style/AppTheme.CardView.Text.Supporting"
-                                android:text="@string/dummy_about_app"
-                                android:paddingBottom="@dimen/card_padding_vertical_large"
-                                android:paddingLeft="@dimen/card_padding_lateral"
-                                android:paddingRight="@dimen/card_padding_lateral"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <!-- CHANGELOG -->
-                    <android.support.v7.widget.CardView
-                        style="@style/AppTheme.CardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                style="@style/AppTheme.CardView.Text.Title"
-                                android:text="@string/title_activity_changelog"
-                                android:paddingTop="@dimen/card_padding_vertical_large"
-                                android:paddingBottom="@dimen/card_padding_vertical"
-                                android:paddingLeft="@dimen/card_padding_lateral"
-                                android:paddingRight="@dimen/card_padding_lateral"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-                            <TextView
-                                style="@style/AppTheme.CardView.Text.Supporting"
-                                android:text="@string/about_changelog"
-                                android:paddingLeft="@dimen/card_padding_lateral"
-                                android:paddingRight="@dimen/card_padding_lateral"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-                            <LinearLayout
-                                android:orientation="vertical"
-                                android:padding="@dimen/card_padding_actions"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                                <Button
-                                    android:id="@+id/about_btnChangelog"
-                                    android:text="@string/about_changelog_action"
-                                    style="@style/AppTheme.Button.Flat"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
-                            </LinearLayout>
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <!-- SETTINGS -->
-                    <android.support.v7.widget.CardView
-                        style="@style/AppTheme.CardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                style="@style/AppTheme.CardView.Text.Title"
-                                android:text="@string/title_activity_settings"
-                                android:paddingTop="@dimen/card_padding_vertical_large"
-                                android:paddingBottom="@dimen/card_padding_vertical"
-                                android:paddingLeft="@dimen/card_padding_lateral"
-                                android:paddingRight="@dimen/card_padding_lateral"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-                            <TextView
-                                style="@style/AppTheme.CardView.Text.Supporting"
-                                android:text="@string/about_settings"
-                                android:paddingLeft="@dimen/card_padding_lateral"
-                                android:paddingRight="@dimen/card_padding_lateral"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-                            <LinearLayout
-                                android:orientation="vertical"
-                                android:padding="@dimen/card_padding_actions"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                                <Button
-                                    android:id="@+id/about_btnSettings"
-                                    android:text="@string/about_settings_action"
-                                    style="@style/AppTheme.Button.Flat"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
-                            </LinearLayout>
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
+                    <include layout="@layout/activity_about_card_main" />
+                    <include layout="@layout/activity_about_card_changelog" />
+                    <include layout="@layout/activity_about_card_settings" />
                 </LinearLayout>
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
-                    <!-- FEEDBACK -->
-                    <android.support.v7.widget.CardView
-                        style="@style/AppTheme.CardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <TextView
-                                style="@style/AppTheme.CardView.Text.Title"
-                                android:text="@string/about_feedback"
-                                android:paddingTop="@dimen/card_padding_vertical_large"
-                                android:paddingBottom="@dimen/card_padding_vertical"
-                                android:paddingLeft="@dimen/card_padding_lateral"
-                                android:paddingRight="@dimen/card_padding_lateral"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-                            <TextView
-                                style="@style/AppTheme.CardView.Text.Supporting"
-                                android:text="@string/about_feedback_desc"
-                                android:paddingBottom="@dimen/card_padding_vertical"
-                                android:paddingLeft="@dimen/card_padding_lateral"
-                                android:paddingRight="@dimen/card_padding_lateral"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-                            <!-- TODO: Click on the button to open emails and send feedback -->
-                            <LinearLayout
-                                android:visibility="gone"
-                                android:orientation="vertical"
-                                android:padding="@dimen/card_padding_actions"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content">
-                                <Button
-                                    android:id="@+id/about_btnFeedback"
-                                    android:text="@string/about_feedback_action"
-                                    style="@style/AppTheme.Button.Flat"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" />
-                            </LinearLayout>
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <!-- LANGUAGE -->
-                    <android.support.v7.widget.CardView
-                        style="@style/AppTheme.CardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <LinearLayout
-                                android:orientation="vertical"
-                                android:paddingTop="@dimen/card_padding_vertical_large"
-                                android:paddingBottom="@dimen/card_padding_vertical"
-                                android:paddingLeft="@dimen/card_padding_lateral"
-                                android:paddingRight="@dimen/card_padding_lateral"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" >
-                                <TextView
-                                    style="@style/AppTheme.CardView.Text.Title"
-                                    android:text="@string/about_help_translate"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                            </LinearLayout>
-                            <TextView
-                                style="@style/AppTheme.CardView.Text.Supporting"
-                                android:text="@string/about_help_translate_desc"
-                                android:paddingLeft="@dimen/card_padding_lateral"
-                                android:paddingRight="@dimen/card_padding_lateral"
-                                android:paddingBottom="@dimen/card_padding_vertical_large"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <!-- COPYRIGHT -->
-                    <android.support.v7.widget.CardView
-                        style="@style/AppTheme.CardView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-                        <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <LinearLayout
-                                android:orientation="vertical"
-                                android:paddingTop="@dimen/card_padding_vertical_large"
-                                android:paddingBottom="@dimen/card_padding_vertical"
-                                android:paddingLeft="@dimen/card_padding_lateral"
-                                android:paddingRight="@dimen/card_padding_lateral"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" >
-                                <TextView
-                                    style="@style/AppTheme.CardView.Text.Title"
-                                    android:text="@string/about_copyrights"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                            </LinearLayout>
-                            <TextView
-                                style="@style/AppTheme.CardView.Text.Supporting"
-                                android:text="@string/copyright_notice_nintendo"
-                                android:paddingLeft="@dimen/card_padding_lateral"
-                                android:paddingRight="@dimen/card_padding_lateral"
-                                android:paddingBottom="@dimen/card_padding_vertical_large"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
+                    <include layout="@layout/activity_about_card_feedback" />
+                    <include layout="@layout/activity_about_card_language" />
+                    <include layout="@layout/activity_about_card_copyright" />
                 </LinearLayout>
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

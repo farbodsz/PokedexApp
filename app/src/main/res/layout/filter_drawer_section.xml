@@ -4,14 +4,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/list_margin_top">
+    android:layout_marginTop="@dimen/mdu_spacing_normal">
     <include layout="@layout/divider" />
     <TextView
         style="@style/AppTheme.TextView.DrawerSubhead"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/keyline_16"
-        android:layout_marginStart="@dimen/keyline_16" />
+        android:layout_marginLeft="@dimen/mdu_keyline_1"
+        android:layout_marginStart="@dimen/mdu_keyline_1" />
     <LinearLayout
         style="@style/AppTheme.LinearLayout.StandardList"
         android:layout_width="match_parent"

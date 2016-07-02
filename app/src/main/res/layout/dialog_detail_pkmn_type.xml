@@ -7,7 +7,7 @@
     app:cardUseCompatPadding="false"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.satsumasoftware.pokedex.dialog.PkmnTypeDetailActivity">
+    tools:context=".ui.PkmnTypeDetailActivity">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:paddingRight="@dimen/card_padding_lateral">
 
             <TextView
-                android:id="@+id/pkmnTypeDetail_tvTitle"
+                android:id="@+id/pokemonName"
                 android:text="@string/dummy_pokemon"
                 style="@style/AppTheme.CardView.Text.Title"
                 android:layout_width="match_parent"
@@ -73,19 +73,20 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/margin_top" >
+                android:baselineAligned="false"
+                android:layout_marginTop="@dimen/mdu_spacing_micro" >
                 <ListView
-                    android:id="@+id/pkmnTypeDetail_lvImmune"
+                    android:id="@+id/listView_immuneTypes"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
                 <ListView
-                    android:id="@+id/pkmnTypeDetail_lvStrong"
+                    android:id="@+id/listView_strongTypes"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
                 <ListView
-                    android:id="@+id/pkmnTypeDetail_lvWeak"
+                    android:id="@+id/listView_weakTypes"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />

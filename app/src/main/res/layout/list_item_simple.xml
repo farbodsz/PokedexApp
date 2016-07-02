@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/item_simple_text1"
-        android:textColor="@color/text_black"
+        android:textColor="@color/mdu_text_black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"

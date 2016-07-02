@@ -10,19 +10,19 @@
     android:background="?android:selectableItemBackground">
     <TextView
         android:id="@+id/item_filter_text1"
-        android:textColor="@color/text_black"
+        android:textColor="@color/mdu_text_black"
         android:textSize="14sp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_marginStart="@dimen/keyline_16"
-        android:layout_marginLeft="@dimen/keyline_16"
+        android:layout_marginStart="@dimen/mdu_keyline_1"
+        android:layout_marginLeft="@dimen/mdu_keyline_1"
         android:ellipsize="end"
         android:maxLines="1" />
     <CheckBox
         android:id="@+id/item_filter_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/keyline_16"
-        android:layout_marginEnd="@dimen/keyline_16" />
+        android:layout_marginStart="@dimen/mdu_keyline_1"
+        android:layout_marginEnd="@dimen/mdu_keyline_1" />
 </LinearLayout>

@@ -15,8 +15,8 @@
         android:layout_height="96dp" />
     <TextView
         android:text="@string/add_favourites"
-        android:textSize="@dimen/text_page_message"
+        android:textSize="@dimen/list_placeholder_text_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top_8" />
+        android:layout_marginTop="@dimen/mdu_spacing_normal" />
 </LinearLayout>

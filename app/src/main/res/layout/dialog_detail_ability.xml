@@ -7,7 +7,7 @@
     app:cardUseCompatPadding="false"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.satsumasoftware.pokedex.dialog.AbilityDetailActivity">
+    tools:context=".ui.AbilityDetailActivity">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:paddingRight="@dimen/card_padding_lateral">
 
             <TextView
-                android:id="@+id/abilityDetail_tvTitle"
+                android:id="@+id/abilityName"
                 android:text="@string/dummy_ability"
                 style="@style/AppTheme.CardView.Text.Title"
                 android:layout_width="match_parent"
@@ -35,14 +35,13 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/card_padding_vertical">
                 <TextView
-                    android:id="@+id/abilityDetail_tvDetailType"
                     android:text="@string/title_activity_ability_detail"
                     style="@style/AppTheme.CardView.Text.Subtitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"/>
                 <TextView
-                    android:id="@+id/abilityDetail_tvID"
+                    android:id="@+id/abilityId"
                     android:text="@string/dummy_id"
                     android:gravity="end"
                     style="@style/AppTheme.CardView.Text.Subtitle"
@@ -52,7 +51,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/abilityDetail_tvDescription"
+                android:id="@+id/abilityDescription"
                 android:text="@string/dummy_description"
                 style="@style/AppTheme.CardView.Text.Supporting"
                 android:paddingBottom="@dimen/card_padding_vertical"
@@ -65,15 +64,14 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/card_padding_vertical">
                 <TextView
-                    android:id="@+id/abilityDetail_tvGen_title"
-                    android:text="@string/move_generation"
+                    android:text="@string/attr_introduced_in_gen"
                     android:textStyle="italic"
                     style="@style/AppTheme.CardView.Text.Supporting"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
                 <TextView
-                    android:id="@+id/abilityDetail_tvGen_info"
+                    android:id="@+id/abilityGeneration"
                     android:text="@string/dummy_stat"
                     style="@style/AppTheme.CardView.Text.Supporting"
                     android:gravity="center"

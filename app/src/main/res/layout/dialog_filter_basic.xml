@@ -18,15 +18,15 @@
             android:text="@string/action_filter"
             style="@style/AppTheme.CardView.Text.Title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/card_padding_vertical"/>
 
         <LinearLayout
             android:id="@+id/dialogFilter_llName"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/abc_action_button_min_height_material"
-            android:layout_marginTop="@dimen/margin_top_medium" >
+            android:minHeight="@dimen/abc_action_button_min_height_material" >
             <TextView
                 android:id="@+id/dialogFilter_tvName"
                 android:text="@string/filter_name"
@@ -51,7 +51,7 @@
             android:minHeight="@dimen/abc_action_button_min_height_material">
             <TextView
                 android:id="@+id/dialogFilter_tvGen"
-                android:text="@string/header_generation"
+                android:text="@string/attr_generation"
                 style="@style/AppTheme.CardView.Text.Supporting"
                 android:gravity="center|start"
                 android:layout_width="0dp"

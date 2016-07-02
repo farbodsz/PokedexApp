@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppTheme.CardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:src="@drawable/nav_image"
+            android:contentDescription="@string/img_desc_banner"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingTop="@dimen/card_padding_vertical_large"
+            android:paddingBottom="@dimen/card_padding_vertical"
+            android:paddingLeft="@dimen/card_padding_lateral"
+            android:paddingRight="@dimen/card_padding_lateral"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <TextView
+                style="@style/AppTheme.CardView.Text.Title"
+                android:text="@string/title_activity_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/about_tvAppInfo"
+            style="@style/AppTheme.CardView.Text.Supporting"
+            android:text="@string/dummy_about_app"
+            android:paddingBottom="@dimen/card_padding_vertical_large"
+            android:paddingLeft="@dimen/card_padding_lateral"
+            android:paddingRight="@dimen/card_padding_lateral"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

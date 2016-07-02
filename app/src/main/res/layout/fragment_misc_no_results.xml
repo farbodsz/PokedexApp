@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:visibility="gone"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -8,11 +7,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin">
 
-    <!-- TODO: Why is visibility on the above layout 'gone'? -->
-
     <TextView
         android:text="@string/misc_no_results"
-        android:textSize="@dimen/text_page_message"
+        android:textSize="@dimen/list_placeholder_text_size"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

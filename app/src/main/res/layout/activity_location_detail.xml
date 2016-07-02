@@ -4,10 +4,10 @@
     android:id="@+id/detail_rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.satsumasoftware.pokedex.LocationDetailActivity">
+    tools:context=".ui.LocationDetailActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/detail_headerBar"
+        android:id="@+id/appBarLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -36,7 +36,7 @@
         android:layout_height="match_parent">
         <TextView
             android:text="@string/location_no_pokemon"
-            android:textSize="@dimen/text_page_message"
+            android:textSize="@dimen/list_placeholder_text_size"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>

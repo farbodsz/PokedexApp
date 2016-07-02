@@ -2,7 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_drawerLayout"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true" >
@@ -16,13 +16,13 @@
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/main_adView">
+            android:layout_above="@+id/adView">
             <android.support.design.widget.AppBarLayout
                 android:fitsSystemWindows="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
                 <android.support.v7.widget.Toolbar
-                    android:id="@+id/main_toolbar"
+                    android:id="@+id/toolbar"
                     style="@style/AppTheme.Toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -30,11 +30,8 @@
                 <include layout="@layout/blank" /> <!-- This is to prevent bugs -->
             </android.support.design.widget.AppBarLayout>
 
-            <include layout="@layout/fragment_misc_no_results"
-                android:id="@+id/main_frag_noResults"/>
-
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/main_rv"
+                android:id="@+id/recyclerView"
                 style="@style/AppTheme.RecyclerView.StandardList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,7 +39,7 @@
         </android.support.design.widget.CoordinatorLayout>
 
         <com.google.android.gms.ads.AdView
-            android:id="@+id/main_adView"
+            android:id="@+id/adView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -52,6 +49,6 @@
 
     <!-- The navigation drawer -->
     <include layout="@layout/navdrawer"
-        android:id="@+id/main_navigationView" />
+        android:id="@+id/navigationView" />
 
 </android.support.v4.widget.DrawerLayout>

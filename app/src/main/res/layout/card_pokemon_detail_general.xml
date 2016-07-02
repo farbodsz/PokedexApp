@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="?colorPrimary"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/card_padding_vertical"
+    android:paddingBottom="@dimen/card_padding_vertical"
+    android:paddingLeft="@dimen/card_padding_lateral"
+    android:paddingRight="@dimen/card_padding_lateral">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/pokedexNumber"
+            android:text="@string/dummy_id"
+            style="@style/AppTheme.HeaderBarText.Primary.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"/>
+        <TextView
+            android:id="@+id/type1"
+            android:text="@string/dummy_type"
+            style="@style/AppTheme.HeaderBarText.Primary.Medium"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3" />
+        <TextView
+            android:id="@+id/type2"
+            android:text="@string/dummy_type"
+            style="@style/AppTheme.HeaderBarText.Primary.Medium"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:baselineAligned="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/mdu_spacing_micro" >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom" >
+            <TextView
+                android:id="@+id/form"
+                android:text="@string/dummy_form"
+                style="@style/AppTheme.HeaderBarText.Secondary.Larger"
+                android:textStyle="italic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="top" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="bottom">
+                <TextView
+                    android:id="@+id/pokemonName"
+                    android:text="@string/dummy_pokemon"
+                    style="@style/AppTheme.HeaderBarText.Primary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/species"
+                    android:text="@string/dummy_classification"
+                    style="@style/AppTheme.HeaderBarText.Secondary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/imageView"
+            android:src="@drawable/img_unknown"
+            android:contentDescription="@string/img_desc_pokemon"
+            android:scaleType="fitCenter"
+            android:layout_gravity="bottom|end"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/mdu_spacing_normal"/>
+    </LinearLayout>
+</LinearLayout>

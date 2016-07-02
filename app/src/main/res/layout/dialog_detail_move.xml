@@ -7,7 +7,7 @@
     app:cardUseCompatPadding="false"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.satsumasoftware.pokedex.dialog.MovesDetailActivity">
+    tools:context=".ui.MovesDetailActivity">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -68,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
                     <TextView
-                        android:text="@string/move_type"
+                        android:text="@string/attr_type"
                         style="@style/AppTheme.CardView.Text.Supporting"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -77,7 +77,7 @@
                         android:id="@+id/moveDetail_tvType_info"
                         android:text="@string/dummy_stat"
                         style="@style/AppTheme.CardView.Text.Supporting"
-                        android:textColor="@color/text_white"
+                        android:textColor="@color/mdu_text_white"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
                     <TextView
-                        android:text="@string/move_category"
+                        android:text="@string/attr_move_category"
                         style="@style/AppTheme.CardView.Text.Supporting"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                         android:id="@+id/moveDetail_tvCategory_info"
                         android:text="@string/dummy_stat"
                         style="@style/AppTheme.CardView.Text.Supporting"
-                        android:textColor="@color/text_white"
+                        android:textColor="@color/mdu_text_white"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
                     <TextView
-                        android:text="@string/move_contest"
+                        android:text="@string/attr_move_contest"
                         style="@style/AppTheme.CardView.Text.Supporting"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
                         android:id="@+id/moveDetail_tvContest_info"
                         android:text="@string/dummy_stat"
                         style="@style/AppTheme.CardView.Text.Supporting"
-                        android:textColor="@color/text_white"
+                        android:textColor="@color/mdu_text_white"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
                     <TextView
-                        android:text="@string/move_pp"
+                        android:text="@string/attr_move_pp"
                         style="@style/AppTheme.CardView.Text.Supporting"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -154,7 +154,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
                     <TextView
-                        android:text="@string/move_power"
+                        android:text="@string/attr_move_power"
                         style="@style/AppTheme.CardView.Text.Supporting"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -173,7 +173,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
                     <TextView
-                        android:text="@string/move_accuracy"
+                        android:text="@string/attr_move_accuracy"
                         style="@style/AppTheme.CardView.Text.Supporting"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -196,7 +196,7 @@
                 android:paddingBottom="@dimen/card_padding_vertical">
 
                 <TextView
-                    android:text="@string/move_generation"
+                    android:text="@string/attr_introduced_in_gen"
                     android:textStyle="italic"
                     style="@style/AppTheme.CardView.Text.Supporting"
                     android:layout_width="0dp"

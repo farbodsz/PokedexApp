@@ -1,10 +1,22 @@
 package com.satsumasoftware.pokedex.util;
 
+@Deprecated
 public final class AppConfig {
 
     public static final String PKMN_GEN_SUPPORT = "VI";
     public static final int EGG_CYCLE_STEPS = 257;
+
     public static final int MAX_NATIONAL_ID = 721;
+    public static final int MAX_ABILITY_ID = 191;  // not including conquest (it doesn't get put in the db)
+    public static final int MAX_EGG_GROUP_ID = 15;
+    public static final int MAX_ENCOUNTERS_ID = 50241;
+    public static final int MAX_ENCOUNTER_SLOTS_ID = 489;
+    public static final int MAX_GROWTH_RATE_ID = 6;
+    public static final int MAX_LOCATION_AREA_ID = 760;
+    public static final int MAX_LOCATIONS_ID = 690;
+    public static final int MAX_MOVE_EFFECT_ID = 370;
+    public static final int MAX_MOVE_ID = 621;
+    public static final int MAX_NATURE_ID = 25;
 
     public static final int GAME_VERSION_RED_BLUE = 1;
     public static final int GAME_VERSION_YELLOW = 2;
@@ -35,5 +47,7 @@ public final class AppConfig {
     public static final int REGION_SINNOH = 4;
     public static final int REGION_UNOVA = 5;
     public static final int REGION_KALOS = 6;
+
+
 
 }

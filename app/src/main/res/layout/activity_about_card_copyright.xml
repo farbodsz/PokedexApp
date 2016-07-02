@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AppTheme.CardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingTop="@dimen/card_padding_vertical_large"
+            android:paddingBottom="@dimen/card_padding_vertical"
+            android:paddingLeft="@dimen/card_padding_lateral"
+            android:paddingRight="@dimen/card_padding_lateral"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+            <TextView
+                style="@style/AppTheme.CardView.Text.Title"
+                android:text="@string/about_copyrights"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <TextView
+            style="@style/AppTheme.CardView.Text.Supporting"
+            android:text="@string/copyright_notice_nintendo"
+            android:paddingLeft="@dimen/card_padding_lateral"
+            android:paddingRight="@dimen/card_padding_lateral"
+            android:paddingBottom="@dimen/card_padding_vertical_large"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

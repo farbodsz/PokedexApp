@@ -1,6 +1,8 @@
 package com.satsumasoftware.pokedex.util;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Build;
 import android.support.annotation.StyleRes;
 import android.util.TypedValue;
@@ -9,103 +11,103 @@ import com.satsumasoftware.pokedex.R;
 
 public final class ThemeUtils {
 
-    public static void colourDetailByType(Activity activity, String type) {
-        switch (type.toLowerCase()) {
-            case "normal":
+    public static void colourDetailByType(Activity activity, int typeId) {
+        switch (typeId) {
+            case 1:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Normal);
                 break;
-            case "fire":
+            case 10:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Fire);
                 break;
-            case "fighting":
+            case 2:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Fighting);
                 break;
-            case "water":
+            case 11:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Water);
                 break;
-            case "flying":
+            case 3:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Flying);
                 break;
-            case "grass":
+            case 12:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Grass);
                 break;
-            case "poison":
+            case 4:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Poison);
                 break;
-            case "electric":
+            case 13:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Electric);
                 break;
-            case "ground":
+            case 5:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Ground);
                 break;
-            case "psychic":
+            case 14:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Psychic);
                 break;
-            case "rock":
+            case 6:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Rock);
                 break;
-            case "ice":
+            case 15:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Ice);
                 break;
-            case "bug":
+            case 7:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Bug);
                 break;
-            case "dragon":
+            case 16:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Dragon);
                 break;
-            case "ghost":
+            case 8:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Ghost);
                 break;
-            case "dark":
+            case 17:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Dark);
                 break;
-            case "steel":
+            case 9:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Steel);
                 break;
-            case "fairy":
+            case 18:
                 useTheme(activity, R.style.AppTheme_Detail_Type_Fairy);
                 break;
             default:
-                throw new IllegalArgumentException("type \"" +
-                        type + "\" is not a valid type");
+                throw new IllegalArgumentException("type id \"" +
+                        typeId + "\" is not a valid type");
         }
     }
 
-    public static void colourDetailByColour(Activity activity, String colour) {
-        switch (colour.toLowerCase()) {
-            case "black":
+    public static void colourDetailByColour(Activity activity, int colorId) {
+        switch (colorId) {
+            case 1:
                 useTheme(activity, R.style.AppTheme_Detail_Colour_Black);
                 break;
-            case "blue":
+            case 2:
                 useTheme(activity, R.style.AppTheme_Detail_Colour_Blue);
                 break;
-            case "brown":
+            case 3:
                 useTheme(activity, R.style.AppTheme_Detail_Colour_Brown);
                 break;
-            case "grey":
+            case 4:
                 useTheme(activity, R.style.AppTheme_Detail_Colour_Grey);
                 break;
-            case "green":
+            case 5:
                 useTheme(activity, R.style.AppTheme_Detail_Colour_Green);
                 break;
-            case "pink":
+            case 6:
                 useTheme(activity, R.style.AppTheme_Detail_Colour_Pink);
                 break;
-            case "purple":
+            case 7:
                 useTheme(activity, R.style.AppTheme_Detail_Colour_Purple);
                 break;
-            case "red":
+            case 8:
                 useTheme(activity, R.style.AppTheme_Detail_Colour_Red);
                 break;
-            case "white":
+            case 9:
                 useTheme(activity, R.style.AppTheme_Detail_Colour_White);
                 break;
-            case "yellow":
+            case 10:
                 useTheme(activity, R.style.AppTheme_Detail_Colour_Yellow);
                 break;
             default:
-                throw new IllegalArgumentException("type \"" +
-                        colour + "\" is not a valid colour");
+                throw new IllegalArgumentException("color id \"" +
+                        colorId + "\" is not a valid color");
         }
     }
 
@@ -127,6 +129,16 @@ public final class ThemeUtils {
             color = typedValue.data;
         }
         return color;
+    }
+
+    public static int getLightColourByType(Context context, String type) {
+        try {
+            String name = "type_" + type.toLowerCase() + "_primary_light";
+            return context.getResources().getIdentifier(name, "color", context.getPackageName());
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
 }

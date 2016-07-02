@@ -1,154 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- TODO: Add Portuguese (Brazil), German (Germany), Spanish (US, Spain), Polish (Poland), Italian (Italy) languages if possible -->
-    <!-- Also add new databases (e.g. Pokedex_it) for Italian and read from that Pokedex database -->
+    <string name="app_name" translatable="false">Pokédex Free</string>
 
-
-    <!-- APP AND ACTIVITIES -->
-    <string name="app_name">Pokédex Free</string>
     <string name="title_activity_splash" translatable="false">@string/app_name</string>
     <string name="title_activity_welcome" translatable="false">@string/app_name</string>
-    <string name="title_activity_pokedex">National Pokédex</string>
-    <string name="title_activity_abilities">Ability Dex</string>
-    <string name="title_activity_moves">Move Dex</string>
-    <string name="title_activity_natures">Nature Dex</string>
-    <string name="title_activity_locations">Location Dex</string>
+    <string name="title_activity_initialise">Initialising databases</string>
+
+    <string name="title_activity_pokedex" translatable="false">Pokédex</string>
+    <string name="title_activity_abilities" translatable="false">@string/header_abilities</string>
+    <string name="title_activity_moves" translatable="false">@string/header_moves</string>
+
+    <string name="title_activity_natures">Natures</string>
+    <string name="title_activity_locations">Locations</string>
     <string name="title_activity_compare">Comparison</string>
-    <string name="title_activity_favourites">Favourites</string>
-    <string name="title_activity_team">Your Team</string>
+    <string name="title_activity_favorites">Favourites</string>
     <string name="title_activity_experience_calculator">Experience Calculator</string>
-    <string name="title_activity_detail">Pokémon Detail</string>
-    <string name="title_activity_settings">Settings</string>
-    <string name="title_activity_about">About</string>
+
+    <string name="title_activity_settings" translatable="false">@string/action_settings</string>
+    <string name="title_activity_about" translatable="false">@string/action_about</string>
+
     <string name="title_activity_changelog">Changelog</string>
     <string name="title_activity_advanced_filter">Advanced Filter</string>
-    <string name="title_activity_filter_results">Advanced Filter</string>
-    <string name="title_activity_search_results">Search</string>
-    <string name="title_activity_pkmn_image_detail">Pokémon Image Detail</string>
-    <string name="title_activity_pkmn_type_detail">Type effectiveness</string>
-    <string name="title_activity_ability_detail">Ability</string>
+    <string name="title_activity_filter_results" translatable="false">@string/title_activity_advanced_filter</string>
+    <string name="title_activity_search_results" translatable="false">@string/action_search</string>
+
+    <string name="title_activity_pokemon_detail" translatable="false">@string/attr_pokemon</string>
+    <string name="title_activity_ability_detail" translatable="false">@string/attr_ability</string>
     <string name="title_activity_moves_detail">Move</string>
     <string name="title_activity_nature_detail">Nature</string>
     <string name="title_activity_property_detail">Property</string>
+    <string name="title_activity_location_detail">Location</string>
+    <string name="title_activity_pkmn_type_detail">Type effectiveness</string>
 
 
-    <!-- ACTIONS -->
+    <string name="navigation_item_pokedex" translatable="false">@string/title_activity_pokedex</string>
+    <string name="navigation_item_abilities" translatable="false">@string/title_activity_abilities</string>
+    <string name="navigation_item_moves" translatable="false">@string/title_activity_moves</string>
+    <string name="navigation_item_natures" translatable="false">@string/title_activity_natures</string>
+    <string name="navigation_item_locations" translatable="false">@string/title_activity_locations</string>
+    <string name="navigation_item_favourites" translatable="false">@string/title_activity_favorites</string>
+    <string name="navigation_item_experience" translatable="false">@string/title_activity_experience_calculator</string>
+
+
     <string name="action_settings">Settings</string>
     <string name="action_about">About</string>
     <string name="action_help">Help</string>
     <string name="action_search">Search</string>
+    <string name="action_compare">Compare</string>
     <string name="action_filter">Filter</string>
     <string name="action_sort">Sort</string>
     <string name="action_sort_id">By ID</string>
     <string name="action_sort_name">By name</string>
+
     <string name="action_play_cry">Play cry</string>
     <string name="action_play_cry_of">Play %1$s\'s cry</string>
+
     <string name="action_previous">Previous</string>
     <string name="action_next">Next</string>
-    <string name="action_favourite">Add to favourites</string>
+
+    <string name="action_favourite_add">Add to favourites</string>
     <string name="action_favourite_remove">Remove from favourites</string>
-    <string name="action_compare">Compare</string>
-    <string name="action_buyPro">Buy Pro</string>
+
     <string name="action_clear_all">Clear all</string>
     <string name="action_add">Add</string>
     <string name="action_undo">Undo</string>
+
+    <string name="action_buyPro">Buy Pro</string>
+
     <string name="action_calculate_experience">Calculate EXP</string>
     <string name="action_calculate_experience_of">%1$s\'s EXP</string>
 
 
-    <!-- DIALOG TEXTS -->
     <string name="dialog_ok_got_it">OK, got it</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
-    <string name="dialog_title_compare_pokemon">Choose a Pokémon to compare against…</string>
+    <string name="dialog_title_compare_pokemon">Choose a Pokémon to compare against</string>
     <string name="dialog_title_compare_pokemon_forms">Compare Pokémon forms?</string>
     <string name="dialog_msg_compare_pokemon_forms">This Pokémon has alternate forms. Do you want to compare to one of its other forms?</string>
     <string name="dialog_title_clear_favourites">Clear Favourites?</string>
     <string name="dialog_msg_clear_favourites">Are you sure you want to remove all Pokémon from the Favourites list?</string>
 
 
-    <!-- GENERAL ACTIONS -->
     <string name="show_pokemon">Show Pokémon</string>
     <string name="show_pokemon_moves">Show Pokémon moves</string>
 
 
-    <!-- INFO DIALOG TEXTS -->
-    <string name="move_type">Type:</string>
-    <string name="move_category">Category:</string>
-    <string name="move_contest">Contest:</string>
-    <string name="move_pp">PP:</string>
-    <string name="move_power">Power:</string>
-    <string name="move_accuracy">Accuracy:</string>
-    <string name="move_generation">Introduced in gen:</string>
-    <string name="nature_stat_increased">Increased Stat:</string>
-    <string name="nature_stat_decreased">Decreased Stat:</string>
+    <string name="tab_pkmn_detail_general">General</string>
+    <string name="tab_pkmn_detail_forms" translatable="false">@string/header_forms</string>
+    <string name="tab_pkmn_detail_moves" translatable="false">@string/header_moves</string>
+
+
+    <string name="header_general_info">General Information</string>
+    <string name="attr_pokemon" translatable="false">Pokémon</string>
+    <string name="attr_classification">Classification</string>
+
+    <string name="header_abilities">Abilities</string>
+    <string name="attr_ability">Ability</string>
+    <string name="attr_ability_1">Ability 1</string>
+    <string name="attr_ability_2">Ability 2</string>
+    <string name="attr_ability_hidden">Hidden Ability</string>
+
+    <string name="header_types">Types</string>
+    <string name="attr_type">Type</string>
+    <string name="attr_type_1">Type 1</string>
+    <string name="attr_type_2">Type 2</string>
+
+    <string name="header_physical_attrs">Physical Attributes</string>
+    <string name="attr_height">Height</string>
+    <string name="attr_mass">Mass</string>
+
+    <string name="header_stats">Statistics</string>
+    <string name="header_stats_ev">Effort values</string>
+    <string name="attr_stat_hp">HP</string>
+    <string name="attr_stat_atk">Attack</string>
+    <string name="attr_stat_def">Defense</string>
+    <string name="attr_stat_spA">Sp. Atk</string>
+    <string name="attr_stat_spD">Sp. Def</string>
+    <string name="attr_stat_spe">Speed</string>
+    <string name="attr_stat_total">Total</string>
+    <string name="attr_stat_average">Average</string>
+    <string name="attr_stat_spA_noAbbr">Special Attack</string>
+    <string name="attr_stat_spD_noAbbr">Special Defense</string>
+
+    <string name="header_gender_ratio">Gender ratio</string>
+    <string name="gender_male">Male</string>
+    <string name="gender_female">Female</string>
+
+    <string name="header_training">Training</string>
+    <string name="attr_catch_rate">Catch rate</string>
+    <string name="attr_levelling_rate">Levelling Rate</string>
+    <string name="attr_base_happiness">Base Happiness</string>
+    <string name="attr_exp_growth">Experience to Lvl. 100</string>
+    <string name="attr_exp_growth_abbr">EXP to Lvl 100</string>
+
+    <string name="attr_base_egg_steps">Base Egg Steps</string>
+    <string name="attr_base_egg_cycles">Base Egg Cycles</string>
+
+    <string name="header_more_information">More information</string>
+    <string name="attr_generation">Generation</string>
+    <string name="attr_introduced_in_gen">Introduced in gen</string>
+    <string name="attr_colour">Colour</string>
+    <string name="attr_shape">Shape</string>
+    <string name="attr_habitat">Habitat</string>
+
+    <string name="header_pokedex_numbers">Pokédex Numbers</string>
+
+
+    <string name="attr_move_category">Category</string>
+    <string name="attr_move_contest">Contest</string>
+    <string name="attr_move_pp">PP</string>
+    <string name="attr_move_power">Power</string>
+    <string name="attr_move_accuracy">Accuracy</string>
+
+
+    <string name="nature_stat_increased">Increased Stat</string>
+    <string name="nature_stat_decreased">Decreased Stat</string>
+
+
     <string name="type_comparison_immune">Immune</string>
     <string name="type_comparison_strong">Strong</string>
     <string name="type_comparison_weak">Weak</string>
 
 
-    <!-- NAV DRAWER HEADERS -->
-    <string name="navigation_item_pokedex" translatable="false">@string/title_activity_pokedex</string>
-    <string name="navigation_item_abilities" translatable="false">@string/title_activity_abilities</string>
-    <string name="navigation_item_moves" translatable="false">@string/title_activity_moves</string>
-    <string name="navigation_item_natures" translatable="false">@string/title_activity_natures</string>
-    <string name="navigation_item_locations" translatable="false">@string/title_activity_locations</string>
-    <string name="navigation_item_favourites" translatable="false">@string/title_activity_favourites</string>
-    <string name="navigation_item_team" translatable="false">@string/title_activity_team</string>
-    <string name="navigation_item_experience" translatable="false">@string/title_activity_experience_calculator</string>
-
-
-    <!-- TAB HEADERS -->
-    <string name="tab_pkmn_detail_general">General</string>
-    <string name="tab_pkmn_detail_evolutions">Forms</string>
-    <string name="tab_pkmn_detail_moves">Moves</string>
-
-
-    <!-- INFORMATION TEXTS -->
-    <string name="header_general">General Information</string>
-    <string name="header_pokemon">Pokémon</string>
-    <string name="header_classification">Classification</string>
-    <string name="header_ability">Ability</string>
-    <string name="header_abilities">Abilities</string>
-    <string name="header_ability_1">Ability 1</string>
-    <string name="header_ability_2">Ability 2</string>
-    <string name="header_ability_h">Hidden Ability</string>
-    <string name="header_type">Type</string>
-    <string name="header_types">Types</string>
-    <string name="header_type_1">Type 1</string>
-    <string name="header_type_2">Type 2</string>
-    <string name="header_appearance">Physical Attributes</string>
-    <string name="header_height">Height</string>
-    <string name="header_mass">Mass</string>
-    <string name="header_statistics">Statistics</string>
-    <string name="header_stats">Stats</string>
-    <string name="header_stat_hp">HP</string>
-    <string name="header_stat_atk">Attack</string>
-    <string name="header_stat_def">Defense</string>
-    <string name="header_stat_spA">Sp. Atk</string>
-    <string name="header_stat_spD">Sp. Def</string>
-    <string name="header_stat_spe">Speed</string>
-    <string name="header_stat_total">Total</string>
-    <string name="header_stat_average">Average</string>
-    <string name="header_gender">Gender ratio</string>
-    <string name="header_gender_male">Male</string>
-    <string name="header_gender_female">Female</string>
-    <string name="header_training">Training</string>
-    <string name="header_catch_rate">Catch rate</string>
-    <string name="header_levelling_rate">Levelling Rate</string>
-    <string name="header_base_happiness">Base Happiness</string>
-    <string name="header_exp_growth">Experience to Lvl. 100</string>
-    <string name="header_exp_growth_shortened">EXP to Lvl 100</string>
-    <string name="header_base_egg_steps">Base Egg Steps</string>
-    <string name="header_base_egg_cycles">Base Egg Cycles</string>
-    <string name="header_more_information">More information</string>
-    <string name="header_generation">Generation</string>
-    <string name="header_colour">Colour</string>
-    <string name="header_shape">Shape</string>
-    <string name="header_habitat">Habitat</string>
     <string name="header_evolutions">Evolutions</string>
+
     <string name="header_tools">Tools</string>
     <string name="header_tools_experience">@string/action_calculate_experience</string>
     <string name="header_forms">Forms</string>
@@ -161,7 +178,6 @@
     <string name="header_location_regions">Regions</string>
 
 
-    <!-- DESCRIPTIONS OF PROPERTIES (used in detail dialog) -->
     <string name="description_catch">Higher catch rates mean that the Pokémon is easier to catch, up to a maximum of 255,
         but other factors such as PokéBall type and Pokémon health also affect how easily a Pokémon can be caught in-game.
         \n\nThis Pokémon has a catch rate of %1$s.</string>
@@ -187,11 +203,12 @@
         \n\nAn egg of this Pokémon species will take %1$s cycles to hatch.</string>
 
 
-    <!-- FILTER AND SORT TEXTS  -->
     <string name="title_filtered_pokedex">Filtered Pokédex</string>
     <string name="title_filtered_abilities">Filtered Abilities</string>
     <string name="title_filtered_moves">Filtered Moves</string>
     <string name="title_filtered_locations">Filtered Locations</string>
+
+
     <string name="search_hint_pokedex">Search by ID or name</string>
     <string name="sort_by_id">Sorted by ID</string>
     <string name="sort_by_name">Sorted by name</string>
@@ -210,27 +227,27 @@
     <string name="filter_button_go">Go</string>
 
 
-    <!-- MESSAGES (TOASTS/SNACKBARS) -->
     <string name="misc_requires_pro">This feature requires the full version of the app</string>
     <string name="misc_no_results">No results found</string>
     <string name="add_favourites">Add Favourite Pokémon</string>
-    <string name="add_favourites_description">You can add a Pokémon to the Favourites list by going to its detail page and pressing the star (favourites) icon at the top right.</string>
+    <string name="add_favourites_description">You can add a Pokémon to the Favourites list  </string>
     <string name="favourites_error">ERROR: This Pokémon is not in the favourites list</string>
     <string name="favourites_cleared">Favourites has been cleared</string>
     <string name="filter_error">You must specify at least one filter</string>
-    <string name="mark_favourites">%1$s has been %2$s Favourites</string>
-    <!-- POKEMON has been MARK_TYPE favourites -->
+    <string name="mark_favourites">%1$s has been %2$s Favourites</string> <!-- POKEMON has been MARK_TYPE favourites --> <!-- TODO change to two separate strings -->
     <string name="null_alternate_forms">%1$s does not have any alternate forms</string>
     <string name="location_no_pokemon">No Pokémon found at this location</string>
 
+    <string name="detail_nav_back_error">You cannot navigate further back</string>
+    <string name="detail_nav_forward_error">You cannot navigate further forward</string>
 
-    <!-- EXPERIENCE CALCULATOR -->
+
     <string name="experience_select_pokemon">Select a Pokémon</string>
     <string name="experience_select_levelling_rate">Choose levelling rate</string>
     <string name="experience_calculate">Calculate</string>
     <string name="experience_description">total exp to be at Level %1$s with %2$s growth</string>
 
-    <!-- SPLASH AND ABOUT PAGE -->
+
     <string name="welcome_message">Welcome to %1$s!</string>
     <string name="about_app_info">%1$s app
         \nVersion: %2$s</string>
@@ -248,27 +265,22 @@
         \n\ndevelopers.phoenixenterprise@gmail.com</string>
 
 
-    <!-- INIT DB SCREEN -->
     <string name="initialise_title">Initialising databases</string>
     <string name="initialise_msg">Please wait whilst we load the databases for the first time, in order for searching and filtering to be as fast as possible.
-        This may take up to 3 minutes.</string>
+        This may take up to 10 minutes.
+        To make sure your experience is as fast as possible, we need to do this just for the first time (and if any of the databases get updated).</string>
     <string name="initialise_loading">Loading (%1$s)</string>
     <string name="initialise_wait_prompt">Please wait until the loading has finished to avoid crashes</string>
-    <string name="initialise_setup_desc">Setting up the %1$s database…</string>
+    <string name="initialise_setup_desc">Creating databases for %1$s…</string>
     <string name="initialise_finished">Initialisation completed</string>
 
 
-    <!-- DRAWER TOGGLE -->
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 
-
-    <!-- IMAGE CONTENT DESCRIPTIONS -->
     <string name="img_desc_banner">App Banner</string>
     <string name="img_desc_pokemon">Pokémon Image</string>
 
-
-    <!-- DUMMY TEXTS -->
     <string name="dummy_id" translatable="false"># 537</string>
     <string name="dummy_pokemon" translatable="false">A Pokémon</string>
     <string name="dummy_form" translatable="false">A Form</string>
@@ -295,6 +307,5 @@
     <string name="dummy_property" translatable="false">A property</string>
     <string name="dummy_about_app" translatable="false">App Info</string>
     <string name="hello_world" translatable="false">Hello world!</string>
-    <string name="title_activity_location_detail">Location Detail</string>
 
 </resources>

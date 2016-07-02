@@ -7,7 +7,7 @@
     app:cardUseCompatPadding="false"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.satsumasoftware.pokedex.dialog.NatureDetailActivity">
+    tools:context=".ui.NatureDetailActivity">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:paddingRight="@dimen/card_padding_lateral">
 
             <TextView
-                android:id="@+id/natureDetail_tvTitle"
+                android:id="@+id/natureName"
                 android:text="@string/dummy_nature"
                 style="@style/AppTheme.CardView.Text.Title"
                 android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                         android:layout_weight="1" />
 
                     <TextView
-                        android:id="@+id/natureDetail_tvStatIncr_info"
+                        android:id="@+id/natureIncreasedStat"
                         android:text="@string/dummy_stat"
                         style="@style/AppTheme.CardView.Text.Supporting"
                         android:gravity="center"
@@ -72,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
                     <TextView
-                        android:id="@+id/natureDetail_tvStatDecr_info"
+                        android:id="@+id/natureDecreasedStat"
                         android:text="@string/dummy_stat"
                         style="@style/AppTheme.CardView.Text.Supporting"
                         android:gravity="center"

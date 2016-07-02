@@ -4,7 +4,7 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.satsumasoftware.pokedex.ChangelogActivity" >
+    tools:context=".ui.ChangelogActivity" >
 
     <android.support.design.widget.CoordinatorLayout
         android:orientation="vertical"
@@ -22,6 +22,10 @@
                 app:layout_scrollFlags="scroll|enterAlways" />
             <include layout="@layout/blank" /> <!-- This is to prevent bugs -->
         </android.support.design.widget.AppBarLayout>
+
+        <include layout="@layout/progress_indeterminate"
+            android:id="@+id/changelog_progress"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/changelog_rv"

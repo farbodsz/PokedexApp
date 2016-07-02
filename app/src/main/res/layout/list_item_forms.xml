@@ -9,52 +9,28 @@
     android:baselineAligned="false">
 
     <LinearLayout
+        android:id="@+id/item_form_background"
         android:orientation="horizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2">
         <TextView
             android:id="@+id/item_form_text1"
-            android:textSize="@dimen/lvAdv_txtSize"
-            android:textColor="@color/text_black"
+            android:textSize="@dimen/list_text_size"
+            android:textColor="@color/mdu_text_black"
             android:gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
         <TextView
             android:id="@+id/item_form_text2"
-            android:textSize="@dimen/lvAdv_txtSize"
-            android:textColor="@color/text_black_secondary"
+            android:textSize="@dimen/list_text_size"
+            android:textColor="@color/mdu_text_black_secondary"
             android:gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/keyline_16"
-            android:layout_marginStart="@dimen/keyline_16"
-            android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-        <TextView
-            android:id="@+id/item_form_text_type1"
-            android:textSize="@dimen/lvAdv_txtSize"
-            android:textColor="@color/text_white"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
-        <TextView
-            android:id="@+id/item_form_text_type2"
-            android:textSize="@dimen/lvAdv_txtSize"
-            android:textColor="@color/text_white"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/mdu_keyline_1"
+            android:layout_marginStart="@dimen/mdu_keyline_1"
             android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
     </LinearLayout>
 

@@ -9,12 +9,19 @@
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
 
+    <style name="AppTheme.Toolbar.ExtendedTextAppearance">
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
     <style name="AppTheme.TabLayout">
         <item name="android:background">?attr/colorPrimary</item>
     </style>
 
     <style name="AppTheme.TabLayout.TextAppearance">
-        <item name="android:textColor">@color/text_white_secondary</item>
+        <item name="android:textColor">@color/mdu_text_white_secondary</item>
     </style>
 
     <style name="AppTheme.HeaderBar">
@@ -27,7 +34,7 @@
 
     <style name="AppTheme.Button.Raised" parent="Widget.AppCompat.Button">
         <!-- Button background color is set with colorButtonNormal -->
-        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textColor">@color/mdu_text_white</item>
     </style>
 
     <style name="AppTheme.Button.Flat" parent="Widget.AppCompat.Button.Borderless">
@@ -60,7 +67,7 @@
 
     <style name="AppTheme.CardView.Text.Subtitle">
         <item name="android:textSize">@dimen/card_text_primary_subtitle</item>
-        <item name="android:textColor">@color/text_black_secondary</item>
+        <item name="android:textColor">@color/mdu_text_black_secondary</item>
     </style>
 
     <style name="AppTheme.CardView.Text.Supporting">
@@ -89,7 +96,7 @@
     </style>
 
     <style name="AppTheme.LinearLayout.Footer" parent="Widget.AppCompat.ButtonBar">
-        <item name="android:background">@color/white</item>
+        <item name="android:background">@color/mdu_white</item>
         <item name="android:gravity">center_vertical|end</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
@@ -110,8 +117,8 @@
 
     <style name="AppTheme.TextView.DrawerSubhead">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/navdrawer_text_subheader</item>
-        <item name="android:minHeight">@dimen/list_item_height</item>
+        <item name="android:textColor">@color/mdu_text_black_secondary</item>
+        <item name="android:minHeight">@dimen/filter_drawer_spinner_height</item>
         <item name="android:gravity">center_vertical</item>
     </style>
 
@@ -120,7 +127,7 @@
 
     <style name="AppTheme.HeaderBarText.Primary">
         <item name="android:textSize">@dimen/card_text_primary_title</item>
-        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textColor">@color/mdu_text_white</item>
     </style>
 
     <style name="AppTheme.HeaderBarText.Primary.Small">
@@ -133,7 +140,7 @@
 
     <style name="AppTheme.HeaderBarText.Secondary">
         <item name="android:textSize">@dimen/card_text_primary_subtitle</item>
-        <item name="android:textColor">@color/text_white_secondary</item>
+        <item name="android:textColor">@color/mdu_text_white_secondary</item>
     </style>
 
     <style name="AppTheme.HeaderBarText.Secondary.Larger">

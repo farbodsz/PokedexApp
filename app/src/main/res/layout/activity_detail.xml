@@ -5,31 +5,31 @@
     android:layout_height="match_parent" >
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/detail_headerBar"
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <android.support.v7.widget.Toolbar
-            android:id="@+id/detail_toolbar"
+            android:id="@+id/toolbar"
             style="@style/AppTheme.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <android.support.design.widget.TabLayout
-            android:id="@+id/detail_tabs"
+            android:id="@+id/tabLayout"
             style="@style/AppTheme.TabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/detail_viewpager"
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/detail_headerBar"
-        android:layout_above="@+id/detail_adView" />
+        android:layout_below="@id/appBarLayout"
+        android:layout_above="@+id/adView" />
 
     <com.google.android.gms.ads.AdView
-        android:id="@+id/detail_adView"
+        android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
