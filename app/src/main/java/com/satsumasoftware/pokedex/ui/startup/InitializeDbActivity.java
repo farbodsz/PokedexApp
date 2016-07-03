@@ -15,22 +15,13 @@ import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
-import com.satsumasoftware.pokedex.db.AbilityFlavorDBHelper;
-import com.satsumasoftware.pokedex.db.AbilityProseDBHelper;
-import com.satsumasoftware.pokedex.db.EggGroupProseDBHelper;
 import com.satsumasoftware.pokedex.db.EncounterConditionsDBHelper;
-import com.satsumasoftware.pokedex.db.EncounterSlotsDBHelper;
 import com.satsumasoftware.pokedex.db.EncountersDBHelper;
-import com.satsumasoftware.pokedex.db.ExperienceDBHelper;
-import com.satsumasoftware.pokedex.db.LocationAreaEncounterRatesDBHelper;
 import com.satsumasoftware.pokedex.db.LocationAreasDBHelper;
-import com.satsumasoftware.pokedex.db.LocationNamesDBHelper;
 import com.satsumasoftware.pokedex.db.LocationsDBHelper;
-import com.satsumasoftware.pokedex.db.MoveEffectProseDBHelper;
 import com.satsumasoftware.pokedex.db.MovesDBHelper;
 import com.satsumasoftware.pokedex.db.NaturesDBHelper;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
-import com.satsumasoftware.pokedex.db.PokemonMovesDBHelper;
 import com.satsumasoftware.pokedex.util.DatabaseUtils;
 import com.satsumasoftware.pokedex.util.FavoriteUtils;
 
@@ -39,8 +30,6 @@ import java.util.ArrayList;
 public class InitializeDbActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "InitializeDBActivity";
-
-    // STOPSHIP TODO remove this?
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,60 +57,33 @@ public class InitializeDbActivity extends AppCompatActivity {
 
         final SQLiteOpenHelper[] helpers = {
                 new AbilitiesDBHelper(this),
-                new AbilityFlavorDBHelper(this),
-                new AbilityProseDBHelper(this),
-                new EggGroupProseDBHelper(this),
                 new EncounterConditionsDBHelper(this),
                 new EncountersDBHelper(this),
-                new EncounterSlotsDBHelper(this),
-                new ExperienceDBHelper(this),
-                new LocationAreaEncounterRatesDBHelper(this),
                 new LocationAreasDBHelper(this),
-                new LocationNamesDBHelper(this),
                 new LocationsDBHelper(this),
-                new MoveEffectProseDBHelper(this),
                 new MovesDBHelper(this),
                 new NaturesDBHelper(this),
                 new PokemonDBHelper(this),
-                new PokemonMovesDBHelper(this)
         };
         final String[] tableNames = {
                 AbilitiesDBHelper.TABLE_NAME,
-                AbilityFlavorDBHelper.TABLE_NAME,
-                AbilityProseDBHelper.TABLE_NAME,
-                EggGroupProseDBHelper.TABLE_NAME,
                 EncounterConditionsDBHelper.TABLE_NAME,
                 EncountersDBHelper.TABLE_NAME,
-                EncounterSlotsDBHelper.TABLE_NAME,
-                ExperienceDBHelper.TABLE_NAME,
-                LocationAreaEncounterRatesDBHelper.TABLE_NAME,
                 LocationAreasDBHelper.TABLE_NAME,
-                LocationNamesDBHelper.TABLE_NAME,
                 LocationsDBHelper.TABLE_NAME,
-                MoveEffectProseDBHelper.TABLE_NAME,
                 MovesDBHelper.TABLE_NAME,
                 NaturesDBHelper.TABLE_NAME,
                 PokemonDBHelper.TABLE_NAME,
-                PokemonMovesDBHelper.TABLE_NAME
         };
         final int[] lineCounts = {
                 252, // Abilities
-                7829, // Ability Flavor
-                572, // Ability Prose
-                91, // Egg Group Prose
                 20, // Encounter Conditions
                 46531, // Encounters
-                489, // Encounter Slots
-                601, // Experience
-                3866, // Location Area Encounter Rates
                 717, // Location Areas
-                2102, // Location Names
                 690, // Locations
-                1063, // Move Effect Prose
                 640, // Moves
                 26, // Natures
                 914, // Pokemon
-                366541 // Pokemon Moves
         };
         // i.e. ___ database
 

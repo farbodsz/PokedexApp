@@ -3,7 +3,7 @@ package com.satsumasoftware.pokedex.entities.pokemon;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.satsumasoftware.pokedex.db.PokemonMovesDBHelper;
+import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.entities.move.MiniMove;
 
 import java.util.ArrayList;
@@ -43,21 +43,21 @@ public class PokemonMoves {
         ArrayList<Integer> orders = new ArrayList<>();
         ArrayList<PokemonMove> pokemonMoves = new ArrayList<>();
 
-        PokemonMovesDBHelper helper = new PokemonMovesDBHelper(mContext);
-        Cursor cursor = helper.getReadableDatabase().query(
-                PokemonMovesDBHelper.TABLE_NAME,
+        PokeDB pokeDB = new PokeDB(mContext);
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.PokemonMoves.TABLE_NAME,
                 null,
-                PokemonMovesDBHelper.COL_POKEMON_ID + "=? AND " +
-                        PokemonMovesDBHelper.COL_POKEMON_MOVE_METHOD_ID + "=? AND " +
-                        PokemonMovesDBHelper.COL_VERSION_GROUP_ID + "=?",
+                PokeDB.PokemonMoves.COL_POKEMON_ID + "=? AND " +
+                        PokeDB.PokemonMoves.COL_POKEMON_MOVE_METHOD_ID + "=? AND " +
+                        PokeDB.PokemonMoves.COL_VERSION_GROUP_ID + "=?",
                 new String[] {String.valueOf(mPokemonId), String.valueOf(mPokemonMoveMethodId),
                         String.valueOf(mVersionGroupId)},
                 null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            int moveId = cursor.getInt(cursor.getColumnIndex(PokemonMovesDBHelper.COL_MOVE_ID));
-            int level = cursor.getInt(cursor.getColumnIndex(PokemonMovesDBHelper.COL_LEVEL));
-            int order = cursor.getInt(cursor.getColumnIndex(PokemonMovesDBHelper.COL_ORDER));
+            int moveId = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_MOVE_ID));
+            int level = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_LEVEL));
+            int order = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_ORDER));
             pokemonMoves.add(new PokemonMove(moveId, level, order));
             //moveIds.add(moveId);
             //levels.add(level);

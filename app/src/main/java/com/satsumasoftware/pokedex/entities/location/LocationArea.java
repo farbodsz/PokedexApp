@@ -70,7 +70,7 @@ public class LocationArea {
             int pokemonId = cursor.getInt(cursor.getColumnIndex(EncountersDBHelper.COL_POKEMON_ID));
             int minLevel = cursor.getInt(cursor.getColumnIndex(EncountersDBHelper.COL_MIN_LVL));
             int maxLevel = cursor.getInt(cursor.getColumnIndex(EncountersDBHelper.COL_MAX_LVL));
-            int encounterConditionId = cursor.getInt(cursor.getColumnIndex(EncountersDBHelper.COL_ENCOUNTER_CONDITION_ID));
+            int encounterConditionId = cursor.getInt(cursor.getColumnIndex(EncountersDBHelper.COL_ENCOUNTER_CONDITION_VALUE_ID));
             encounters.add(new Encounter(encounterId, versionId, mId, encounterSlotId, pokemonId, minLevel, maxLevel, encounterConditionId));
             cursor.moveToNext();
         }

@@ -2,9 +2,8 @@ package com.satsumasoftware.pokedex.entities.ability;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
-import com.satsumasoftware.pokedex.db.AbilityFlavorDBHelper;
+import com.satsumasoftware.pokedex.db.PokeDB;
 
 public final class AbilityFlavorText {
 
@@ -21,18 +20,17 @@ public final class AbilityFlavorText {
     }
 
     public static String getFlavorText(Context context, int abilityId, int versionGroupId, int langId) {
-        AbilityFlavorDBHelper helper = new AbilityFlavorDBHelper(context);
-        SQLiteDatabase database = helper.getReadableDatabase();
-        Cursor cursor = database.query(
-                AbilityFlavorDBHelper.TABLE_NAME,
+        PokeDB pokeDB = new PokeDB(context);
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.AbilityFlavorText.TABLE_NAME,
                 null,
-                AbilityFlavorDBHelper.COL_ABILITY_ID + "=? AND " +
-                        AbilityFlavorDBHelper.COL_VERSION_GROUP_ID + "=? AND " +
-                        AbilityFlavorDBHelper.COL_LANGUAGE_ID + "=?",
+                PokeDB.AbilityFlavorText.COL_ABILITY_ID + "=? AND " +
+                        PokeDB.AbilityFlavorText.COL_VERSION_GROUP_ID + "=? AND " +
+                        PokeDB.AbilityFlavorText.COL_LANGUAGE_ID + "=?",
                 new String[] {String.valueOf(abilityId), String.valueOf(versionGroupId), String.valueOf(langId)},
                 null, null, null);
         cursor.moveToFirst();
-        String flavorText = cursor.getString(cursor.getColumnIndex(AbilityFlavorDBHelper.COL_FLAVOR_TEXT));
+        String flavorText = cursor.getString(cursor.getColumnIndex(PokeDB.AbilityFlavorText.COL_FLAVOR_TEXT));
         cursor.close();
         return flavorText.replace("\n", " ");  // to remove the line breaks
     }

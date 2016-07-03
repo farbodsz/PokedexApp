@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.satsumasoftware.pokedex.R;
+import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
-import com.satsumasoftware.pokedex.db.PokemonMovesDBHelper;
 import com.satsumasoftware.pokedex.entities.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.ui.DetailActivity;
@@ -295,18 +295,18 @@ public class FilterResultsActivity extends AppCompatActivity {
     private void filterLearnsetData() {
         int moveId = mExtras.getInt(FILTER_MOVE);
 
-        PokemonMovesDBHelper helper = new PokemonMovesDBHelper(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
+        PokeDB pokeDB = new PokeDB(this);
+        SQLiteDatabase db = pokeDB.getReadableDatabase();
 
-        String gameFilter = "(" + PokemonMovesDBHelper.COL_VERSION_GROUP_ID + "=" + AppConfig.GAME_VERSION_X_Y + ")";
-        String learnFilter = "(" + PokemonMovesDBHelper.COL_POKEMON_MOVE_METHOD_ID + "=" + AppConfig.LEARN_METHOD_LEVEL_UP +
-                " OR " + PokemonMovesDBHelper.COL_POKEMON_MOVE_METHOD_ID + "=" + AppConfig.LEARN_METHOD_MACHINE +
-                " OR " + PokemonMovesDBHelper.COL_POKEMON_MOVE_METHOD_ID + "=" + AppConfig.LEARN_METHOD_TUTOR + ")";
-        String moveFilter = "(" + PokemonMovesDBHelper.COL_MOVE_ID + "=" + moveId + ")";
+        String gameFilter = "(" + PokeDB.PokemonMoves.COL_VERSION_GROUP_ID + "=" + AppConfig.GAME_VERSION_X_Y + ")";
+        String learnFilter = "(" + PokeDB.PokemonMoves.COL_POKEMON_MOVE_METHOD_ID + "=" + AppConfig.LEARN_METHOD_LEVEL_UP +
+                " OR " + PokeDB.PokemonMoves.COL_POKEMON_MOVE_METHOD_ID + "=" + AppConfig.LEARN_METHOD_MACHINE +
+                " OR " + PokeDB.PokemonMoves.COL_POKEMON_MOVE_METHOD_ID + "=" + AppConfig.LEARN_METHOD_TUTOR + ")";
+        String moveFilter = "(" + PokeDB.PokemonMoves.COL_MOVE_ID + "=" + moveId + ")";
         String selection = gameFilter + " AND " + learnFilter + " AND " + moveFilter;
 
         Cursor cursor = db.query(
-                PokemonMovesDBHelper.TABLE_NAME,
+                PokeDB.PokemonMoves.TABLE_NAME,
                 null,
                 selection,
                 null,
@@ -316,7 +316,7 @@ public class FilterResultsActivity extends AppCompatActivity {
         cursor.moveToFirst();
         mArrayPokemon.clear();
         while (!cursor.isAfterLast()) {
-            int id = cursor.getInt(cursor.getColumnIndex(PokemonMovesDBHelper.COL_POKEMON_ID));
+            int id = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_POKEMON_ID));
             MiniPokemon pokemon = new MiniPokemon(this, id);
             if (!mArrayPokemon.contains(pokemon)) {
                 mArrayPokemon.add(pokemon);
