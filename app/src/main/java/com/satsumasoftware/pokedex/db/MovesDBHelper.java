@@ -8,19 +8,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.satsumasoftware.pokedex.entities.move.MiniMove;
 import com.satsumasoftware.pokedex.entities.move.Move;
-import com.satsumasoftware.pokedex.util.CSVUtils;
-import com.univocity.parsers.csv.CsvParser;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MovesDBHelper extends SQLiteOpenHelper {
 
     /* General Database and Table information */
     private static final String DATABASE_NAME = "moves.db";
     public static final String TABLE_NAME = "moves";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     /* All Column Names */
     public static final String COL_ID = "id";
@@ -96,88 +92,116 @@ public class MovesDBHelper extends SQLiteOpenHelper {
     }
 
     private void populateDatabase(SQLiteDatabase db) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            db.beginTransaction();
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.MOVES));
-            for (String[] line : allRows) {
+        PokeDB pokeDB = new PokeDB(mContext);
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.Moves.TABLE_NAME, null, null, null, null, null, null);
+        cursor.moveToFirst();
+        db.beginTransaction();
+        while (!cursor.isAfterLast()) {
+            ContentValues values = new ContentValues();
 
-                ContentValues values = new ContentValues();
+            int moveId = cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_ID));
+            values.put(COL_ID, moveId);
 
-                int moveId = Integer.parseInt(line[0]);
-                values.put(COL_ID, moveId);
-                // line[1] (identifier) is not used thus ignored here
+            // the identifier is not used thus ignored here
 
-                values.put(COL_GENERATION_ID, Integer.parseInt(line[2]));
-                values.put(COL_TYPE_ID, Integer.parseInt(line[3]));
+            values.put(COL_GENERATION_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_GENERATION_ID)));
+            values.put(COL_TYPE_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_TYPE_ID)));
 
-                values.put(COL_POWER, (line[4] == null) ? -1 : Integer.parseInt(line[4]));
-                values.put(COL_PP, (line[5] == null) ? -1 : Integer.parseInt(line[5]));
-                values.put(COL_ACCURACY, (line[6] == null) ? -1 : Integer.parseInt(line[6]));
+            int powerColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_POWER);
+            values.put(COL_POWER, cursor.isNull(powerColIndex) ? -1 : cursor.getInt(powerColIndex));
 
-                values.put(COL_PRIORITY, Integer.parseInt(line[7]));
-                values.put(COL_TARGET_ID, Integer.parseInt(line[8]));
-                values.put(COL_DAMAGE_CLASS_ID, Integer.parseInt(line[9]));
-                values.put(COL_EFFECT_ID, Integer.parseInt(line[10]));
-                values.put(COL_EFFECT_CHANCE, (line[11] == null) ? -1 : Integer.parseInt(line[11]));
+            int ppColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_PP);
+            values.put(COL_PP, cursor.isNull(ppColIndex) ? -1 : cursor.getInt(ppColIndex));
 
-                values.put(COL_CONTEST_TYPE_ID, (line[12] == null) ? -1 : Integer.parseInt(line[12]));
-                values.put(COL_CONTEST_EFFECT_ID, (line[13] == null) ? -1 : Integer.parseInt(line[13]));
-                values.put(COL_SUPER_CONTEST_EFFECT_ID, (line[14] == null) ? -1 : Integer.parseInt(line[14]));
+            int accuracyColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_ACCURACY);
+            values.put(COL_ACCURACY, cursor.isNull(accuracyColIndex) ?
+                    -1 : cursor.getInt(accuracyColIndex));
 
-                putNameValues(values, Integer.parseInt(line[0]));
+            values.put(COL_PRIORITY,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_PRIORITY)));
+            values.put(COL_TARGET_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_TARGET_ID)));
+            values.put(COL_DAMAGE_CLASS_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_DAMAGE_CLASS_ID)));
+            values.put(COL_EFFECT_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_EFFECT_ID)));
 
-                db.insert(TABLE_NAME, null, values);
-            }
-            db.setTransactionSuccessful();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            db.endTransaction();
+            int effectChanceColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_EFFECT_CHANCE);
+            values.put(COL_EFFECT_CHANCE, cursor.isNull(effectChanceColIndex) ?
+                    -1 : cursor.getInt(effectChanceColIndex));
+
+            int contestTypeIdColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_CONTEST_TYPE_ID);
+            values.put(COL_CONTEST_TYPE_ID, cursor.isNull(contestTypeIdColIndex) ?
+                    -1 : cursor.getInt(contestTypeIdColIndex));
+
+            int contestEffectIdColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_CONTEST_EFFECT_ID);
+            values.put(COL_CONTEST_EFFECT_ID, cursor.isNull(contestEffectIdColIndex) ?
+                    -1 : cursor.getInt(contestEffectIdColIndex));
+
+            int superContestEffectIdColIndex =
+                    cursor.getColumnIndex(PokeDB.Moves.COL_SUPER_CONTEST_EFFECT_ID);
+            values.put(COL_SUPER_CONTEST_EFFECT_ID, cursor.isNull(superContestEffectIdColIndex) ?
+                    -1 : cursor.getInt(superContestEffectIdColIndex));
+
+            putNameValues(values, moveId, pokeDB);
+
+            db.insert(TABLE_NAME, null, values);
+
+            cursor.moveToNext();
         }
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        cursor.close();
+        pokeDB.close();
+        db.close();
     }
 
-    private void putNameValues(ContentValues values, int moveId) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.MOVE_NAMES));
-            for (String[] line : allRows) {
+    private void putNameValues(ContentValues values, int moveId, PokeDB pokeDB) {
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.MoveNames.TABLE_NAME,
+                null,
+                PokeDB.MoveNames.COL_MOVE_ID + "=?",
+                new String[] {String.valueOf(moveId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int languageId =
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.MoveNames.COL_LOCAL_LANGUAGE_ID));
+            String name =
+                    cursor.getString(cursor.getColumnIndex(PokeDB.MoveNames.COL_NAME));
 
-                if (Integer.parseInt(line[0]) == moveId) {
-                    int languageId = Integer.parseInt(line[1]);
-                    String name = line[2];
-
-                    switch (languageId) {
-                        case 1:
-                            values.put(COL_NAME_JAPANESE, name);
-                            break;
-                        case 3:
-                            values.put(COL_NAME_KOREAN, name);
-                            break;
-                        case 5:
-                            values.put(COL_NAME_FRENCH, name);
-                            break;
-                        case 6:
-                            values.put(COL_NAME_GERMAN, name);
-                            break;
-                        case 7:
-                            values.put(COL_NAME_SPANISH, name);
-                            break;
-                        case 8:
-                            values.put(COL_NAME_ITALIAN, name);
-                            break;
-                        case 9:
-                            values.put(COL_NAME, name);
-                            return;
-                        default:
-                            throw new IllegalArgumentException("language id '" +
-                                    String.valueOf(languageId) + "' is invalid");
-                    }
-                }
+            switch (languageId) {
+                case 1:
+                    values.put(COL_NAME_JAPANESE, name);
+                    break;
+                case 3:
+                    values.put(COL_NAME_KOREAN, name);
+                    break;
+                case 5:
+                    values.put(COL_NAME_FRENCH, name);
+                    break;
+                case 6:
+                    values.put(COL_NAME_GERMAN, name);
+                    break;
+                case 7:
+                    values.put(COL_NAME_SPANISH, name);
+                    break;
+                case 8:
+                    values.put(COL_NAME_ITALIAN, name);
+                    break;
+                case 9:
+                    values.put(COL_NAME, name);
+                    break;
+                default:
+                    throw new IllegalArgumentException("language id '" +
+                            String.valueOf(languageId) + "' is invalid");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            cursor.moveToNext();
         }
+        cursor.close();
     }
 
     public ArrayList<Move> getAllMoves() {

@@ -8,12 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.satsumasoftware.pokedex.entities.pokemon.MiniPokemon;
-import com.satsumasoftware.pokedex.util.CSVUtils;
-import com.univocity.parsers.csv.CsvParser;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class PokemonDBHelper extends SQLiteOpenHelper {
 
@@ -25,7 +21,7 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "pokemon.db";
     public static final String TABLE_NAME = "pokemon";
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 7;
 
     /*
      * All Column Names
@@ -275,428 +271,464 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
     }
 
     private void populateDatabase(SQLiteDatabase db) {
-        /* The structure of the CSV files goes like this:
+        /*
+         * The structure of the tables goes like this:
          *      forms --> pokemon --> species
-         * In the first 2 dbs, there are ids that are used to lead to the next dbs
+         * In the first two tables, there are ids that are used to lead to the next tables
          */
 
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            db.beginTransaction();
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.POKEMON_FORMS));
-            for (String[] line : allRows) {
-                ContentValues values = new ContentValues();
+        PokeDB pokeDB = new PokeDB(mContext);
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.PokemonForms.TABLE_NAME, null, null, null, null, null, null);
+        cursor.moveToFirst();
+        db.beginTransaction();
+        while (!cursor.isAfterLast()) {
+            ContentValues values = new ContentValues();
 
-                values.put(COL_FORM_ID, Integer.parseInt(line[0]));
-                // line[1] (pokemon identifier) is not used; so it's not put in the db
-                // line[2] (form identifier) is not used; so it's not put in the db
+            int formId = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonForms.COL_ID));
+            int pokemonId = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonForms.COL_POKEMON_ID));
 
-                int pokemonId = Integer.parseInt(line[3]);
-                values.put(COL_ID, pokemonId);  // 'pokemon_id' column of CSV
+            values.put(COL_FORM_ID, formId);
+            // pokemon identifier will not be used so it's not put in the db
+            // form identifier will not be used so it's not put in the db
+            values.put(COL_ID, pokemonId);
 
-                values.put(COL_FORM_INTRODUCED_IN_VERSION_GROUP_ID, Integer.parseInt(line[4]));
-                values.put(COL_FORM_IS_DEFAULT, Integer.parseInt(line[5]));
-                values.put(COL_FORM_IS_BATTLE_ONLY, Integer.parseInt(line[6]));
-                values.put(COL_FORM_IS_MEGA, Integer.parseInt(line[7]));
+            values.put(COL_FORM_INTRODUCED_IN_VERSION_GROUP_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonForms.COL_INTRODUCED_IN_VERSION_GROUP_ID)));
+            values.put(COL_FORM_IS_DEFAULT,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonForms.COL_IS_DEFAULT)));
+            values.put(COL_FORM_IS_BATTLE_ONLY,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonForms.COL_IS_BATTLE_ONLY)));
+            values.put(COL_FORM_IS_MEGA,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonForms.COL_IS_MEGA)));
 
-                values.put(COL_FORM_ORDER_OF_FORM, Integer.parseInt(line[8]));
-                values.put(COL_FORM_ORDER, Integer.parseInt(line[9]));
+            values.put(COL_FORM_ORDER_OF_FORM,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonForms.COL_FORM_ORDER)));
+            values.put(COL_FORM_ORDER,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonForms.COL_ORDER)));
 
-                putPokemonValues(values, Integer.parseInt(line[3]));
-                putFormNameValues(values, Integer.parseInt(line[0]));
+            putPokemonValues(values, pokemonId, pokeDB);
+            putFormNameValues(values, formId, pokeDB);
 
-                db.insert(TABLE_NAME, null, values);
+            db.insert(TABLE_NAME, null, values);
 
-                Log.d(LOG_TAG, "Added Pokemon (form) entry of id " + line[0]);
-            }
-            db.setTransactionSuccessful();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            db.endTransaction();
+            Log.d(LOG_TAG, "Added Pokemon (form) entry of id " + formId);
+
+            cursor.moveToNext();
         }
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        cursor.close();
+        pokeDB.close();  // after all Pokemon data has been inserted
+        db.close();
     }
 
-    private void putPokemonValues(ContentValues values, int pokemonId) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.POKEMON));
-            for (String[] line : allRows) {
+    private void putPokemonValues(ContentValues values, int pokemonId, PokeDB pokeDB) {
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.Pokemon.TABLE_NAME,
+                null,
+                PokeDB.Pokemon.COL_ID + "=?",
+                new String[] {String.valueOf(pokemonId)},
+                null, null, null);
+        cursor.moveToFirst();
 
-                if (pokemonId == Integer.parseInt(line[0])) {
-                    // line[0] is the id (COL_POKEMON_ID), which was already added in 'populateDatabase(...)'
-                    // line[1] is the identifier; not used so it is not put in the db
-                    values.put(COL_SPECIES_ID, Integer.parseInt(line[2]));
+        // the id (pokemonId) has already been added so we don't need to worry about it
+        // the identifier is not used so it's not added
 
-                    values.put(COL_HEIGHT, Integer.parseInt(line[3]));
-                    values.put(COL_WEIGHT, Integer.parseInt(line[4]));
+        int speciesId = cursor.getInt(cursor.getColumnIndex(PokeDB.Pokemon.COL_SPECIES_ID));
+        values.put(COL_SPECIES_ID, speciesId);
 
-                    values.put(COL_BASE_EXPERIENCE, Integer.parseInt(line[5]));
-                    values.put(COL_POKEMON_ORDER, Integer.parseInt(line[6]));
-                    values.put(COL_IS_DEFAULT, Integer.parseInt(line[7]));
+        values.put(COL_HEIGHT,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.Pokemon.COL_HEIGHT)));
+        values.put(COL_WEIGHT,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.Pokemon.COL_WEIGHT)));
 
-                    putAbilityValues(values, Integer.parseInt(line[0]));
-                    putTypeValues(values, Integer.parseInt(line[0]));
-                    putStatValues(values, Integer.parseInt(line[0]));
+        values.put(COL_BASE_EXPERIENCE,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.Pokemon.COL_BASE_EXP)));
+        values.put(COL_POKEMON_ORDER,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.Pokemon.COL_ORDER)));
+        values.put(COL_IS_DEFAULT,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.Pokemon.COL_IS_DEFAULT)));
 
-                    putSpeciesValues(values, Integer.parseInt(line[2]));
-                    putSpeciesEggGroupValues(values, Integer.parseInt(line[2]));
-                    putSpeciesPokedexValues(values, Integer.parseInt(line[2]));
-                    putSpeciesNameValues(values, Integer.parseInt(line[2]));
+        putAbilityValues(values, pokemonId, pokeDB);
+        putTypeValues(values, pokemonId, pokeDB);
+        putStatValues(values, pokemonId, pokeDB);
 
+        putSpeciesValues(values, speciesId, pokeDB);
+        putSpeciesEggGroupValues(values, speciesId, pokeDB);
+        putSpeciesPokedexValues(values, speciesId, pokeDB);
+        putSpeciesNameValues(values, speciesId, pokeDB);
+
+        cursor.close();
+    }
+
+    private void putFormNameValues(ContentValues values, int formId, PokeDB pokeDB) {
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.PokemonFormNames.TABLE_NAME,
+                null,
+                PokeDB.PokemonFormNames.COL_POKEMON_FORM_ID + "=?",
+                new String[] {String.valueOf(formId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int languageId =
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonFormNames.COL_LOCAL_LANGUAGE_ID));
+            String formName =
+                    cursor.getString(cursor.getColumnIndex(PokeDB.PokemonFormNames.COL_FORM_NAME));
+            String pokemonName =
+                    cursor.getString(cursor.getColumnIndex(PokeDB.PokemonFormNames.COL_POKEMON_NAME));
+
+            switch (languageId) {
+                case 1:
+                    values.put(COL_FORM_NAME_JAPANESE, formName);
                     break;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void putFormNameValues(ContentValues values, int formId) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.POKEMON_FORM_NAMES));
-            for (String[] line : allRows) {
-
-                if (Integer.parseInt(line[0]) == formId) {
-                    int languageId = Integer.parseInt(line[1]);
-                    String formName = line[2];
-                    String pokemonName = line[3];
-
-                    switch (languageId) {
-                        case 1:
-                            values.put(COL_FORM_NAME_JAPANESE, formName);
-                            break;
-                        case 3:
-                            values.put(COL_FORM_NAME_KOREAN, formName);
-                            break;
-                        case 5:
-                            values.put(COL_FORM_NAME_FRENCH, formName);
-                            values.put(COL_FORM_POKEMON_NAME_FRENCH, pokemonName);
-                            break;
-                        case 6:
-                            values.put(COL_FORM_NAME_GERMAN, formName);
-                            break;
-                        case 7:
-                            values.put(COL_FORM_NAME_SPANISH, formName);
-                            break;
-                        case 8:
-                            values.put(COL_FORM_NAME_ITALIAN, formName);
-                            break;
-                        case 9:
-                            values.put(COL_FORM_NAME, formName);
-                            values.put(COL_FORM_POKEMON_NAME, pokemonName);
-                            return;
-                        default:
-                            throw new IllegalArgumentException("language id '" +
-                                    String.valueOf(languageId) + "' is invalid");
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void putAbilityValues(ContentValues values, int pokemonId) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.POKEMON_ABILITIES));
-            for (String[] line : allRows) {
-
-                // line[2] represents the 'is_hidden' attribute (if it is the hidden ability)
-                // we don't need this as the 'slot' already tells us what sort of ability it is
-
-                if (Integer.parseInt(line[0]) == pokemonId) {
-                    int abilityId = Integer.parseInt(line[1]);
-                    int slot = Integer.parseInt(line[3]);
-                    switch (slot) {
-                        case 1:
-                            values.put(COL_ABILITY_1_ID, abilityId);
-                            break;
-                        case 2:
-                            values.put(COL_ABILITY_2_ID, abilityId);
-                            break;
-                        case 3:
-                            values.put(COL_ABILITY_HIDDEN_ID, abilityId);
-                            return;
-                        default:
-                            throw new IllegalArgumentException("slot '" + String.valueOf(slot)
-                                    + "' is invalid");
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void putTypeValues(ContentValues values, int pokemonId) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.POKEMON_TYPES));
-
-            for (String[] line : allRows) {
-
-                if (Integer.parseInt(line[0]) == pokemonId) {
-                    int typeId = Integer.parseInt(line[1]);
-                    int slot = Integer.parseInt(line[2]);
-
-                    switch (slot) {
-                        case 1:
-                            values.put(COL_TYPE_1_ID, typeId);
-                            break;  // To the next line of the database
-                        case 2:
-                            values.put(COL_TYPE_2_ID, typeId);
-                            return;
-                        default:
-                            throw new IllegalArgumentException("slot '" + String.valueOf(slot)
-                                    + "' is invalid");
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void putStatValues(ContentValues values, int pokemonId) {CsvParser parser = CSVUtils.getMyParser();
-        try {
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.POKEMON_STATS));
-            for (String[] line : allRows) {
-
-                if (Integer.parseInt(line[0]) == pokemonId) {
-                    int statId = Integer.parseInt(line[1]);
-                    int baseStat = Integer.parseInt(line[2]);
-                    int statEV = Integer.parseInt(line[3]);
-
-                    switch (statId) {
-                        case 1:
-                            values.put(COL_STAT_HP, baseStat);
-                            values.put(COL_STAT_HP_EV, statEV);
-                            continue;
-                        case 2:
-                            values.put(COL_STAT_ATK, baseStat);
-                            values.put(COL_STAT_ATK_EV, statEV);
-                            continue;
-                        case 3:
-                            values.put(COL_STAT_DEF, baseStat);
-                            values.put(COL_STAT_DEF_EV, statEV);
-                            continue;
-                        case 4:
-                            values.put(COL_STAT_SPA, baseStat);
-                            values.put(COL_STAT_SPA_EV, statEV);
-                            continue;
-                        case 5:
-                            values.put(COL_STAT_SPD, baseStat);
-                            values.put(COL_STAT_SPD_EV, statEV);
-                            continue;
-                        case 6:
-                            values.put(COL_STAT_SPE, baseStat);
-                            values.put(COL_STAT_SPE_EV, statEV);
-                            return;
-                        default:
-                            throw new IllegalArgumentException("slot (statId) '" +
-                                    String.valueOf(statId) + "' is invalid");
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void putSpeciesValues(ContentValues values, int species) {CsvParser parser = CSVUtils.getMyParser();
-        try {
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.POKEMON_SPECIES));
-            for (String[] line : allRows) {
-                if (Integer.parseInt(line[0]) == species) {
-
-                    // line[0] is the species id (already put in the database)
-                    // line[1] is the species identifier; not used so it is not put in the db
-                    values.put(COL_GENERATION_ID, Integer.parseInt(line[2]));
-
-                    //values.put(COL_EVOLVES_FROM_SPECIES_ID, Integer.parseInt(line[3])); // FIXME see EncounterSlotsDBHelper comment
-                    values.put(COL_EVOLVES_FROM_SPECIES_ID, ((line[3] == null) ? -1 : Integer.parseInt(line[3])) );
-
-                    values.put(COL_EVOLUTION_CHAIN_ID, Integer.parseInt(line[4]));
-
-                    values.put(COL_COLOR_ID, Integer.parseInt(line[5]));
-                    values.put(COL_SHAPE_ID, Integer.parseInt(line[6]));
-                    values.put(COL_HABITAT_ID, ((line[7] == null) ? -1 : Integer.parseInt(line[7])));  // FIXME see EncounterSlotsDBHelper comment
-
-                    values.put(COL_GENDER_RATE, Integer.parseInt(line[8]));
-                    values.put(COL_CAPTURE_RATE, Integer.parseInt(line[9]));
-                    values.put(COL_BASE_HAPPINESS, Integer.parseInt(line[10]));
-                    values.put(COL_IS_BABY, Integer.parseInt(line[11]));
-                    values.put(COL_HATCH_COUNTER, Integer.parseInt(line[12]));
-                    values.put(COL_HAS_GENDER_DIFFERENCES, Integer.parseInt(line[13]));
-                    values.put(COL_GROWTH_RATE_ID, Integer.parseInt(line[14]));
-                    values.put(COL_FORMS_SWITCHABLE, Integer.parseInt(line[15]));
-                    values.put(COL_SPECIES_ORDER, Integer.parseInt(line[16]));
-                    //values.put(COL_SPECIES_CONQUEST_ORDER, Integer.parseInt(line[17]));
-
-                    values.put(COL_SPECIES_CONQUEST_ORDER, ((line[17] == null) ? -1 : Integer.parseInt(line[17])));
-
+                case 3:
+                    values.put(COL_FORM_NAME_KOREAN, formName);
                     break;
-                }
+                case 5:
+                    values.put(COL_FORM_NAME_FRENCH, formName);
+                    values.put(COL_FORM_POKEMON_NAME_FRENCH, pokemonName);
+                    break;
+                case 6:
+                    values.put(COL_FORM_NAME_GERMAN, formName);
+                    break;
+                case 7:
+                    values.put(COL_FORM_NAME_SPANISH, formName);
+                    break;
+                case 8:
+                    values.put(COL_FORM_NAME_ITALIAN, formName);
+                    break;
+                case 9:
+                    values.put(COL_FORM_NAME, formName);
+                    values.put(COL_FORM_POKEMON_NAME, pokemonName);
+                    break;
+                default:
+                    throw new IllegalArgumentException("language id '" +
+                            String.valueOf(languageId) + "' is invalid");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            cursor.moveToNext();
         }
+        cursor.close();
     }
 
-    private void putSpeciesEggGroupValues(ContentValues values, int speciesId) {
-        boolean hasAddedGroup1 = false;
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.POKEMON_EGG_GROUPS));
-            for (String[] line : allRows) {
-
-                if (Integer.parseInt(line[0]) == speciesId) {
-                    int eggGroupId = Integer.parseInt(line[1]);
-
-                    if (!hasAddedGroup1) {
-                        // hasn't added an egg_group_1
-                        values.put(COL_EGG_GROUP_1_ID, eggGroupId);
-                        hasAddedGroup1 = true;
-                    } else {
-                        values.put(COL_EGG_GROUP_2_ID, eggGroupId);
-                        return;
-                    }
-                }
+    private void putAbilityValues(ContentValues values, int pokemonId, PokeDB pokeDB) {
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.PokemonAbilities.TABLE_NAME,
+                null,
+                PokeDB.PokemonAbilities.COL_POKEMON_ID + "=?",
+                new String[] {String.valueOf(pokemonId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int abilityId = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonAbilities.COL_ABILITY_ID));
+            int slot = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonAbilities.COL_SLOT));
+            switch (slot) {
+                case 1:
+                    values.put(COL_ABILITY_1_ID, abilityId);
+                    break;
+                case 2:
+                    values.put(COL_ABILITY_2_ID, abilityId);
+                    break;
+                case 3:
+                    values.put(COL_ABILITY_HIDDEN_ID, abilityId);
+                    break;
+                default:
+                    throw new IllegalArgumentException("slot '" + String.valueOf(slot)
+                            + "' is invalid");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            cursor.moveToNext();
         }
+        cursor.close();
     }
 
-    private void putSpeciesPokedexValues(ContentValues values, int speciesId) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.POKEMON_DEX_NUMBERS));
-            for (String[] line : allRows) {
+    private void putTypeValues(ContentValues values, int pokemonId, PokeDB pokeDB) {
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.PokemonTypes.TABLE_NAME,
+                null,
+                PokeDB.PokemonTypes.COL_POKEMON_ID + "=?",
+                new String[] {String.valueOf(pokemonId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int typeId = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonTypes.COL_TYPE_ID));
+            int slot = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonTypes.COL_SLOT));
 
-                if (Integer.parseInt(line[0]) == speciesId) {
-                    int pokedexId = Integer.parseInt(line[1]);
-                    int pokedexNumber = Integer.parseInt(line[2]);
-
-                    switch (pokedexId) {
-                        case 1:
-                            values.put(COL_POKEDEX_NATIONAL, pokedexNumber);
-                            break;
-                        case 2:
-                            values.put(COL_POKEDEX_KANTO, pokedexNumber);
-                            break;
-                        case 3:
-                            values.put(COL_POKEDEX_ORIGINAL_JOHTO, pokedexNumber);
-                            break;
-                        case 4:
-                            values.put(COL_POKEDEX_HOENN, pokedexNumber);
-                            break;
-                        case 5:
-                            values.put(COL_POKEDEX_ORIGINAL_SINNOH, pokedexNumber);
-                            break;
-                        case 6:
-                            values.put(COL_POKEDEX_EXTENDED_SINNOH, pokedexNumber);
-                            break;
-                        case 7:
-                            values.put(COL_POKEDEX_UPDATED_JOHTO, pokedexNumber);
-                            break;
-                        case 8:
-                            values.put(COL_POKEDEX_ORIGINAL_UNOVA, pokedexNumber);
-                            break;
-                        case 9:
-                            values.put(COL_POKEDEX_UPDATED_UNOVA, pokedexNumber);
-                            break;
-                        case 11:
-                            values.put(COL_POKEDEX_CONQUEST_GALLERY, pokedexNumber);
-                            break;
-                        case 12:
-                            values.put(COL_POKEDEX_KALOS_CENTRAL, pokedexNumber);
-                            break;
-                        case 13:
-                            values.put(COL_POKEDEX_KALOS_COASTAL, pokedexNumber);
-                            break;
-                        case 14:
-                            values.put(COL_POKEDEX_KALOS_MOUNTAIN, pokedexNumber);
-                            break;
-                        case 15:
-                            values.put(COL_POKEDEX_UPDATED_HOENN, pokedexNumber);
-                            return;
-                        default:
-                            throw new IllegalArgumentException("pokedex id '" +
-                                    String.valueOf(pokedexId) + "' is invalid");
-                    }
-                }
+            switch (slot) {
+                case 1:
+                    values.put(COL_TYPE_1_ID, typeId);
+                    break;
+                case 2:
+                    values.put(COL_TYPE_2_ID, typeId);
+                    break;
+                default:
+                    throw new IllegalArgumentException("slot '" + String.valueOf(slot)
+                            + "' is invalid");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            cursor.moveToNext();
         }
+        cursor.close();
     }
 
-    private void putSpeciesNameValues(ContentValues values, int speciesId) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.POKEMON_SPECIES_NAMES));
-            for (String[] line : allRows) {
+    private void putStatValues(ContentValues values, int pokemonId, PokeDB pokeDB) {
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.PokemonStats.TABLE_NAME,
+                null,
+                PokeDB.PokemonStats.COL_POKEMON_ID + "=?",
+                new String[] {String.valueOf(pokemonId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int statId = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonStats.COL_STAT_ID));
+            int baseStat = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonStats.COL_BASE_STAT));
+            int statEV = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonStats.COL_EFFORT));
 
-                if (Integer.parseInt(line[0]) == speciesId) {
-                    int languageId = Integer.parseInt(line[1]);
-                    String name = line[2];
-                    String genus = line[3];
-
-                    switch (languageId) {
-                        case 1:
-                            values.put(COL_NAME_JAPANESE, name);
-                            values.put(COL_GENUS_JAPANESE, genus);
-                            break;
-                        case 2:
-                            values.put(COL_NAME_ROMAJI, name);
-                            values.put(COL_GENUS_ROMAJI, genus); // TODO: remove this and zh genus as they do not exist in the csv
-                            break;
-                        case 3:
-                            values.put(COL_NAME_KOREAN, name);
-                            values.put(COL_GENUS_KOREAN, genus);
-                            break;
-                        case 4:
-                            values.put(COL_NAME_CHINESE, name);
-                            values.put(COL_GENUS_CHINESE, genus);
-                            break;
-                        case 5:
-                            values.put(COL_NAME_FRENCH, name);
-                            values.put(COL_GENUS_FRENCH, genus);
-                            break;
-                        case 6:
-                            values.put(COL_NAME_GERMAN, name);
-                            values.put(COL_GENUS_GERMAN, genus);
-                            break;
-                        case 7:
-                            values.put(COL_NAME_SPANISH, name);
-                            values.put(COL_GENUS_SPANISH, genus);
-                            break;
-                        case 8:
-                            values.put(COL_NAME_ITALIAN, name);
-                            values.put(COL_GENUS_ITALIAN, genus);
-                            break;
-                        case 9:
-                            values.put(COL_NAME, name);
-                            values.put(COL_GENUS, genus);
-                            return;
-                        default:
-                            throw new IllegalArgumentException("language id '" +
-                                    String.valueOf(languageId) + "' is invalid");
-                    }
-                }
+            switch (statId) {
+                case 1:
+                    values.put(COL_STAT_HP, baseStat);
+                    values.put(COL_STAT_HP_EV, statEV);
+                    break;
+                case 2:
+                    values.put(COL_STAT_ATK, baseStat);
+                    values.put(COL_STAT_ATK_EV, statEV);
+                    break;
+                case 3:
+                    values.put(COL_STAT_DEF, baseStat);
+                    values.put(COL_STAT_DEF_EV, statEV);
+                    break;
+                case 4:
+                    values.put(COL_STAT_SPA, baseStat);
+                    values.put(COL_STAT_SPA_EV, statEV);
+                    break;
+                case 5:
+                    values.put(COL_STAT_SPD, baseStat);
+                    values.put(COL_STAT_SPD_EV, statEV);
+                    break;
+                case 6:
+                    values.put(COL_STAT_SPE, baseStat);
+                    values.put(COL_STAT_SPE_EV, statEV);
+                    break;
+                default:
+                    throw new IllegalArgumentException("slot (statId) '" +
+                            String.valueOf(statId) + "' is invalid");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            cursor.moveToNext();
         }
+        cursor.close();
+    }
+
+    private void putSpeciesValues(ContentValues values, int speciesId, PokeDB pokeDB) {
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.PokemonSpecies.TABLE_NAME,
+                null,
+                PokeDB.PokemonSpecies.COL_ID + "=?",
+                new String[] {String.valueOf(speciesId)},
+                null, null, null);
+        cursor.moveToFirst();
+
+        // species id already put in the database)
+        // species identifier not used so it is not put in the db
+
+        values.put(COL_GENERATION_ID,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_GENERATION_ID)));
+
+        int evolvesFromSpeciesIdColIndex =
+                cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_EVOLVES_FROM_SPECIES_ID);
+        values.put(COL_EVOLVES_FROM_SPECIES_ID, cursor.isNull(evolvesFromSpeciesIdColIndex) ?
+                -1 : cursor.getInt(evolvesFromSpeciesIdColIndex));
+
+        values.put(COL_EVOLUTION_CHAIN_ID,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_EVOLUTION_CHAIN_ID)));
+
+        values.put(COL_COLOR_ID,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_COLOR_ID)));
+        values.put(COL_SHAPE_ID,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_SHAPE_ID)));
+        int habitatIdColIndex =
+                cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_HABITAT_ID);
+        values.put(COL_HABITAT_ID,
+                cursor.isNull(habitatIdColIndex) ? -1 : cursor.getInt(habitatIdColIndex));
+
+        values.put(COL_GENDER_RATE,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_GENDER_RATE)));
+        values.put(COL_CAPTURE_RATE,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_CAPTURE_RATE)));
+        values.put(COL_BASE_HAPPINESS,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_BASE_HAPPINESS)));
+        values.put(COL_IS_BABY,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_IS_BABY)));
+        values.put(COL_HATCH_COUNTER,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_HATCH_COUNTER)));
+        values.put(COL_HAS_GENDER_DIFFERENCES,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_HAS_GENDER_DIFFERENCES)));
+        values.put(COL_GROWTH_RATE_ID,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_GROWTH_RATE_ID)));
+        values.put(COL_FORMS_SWITCHABLE,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_FORMS_SWITCHABLE)));
+        values.put(COL_SPECIES_ORDER,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_ORDER)));
+
+        int conquestOrderColIndex =
+                cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_CONQUEST_ORDER);
+        values.put(COL_SPECIES_CONQUEST_ORDER,
+                cursor.isNull(conquestOrderColIndex) ? -1 : cursor.getInt(conquestOrderColIndex));
+
+        cursor.close();
+    }
+
+    private void putSpeciesEggGroupValues(ContentValues values, int speciesId, PokeDB pokeDB) {
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.PokemonEggGroups.TABLE_NAME,
+                null,
+                PokeDB.PokemonEggGroups.COL_SPECIES_ID + "=?",
+                new String[] {String.valueOf(speciesId)},
+                null, null, null);
+        cursor.moveToFirst();
+        boolean hasAddedEggGroup1 = false;
+        while (!cursor.isAfterLast()) {
+            int eggGroupId =
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonEggGroups.COL_EGG_GROUP_ID));
+
+            if (!hasAddedEggGroup1) {
+                values.put(COL_EGG_GROUP_1_ID, eggGroupId);
+                hasAddedEggGroup1 = true;
+            } else {
+                values.put(COL_EGG_GROUP_2_ID, eggGroupId);
+                return;
+            }
+            cursor.moveToNext();
+        }
+        cursor.close();
+    }
+
+    private void putSpeciesPokedexValues(ContentValues values, int speciesId, PokeDB pokeDB) {
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.PokemonDexNumbers.TABLE_NAME,
+                null,
+                PokeDB.PokemonDexNumbers.COL_SPECIES_ID + "=?",
+                new String[] {String.valueOf(speciesId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int pokedexId =
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonDexNumbers.COL_POKEDEX_ID));
+            int pokedexNumber =
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonDexNumbers.COL_POKEDEX_NUMBER));
+
+            switch (pokedexId) {
+                case 1:
+                    values.put(COL_POKEDEX_NATIONAL, pokedexNumber);
+                    break;
+                case 2:
+                    values.put(COL_POKEDEX_KANTO, pokedexNumber);
+                    break;
+                case 3:
+                    values.put(COL_POKEDEX_ORIGINAL_JOHTO, pokedexNumber);
+                    break;
+                case 4:
+                    values.put(COL_POKEDEX_HOENN, pokedexNumber);
+                    break;
+                case 5:
+                    values.put(COL_POKEDEX_ORIGINAL_SINNOH, pokedexNumber);
+                    break;
+                case 6:
+                    values.put(COL_POKEDEX_EXTENDED_SINNOH, pokedexNumber);
+                    break;
+                case 7:
+                    values.put(COL_POKEDEX_UPDATED_JOHTO, pokedexNumber);
+                    break;
+                case 8:
+                    values.put(COL_POKEDEX_ORIGINAL_UNOVA, pokedexNumber);
+                    break;
+                case 9:
+                    values.put(COL_POKEDEX_UPDATED_UNOVA, pokedexNumber);
+                    break;
+                case 11:
+                    values.put(COL_POKEDEX_CONQUEST_GALLERY, pokedexNumber);
+                    break;
+                case 12:
+                    values.put(COL_POKEDEX_KALOS_CENTRAL, pokedexNumber);
+                    break;
+                case 13:
+                    values.put(COL_POKEDEX_KALOS_COASTAL, pokedexNumber);
+                    break;
+                case 14:
+                    values.put(COL_POKEDEX_KALOS_MOUNTAIN, pokedexNumber);
+                    break;
+                case 15:
+                    values.put(COL_POKEDEX_UPDATED_HOENN, pokedexNumber);
+                    break;
+                default:
+                    throw new IllegalArgumentException("pokedex id '" +
+                            String.valueOf(pokedexId) + "' is invalid");
+            }
+            cursor.moveToNext();
+        }
+        cursor.close();
+    }
+
+    private void putSpeciesNameValues(ContentValues values, int speciesId, PokeDB pokeDB) {
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.PokemonSpeciesNames.TABLE_NAME,
+                null,
+                PokeDB.PokemonSpeciesNames.COL_POKEMON_SPECIES_ID + "=?",
+                new String[] {String.valueOf(speciesId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int languageId =
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpeciesNames.COL_LOCAL_LANGUAGE_ID));
+            String name =
+                    cursor.getString(cursor.getColumnIndex(PokeDB.PokemonSpeciesNames.COL_NAME));
+            String genus =
+                    cursor.getString(cursor.getColumnIndex(PokeDB.PokemonSpeciesNames.COL_GENUS));
+
+            switch (languageId) {
+                case 1:
+                    values.put(COL_NAME_JAPANESE, name);
+                    values.put(COL_GENUS_JAPANESE, genus);
+                    break;
+                case 2:
+                    values.put(COL_NAME_ROMAJI, name);
+                    values.put(COL_GENUS_ROMAJI, genus);
+                    break;
+                case 3:
+                    values.put(COL_NAME_KOREAN, name);
+                    values.put(COL_GENUS_KOREAN, genus);
+                    break;
+                case 4:
+                    values.put(COL_NAME_CHINESE, name);
+                    values.put(COL_GENUS_CHINESE, genus);
+                    break;
+                case 5:
+                    values.put(COL_NAME_FRENCH, name);
+                    values.put(COL_GENUS_FRENCH, genus);
+                    break;
+                case 6:
+                    values.put(COL_NAME_GERMAN, name);
+                    values.put(COL_GENUS_GERMAN, genus);
+                    break;
+                case 7:
+                    values.put(COL_NAME_SPANISH, name);
+                    values.put(COL_GENUS_SPANISH, genus);
+                    break;
+                case 8:
+                    values.put(COL_NAME_ITALIAN, name);
+                    values.put(COL_GENUS_ITALIAN, genus);
+                    break;
+                case 9:
+                    values.put(COL_NAME, name);
+                    values.put(COL_GENUS, genus);
+                    break;
+                default:
+                    throw new IllegalArgumentException("language id '" +
+                            String.valueOf(languageId) + "' is invalid");
+            }
+            cursor.moveToNext();
+        }
+        cursor.close();
     }
 
     public ArrayList<MiniPokemon> getAllPokemon() {
-        // See http://developer.android.com/reference/android/database/sqlite/SQLiteDatabase.html#query
-        // (java.lang.String, java.lang.String[], java.lang.String, java.lang.String[], java.lang.String, java.lang.String, java.lang.String)
         ArrayList<MiniPokemon> list = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(

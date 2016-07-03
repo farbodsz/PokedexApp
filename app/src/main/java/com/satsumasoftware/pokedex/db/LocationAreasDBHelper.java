@@ -7,19 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.satsumasoftware.pokedex.entities.location.LocationArea;
-import com.satsumasoftware.pokedex.util.CSVUtils;
-import com.univocity.parsers.csv.CsvParser;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class LocationAreasDBHelper extends SQLiteOpenHelper {
 
     /* General Database and Table information */
     private static final String DATABASE_NAME = "location_areas.db";
     public static final String TABLE_NAME = "location_areas";
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
 
     /* All Column Names */
     public static final String COL_ID = "id";
@@ -58,46 +54,54 @@ public class LocationAreasDBHelper extends SQLiteOpenHelper {
     }
 
     private void populateDatabase(SQLiteDatabase db) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            db.beginTransaction();
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.LOCATION_AREAS));
-            for (String[] line : allRows) {
-                ContentValues values = new ContentValues();
-                int locationAreaId = Integer.parseInt(line[0]);
-                values.put(COL_ID, locationAreaId);
-                values.put(COL_LOCATION_ID, Integer.parseInt(line[1]));
-                // line[2] (game index) and line[3] (identifier) are not needed
-                putNameValues(values, Integer.parseInt(line[0]));
-                db.insert(TABLE_NAME, null, values);
-            }
-            db.setTransactionSuccessful();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            db.endTransaction();
+        PokeDB pokeDB = new PokeDB(mContext);
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.LocationAreas.TABLE_NAME, null, null, null, null, null, null);
+        cursor.moveToFirst();
+        db.beginTransaction();
+        while (!cursor.isAfterLast()) {
+            ContentValues values = new ContentValues();
+
+            int locationAreaId = cursor.getInt(cursor.getColumnIndex(PokeDB.LocationAreas.COL_ID));
+            values.put(COL_ID, locationAreaId);
+
+            values.put(COL_LOCATION_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.LocationAreas.COL_LOCATION_ID)));
+
+            // "game_index" and "identifier" are not needed so they're not added
+            putNameValues(values, locationAreaId, pokeDB);
+
+            db.insert(TABLE_NAME, null, values);
+            cursor.moveToNext();
         }
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        cursor.close();
+        pokeDB.close();
+        db.close();
     }
 
-    private void putNameValues(ContentValues values, int locationAreaId) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.LOCATION_AREA_PROSE));
-            for (String[] line : allRows) {
-                if (Integer.parseInt(line[0]) == locationAreaId) {
+    private void putNameValues(ContentValues values, int locationAreaId, PokeDB pokeDB) {
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.LocationAreaProse.TABLE_NAME,
+                null,
+                PokeDB.LocationAreaProse.COL_LOCATION_AREA_ID + "=?",
+                new String[] {String.valueOf(locationAreaId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int languageId =
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.LocationAreaProse.COL_LOCAL_LANGUAGE_ID));
+            String name =
+                    cursor.getString(cursor.getColumnIndex(PokeDB.LocationAreaProse.COL_NAME));
 
-                    int languageId = Integer.parseInt(line[1]);
-                    String name = line[2];
-
-                    if (languageId == 9) {
-                        values.put(COL_NAME, name);  // only English as these are only ones
-                        return;
-                    }
-                }
+            if (languageId == 9) {
+                values.put(COL_NAME, name);  // only English as these are only ones at the moment
+                return;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            cursor.moveToNext();
         }
+        cursor.close();
     }
 
     public ArrayList<LocationArea> getLocationAreaList() {

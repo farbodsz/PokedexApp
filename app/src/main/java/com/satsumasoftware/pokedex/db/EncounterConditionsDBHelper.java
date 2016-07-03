@@ -2,15 +2,10 @@ package com.satsumasoftware.pokedex.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
-import com.satsumasoftware.pokedex.util.CSVUtils;
-import com.univocity.parsers.csv.CsvParser;
-
-import java.io.IOException;
-import java.util.List;
 
 public class EncounterConditionsDBHelper extends SQLiteOpenHelper {
 
@@ -19,7 +14,7 @@ public class EncounterConditionsDBHelper extends SQLiteOpenHelper {
     /* General Database and Table information */
     private static final String DATABASE_NAME = "encounter_conditions.db";
     public static final String TABLE_NAME = "encounter_conditions";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     /* All Column Names */
     public static final String COL_VALUE_ID = "id";
@@ -70,85 +65,96 @@ public class EncounterConditionsDBHelper extends SQLiteOpenHelper {
     }
 
     private void populateDatabase(SQLiteDatabase db) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            db.beginTransaction();
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.ENCOUNTER_CONDITION_VALUES));
-            for (String[] line : allRows) {
-                ContentValues values = new ContentValues();
+        PokeDB pokeDB = new PokeDB(mContext);
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.EncounterConditionValues.TABLE_NAME, null, null, null, null, null, null);
+        cursor.moveToFirst();
+        db.beginTransaction();
+        while (!cursor.isAfterLast()) {
+            ContentValues values = new ContentValues();
 
-                int id = Integer.parseInt(line[0]);
-                values.put(COL_VALUE_ID, id);
-                int conditionId = Integer.parseInt(line[1]);
-                values.put(COL_CONDITION_ID, conditionId);
-                // line[2] is the identifier
-                values.put(COL_IS_DEFAULT_VALUE, Integer.parseInt(line[3]));
+            int id = cursor.getInt(cursor.getColumnIndex(PokeDB.EncounterConditionValues.COL_ID));
+            values.put(COL_VALUE_ID, id);
 
-                putValueNames(values, id);
-                putConditionNames(values, conditionId);
+            int conditionId =
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.EncounterConditionValues.COL_ENCOUNTER_CONDITION_ID));
+            values.put(COL_CONDITION_ID, conditionId);
 
-                db.insert(TABLE_NAME, null, values);
+            // the identifier is not used so not added
 
-                Log.d(LOG_TAG, "Added encounter condition of id " + String.valueOf(id));
-            }
-            db.setTransactionSuccessful();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            db.endTransaction();
+            values.put(COL_IS_DEFAULT_VALUE,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.EncounterConditionValues.COL_IS_DEFAULT)));
+
+            putValueNames(values, id, pokeDB);
+            putConditionNames(values, conditionId, pokeDB);
+
+            db.insert(TABLE_NAME, null, values);
+
+            Log.d(LOG_TAG, "Added encounter condition of id " + String.valueOf(id));
+
+            cursor.moveToNext();
         }
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        cursor.close();
+        pokeDB.close();
+        db.close();
     }
 
-    private void putValueNames(ContentValues values, int encounterConditionValueId) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.ENCOUNTER_CONDITION_VALUE_PROSE));
-            for (String[] line : allRows) {
-                if (Integer.parseInt(line[0]) == encounterConditionValueId) {
+    private void putValueNames(ContentValues values, int encounterConditionValueId, PokeDB pokeDB) {
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.EncounterConditionValueProse.TABLE_NAME,
+                null,
+                PokeDB.EncounterConditionValueProse.COL_ENCOUNTER_CONDITION_VALUE_ID + "=?",
+                new String[] {String.valueOf(encounterConditionValueId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int languageId =
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.EncounterConditionValueProse.COL_LOCAL_LANGUAGE_ID));
+            String name =
+                    cursor.getString(cursor.getColumnIndex(PokeDB.EncounterConditionValueProse.COL_NAME));
 
-                    int languageId = Integer.parseInt(line[1]);
-                    String name = line[2];
-
-                    switch (languageId) {
-                        case 6:
-                            values.put(COL_VALUE_NAME_DE, name);
-                            break;
-                        case 9:
-                            values.put(COL_VALUE_NAME, name);
-                            return;
-                    }
-                }
+            switch (languageId) {
+                case 6:
+                    values.put(COL_VALUE_NAME_DE, name);
+                    break;
+                case 9:
+                    values.put(COL_VALUE_NAME, name);
+                    break;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            cursor.moveToNext();
         }
+        cursor.close();
     }
 
-    private void putConditionNames(ContentValues values, int encounterConditionId) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.ENCOUNTER_CONDITION_PROSE));
-            for (String[] line : allRows) {
-                if (Integer.parseInt(line[0]) == encounterConditionId) {
+    private void putConditionNames(ContentValues values, int encounterConditionId, PokeDB pokeDB) {
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.EncounterConditionProse.TABLE_NAME,
+                null,
+                PokeDB.EncounterConditionProse.COL_ENCOUNTER_CONDITION_ID + "=?",
+                new String[] {String.valueOf(encounterConditionId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int languageId =
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.EncounterConditionProse.COL_LOCAL_LANGUAGE_ID));
+            String name =
+                    cursor.getString(cursor.getColumnIndex(PokeDB.EncounterConditionProse.COL_NAME));
 
-                    int languageId = Integer.parseInt(line[1]);
-                    String name = line[2];
-
-                    switch (languageId) {
-                        case 5:
-                            values.put(COL_CONDITION_NAME_FR, name);
-                            break;
-                        case 6:
-                            values.put(COL_CONDITION_NAME_DE, name);
-                            break;
-                        case 9:
-                            values.put(COL_CONDITION_NAME, name);
-                            return;
-                    }
-                }
+            switch (languageId) {
+                case 5:
+                    values.put(COL_CONDITION_NAME_FR, name);
+                    break;
+                case 6:
+                    values.put(COL_CONDITION_NAME_DE, name);
+                    break;
+                case 9:
+                    values.put(COL_CONDITION_NAME, name);
+                    break;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            cursor.moveToNext();
         }
+        cursor.close();
     }
 }

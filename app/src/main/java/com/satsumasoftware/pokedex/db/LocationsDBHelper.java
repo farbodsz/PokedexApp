@@ -7,19 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.satsumasoftware.pokedex.entities.location.Location;
-import com.satsumasoftware.pokedex.util.CSVUtils;
-import com.univocity.parsers.csv.CsvParser;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class LocationsDBHelper extends SQLiteOpenHelper {
 
     /* General Database and Table information */
     private static final String DATABASE_NAME = "locations.db";
     public static final String TABLE_NAME = "locations";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     /* All Column Names */
     public static final String COL_ID = "id";
@@ -58,50 +54,59 @@ public class LocationsDBHelper extends SQLiteOpenHelper {
     }
 
     private void populateDatabase(SQLiteDatabase db) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            db.beginTransaction();
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.LOCATIONS));
-            for (String[] line : allRows) {
-                ContentValues values = new ContentValues();
-                int locationId = Integer.parseInt(line[0]);
-                values.put(COL_ID, locationId);
-                //values.put(COL_REGION_ID, Integer.parseInt(line[1]));
-                values.put(COL_REGION_ID, ((line[1] == null) ? -1 : Integer.parseInt(line[1])) ); // FIXME see EncounterSlotsDBHelper
-                // line[2] (identifier) will not be used; to put in db
-                putNameValues(values, Integer.parseInt(line[0]));
-                db.insert(TABLE_NAME, null, values);
-            }
-            db.setTransactionSuccessful();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            db.endTransaction();
+        PokeDB pokeDB = new PokeDB(mContext);
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.Locations.TABLE_NAME, null, null, null, null, null, null);
+        cursor.moveToFirst();
+        db.beginTransaction();
+        while (!cursor.isAfterLast()) {
+            ContentValues values = new ContentValues();
+
+            int locationId = cursor.getInt(cursor.getColumnIndex(PokeDB.Locations.COL_ID));
+            values.put(COL_ID, locationId);
+
+            int regionIdColIndex = cursor.getColumnIndex(PokeDB.Locations.COL_REGION_ID);
+            values.put(COL_REGION_ID,
+                    cursor.isNull(regionIdColIndex) ? -1 : cursor.getInt(regionIdColIndex));
+
+            // the identifier will not be used so it's not put in db
+
+            putNameValues(values, locationId, pokeDB);
+
+            db.insert(TABLE_NAME, null, values);
+            cursor.moveToNext();
         }
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        cursor.close();
+        pokeDB.close();
+        db.close();
     }
 
 
-    private void putNameValues(ContentValues values, int locationId) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.LOCATION_NAMES));
-            for (String[] line : allRows) {
+    private void putNameValues(ContentValues values, int locationId, PokeDB pokeDB) {
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.LocationNames.TABLE_NAME,
+                null,
+                PokeDB.LocationNames.COL_LOCATION_ID + "=?",
+                new String[] {String.valueOf(locationId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int languageId =
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.LocationNames.COL_LOCAL_LANGUAGE_ID));
+            String name =
+                    cursor.getString(cursor.getColumnIndex(PokeDB.LocationNames.COL_NAME));
 
-                if (Integer.parseInt(line[0]) == locationId) {
-                    int languageId = Integer.parseInt(line[1]);
-                    String name = line[2];
-
-                    if (languageId == 9) {
-                        values.put(COL_NAME, name);  // only put English names
-                        // (as these are guaranteed to be here, but other languages only have
-                        // some names)
-                        return;
-                    }
-                }
+            if (languageId == 9) {
+                values.put(COL_NAME, name);
+                // only puts english names as these are guaranteed to be here, but other
+                // languages only have some names
+                return;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            cursor.moveToNext();
         }
+        cursor.close();
     }
 
     public ArrayList<Location> getAllLocations() {
@@ -119,7 +124,7 @@ public class LocationsDBHelper extends SQLiteOpenHelper {
         while (!cursor.isAfterLast()) {
             int id = cursor.getInt(cursor.getColumnIndex(COL_ID));
             int regionId = cursor.getInt(cursor.getColumnIndex(COL_REGION_ID));
-            String name = cursor.getString(cursor.getColumnIndex(COL_NAME));  // TODO: more languages
+            String name = cursor.getString(cursor.getColumnIndex(COL_NAME));
             Location location = new Location(id, regionId, name);
             list.add(location);
             cursor.moveToNext();
