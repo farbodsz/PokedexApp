@@ -48,10 +48,24 @@ public class PokeDB extends SQLiteAssetHelper {
     }
 
 
+    public class EncounterConditionProse {
+        public static final String TABLE_NAME = "encounter_condition_prose";
+        public static final String COL_ENCOUNTER_CONDITION_ID = "encounter_condition_id";
+        public static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
+        public static final String COL_NAME = "name";
+    }
+
     public class EncounterConditionValueMap {
         public static final String TABLE_NAME = "encounter_condition_value_map";
         public static final String COL_ENCOUNTER_ID = "encounter_id";
         public static final String COL_ENCOUNTER_CONDITION_VALUE_ID = "encounter_condition_value_id";
+    }
+
+    public class EncounterConditionValueProse {
+        public static final String TABLE_NAME = "encounter_condition_value_prose";
+        public static final String COL_ENCOUNTER_CONDITION_VALUE_ID = "encounter_condition_value_id";
+        public static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
+        public static final String COL_NAME = "name";
     }
 
     public class EncounterConditionValues {
