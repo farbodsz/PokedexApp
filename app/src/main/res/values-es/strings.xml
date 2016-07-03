@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- TODO STOPSHIP test Spanish translations, make localized screenshots, etc -->
+    <!-- also, for some, I need to resend them with some context to Esteban to translate -->
+
+    <string name="title_activity_initialise">Datos iniciales</string> <!-- todo context -->
+
+    <string name="title_activity_natures">Naturalezas</string>
+    <string name="title_activity_locations">Localizaciones</string>
+    <string name="title_activity_compare">Comparación </string> <!-- todo context -->
+    <string name="title_activity_favorites">Favoritos</string>
+    <string name="title_activity_experience_calculator">Calculador de Experiencia</string>
+
+    <string name="title_activity_changelog">Cambios</string>
+    <string name="title_activity_advanced_filter">Filtro avanzado</string>
+
+    <string name="title_activity_moves_detail">Movimiento</string>
+    <string name="title_activity_nature_detail">Naturaleza</string>
+    <string name="title_activity_property_detail">Propiedad</string>  <!-- todo context -->
+    <string name="title_activity_location_detail">Localizacion</string>  <!-- todo correct? -->
+    <string name="title_activity_pkmn_type_detail">Eficacia de tipo</string>  <!-- todo context -->
+
+
+    <string name="action_settings">Configuraciones</string>
+    <string name="action_about">Acerca de</string> <!-- todo is this correct? -->
+    <string name="action_help">Ayuda</string>
+    <string name="action_search">Buscar</string>
+    <string name="action_compare">Comparar</string>
+    <string name="action_filter">Filtrar</string>  <!-- todo context -->
+    <string name="action_sort">Ordenar</string>
+    <string name="action_sort_id">Por ID</string>
+    <string name="action_sort_name">Por nombre</string>
+
+    <string name="action_play_cry">Reproducir grito</string>
+    <string name="action_play_cry_of">Reproducir grito de %1$s</string>
+
+    <string name="action_previous">Anterior</string>
+    <string name="action_next">Siguiente</string>
+
+    <string name="action_favourite_add">Agregar a favoritos</string>
+    <string name="action_favourite_remove">Remover de favoritos</string>
+
+    <string name="action_clear_all">Limpiar todo</string>
+    <string name="action_add">Agregar</string>
+    <string name="action_undo">Deshacer</string>
+
+    <string name="action_buyPro">Comprar Pro</string>
+
+    <string name="action_calculate_experience">Calcular EXP</string>
+    <string name="action_calculate_experience_of">EXP de %1$s</string>
+
+
+    <string name="dialog_ok_got_it">OK, lo tengo</string> <!-- todo context -->
+    <string name="dialog_cancel">Cancelar</string>
+    <string name="dialog_yes">Sí</string>
+    <string name="dialog_no">No</string>
+    <string name="dialog_title_compare_pokemon">Escoger un Pokémon para comprar nuevamente</string>
+    <string name="dialog_title_compare_pokemon_forms">Comprar formas de Pokémon?</string> <!-- todo context -->
+    <string name="dialog_msg_compare_pokemon_forms">Este Pokémon tiene una forma alternativa. ¿Quieres comprar con una de sus otras formas?</string>
+    <string name="dialog_title_clear_favourites">¿Limpiar Favoritos?</string>
+    <string name="dialog_msg_clear_favourites">Estás seguro de que quieres remover todos los Pokémon de la lista de favoritos?</string>
+
+
+    <string name="show_pokemon">Mostrar Pokémon</string>
+    <string name="show_pokemon_moves">Mostrar Movimientos de Pokémon</string>
+
+
+    <string name="tab_pkmn_detail_general">General</string>
+
+
+    <string name="header_general_info">Información General</string>
+    <string name="attr_classification">Clasificación</string>
+
+    <string name="header_abilities">Habilidad Oculta</string>
+    <string name="attr_ability">Habilidades</string>
+    <string name="attr_ability_1">Habilidad 1</string>
+    <string name="attr_ability_2">Habilidad 2</string>
+    <string name="attr_ability_hidden">Habilidad Oculta</string>
+
+    <string name="header_types">Tipos</string>
+    <string name="attr_type">Tipo</string>
+    <string name="attr_type_1">Tipo 1</string>
+    <string name="attr_type_2">Tipo 2</string>
+
+    <string name="header_physical_attrs">Atributos Psíquicos</string> <!-- todo correct? -->
+    <string name="attr_height">Altura</string>
+    <string name="attr_mass">Peso</string>
+
+    <string name="header_stats">Estadísticas</string> <!-- todo context -->
+    <string name="header_stats_ev">Puntos de esfuerzo</string> <!-- todo context -->
+    <string name="attr_stat_hp">HP</string>
+    <string name="attr_stat_atk">Ataque</string>
+    <string name="attr_stat_def">Defensa</string>
+    <string name="attr_stat_spA">Atq. Esp</string>
+    <string name="attr_stat_spD">Def. Esp</string>
+    <string name="attr_stat_spe">Velocidad</string>
+    <string name="attr_stat_total">Total</string>
+    <string name="attr_stat_average">Promedio</string>
+    <string name="attr_stat_spA_noAbbr">Ataque Especial</string>
+    <string name="attr_stat_spD_noAbbr">Defensa Especial</string>
+
+    <string name="header_gender_ratio">Ratio de Genero</string>
+    <string name="gender_male">Macho</string>
+    <string name="gender_female">Hembra</string>
+
+    <string name="header_training">Entrenamiento</string>
+    <string name="attr_catch_rate">Ratio de captura</string>
+    <string name="attr_levelling_rate">Ratio de nivel</string>
+    <string name="attr_base_happiness">Amistad Base</string> <!-- todo context -->
+    <string name="attr_exp_growth">Experiencia en Nivel 100</string>
+    <string name="attr_exp_growth_abbr">EXP en Nivel 100</string>
+
+    <string name="attr_base_egg_steps">Pasos para eclosión</string>
+    <string name="attr_base_egg_cycles">Ciclo de huevo</string>
+
+    <string name="header_more_information">Más información</string>
+    <string name="attr_generation">Generación</string>
+    <string name="attr_introduced_in_gen">@string/attr_generation</string>
+    <string name="attr_colour">Color</string>
+    <string name="attr_shape">Aspecto</string> <!-- todo context -->
+    <string name="attr_habitat">Habitad</string> <!-- todo context -->
+
+    <string name="header_pokedex_numbers">Números de Pokédex</string> <!-- todo context -->
+
+
+    <string name="attr_move_category">Categoría</string>
+    <string name="attr_move_contest">Concurso</string> <!-- todo context -->
+    <string name="attr_move_pp">PP</string>
+    <string name="attr_move_power">Poder</string>
+    <string name="attr_move_accuracy">Presición</string>
+
+
+    <string name="nature_stat_increased">Aumento de Estadísticas</string>
+    <string name="nature_stat_decreased">Disminución de Estadísticas</string>
+
+
+    <string name="type_comparison_immune">Inmune</string>
+    <string name="type_comparison_strong">Fuerza</string>
+    <string name="type_comparison_weak">Debilidad</string> <!-- todo context -->
+
+
+    <string name="header_evolutions">Evoluciones</string>
+
+    <string name="header_tools">Herramientas</string>
+    <string name="header_tools_experience">@string/action_calculate_experience</string>
+    <string name="header_forms">Formas</string>
+    <string name="header_moves">Movimientos</string>
+    <string name="header_moves_levelup">Por nivel</string>
+    <string name="header_moves_tutor">Por tutor</string>
+    <string name="header_moves_machine">Por MT/MO</string>
+    <string name="header_moves_form">Por cambio de forma</string> <!-- todo context -->
+    <string name="header_level">Nivel</string>
+    <string name="header_location_regions">Regiones</string>
+
+
+    <!-- TODO STOPSHIP not finished with translations -->
+
+</resources>
