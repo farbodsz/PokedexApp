@@ -120,7 +120,7 @@ public class InitializeDbActivity extends AppCompatActivity {
                     }
                     savedDbVersions = tempSavedDbArrayList.toArray(new String[tempSavedDbArrayList.size()]);
                 }
-                for (int i = 0; i < helpers.length-1; i++) {
+                for (int i = 0; i < helpers.length; i++) {
                     mLoop = i;
                     publishProgress(false);
                     Log.d(LOG_TAG, "background processes - starting loop #" + i);
