@@ -432,7 +432,7 @@ public class PokeDB extends SQLiteAssetHelper {
         public static final String COL_IDENTIFIER = "identifier";
         public static final String COL_FORM_IDENTIFIER = "form_identifier";
         public static final String COL_POKEMON_ID = "pokemon_id";
-        public static final String COL_INTRODUCED_IN_VERSION_GROUP_ID = "introduced_in_version_group";
+        public static final String COL_INTRODUCED_IN_VERSION_GROUP_ID = "introduced_in_version_group_id";
         public static final String COL_IS_DEFAULT = "is_default";
         public static final String COL_IS_BATTLE_ONLY = "is_battle_only";
         public static final String COL_IS_MEGA = "is_mega";
