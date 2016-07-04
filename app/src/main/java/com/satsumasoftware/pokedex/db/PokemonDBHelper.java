@@ -320,7 +320,6 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
         db.endTransaction();
         cursor.close();
         pokeDB.close();  // after all Pokemon data has been inserted
-        db.close();
     }
 
     private void putPokemonValues(ContentValues values, int pokemonId, PokeDB pokeDB) {

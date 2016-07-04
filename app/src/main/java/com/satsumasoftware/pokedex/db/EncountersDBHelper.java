@@ -105,7 +105,6 @@ public class EncountersDBHelper extends SQLiteOpenHelper {
         db.endTransaction();
         cursor.close();
         pokeDB.close();
-        db.close();
     }
 
     private void putEncounterConditionValues(ContentValues values, int encounterId, PokeDB pokeDB) {

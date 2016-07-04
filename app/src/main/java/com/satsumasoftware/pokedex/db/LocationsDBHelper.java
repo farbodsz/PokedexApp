@@ -80,7 +80,6 @@ public class LocationsDBHelper extends SQLiteOpenHelper {
         db.endTransaction();
         cursor.close();
         pokeDB.close();
-        db.close();
     }
 
 

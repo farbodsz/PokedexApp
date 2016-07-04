@@ -78,7 +78,6 @@ public class LocationAreasDBHelper extends SQLiteOpenHelper {
         db.endTransaction();
         cursor.close();
         pokeDB.close();
-        db.close();
     }
 
     private void putNameValues(ContentValues values, int locationAreaId, PokeDB pokeDB) {

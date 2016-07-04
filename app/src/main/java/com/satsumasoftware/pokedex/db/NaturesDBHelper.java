@@ -112,7 +112,6 @@ public class NaturesDBHelper extends SQLiteOpenHelper {
         db.endTransaction();
         cursor.close();
         pokeDB.close();
-        db.close();
     }
 
     private void putNameValues(ContentValues values, int natureId, PokeDB pokeDB) {
