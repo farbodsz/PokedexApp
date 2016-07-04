@@ -6,7 +6,6 @@ import android.preference.PreferenceManager;
 
 import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
 import com.satsumasoftware.pokedex.db.EncounterConditionsDBHelper;
-import com.satsumasoftware.pokedex.db.EncountersDBHelper;
 import com.satsumasoftware.pokedex.db.LocationAreasDBHelper;
 import com.satsumasoftware.pokedex.db.LocationsDBHelper;
 import com.satsumasoftware.pokedex.db.MovesDBHelper;
@@ -18,7 +17,6 @@ public final class DatabaseUtils {
     public static final String DB_VERSIONS =
             AbilitiesDBHelper.DATABASE_VERSION + "_" +
                     EncounterConditionsDBHelper.DATABASE_VERSION + "_" +
-                    EncountersDBHelper.DATABASE_VERSION + "_" +
                     LocationAreasDBHelper.DATABASE_VERSION + "_" +
                     LocationsDBHelper.DATABASE_VERSION + "_" +
                     MovesDBHelper.DATABASE_VERSION + "_" +
