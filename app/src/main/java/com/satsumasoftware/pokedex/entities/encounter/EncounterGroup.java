@@ -8,7 +8,7 @@ public class EncounterGroup {
 
     private static final String LOG_TAG = "EncounterGroup";
 
-    private int mVersionId, mLocationAreaId, mPokemonId, mEncounterConditionId;
+    private int mVersionId, mLocationAreaId, mPokemonId;
     private int mVersionGroupId, mEncounterMethodId;
 
     private ArrayMap<Integer, Integer> mLevelRates;
@@ -27,7 +27,6 @@ public class EncounterGroup {
             mVersionId = encounter.getVersionId();
             mLocationAreaId = encounter.getLocationAreaId();
             mPokemonId = encounter.getPokemonId();
-            mEncounterConditionId = encounter.getEncounterConditionId();
             EncounterSlot slot = displayedEncounter.getEncounterSlot();
             mVersionGroupId = slot.getVersionGroupId();
             mEncounterMethodId = slot.getEncounterMethodId();
@@ -63,7 +62,6 @@ public class EncounterGroup {
                 slot.getVersionGroupId() == mVersionGroupId &&
                 encounter.getLocationAreaId() == mLocationAreaId &&
                 encounter.getPokemonId() == mPokemonId &&
-                encounter.getEncounterConditionId() == mEncounterConditionId &&
                 slot.getEncounterMethodId() == mEncounterMethodId);
     }
 

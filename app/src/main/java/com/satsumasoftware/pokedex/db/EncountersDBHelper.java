@@ -28,7 +28,6 @@ public class EncountersDBHelper extends SQLiteOpenHelper {
     public static final String COL_POKEMON_ID = "pokemon_id";
     public static final String COL_MIN_LVL = "min_level";
     public static final String COL_MAX_LVL = "max_level";
-    public static final String COL_ENCOUNTER_CONDITION_VALUE_ID = "encounter_condition_value_id";
 
     /* SQL CREATE command creates all columns as defined above */
     private static final String SQL_CREATE = "CREATE TABLE " +
@@ -39,8 +38,7 @@ public class EncountersDBHelper extends SQLiteOpenHelper {
             COL_ENCOUNTER_SLOT_ID + " INTEGER, " +
             COL_POKEMON_ID + " INTEGER, " +
             COL_MIN_LVL + " INTEGER, " +
-            COL_MAX_LVL + " INTEGER, " +
-            COL_ENCOUNTER_CONDITION_VALUE_ID + " INTEGER" +
+            COL_MAX_LVL + " INTEGER" +
             ")";
 
     /* SQL DROP command deletes the SQL table */
@@ -93,8 +91,6 @@ public class EncountersDBHelper extends SQLiteOpenHelper {
             values.put(COL_MAX_LVL,
                     cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_MAX_LEVEL)));
 
-            putEncounterConditionValues(values, id, pokeDB);
-
             db.insert(TABLE_NAME, null, values);
 
             Log.d(LOG_TAG, "Added encounter of id " + String.valueOf(id));
@@ -105,19 +101,6 @@ public class EncountersDBHelper extends SQLiteOpenHelper {
         db.endTransaction();
         cursor.close();
         pokeDB.close();
-    }
-
-    private void putEncounterConditionValues(ContentValues values, int encounterId, PokeDB pokeDB) {
-        Cursor cursor = pokeDB.getReadableDatabase().query(
-                PokeDB.EncounterConditionValueMap.TABLE_NAME,
-                null,
-                PokeDB.EncounterConditionValueMap.COL_ENCOUNTER_ID + "=?",
-                new String[] {String.valueOf(encounterId)},
-                null, null, null);
-        cursor.moveToFirst();
-        values.put(COL_ENCOUNTER_CONDITION_VALUE_ID,
-                cursor.getInt(cursor.getColumnIndex(PokeDB.EncounterConditionValueMap.COL_ENCOUNTER_CONDITION_VALUE_ID)));;
-        cursor.close();
     }
 
     public ArrayList<Encounter> getEncountersList() {
@@ -140,9 +123,8 @@ public class EncountersDBHelper extends SQLiteOpenHelper {
             int pokemonId = cursor.getInt(cursor.getColumnIndex(COL_POKEMON_ID));
             int minLvl = cursor.getInt(cursor.getColumnIndex(COL_MIN_LVL));
             int maxLvl = cursor.getInt(cursor.getColumnIndex(COL_MAX_LVL));
-            int encounterConditionId = cursor.getInt(cursor.getColumnIndex(COL_ENCOUNTER_CONDITION_VALUE_ID));
             Encounter encounter = new Encounter(id, versionId, locationAreaId, encounterSlotId,
-                    pokemonId, minLvl, maxLvl, encounterConditionId);
+                    pokemonId, minLvl, maxLvl);
             list.add(encounter);
             cursor.moveToNext();
         }
@@ -170,8 +152,7 @@ public class EncountersDBHelper extends SQLiteOpenHelper {
                     cursor.getInt(cursor.getColumnIndex(COL_ENCOUNTER_SLOT_ID)),
                     cursor.getInt(cursor.getColumnIndex(COL_POKEMON_ID)),
                     cursor.getInt(cursor.getColumnIndex(COL_MIN_LVL)),
-                    cursor.getInt(cursor.getColumnIndex(COL_MAX_LVL)),
-                    cursor.getInt(cursor.getColumnIndex(COL_ENCOUNTER_CONDITION_VALUE_ID)));
+                    cursor.getInt(cursor.getColumnIndex(COL_MAX_LVL)));
             list.add(encounter);
             cursor.moveToNext();
         }
