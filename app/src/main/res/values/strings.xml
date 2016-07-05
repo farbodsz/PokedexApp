@@ -267,7 +267,7 @@
 
     <string name="initialise_title">Initialising databases</string>
     <string name="initialise_msg">Please wait whilst we load the databases for the first time, in order for searching and filtering to be as fast as possible.
-        This may take up to 10 minutes.
+        This will take around 1 minute.
         To make sure your experience is as fast as possible, we need to do this just for the first time (and if any of the databases get updated).</string>
     <string name="initialise_loading">Loading (%1$s)</string>
     <string name="initialise_wait_prompt">Please wait until the loading has finished to avoid crashes</string>
