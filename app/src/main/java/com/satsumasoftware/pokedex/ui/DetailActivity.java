@@ -22,6 +22,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -491,7 +492,7 @@ public class DetailActivity extends AppCompatActivity {
 
         private PokemonDetail fetchAbilityData() {
             final SparseIntArray abilityIds = mPokemon.getAbilityIds();
-            final String[] abilities = MiniAbility.findAbilityNames(getActivity(), abilityIds);
+            final SparseArray<String> abilities = MiniAbility.findAbilityNames(getActivity(), abilityIds);
 
             ArrayList<String> properties = new ArrayList<>();
             ArrayList<String> values = new ArrayList<>();
@@ -514,14 +515,14 @@ public class DetailActivity extends AppCompatActivity {
                         break;
                 }
                 properties.add(getResources().getString(propertyText));
-                values.add(abilities[i]);
+                values.add(abilities.get(i));
                 final int j = i;
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), AbilityDetailActivity.class);
                         intent.putExtra(AbilityDetailActivity.EXTRA_ABILITY,
-                                new MiniAbility(abilityIds.get(j+1), abilities[j]));
+                                new MiniAbility(abilityIds.get(j+1), abilities.get(j)));
                         startActivity(intent);
                     }
                 });

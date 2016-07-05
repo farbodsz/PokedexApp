@@ -20,12 +20,6 @@ public class MiniAbility implements Parcelable {
     private int mId;
     private String mName;
 
-    @Deprecated
-    public MiniAbility(Context context, String name) {
-        mId = findAbilityId(context);
-        mName = name;
-    }
-
     public MiniAbility(int id, String name) {
         mId = id;
         mName = name;
@@ -39,23 +33,6 @@ public class MiniAbility implements Parcelable {
         return mName;
     }
 
-
-    private int findAbilityId(Context context) {
-        int id = -1;
-        AbilitiesDBHelper helper = new AbilitiesDBHelper(context);
-        Cursor cursor = helper.getReadableDatabase().query(
-                AbilitiesDBHelper.TABLE_NAME,
-                null,
-                AbilitiesDBHelper.COL_NAME + "=?",
-                new String[] {String.valueOf(mName)},
-                null, null, null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            id = cursor.getInt(cursor.getColumnIndex(AbilitiesDBHelper.COL_ID));
-        }
-        cursor.close();
-        return id;
-    }
 
     public Ability toAbility(Context context) {
         AbilitiesDBHelper helper = new AbilitiesDBHelper(context);
@@ -77,9 +54,7 @@ public class MiniAbility implements Parcelable {
         return new Ability(mId, generationId, mName, nameJa, nameKo, nameFr, nameDe, nameEs, nameIt);
     }
 
-    public static String[] findAbilityNames(Context context, SparseIntArray abilityIds) {
-        // TODO: return SparseArray<String> instead of String[]
-
+    public static SparseArray<String> findAbilityNames(Context context, SparseIntArray abilityIds) {
         StringBuilder selectionBuilder = new StringBuilder();
         ArrayList<String> selectionArgsList = new ArrayList<>();
         ArrayList<Integer> sortedNotNullIds = new ArrayList<>();
@@ -99,7 +74,7 @@ public class MiniAbility implements Parcelable {
         String[] selectionArgs = selectionArgsList.toArray(new String[selectionArgsList.size()]);
 
         SparseArray<String> collectedData = new SparseArray<>();
-        String[] abilityNames = new String[3];
+        SparseArray<String> abilityNames = new SparseArray<>(3);
 
         AbilitiesDBHelper helper = new AbilitiesDBHelper(context);
         Cursor cursor = helper.getReadableDatabase().query(
@@ -129,9 +104,9 @@ public class MiniAbility implements Parcelable {
 
         for (int j = 0; j < 3; j++) {
             if (abilityIsNull[j]) {
-                abilityNames[j] = null;
+                abilityNames.put(j, null);
             } else {
-                abilityNames[j] = collectedData.get(abilityIds.get(j+1));
+                abilityNames.put(j, collectedData.get(abilityIds.get(j+1)));
             }
         }
 
