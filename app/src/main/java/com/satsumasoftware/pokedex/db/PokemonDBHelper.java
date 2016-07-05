@@ -592,7 +592,7 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
                 hasAddedEggGroup1 = true;
             } else {
                 values.put(COL_EGG_GROUP_2_ID, eggGroupId);
-                return;
+                break;
             }
             cursor.moveToNext();
         }

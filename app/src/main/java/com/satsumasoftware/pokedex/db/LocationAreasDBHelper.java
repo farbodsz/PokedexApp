@@ -96,7 +96,7 @@ public class LocationAreasDBHelper extends SQLiteOpenHelper {
 
             if (languageId == 9) {
                 values.put(COL_NAME, name);  // only English as these are only ones at the moment
-                return;
+                break;
             }
             cursor.moveToNext();
         }

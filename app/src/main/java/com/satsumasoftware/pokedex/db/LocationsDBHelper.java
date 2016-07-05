@@ -101,7 +101,7 @@ public class LocationsDBHelper extends SQLiteOpenHelper {
                 values.put(COL_NAME, name);
                 // only puts english names as these are guaranteed to be here, but other
                 // languages only have some names
-                return;
+                break;
             }
             cursor.moveToNext();
         }
