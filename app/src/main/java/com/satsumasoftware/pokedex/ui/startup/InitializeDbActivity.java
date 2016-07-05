@@ -132,6 +132,7 @@ public class InitializeDbActivity extends AppCompatActivity {
                         Cursor cursor = db.query(true, tableNames[i], null, null, null, null, null, null, null);
                         cursor.moveToFirst();
                         cursor.close();
+                        db.close();
                         System.gc();
                     }
 
