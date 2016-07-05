@@ -44,7 +44,7 @@ public class LocationDetail implements DetailInfo {
 
             int rarity = de.getEncounterSlot().getRarity();
             TextView rate = (TextView) row.findViewById(R.id.text3);
-            rate.setText(rarity + "%; condition id." + de.getEncounter().getEncounterConditionId());
+            rate.setText(rarity + "%");
 
             ProgressBar progressBar = (ProgressBar) row.findViewById(R.id.progressBar);
             progressBar.setMax(100);

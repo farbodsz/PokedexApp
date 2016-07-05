@@ -18,9 +18,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
 import com.satsumasoftware.pokedex.entities.ability.MiniAbility;
+import com.satsumasoftware.pokedex.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.ui.adapter.AbilityDexAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
 import com.satsumasoftware.pokedex.util.AdUtils;

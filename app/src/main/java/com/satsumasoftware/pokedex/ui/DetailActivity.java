@@ -36,7 +36,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.entities.ability.MiniAbility;
 import com.satsumasoftware.pokedex.entities.detail.DetailInfo;
@@ -45,6 +44,7 @@ import com.satsumasoftware.pokedex.entities.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.entities.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.entities.pokemon.PokemonForm;
 import com.satsumasoftware.pokedex.entities.pokemon.PokemonMoves;
+import com.satsumasoftware.pokedex.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsTileAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsVGAdapter;

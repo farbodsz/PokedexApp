@@ -1,15 +1,17 @@
 package com.satsumasoftware.pokedex.entities.encounter;
 
 import android.content.Context;
+import android.database.Cursor;
 
+import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.entities.location.LocationArea;
 
 public class Encounter {
 
-    private int mId, mVersionId, mLocationAreaId, mEncounterSlotId, mPokemonId, mMinLvl, mMaxLvl, mEncounterConditionId;
+    private int mId, mVersionId, mLocationAreaId, mEncounterSlotId, mPokemonId, mMinLvl, mMaxLvl;
 
     public Encounter(int id, int versionId, int locationAreaId, int encounterSlotId, int pokemonId,
-                     int minLevel, int maxLevel, int encounterConditionId) {
+                     int minLevel, int maxLevel) {
         mId = id;
         mVersionId = versionId;
         mLocationAreaId = locationAreaId;
@@ -17,7 +19,6 @@ public class Encounter {
         mPokemonId = pokemonId;
         mMinLvl = minLevel;
         mMaxLvl = maxLevel;
-        mEncounterConditionId = encounterConditionId;
     }
 
     public int getId() {
@@ -48,12 +49,27 @@ public class Encounter {
         return mMaxLvl;
     }
 
-    public int getEncounterConditionId() {
-        return mEncounterConditionId;
+    public int getEncounterConditionId(Context context) {
+        // TODO STOPSHIP is this correct?
+        PokeDB pokeDB = new PokeDB(context);
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.EncounterConditionValueMap.TABLE_NAME,
+                null,
+                PokeDB.EncounterConditionValueMap.COL_ENCOUNTER_ID + "=?",
+                new String[] {String.valueOf(mId)},
+                null, null, null);
+        if (cursor.getCount() == 0) {
+            return -1;
+        }
+        cursor.moveToFirst();
+        int encounterConditionValueId = cursor.getInt(cursor.getColumnIndex(
+                PokeDB.EncounterConditionValueMap.COL_ENCOUNTER_CONDITION_VALUE_ID));
+        cursor.close();
+        return encounterConditionValueId;
     }
 
-    public boolean hasEncounterCondition() {
-        return mEncounterConditionId != 0;
+    public boolean hasEncounterCondition(Context context) {
+        return getEncounterConditionId(context) != -1;
     }
 
     public DisplayedEncounter toDisplayedEncounter(Context context, LocationArea locationArea) {

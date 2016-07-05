@@ -134,7 +134,6 @@ public class LocationDetailActivity extends AppCompatActivity {
                         Log.d(LOG_TAG, "Pokemon Id " + encounter.getPokemonId());
                         Log.d(LOG_TAG, "Min level " + encounter.getMinLevel());
                         Log.d(LOG_TAG, "Max level " + encounter.getMaxLevel());
-                        Log.d(LOG_TAG, "Condition Id " + encounter.getEncounterConditionId());
 
                         EncounterSlot encounterSlot = new EncounterSlot(getBaseContext(), encounter.getEncounterSlotId());
                         Log.d(LOG_TAG, " - EncounterSlot info - ");

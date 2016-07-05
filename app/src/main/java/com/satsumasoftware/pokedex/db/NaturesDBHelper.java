@@ -8,19 +8,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.satsumasoftware.pokedex.entities.nature.MiniNature;
 import com.satsumasoftware.pokedex.entities.nature.Nature;
-import com.satsumasoftware.pokedex.util.CSVUtils;
-import com.univocity.parsers.csv.CsvParser;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class NaturesDBHelper extends SQLiteOpenHelper {
 
     /* General Database and Table information */
     private static final String DATABASE_NAME = "natures.db";
     public static final String TABLE_NAME = "natures";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     /* All Column Names */
     public static final String COL_ID = "id";
@@ -29,7 +25,7 @@ public class NaturesDBHelper extends SQLiteOpenHelper {
     public static final String COL_INCREASED_STAT_ID = "increased_stat_id";
     public static final String COL_HATES_FLAVOR_ID = "hates_flavor_id";
     public static final String COL_LIKES_FLAVOR_ID = "likes_flavor_id";
-    public static final String COL_GAME_INDEX = "game_index";
+    public static final String COL_GAME_INDEX = "game_index";  // TODO remove game index?
     public static final String COL_NAME = "name_en";
     public static final String COL_NAME_JAPANESE = "name_ja";
     public static final String COL_NAME_KOREAN = "name_ko";
@@ -81,78 +77,86 @@ public class NaturesDBHelper extends SQLiteOpenHelper {
     }
 
     private void populateDatabase(SQLiteDatabase db) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            db.beginTransaction();
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.NATURES));
-            for (String[] line : allRows) {
+        PokeDB pokeDB = new PokeDB(mContext);
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.Natures.TABLE_NAME, null, null, null, null, null, null);
+        cursor.moveToFirst();
+        db.beginTransaction();
+        while (!cursor.isAfterLast()) {
+            ContentValues values = new ContentValues();
 
-                ContentValues values = new ContentValues();
+            int id = cursor.getInt(cursor.getColumnIndex(PokeDB.Natures.COL_ID));
+            values.put(COL_ID, id);
 
-                int id = Integer.parseInt(line[0]);
-                values.put(COL_ID, id);
-                values.put(COL_IDENTIFIER, line[1]);
+            values.put(COL_IDENTIFIER,
+                    cursor.getString(cursor.getColumnIndex(PokeDB.Natures.COL_IDENTIFIER)));
 
-                values.put(COL_DECREASED_STAT_ID, Integer.parseInt(line[2]));
-                values.put(COL_INCREASED_STAT_ID, Integer.parseInt(line[3]));
+            values.put(COL_DECREASED_STAT_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Natures.COL_DECREASED_STAT_ID)));
+            values.put(COL_INCREASED_STAT_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Natures.COL_INCREASED_STAT_ID)));
 
-                values.put(COL_HATES_FLAVOR_ID, Integer.parseInt(line[4]));
-                values.put(COL_LIKES_FLAVOR_ID, Integer.parseInt(line[5]));
-                values.put(COL_GAME_INDEX, Integer.parseInt(line[6]));
+            values.put(COL_HATES_FLAVOR_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Natures.COL_HATES_FLAVOR_ID)));
+            values.put(COL_LIKES_FLAVOR_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Natures.COL_LIKES_FLAVOR_ID)));
+            values.put(COL_GAME_INDEX,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Natures.COL_GAME_INDEX)));
 
-                putNameValues(values, Integer.parseInt(line[0]));
+            putNameValues(values, id, pokeDB);
 
-                db.insert(TABLE_NAME, null, values);
-            }
-            db.setTransactionSuccessful();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            db.endTransaction();
+            db.insert(TABLE_NAME, null, values);
+            cursor.moveToNext();
         }
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        cursor.close();
+        pokeDB.close();
     }
 
-    private void putNameValues(ContentValues values, int natureId) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.NATURE_NAMES));
-            for (String[] line : allRows) {
+    private void putNameValues(ContentValues values, int natureId, PokeDB pokeDB) {
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.NatureNames.TABLE_NAME,
+                null,
+                PokeDB.NatureNames.COL_NATURE_ID + "=?",
+                new String[] {String.valueOf(natureId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int languageId =
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.NatureNames.COL_LOCAL_LANGUAGE_ID));
+            String name =
+                    cursor.getString(cursor.getColumnIndex(PokeDB.NatureNames.COL_NAME));
 
-                if (Integer.parseInt(line[0]) == natureId) {
-                    int languageId = Integer.parseInt(line[1]);
-                    String name = line[2];
-
-                    switch (languageId) {
-                        case 1:
-                            values.put(COL_NAME_JAPANESE, name);
-                            break;
-                        case 3:
-                            values.put(COL_NAME_KOREAN, name);
-                            break;
-                        case 5:
-                            values.put(COL_NAME_FRENCH, name);
-                            break;
-                        case 6:
-                            values.put(COL_NAME_GERMAN, name);
-                            break;
-                        case 7:
-                            values.put(COL_NAME_SPANISH, name);
-                            break;
-                        case 8:
-                            values.put(COL_NAME_ITALIAN, name);
-                            break;
-                        case 9:
-                            values.put(COL_NAME, name);
-                            return;
-                        default:
-                            throw new IllegalArgumentException("language id '" +
-                                    String.valueOf(languageId) + "' is invalid");
-                    }
-                }
+            switch (languageId) {
+                case 1:
+                    values.put(COL_NAME_JAPANESE, name);
+                    break;
+                case 3:
+                    values.put(COL_NAME_KOREAN, name);
+                    break;
+                case 5:
+                    values.put(COL_NAME_FRENCH, name);
+                    break;
+                case 6:
+                    values.put(COL_NAME_GERMAN, name);
+                    break;
+                case 7:
+                    values.put(COL_NAME_SPANISH, name);
+                    break;
+                case 8:
+                    values.put(COL_NAME_ITALIAN, name);
+                    break;
+                case 9:
+                    values.put(COL_NAME, name);
+                    break;
+                default:
+                    throw new IllegalArgumentException("language id '" +
+                            String.valueOf(languageId) + "' is invalid");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            cursor.moveToNext();
         }
+        cursor.close();
     }
 
     public ArrayList<Nature> getAllNatures() {

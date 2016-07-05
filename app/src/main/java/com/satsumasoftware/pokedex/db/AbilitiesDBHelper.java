@@ -9,12 +9,8 @@ import android.util.Log;
 
 import com.satsumasoftware.pokedex.entities.ability.Ability;
 import com.satsumasoftware.pokedex.entities.ability.MiniAbility;
-import com.satsumasoftware.pokedex.util.CSVUtils;
-import com.univocity.parsers.csv.CsvParser;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class AbilitiesDBHelper extends SQLiteOpenHelper {
 
@@ -23,7 +19,7 @@ public class AbilitiesDBHelper extends SQLiteOpenHelper {
     /* General Database and Table information */
     private static final String DATABASE_NAME = "abilities.db";
     public static final String TABLE_NAME = "abilities";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     /* All Column Names */
     public static final String COL_ID = "id";
@@ -77,78 +73,82 @@ public class AbilitiesDBHelper extends SQLiteOpenHelper {
     }
 
     private void populateDatabase(SQLiteDatabase db) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            db.beginTransaction();
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.ABILITIES));
-            for (String[] line : allRows) {
+        PokeDB pokeDB = new PokeDB(mContext);
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.Abilities.TABLE_NAME,
+                null,
+                PokeDB.Abilities.COL_IS_MAIN_SERIES + "=1",  // if "is_main_series" (not conquest)
+                null, null, null, null);
+        cursor.moveToFirst();
+        db.beginTransaction();
+        while (!cursor.isAfterLast()) {
+            ContentValues values = new ContentValues();
 
-                if (Integer.parseInt(line[3]) == 1) {
-                    ContentValues values = new ContentValues();
+            int id = cursor.getInt(cursor.getColumnIndex(PokeDB.Abilities.COL_ID));
+            values.put(COL_ID, id);
 
-                    // if "is_main_series" (i.e. not conquest)
-                    int id = Integer.parseInt(line[0]);
-                    values.put(COL_ID, id);
-                    // line[1] identifier will not be used; to put in db
-                    values.put(COL_GENERATION_ID, Integer.parseInt(line[2]));
+            // the identifier will not be used so it's not put in db
 
-                    putNameValues(values, Integer.parseInt(line[0]));
+            values.put(COL_GENERATION_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Abilities.COL_GENERATION_ID)));
 
-                    db.insert(TABLE_NAME, null, values);
+            putNameValues(values, id, pokeDB);
 
-                    Log.d(LOG_TAG, "Added ability");
-                }
-            }
-            db.setTransactionSuccessful();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            db.endTransaction();
+            db.insert(TABLE_NAME, null, values);
+
+            Log.d(LOG_TAG, "Added ability");
+
+            cursor.moveToNext();
         }
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        cursor.close();
+        pokeDB.close();
     }
 
+    private void putNameValues(ContentValues values, int abilityId, PokeDB pokeDB) {
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.AbilityNames.TABLE_NAME,
+                null,
+                PokeDB.AbilityNames.COL_ABILITY_ID + "=?",
+                new String[] {String.valueOf(abilityId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int languageId =
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.AbilityNames.COL_LOCAL_LANGUAGE_ID));
+            String name =
+                    cursor.getString(cursor.getColumnIndex(PokeDB.AbilityNames.COL_NAME));
 
-    private void putNameValues(ContentValues values, int abilityId) {
-        CsvParser parser = CSVUtils.getMyParser();
-        try {
-            List<String[]> allRows = parser.parseAll(mContext.getAssets().open(CSVUtils.ABILITY_NAMES));
-            for (String[] line : allRows) {
-
-                if (Integer.parseInt(line[0]) == abilityId) {
-                    int languageId = Integer.parseInt(line[1]);
-                    String name = line[2];
-
-                    switch (languageId) {
-                        case 1:
-                            values.put(COL_NAME_JAPANESE, name);
-                            break;
-                        case 3:
-                            values.put(COL_NAME_KOREAN, name);
-                            break;
-                        case 5:
-                            values.put(COL_NAME_FRENCH, name);
-                            break;
-                        case 6:
-                            values.put(COL_NAME_GERMAN, name);
-                            break;
-                        case 7:
-                            values.put(COL_NAME_SPANISH, name);
-                            break;
-                        case 8:
-                            values.put(COL_NAME_ITALIAN, name);
-                            break;
-                        case 9:
-                            values.put(COL_NAME, name);
-                            return;
-                        default:
-                            throw new IllegalArgumentException("language id '" +
-                                    String.valueOf(languageId) + "' is invalid");
-                    }
-                }
+            switch (languageId) {
+                case 1:
+                    values.put(COL_NAME_JAPANESE, name);
+                    break;
+                case 3:
+                    values.put(COL_NAME_KOREAN, name);
+                    break;
+                case 5:
+                    values.put(COL_NAME_FRENCH, name);
+                    break;
+                case 6:
+                    values.put(COL_NAME_GERMAN, name);
+                    break;
+                case 7:
+                    values.put(COL_NAME_SPANISH, name);
+                    break;
+                case 8:
+                    values.put(COL_NAME_ITALIAN, name);
+                    break;
+                case 9:
+                    values.put(COL_NAME, name);
+                    break;
+                default:
+                    throw new IllegalArgumentException("language id '" +
+                            String.valueOf(languageId) + "' is invalid");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            cursor.moveToNext();
         }
+        cursor.close();
     }
 
     public ArrayList<Ability> getAllAbilities() {
