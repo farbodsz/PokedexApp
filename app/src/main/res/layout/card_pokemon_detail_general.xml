@@ -7,8 +7,10 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/card_padding_vertical"
     android:paddingBottom="@dimen/card_padding_vertical"
-    android:paddingLeft="@dimen/card_padding_lateral"
+    android:paddingLeft="2dp"
     android:paddingRight="@dimen/card_padding_lateral">
+    <!-- the uneven padding actually aligns the text with other cards
+        on the detail page -->
 
     <LinearLayout
         android:orientation="horizontal"
