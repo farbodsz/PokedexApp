@@ -106,16 +106,8 @@ public final class FavoriteUtils {
                     new String[] {anId, String.valueOf(1)},
                     null, null, null);
             cursor.moveToFirst();
-            int id = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_ID));
-            int speciesId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_SPECIES_ID));
-            int formId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_ID));
-            String name = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_NAME));
-            String formName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_NAME));
-            String formPokemonName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_POKEMON_NAME));
-            int pokedexNumber = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_POKEDEX_NATIONAL));
+            pokemonList.add(new MiniPokemon(cursor));
             cursor.close();
-            pokemonList.add(new MiniPokemon(
-                    id, speciesId, formId, name, formName, formPokemonName, pokedexNumber));
         }
 
         return pokemonList;

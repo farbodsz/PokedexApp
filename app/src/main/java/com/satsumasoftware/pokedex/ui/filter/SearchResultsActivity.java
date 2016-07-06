@@ -20,10 +20,10 @@ import android.widget.ProgressBar;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
-import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.ui.AboutActivity;
 import com.satsumasoftware.pokedex.ui.DetailActivity;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
+import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
 import com.satsumasoftware.pokedex.util.Flavours;
@@ -106,23 +106,15 @@ public class SearchResultsActivity extends AppCompatActivity {
                 null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            int id = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_ID));
-            int speciesId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_SPECIES_ID));
-            int formId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_ID));
-            String pkmnName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_NAME));
-            String form = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_NAME));
-            String nameAndForm = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_POKEMON_NAME));
             int pokedexNumber = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_POKEDEX_NATIONAL));
             if (TextUtils.isDigitsOnly(searchQuery)) {
                 String formattedId = InfoUtils.formatPokemonId(pokedexNumber);
                 if (formattedId.contains(searchQuery)) {
-                    MiniPokemon pokemon = new MiniPokemon(id, speciesId, formId, pkmnName, form,
-                            nameAndForm, pokedexNumber);
+                    MiniPokemon pokemon = new MiniPokemon(cursor);
                     mArrayPokemon.add(pokemon);
                 }
             } else {
-                MiniPokemon pokemon = new MiniPokemon(id, speciesId, formId, pkmnName, form,
-                        nameAndForm, pokedexNumber);
+                MiniPokemon pokemon = new MiniPokemon(cursor);
                 mArrayPokemon.add(pokemon);
             }
             cursor.moveToNext();

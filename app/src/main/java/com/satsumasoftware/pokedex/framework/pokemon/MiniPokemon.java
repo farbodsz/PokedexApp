@@ -65,14 +65,7 @@ public class MiniPokemon extends BasePokemon implements Parcelable {
                 null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            int id = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_ID));
-            int formId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_ID));
-            String name = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_NAME));
-            String formName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_NAME));
-            String formAndPokemonName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_POKEMON_NAME));
-            int nationalNumber = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_POKEDEX_NATIONAL));
-            miniPokemon = new MiniPokemon(id, speciesId, formId, name, formName,
-                    formAndPokemonName, nationalNumber);
+            miniPokemon = new MiniPokemon(cursor);  // TODO did I mean to use moveToNext() here?
         }
         cursor.close();
         return miniPokemon;

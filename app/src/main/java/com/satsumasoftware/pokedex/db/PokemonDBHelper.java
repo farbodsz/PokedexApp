@@ -740,15 +740,7 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
                 null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            int id = cursor.getInt(cursor.getColumnIndex(COL_ID));
-            int speciesId = cursor.getInt(cursor.getColumnIndex(COL_SPECIES_ID));
-            String name = cursor.getString(cursor.getColumnIndex(COL_NAME));
-            int formId = cursor.getInt(cursor.getColumnIndex(COL_FORM_ID));
-            String formName = cursor.getString(cursor.getColumnIndex(COL_FORM_NAME));
-            String formPokemonName = cursor.getString(cursor.getColumnIndex(COL_FORM_NAME));
-            int pokedexNumber = cursor.getInt(cursor.getColumnIndex(COL_POKEDEX_NATIONAL));
-            MiniPokemon pokemon = new MiniPokemon(id, speciesId, formId, name, formName,
-                    formPokemonName, pokedexNumber);
+            MiniPokemon pokemon = new MiniPokemon(cursor);
             list.add(pokemon);
             cursor.moveToNext();
         }

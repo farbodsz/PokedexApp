@@ -45,12 +45,12 @@ import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonForm;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonMoves;
-import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsTileAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesVgAdapter;
+import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
@@ -128,7 +128,7 @@ public class DetailActivity extends AppCompatActivity {
 
         AdUtils.setupAds(this, R.id.adView);
 
-        mPkmnId = mPokemon.getPokemonOrderNumber();
+        mPkmnId = mPokemon.getId();
         mPkmnName = mPokemon.getName();
 
         mViewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -257,17 +257,8 @@ public class DetailActivity extends AppCompatActivity {
                 new String[] {String.valueOf(newPos), String.valueOf(1)},
                 null, null, null);
         cursor.moveToFirst();
-        int id = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_ID));
-        int speciesId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_SPECIES_ID));
-        int formId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_ID));
-        String name = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_NAME));
-        String formName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_NAME));
-        String combinedName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_POKEMON_NAME));
-        int pokedexNumber = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_POKEDEX_NATIONAL));
+        MiniPokemon nextPkmn = new MiniPokemon(cursor);
         cursor.close();
-
-        MiniPokemon nextPkmn = new MiniPokemon(id, speciesId, formId, name, formName,
-                combinedName, pokedexNumber);
 
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra(EXTRA_POKEMON, nextPkmn);
@@ -328,14 +319,7 @@ public class DetailActivity extends AppCompatActivity {
                     null, null, null);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                int id = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_ID));
-                int speciesId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_SPECIES_ID));
-                int formId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_ID));
-                String name = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_NAME));
-                String formName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_NAME));
-                String combinedName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_POKEMON_NAME));
-                int pokedexNumber = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_POKEDEX_NATIONAL));
-                MiniPokemon miniPokemon = new MiniPokemon(id, speciesId, formId, name, formName, combinedName, pokedexNumber);
+                MiniPokemon miniPokemon = new MiniPokemon(cursor);
                 arrayPokemon.add(miniPokemon);
                 cursor.moveToNext();
             }
