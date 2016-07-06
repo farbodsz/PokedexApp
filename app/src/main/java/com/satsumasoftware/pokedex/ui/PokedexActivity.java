@@ -411,7 +411,8 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
                 PokemonDBHelper.COL_TYPE_1_ID,
                 PokemonDBHelper.COL_TYPE_2_ID,
                 PokemonDBHelper.COL_GROWTH_RATE_ID,
-                PokemonDBHelper.COL_GENERATION_ID
+                PokemonDBHelper.COL_GENERATION_ID,
+                PokemonDBHelper.COL_POKEDEX_NATIONAL
         };
         Cursor cursor = db.query(
                 PokemonDBHelper.TABLE_NAME,
