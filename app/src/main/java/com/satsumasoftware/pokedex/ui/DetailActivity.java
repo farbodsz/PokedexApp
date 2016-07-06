@@ -45,7 +45,7 @@ import com.satsumasoftware.pokedex.entities.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.entities.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.entities.pokemon.PokemonForm;
 import com.satsumasoftware.pokedex.entities.pokemon.PokemonMoves;
-import com.satsumasoftware.pokedex.misc.DividerItemDecoration;
+import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsTileAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsVGAdapter;

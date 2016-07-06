@@ -1,4 +1,4 @@
-package com.satsumasoftware.pokedex.misc;
+package com.satsumasoftware.pokedex.ui.misc;
 
 /*
  * Copyright (C) 2014 The Android Open Source Project

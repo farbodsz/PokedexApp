@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.entities.pokemon.MiniPokemon;
-import com.satsumasoftware.pokedex.misc.DividerItemDecoration;
+import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AdUtils;

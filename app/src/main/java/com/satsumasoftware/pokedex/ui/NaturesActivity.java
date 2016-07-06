@@ -14,7 +14,7 @@ import android.view.View;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.NaturesDBHelper;
 import com.satsumasoftware.pokedex.entities.nature.MiniNature;
-import com.satsumasoftware.pokedex.misc.DividerItemDecoration;
+import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.ui.adapter.NatureDexAdapter;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;

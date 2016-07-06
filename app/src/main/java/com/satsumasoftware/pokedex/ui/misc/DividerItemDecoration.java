@@ -1,4 +1,4 @@
-package com.satsumasoftware.pokedex.misc;
+package com.satsumasoftware.pokedex.ui.misc;
 
 import android.content.Context;
 import android.content.res.TypedArray;
