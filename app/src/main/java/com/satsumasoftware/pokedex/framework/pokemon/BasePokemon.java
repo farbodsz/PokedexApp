@@ -2,10 +2,7 @@ package com.satsumasoftware.pokedex.framework.pokemon;
 
 import android.content.Context;
 
-public class BasePokemon implements PokemonInterface {
+public interface BasePokemon {
 
-    @Override
-    public Pokemon toPokemon(Context context) {
-        return null;
-    }
+    Pokemon toPokemon(Context context);
 }

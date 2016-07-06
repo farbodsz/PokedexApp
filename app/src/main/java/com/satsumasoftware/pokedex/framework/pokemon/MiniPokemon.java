@@ -7,7 +7,7 @@ import android.os.Parcelable;
 
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 
-public class MiniPokemon extends BasePokemon implements Parcelable {
+public class MiniPokemon implements BasePokemon, Parcelable {
 
     public static final String[] DB_COLUMNS = new String[] {
             PokemonDBHelper.COL_ID, PokemonDBHelper.COL_SPECIES_ID, PokemonDBHelper.COL_FORM_ID,
