@@ -25,7 +25,7 @@ public class PokeDB extends SQLiteAssetHelper {
     }
 
     public class AbilityFlavorText {
-        public static final String TABLE_NAME = "abilities";
+        public static final String TABLE_NAME = "ability_flavor_text";
         public static final String COL_ABILITY_ID = "ability_id";
         public static final String COL_VERSION_GROUP_ID = "version_group_id";
         public static final String COL_LANGUAGE_ID = "language_id";
