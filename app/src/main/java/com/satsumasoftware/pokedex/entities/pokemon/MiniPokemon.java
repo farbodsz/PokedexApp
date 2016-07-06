@@ -41,6 +41,16 @@ public class MiniPokemon extends BasePokemon implements Parcelable {
         cursor.close();
     }
 
+    public MiniPokemon(Cursor cursor) {  // TODO use this more often
+        mId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_ID));
+        mSpeciesId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_SPECIES_ID));
+        mFormId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_ID));
+        mName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_NAME));
+        mFormName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_NAME));
+        mFormPokemonName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_POKEMON_NAME));
+        mNationalNumber = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_POKEDEX_NATIONAL));
+    }
+
     public MiniPokemon(int id, int speciesId, int formId, String name,
                        String formName, String formPokemonName, int nationalDexNumber) {
         mId = id;
