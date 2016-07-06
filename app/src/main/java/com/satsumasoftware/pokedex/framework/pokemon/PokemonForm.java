@@ -10,7 +10,7 @@ import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.InfoUtils;
 
-public class PokemonForm extends BasePokemon implements Parcelable {
+public class PokemonForm implements Parcelable {
 
     private int mId, mSpeciesId, mFormId, mNationalNumber, mPrimaryTypeId;
     private String mName, mFormName, mCombinedName;
