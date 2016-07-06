@@ -7,17 +7,7 @@ import android.os.Parcelable;
 
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 
-public class MiniPokemon implements BasePokemon, Parcelable {
-
-    public static final String[] DB_COLUMNS = new String[] {
-            PokemonDBHelper.COL_ID, PokemonDBHelper.COL_SPECIES_ID, PokemonDBHelper.COL_FORM_ID,
-            PokemonDBHelper.COL_NAME, PokemonDBHelper.COL_FORM_NAME,
-            PokemonDBHelper.COL_FORM_POKEMON_NAME, PokemonDBHelper.COL_IS_DEFAULT,
-            PokemonDBHelper.COL_FORM_IS_DEFAULT, PokemonDBHelper.COL_FORM_IS_MEGA,
-            PokemonDBHelper.COL_POKEDEX_NATIONAL};
-
-    private int mId, mSpeciesId, mFormId, mNationalNumber;
-    private String mName, mFormName, mFormPokemonName;
+public class MiniPokemon extends BasePokemon implements Parcelable {
 
     private int mAltDexId = -1, mAltDexNumber = -1;
 
@@ -28,7 +18,7 @@ public class MiniPokemon implements BasePokemon, Parcelable {
                 PokemonDBHelper.TABLE_NAME,
                 DB_COLUMNS,
                 PokemonDBHelper.COL_ID + "=? AND " + PokemonDBHelper.COL_FORM_IS_DEFAULT + "=?",
-                new String[] {String.valueOf(id), String.valueOf(1)},
+                new String[] {String.valueOf(id), "1"},
                 null, null, null);
         cursor.moveToFirst();
         mId = id;
@@ -97,35 +87,6 @@ public class MiniPokemon implements BasePokemon, Parcelable {
     public void addAlternatePokedexInfo(int pokedexId, int pokedexNumber) {
         mAltDexId = pokedexId;
         mAltDexNumber = pokedexNumber;
-    }
-
-    public int getId() {
-        return mId;
-    }
-
-    public int getSpeciesId() {
-        return mSpeciesId;
-    }
-
-    public int getFormId() {
-        return mFormId;
-    }
-
-    public String getName() {
-        return mName;
-    }
-
-    public String getFormName() {
-        return mFormName;
-    }
-
-    public String getFormAndPokemonName() {
-        // mFormPokemonName could be "" (if it is the default form)
-        return (mFormPokemonName == null) ? mName : mFormPokemonName;
-    }
-
-    public int getNationalDexNumber() {
-        return mNationalNumber;
     }
 
     public boolean hasAddedAltDexInfo() {

@@ -1,7 +1,5 @@
 package com.satsumasoftware.pokedex.framework.pokemon;
 
-import android.content.Context;
-
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 
 public class BasePokemon {
@@ -15,11 +13,6 @@ public class BasePokemon {
 
     protected int mId, mSpeciesId, mFormId, mNationalNumber;
     protected String mName, mFormName, mFormPokemonName;
-
-    public Pokemon toPokemon(Context context) {
-        return new Pokemon(context, mId, mSpeciesId, mFormId, mName, mFormName, mFormPokemonName,
-                mNationalNumber);
-    }
 
     public int getId() {
         return mId;

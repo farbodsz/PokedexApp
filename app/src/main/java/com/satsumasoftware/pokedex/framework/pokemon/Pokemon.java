@@ -14,20 +14,14 @@ import com.satsumasoftware.pokedex.util.AppConfig;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Pokemon {
-
-    // TODO: Sort stuff out here (methods and all that)
+public class Pokemon extends BasePokemon {
 
     private Context mContext;
-    private int mId, mSpeciesId, mFormId, mNationalNumber;
-    private String mName, mFormName, mFormPokemonName;
-
     private ArrayList<String> mIdColumns;
 
 
     public Pokemon(Context context, int id, int speciesId, int formId, String name,
                    String formName, String formPokemonName, int nationalNumber) {
-        // TODO how about passing MiniPokemon object here to reference?
         mContext = context;
         mId = id;
         mSpeciesId = speciesId;
@@ -42,41 +36,6 @@ public class Pokemon {
     public MiniPokemon toMiniPokemon() {
         return new MiniPokemon(mId, mSpeciesId, mFormId, mName, mFormName, mFormPokemonName,
                 mNationalNumber);
-    }
-
-
-    public int getId() {
-        return mId;
-    }
-
-    public int getSpeciesId() {
-        return mSpeciesId;
-    }
-
-    public int getFormId() {
-        return mFormId;
-    }
-
-    public int getPokemonOrderNumber() {
-        return -1;  // TODO FIXME actually return the order number
-    }
-
-    public String getName() {
-        //return (mName == null) ? findPokemonName() : mName; TODO: get name from db if var is null
-        return mName;
-    }
-
-    public String getFormName() {
-        return mFormName; // TODO see getName()
-    }
-
-    public String getFormAndPokemonName() {
-        // mFormPokemonName could be "" (if it is the default form)
-        return (mFormPokemonName == null) ? mName : mFormPokemonName; // TODO see getName()
-    }
-
-    public int getNationalDexNumber() {
-        return mNationalNumber;
     }
 
 
