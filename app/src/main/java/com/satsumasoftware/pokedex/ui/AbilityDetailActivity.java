@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.ability.Ability;
-import com.satsumasoftware.pokedex.framework.ability.AbilityFlavorText;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.ui.filter.FilterResultsActivity;
 import com.satsumasoftware.pokedex.util.AlertUtils;
@@ -45,7 +44,7 @@ public class AbilityDetailActivity extends AppCompatActivity {
         idText.setText("# " + mAbility.getId());
         nameText.setText(mAbility.getName());
 
-        descriptionText.setText(AbilityFlavorText.getFlavorText(this, mAbility.getId()));
+        descriptionText.setText(mAbility.getFlavorText(this));
 
         genText.setText(InfoUtils.getRomanFromGen(mAbility.getGenerationId()));
 

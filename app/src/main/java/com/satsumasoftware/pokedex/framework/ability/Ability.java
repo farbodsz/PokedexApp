@@ -1,7 +1,11 @@
 package com.satsumasoftware.pokedex.framework.ability;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.satsumasoftware.pokedex.db.PokeDB;
 
 public class Ability implements Parcelable {
 
@@ -58,6 +62,35 @@ public class Ability implements Parcelable {
 
     public String getNameItalian() {
         return mNameIt;
+    }
+
+
+    public String getFlavorText(Context context) {
+        return getFlavorText(context, 16);  // latest version group
+        // TODO call above with a default version (Settings option)
+    }
+
+    public String getFlavorText(Context context, int versionGroupId) {
+        return getFlavorText(context, versionGroupId, 9);  // English language
+        // TODO call above with a default language (Settings option)
+    }
+
+    public String getFlavorText(Context context, int versionGroupId, int langId) {
+        PokeDB pokeDB = new PokeDB(context);
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.AbilityFlavorText.TABLE_NAME,
+                null,
+                PokeDB.AbilityFlavorText.COL_ABILITY_ID + "=? AND " +
+                        PokeDB.AbilityFlavorText.COL_VERSION_GROUP_ID + "=? AND " +
+                        PokeDB.AbilityFlavorText.COL_LANGUAGE_ID + "=?",
+                new String[] {String.valueOf(mId), String.valueOf(versionGroupId),
+                        String.valueOf(langId)},
+                null, null, null);
+        cursor.moveToFirst();
+        String flavorText = cursor.getString(
+                cursor.getColumnIndex(PokeDB.AbilityFlavorText.COL_FLAVOR_TEXT));
+        cursor.close();
+        return flavorText.replace("\n", " ");  // to remove the line breaks
     }
 
 
