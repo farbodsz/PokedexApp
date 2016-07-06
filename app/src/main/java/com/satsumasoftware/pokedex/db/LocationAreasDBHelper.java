@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.satsumasoftware.pokedex.entities.location.LocationArea;
+import com.satsumasoftware.pokedex.framework.location.LocationArea;
 
 import java.util.ArrayList;
 

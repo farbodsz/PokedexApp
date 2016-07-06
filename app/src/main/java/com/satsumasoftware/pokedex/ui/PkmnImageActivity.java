@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.entities.pokemon.BasePokemon;
-import com.satsumasoftware.pokedex.entities.pokemon.Pokemon;
+import com.satsumasoftware.pokedex.framework.pokemon.BasePokemon;
+import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 import com.satsumasoftware.pokedex.util.ThemeUtils;
 
