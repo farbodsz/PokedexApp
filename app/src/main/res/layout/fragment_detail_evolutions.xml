@@ -1,40 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.v7.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recyclerView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardView"
-        android:visibility="gone"
-        style="@style/AppTheme.CardView.SidePadding"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/card_padding_vertical"
-            android:paddingBottom="@dimen/card_padding_vertical" >
-            <TextView
-                android:text="@string/header_forms"
-                style="@style/AppTheme.CardView.Text.Title.Medium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/card_padding_vertical" />
-            <LinearLayout
-                android:id="@+id/container"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-                <!-- List items will be added here programmatically -->
-            </LinearLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</FrameLayout>
+    android:layout_height="match_parent"/>
