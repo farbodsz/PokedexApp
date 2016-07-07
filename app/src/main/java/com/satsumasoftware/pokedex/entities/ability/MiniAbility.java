@@ -8,6 +8,7 @@ import android.util.SparseArray;
 import android.util.SparseIntArray;
 
 import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
+import com.satsumasoftware.pokedex.util.DataUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,7 +42,7 @@ public class MiniAbility implements Parcelable {
 
 
     private int findAbilityId(Context context) {
-        int id = -1;
+        int id = DataUtils.NULL_INT;
         AbilitiesDBHelper helper = new AbilitiesDBHelper(context);
         Cursor cursor = helper.getReadableDatabase().query(
                 AbilitiesDBHelper.TABLE_NAME,
