@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,12 +30,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.entities.ability.MiniAbility;
-import com.satsumasoftware.pokedex.entities.detail.DetailInfo;
-import com.satsumasoftware.pokedex.entities.detail.PokemonCompareDetail;
-import com.satsumasoftware.pokedex.entities.pokemon.MiniPokemon;
-import com.satsumasoftware.pokedex.entities.pokemon.Pokemon;
-import com.satsumasoftware.pokedex.entities.pokemon.PokemonMoves;
+import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
+import com.satsumasoftware.pokedex.framework.detail.DetailInfo;
+import com.satsumasoftware.pokedex.framework.detail.PokemonCompareDetail;
+import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
+import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
+import com.satsumasoftware.pokedex.framework.pokemon.PokemonMoves;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesVgAdapter;
 import com.satsumasoftware.pokedex.util.ActionUtils;
@@ -279,7 +280,7 @@ public class CompareActivity extends AppCompatActivity {
 
             for (Pokemon pokemon : mPokemonArray) {
                 final SparseIntArray abilityIds = pokemon.getAbilityIds();
-                final String[] abilities = MiniAbility.findAbilityNames(getActivity(), abilityIds);
+                final SparseArray<String> abilities = MiniAbility.findAbilityNames(getActivity(), abilityIds);
 
                 ArrayList<String> properties = new ArrayList<>();
                 ArrayList<String> values = new ArrayList<>();
@@ -306,14 +307,14 @@ public class CompareActivity extends AppCompatActivity {
                             break;
                     }
                     properties.add(getResources().getString(propertyText));
-                    values.add(abilities[i]);
+                    values.add(abilities.get(i));
                     final int j = i;
                     listeners.add(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getActivity(), AbilityDetailActivity.class);
                             intent.putExtra(AbilityDetailActivity.EXTRA_ABILITY,
-                                    new MiniAbility(abilityIds.get(j+1), abilities[j]));
+                                    new MiniAbility(abilityIds.get(j+1), abilities.get(j)));
                             startActivity(intent);
                         }
                     });

@@ -26,11 +26,11 @@ import android.widget.Spinner;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
-import com.satsumasoftware.pokedex.entities.pokemon.MiniPokemon;
-import com.satsumasoftware.pokedex.misc.DividerItemDecoration;
+import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
 import com.satsumasoftware.pokedex.ui.filter.SearchResultsActivity;
+import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
@@ -423,15 +423,7 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
         );
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            int id = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_ID));
-            int speciesId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_SPECIES_ID));
-            int formId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_ID));
-            String name = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_NAME));
-            String form = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_NAME));
-            String formAndPokemonName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_POKEMON_NAME));
-            int pokedexNumber = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_POKEDEX_NATIONAL));
-
-            MiniPokemon pokemon = new MiniPokemon(id, speciesId, formId, name, form, formAndPokemonName, pokedexNumber);
+            MiniPokemon pokemon = new MiniPokemon(cursor);
             filteredList.add(pokemon);
             cursor.moveToNext();
         }

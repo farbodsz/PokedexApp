@@ -6,8 +6,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.entities.move.MiniMove;
-import com.satsumasoftware.pokedex.entities.pokemon.PokemonMoves;
+import com.satsumasoftware.pokedex.framework.move.MiniMove;
+import com.satsumasoftware.pokedex.framework.pokemon.PokemonMoves;
 
 import java.util.ArrayList;
 

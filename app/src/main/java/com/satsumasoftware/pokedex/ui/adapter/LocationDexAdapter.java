@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.entities.Region;
-import com.satsumasoftware.pokedex.entities.location.Location;
+import com.satsumasoftware.pokedex.framework.Region;
+import com.satsumasoftware.pokedex.framework.location.Location;
 
 import java.util.ArrayList;
 

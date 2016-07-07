@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.entities.pokemon.MiniPokemon;
-import com.satsumasoftware.pokedex.entities.pokemon.Pokemon;
+import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
+import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.ui.ExperienceCalculatorActivity;
 
 import java.util.ArrayList;

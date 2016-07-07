@@ -22,8 +22,8 @@ import android.widget.Spinner;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.MovesDBHelper;
-import com.satsumasoftware.pokedex.entities.move.MiniMove;
-import com.satsumasoftware.pokedex.misc.DividerItemDecoration;
+import com.satsumasoftware.pokedex.framework.move.MiniMove;
+import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.MoveDexAdapter;
 import com.satsumasoftware.pokedex.util.AdUtils;

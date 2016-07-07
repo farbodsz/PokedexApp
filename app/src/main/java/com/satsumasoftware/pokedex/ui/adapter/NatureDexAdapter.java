@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.entities.nature.MiniNature;
+import com.satsumasoftware.pokedex.framework.nature.MiniNature;
 
 import java.util.ArrayList;
 
