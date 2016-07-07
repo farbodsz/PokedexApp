@@ -1,5 +1,9 @@
 package com.satsumasoftware.pokedex.framework.nature;
 
+import android.database.Cursor;
+
+import com.satsumasoftware.pokedex.db.NaturesDBHelper;
+
 public class Nature extends BaseNature {
 
     private int mDecreasedStatId, mIncreasedStatId, mHatesFlavorId, mLikesFlavorId, mGameIndex;
@@ -25,6 +29,24 @@ public class Nature extends BaseNature {
         mNameDe = nameDe;
         mNameEs = nameEs;
         mNameIt = nameIt;
+    }
+
+    public Nature(Cursor cursor) {
+        mId = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_ID));
+        mIdentifier = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_IDENTIFIER));
+        mDecreasedStatId = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_DECREASED_STAT_ID));
+        mIncreasedStatId = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_INCREASED_STAT_ID));
+        mHatesFlavorId = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_HATES_FLAVOR_ID));
+        mLikesFlavorId = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_LIKES_FLAVOR_ID));
+        mGameIndex = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_GAME_INDEX));
+
+        mName = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME));
+        mNameJa = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME_JAPANESE));
+        mNameKo = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME_KOREAN));
+        mNameFr = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME_FRENCH));
+        mNameDe = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME_GERMAN));
+        mNameEs = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME_SPANISH));
+        mNameIt = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME_ITALIAN));
     }
 
     public String getIdentifier() {

@@ -55,22 +55,9 @@ public class MiniNature extends BaseNature implements Parcelable {
                 null,
                 null);
         cursor.moveToFirst();
-        String identifier = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_IDENTIFIER));
-        int decrStatId = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_DECREASED_STAT_ID));
-        int incrStatId = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_INCREASED_STAT_ID));
-        int hatesFlavorId = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_HATES_FLAVOR_ID));
-        int likesFlavorId = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_LIKES_FLAVOR_ID));
-        int gameIndex = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_GAME_INDEX));
-        String name = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME));
-        String nameJa = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME_JAPANESE));
-        String nameKo = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME_KOREAN));
-        String nameFr = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME_FRENCH));
-        String nameDe = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME_GERMAN));
-        String nameEs = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME_SPANISH));
-        String nameIt = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME_ITALIAN));
+        Nature nature = new Nature(cursor);
         cursor.close();
-        return new Nature(mId, identifier, decrStatId, incrStatId, hatesFlavorId,
-                likesFlavorId, gameIndex, name, nameJa, nameKo, nameFr, nameDe, nameEs, nameIt);
+        return nature;
     }
 
 }
