@@ -23,6 +23,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
@@ -484,37 +485,45 @@ public class DetailActivity extends AppCompatActivity {
 
         private PokemonDetail fetchAbilityData() {
             final SparseIntArray abilityIds = mPokemon.getAbilityIds();
-            final SparseArray<String> abilities = MiniAbility.findAbilityNames(getActivity(), abilityIds);
+
+            SparseArray<MiniAbility> abilities = new SparseArray<>(3);
+            for (int i = 1; i < abilityIds.size() + 1; i++) {
+                int id = abilityIds.get(i);
+                MiniAbility miniAbility = (id == DataUtils.NULL_INT) ?
+                        null : new MiniAbility(getActivity(), id);
+                abilities.put(i, miniAbility);
+            }
+            final SparseArray<MiniAbility> finalAbilities = abilities;
 
             ArrayList<String> properties = new ArrayList<>();
             ArrayList<String> values = new ArrayList<>();
             ArrayList<View.OnClickListener> listeners = new ArrayList<>();
 
-            for (int i = 0; i < 3; i++) {
-                if (abilityIds.get(i+1) == 0) {
+            for (int i = 1; i <= 3; i++) {
+                if (finalAbilities.get(i) == null) {
                     continue;
                 }
                 int propertyText = 0;
                 switch (i) {
-                    case 0:
-                        propertyText = (Pokemon.hasSecondaryAbility(abilityIds)) ? R.string.attr_ability_1 : R.string.attr_ability;
-                        break;
                     case 1:
-                        propertyText = R.string.attr_ability_2;
+                        propertyText = Pokemon.hasSecondaryAbility(abilityIds) ?
+                                R.string.attr_ability_1 : R.string.attr_ability;
                         break;
                     case 2:
+                        propertyText = R.string.attr_ability_2;
+                        break;
+                    case 3:
                         propertyText = R.string.attr_ability_hidden;
                         break;
                 }
-                properties.add(getResources().getString(propertyText));
-                values.add(abilities.get(i));
+                properties.add(getActivity().getResources().getString(propertyText));
+                values.add(finalAbilities.get(i).getName());
                 final int j = i;
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), AbilityDetailActivity.class);
-                        intent.putExtra(AbilityDetailActivity.EXTRA_ABILITY,
-                                new MiniAbility(abilityIds.get(j+1), abilities.get(j)));
+                        intent.putExtra(AbilityDetailActivity.EXTRA_ABILITY, finalAbilities.get(j));
                         startActivity(intent);
                     }
                 });

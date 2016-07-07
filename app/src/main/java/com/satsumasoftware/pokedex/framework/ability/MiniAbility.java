@@ -4,19 +4,29 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.SparseArray;
-import android.util.SparseIntArray;
 
 import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class MiniAbility extends BaseAbility implements Parcelable {
 
     public MiniAbility(int id, String name) {
         mId = id;
         mName = name;
+    }
+
+    public MiniAbility(Context context, int id) {
+        mId = id;
+
+        AbilitiesDBHelper helper = new AbilitiesDBHelper(context);
+        Cursor cursor = helper.getReadableDatabase().query(
+                AbilitiesDBHelper.TABLE_NAME,
+                BaseAbility.DB_COLUMNS,
+                AbilitiesDBHelper.COL_ID + "=?",
+                new String[] {String.valueOf(mId)},
+                null, null, null);
+        cursor.moveToFirst();
+        mName = cursor.getString(cursor.getColumnIndex(AbilitiesDBHelper.COL_NAME));
+        cursor.close();
     }
 
     public Ability toAbility(Context context) {
@@ -33,64 +43,6 @@ public class MiniAbility extends BaseAbility implements Parcelable {
         return ability;
     }
 
-    public static SparseArray<String> findAbilityNames(Context context, SparseIntArray abilityIds) {
-        StringBuilder selectionBuilder = new StringBuilder();
-        ArrayList<String> selectionArgsList = new ArrayList<>();
-        ArrayList<Integer> sortedNotNullIds = new ArrayList<>();
-        boolean[] abilityIsNull = new boolean[] {false, false, false};
-        for (int i = 0; i < 3; i++) {
-            if (abilityIds.get(i+1) == 0) {
-                abilityIsNull[i] = true;
-            } else {
-                selectionBuilder.append(AbilitiesDBHelper.COL_ID + "=? OR ");
-                selectionArgsList.add(String.valueOf(abilityIds.get(i+1)));
-                sortedNotNullIds.add(abilityIds.get(i+1));
-            }
-        }
-        Collections.sort(sortedNotNullIds);
-        String selection = selectionBuilder.toString();
-        selection = selection.substring(0, selection.length()-4);
-        String[] selectionArgs = selectionArgsList.toArray(new String[selectionArgsList.size()]);
-
-        SparseArray<String> collectedData = new SparseArray<>();
-        SparseArray<String> abilityNames = new SparseArray<>(3);
-
-        AbilitiesDBHelper helper = new AbilitiesDBHelper(context);
-        Cursor cursor = helper.getReadableDatabase().query(
-                AbilitiesDBHelper.TABLE_NAME,
-                new String[] {AbilitiesDBHelper.COL_ID, AbilitiesDBHelper.COL_NAME},
-                selection,
-                selectionArgs,
-                null, null, null);
-        cursor.moveToFirst();
-        int i = 0;
-        int numAppended = 0;
-        while (!cursor.isAfterLast() && i < 3) {
-            // Note that the contents of this list would be sorted by id number (sadly)
-
-            if (abilityIsNull[i]) {
-                i++;
-                cursor.moveToNext();
-                continue;
-            }
-
-            String name = cursor.getString(cursor.getColumnIndex(AbilitiesDBHelper.COL_NAME));
-            collectedData.append(sortedNotNullIds.get(numAppended), name);
-            i++;
-            numAppended++;
-        }
-        cursor.close();
-
-        for (int j = 0; j < 3; j++) {
-            if (abilityIsNull[j]) {
-                abilityNames.put(j, null);
-            } else {
-                abilityNames.put(j, collectedData.get(abilityIds.get(j+1)));
-            }
-        }
-
-        return abilityNames;
-    }
 
     protected MiniAbility(Parcel in) {
         mId = in.readInt();
