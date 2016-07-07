@@ -8,7 +8,6 @@ import android.util.SparseArray;
 import android.util.SparseIntArray;
 
 import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
-import com.satsumasoftware.pokedex.util.DataUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
