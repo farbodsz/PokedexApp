@@ -161,12 +161,9 @@ public class Move extends BaseMove {
                 new String[] {String.valueOf(mEffectId), String.valueOf(langId)},
                 null, null, null);
         cursor.moveToFirst();
-        String effect;
-        if (shortEffect) {
-            effect = cursor.getString(cursor.getColumnIndex(PokeDB.MoveEffectProse.COL_SHORT_EFFECT));
-        } else {
-            effect = cursor.getString(cursor.getColumnIndex(PokeDB.MoveEffectProse.COL_EFFECT));
-        }
+        String effect = shortEffect ?
+                cursor.getString(cursor.getColumnIndex(PokeDB.MoveEffectProse.COL_SHORT_EFFECT)) :
+                cursor.getString(cursor.getColumnIndex(PokeDB.MoveEffectProse.COL_EFFECT));
         cursor.close();
         return effect;
     }
