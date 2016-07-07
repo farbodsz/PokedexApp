@@ -12,27 +12,12 @@ import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MiniAbility implements Parcelable {
-
-    public static final String[] DB_COLUMNS =
-            {AbilitiesDBHelper.COL_ID, AbilitiesDBHelper.COL_NAME};
-
-    private int mId;
-    private String mName;
+public class MiniAbility extends BaseAbility implements Parcelable {
 
     public MiniAbility(int id, String name) {
         mId = id;
         mName = name;
     }
-
-    public int getId() {
-        return mId;
-    }
-
-    public String getName() {
-        return mName;
-    }
-
 
     public Ability toAbility(Context context) {
         AbilitiesDBHelper helper = new AbilitiesDBHelper(context);

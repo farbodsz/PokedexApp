@@ -7,11 +7,10 @@ import android.os.Parcelable;
 
 import com.satsumasoftware.pokedex.db.PokeDB;
 
-public class Ability implements Parcelable {
+public class Ability extends BaseAbility implements Parcelable {
 
-    private int mId, mGenerationId;
-
-    private String mName, mNameJa, mNameKo, mNameFr, mNameDe, mNameEs, mNameIt;
+    private int mGenerationId;
+    private String mNameJa, mNameKo, mNameFr, mNameDe, mNameEs, mNameIt;
 
 
     public Ability(int id, int generationId, String name, String nameJa, String nameKo,
@@ -28,16 +27,8 @@ public class Ability implements Parcelable {
         mNameIt = nameIt;
     }
 
-    public int getId() {
-        return mId;
-    }
-
     public int getGenerationId() {
         return mGenerationId;
-    }
-
-    public String getName() {
-        return mName;
     }
 
     public String getNameJapanese() {
