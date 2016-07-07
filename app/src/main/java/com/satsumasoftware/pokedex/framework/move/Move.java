@@ -1,8 +1,10 @@
 package com.satsumasoftware.pokedex.framework.move;
 
-public class Move extends BaseMove {
+import android.database.Cursor;
 
-    // TODO optimise (like Pokemon class)
+import com.satsumasoftware.pokedex.db.MovesDBHelper;
+
+public class Move extends BaseMove {
 
     // TODO FIXME descriptions need to be formatted
 
@@ -39,6 +41,31 @@ public class Move extends BaseMove {
         mNameDe = nameDe;
         mNameEs = nameEs;
         mNameIt = nameIt;
+    }
+
+    public Move(Cursor cursor) {
+        mId = cursor.getInt(cursor.getColumnIndex(MovesDBHelper.COL_ID));
+        mGenerationId = cursor.getInt(cursor.getColumnIndex(MovesDBHelper.COL_GENERATION_ID));
+        mTypeId = cursor.getInt(cursor.getColumnIndex(MovesDBHelper.COL_TYPE_ID));
+        mPower = cursor.getInt(cursor.getColumnIndex(MovesDBHelper.COL_POWER));
+        mPp = cursor.getInt(cursor.getColumnIndex(MovesDBHelper.COL_PP));
+        mAccuracy = cursor.getInt(cursor.getColumnIndex(MovesDBHelper.COL_ACCURACY));
+        mPriority = cursor.getInt(cursor.getColumnIndex(MovesDBHelper.COL_PRIORITY));
+        mTargetId = cursor.getInt(cursor.getColumnIndex(MovesDBHelper.COL_TARGET_ID));
+        mDamageClassId = cursor.getInt(cursor.getColumnIndex(MovesDBHelper.COL_DAMAGE_CLASS_ID));
+        mEffectId = cursor.getInt(cursor.getColumnIndex(MovesDBHelper.COL_EFFECT_ID));
+        mEffectChance = cursor.getInt(cursor.getColumnIndex(MovesDBHelper.COL_EFFECT_CHANCE));
+        mContestTypeId = cursor.getInt(cursor.getColumnIndex(MovesDBHelper.COL_CONTEST_TYPE_ID));
+        mContestEffectId = cursor.getInt(cursor.getColumnIndex(MovesDBHelper.COL_CONTEST_EFFECT_ID));
+        mSuperContestEffectId = cursor.getInt(cursor.getColumnIndex(MovesDBHelper.COL_SUPER_CONTEST_EFFECT_ID));
+
+        mName = cursor.getString(cursor.getColumnIndex(MovesDBHelper.COL_NAME));
+        mNameJa = cursor.getString(cursor.getColumnIndex(MovesDBHelper.COL_NAME_JAPANESE));
+        mNameKo = cursor.getString(cursor.getColumnIndex(MovesDBHelper.COL_NAME_KOREAN));
+        mNameFr = cursor.getString(cursor.getColumnIndex(MovesDBHelper.COL_NAME_FRENCH));
+        mNameDe = cursor.getString(cursor.getColumnIndex(MovesDBHelper.COL_NAME_GERMAN));
+        mNameEs = cursor.getString(cursor.getColumnIndex(MovesDBHelper.COL_NAME_SPANISH));
+        mNameIt = cursor.getString(cursor.getColumnIndex(MovesDBHelper.COL_NAME_ITALIAN));
     }
 
     public int getGenerationId() {
