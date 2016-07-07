@@ -65,9 +65,8 @@ public class LocationsDBHelper extends SQLiteOpenHelper {
             int locationId = cursor.getInt(cursor.getColumnIndex(PokeDB.Locations.COL_ID));
             values.put(COL_ID, locationId);
 
-            int regionIdColIndex = cursor.getColumnIndex(PokeDB.Locations.COL_REGION_ID);
             values.put(COL_REGION_ID,
-                    cursor.isNull(regionIdColIndex) ? -1 : cursor.getInt(regionIdColIndex));
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Locations.COL_REGION_ID)));
 
             // the identifier will not be used so it's not put in db
 

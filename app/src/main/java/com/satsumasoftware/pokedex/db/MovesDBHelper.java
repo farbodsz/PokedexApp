@@ -110,15 +110,9 @@ public class MovesDBHelper extends SQLiteOpenHelper {
             values.put(COL_TYPE_ID,
                     cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_TYPE_ID)));
 
-            int powerColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_POWER);
-            values.put(COL_POWER, cursor.isNull(powerColIndex) ? -1 : cursor.getInt(powerColIndex));
-
-            int ppColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_PP);
-            values.put(COL_PP, cursor.isNull(ppColIndex) ? -1 : cursor.getInt(ppColIndex));
-
-            int accuracyColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_ACCURACY);
-            values.put(COL_ACCURACY, cursor.isNull(accuracyColIndex) ?
-                    -1 : cursor.getInt(accuracyColIndex));
+            values.put(COL_POWER, cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_POWER)));
+            values.put(COL_PP, cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_PP)));
+            values.put(COL_ACCURACY, cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_ACCURACY)));
 
             values.put(COL_PRIORITY,
                     cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_PRIORITY)));
@@ -128,23 +122,15 @@ public class MovesDBHelper extends SQLiteOpenHelper {
                     cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_DAMAGE_CLASS_ID)));
             values.put(COL_EFFECT_ID,
                     cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_EFFECT_ID)));
+            values.put(COL_EFFECT_CHANCE,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_EFFECT_CHANCE)));
 
-            int effectChanceColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_EFFECT_CHANCE);
-            values.put(COL_EFFECT_CHANCE, cursor.isNull(effectChanceColIndex) ?
-                    -1 : cursor.getInt(effectChanceColIndex));
-
-            int contestTypeIdColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_CONTEST_TYPE_ID);
-            values.put(COL_CONTEST_TYPE_ID, cursor.isNull(contestTypeIdColIndex) ?
-                    -1 : cursor.getInt(contestTypeIdColIndex));
-
-            int contestEffectIdColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_CONTEST_EFFECT_ID);
-            values.put(COL_CONTEST_EFFECT_ID, cursor.isNull(contestEffectIdColIndex) ?
-                    -1 : cursor.getInt(contestEffectIdColIndex));
-
-            int superContestEffectIdColIndex =
-                    cursor.getColumnIndex(PokeDB.Moves.COL_SUPER_CONTEST_EFFECT_ID);
-            values.put(COL_SUPER_CONTEST_EFFECT_ID, cursor.isNull(superContestEffectIdColIndex) ?
-                    -1 : cursor.getInt(superContestEffectIdColIndex));
+            values.put(COL_CONTEST_TYPE_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_CONTEST_TYPE_ID)));
+            values.put(COL_CONTEST_EFFECT_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_CONTEST_EFFECT_ID)));
+            values.put(COL_SUPER_CONTEST_EFFECT_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_SUPER_CONTEST_EFFECT_ID)));
 
             putNameValues(values, moveId, pokeDB);
 
