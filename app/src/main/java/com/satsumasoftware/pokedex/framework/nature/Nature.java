@@ -1,11 +1,11 @@
 package com.satsumasoftware.pokedex.framework.nature;
 
-public class Nature {
+public class Nature extends BaseNature {
 
-    private int mId, mDecreasedStatId, mIncreasedStatId, mHatesFlavorId, mLikesFlavorId, mGameIndex;
+    private int mDecreasedStatId, mIncreasedStatId, mHatesFlavorId, mLikesFlavorId, mGameIndex;
     private String mIdentifier;
 
-    private String mName, mNameJa, mNameKo, mNameFr, mNameDe, mNameEs, mNameIt;
+    private String mNameJa, mNameKo, mNameFr, mNameDe, mNameEs, mNameIt;
 
     public Nature(int id, String identifier, int decreasedStatId, int increasedStatId,
                   int hatesFlavorId, int likesFlavorId, int gameIndex, String name, String nameJa,
@@ -25,10 +25,6 @@ public class Nature {
         mNameDe = nameDe;
         mNameEs = nameEs;
         mNameIt = nameIt;
-    }
-
-    public int getId() {
-        return mId;
     }
 
     public String getIdentifier() {
@@ -53,10 +49,6 @@ public class Nature {
 
     public int getGameIndex() {
         return mGameIndex;
-    }
-
-    public String getName() {
-        return mName;
     }
 
     public String getNameJapanese() {

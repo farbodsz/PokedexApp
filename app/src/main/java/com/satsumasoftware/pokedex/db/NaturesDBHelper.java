@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.satsumasoftware.pokedex.framework.nature.BaseNature;
 import com.satsumasoftware.pokedex.framework.nature.MiniNature;
 import com.satsumasoftware.pokedex.framework.nature.Nature;
 
@@ -200,7 +201,7 @@ public class NaturesDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(
                 TABLE_NAME,
-                MiniNature.DB_COLUMNS,
+                BaseNature.DB_COLUMNS,
                 null,
                 null,
                 null,

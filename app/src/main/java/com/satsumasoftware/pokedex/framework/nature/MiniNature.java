@@ -8,13 +8,7 @@ import android.os.Parcelable;
 
 import com.satsumasoftware.pokedex.db.NaturesDBHelper;
 
-public class MiniNature implements Parcelable {
-
-    public static final String[] DB_COLUMNS =
-            {NaturesDBHelper.COL_ID, NaturesDBHelper.COL_NAME};
-
-    private int mId;
-    private String mName;
+public class MiniNature extends BaseNature implements Parcelable {
 
     public MiniNature(int id, String name) {
         mId = id;
@@ -48,14 +42,6 @@ public class MiniNature implements Parcelable {
             return new MiniNature[size];
         }
     };
-
-    public int getId() {
-        return mId;
-    }
-
-    public String getName() {
-        return mName;
-    }
 
     public Nature toNature(Context context) {
         NaturesDBHelper helper = new NaturesDBHelper(context);
