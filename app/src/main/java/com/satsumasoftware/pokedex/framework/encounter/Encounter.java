@@ -5,6 +5,7 @@ import android.database.Cursor;
 
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.framework.location.LocationArea;
+import com.satsumasoftware.pokedex.util.DataUtils;
 
 public class Encounter {
 
@@ -59,7 +60,7 @@ public class Encounter {
                 new String[] {String.valueOf(mId)},
                 null, null, null);
         if (cursor.getCount() == 0) {
-            return -1;
+            return DataUtils.NULL_INT;
         }
         cursor.moveToFirst();
         int encounterConditionValueId = cursor.getInt(cursor.getColumnIndex(
@@ -69,7 +70,7 @@ public class Encounter {
     }
 
     public boolean hasEncounterCondition(Context context) {
-        return getEncounterConditionId(context) != -1;
+        return getEncounterConditionId(context) != DataUtils.NULL_INT;
     }
 
     public DisplayedEncounter toDisplayedEncounter(Context context, LocationArea locationArea) {

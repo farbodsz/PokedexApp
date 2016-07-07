@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AppConfig;
+import com.satsumasoftware.pokedex.util.DataUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -568,7 +569,7 @@ public class Pokemon extends BasePokemon {
     }
 
     public static boolean isGenderless(ArrayMap<String, Integer> genderValues) {
-        return genderValues.get("gender_rate") == -1;
+        return genderValues.get("gender_rate") == DataUtils.NULL_INT;
     }
 
     public static boolean isGenderless(int genderRateId) {
@@ -589,7 +590,7 @@ public class Pokemon extends BasePokemon {
     }
 
     public static boolean hasHabitatInfo(ArrayMap<String, Integer> moreValues) {
-        return Pokemon.getHabitatId(moreValues) != -1;
+        return Pokemon.getHabitatId(moreValues) != DataUtils.NULL_INT;
     }
 
     public ArrayList<PokemonForm> getAlternateForms() {

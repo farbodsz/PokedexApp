@@ -6,6 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
+import com.satsumasoftware.pokedex.util.DataUtils;
 
 public class MiniPokemon extends BasePokemon implements Parcelable {
 
@@ -83,7 +84,7 @@ public class MiniPokemon extends BasePokemon implements Parcelable {
     }
 
     public boolean hasAddedAltDexInfo() {
-        return mAltDexNumber != -1;
+        return mAltDexNumber != DataUtils.NULL_INT;
     }
 
     public int getAlternateDexId() {
