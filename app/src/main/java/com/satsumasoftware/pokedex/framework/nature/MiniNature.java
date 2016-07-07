@@ -15,6 +15,24 @@ public class MiniNature extends BaseNature implements Parcelable {
         mName = name;
     }
 
+    public Nature toNature(Context context) {
+        NaturesDBHelper helper = new NaturesDBHelper(context);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        Cursor cursor = db.query(
+                NaturesDBHelper.TABLE_NAME,
+                null,
+                NaturesDBHelper.COL_ID + "=?",
+                new String[] {String.valueOf(mId)},
+                null,
+                null,
+                null);
+        cursor.moveToFirst();
+        Nature nature = new Nature(cursor);
+        cursor.close();
+        return nature;
+    }
+
+
     protected MiniNature(Parcel in) {
         mId = in.readInt();
         mName = in.readString();
@@ -42,22 +60,4 @@ public class MiniNature extends BaseNature implements Parcelable {
             return new MiniNature[size];
         }
     };
-
-    public Nature toNature(Context context) {
-        NaturesDBHelper helper = new NaturesDBHelper(context);
-        SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor cursor = db.query(
-                NaturesDBHelper.TABLE_NAME,
-                null,
-                NaturesDBHelper.COL_ID + "=?",
-                new String[] {String.valueOf(mId)},
-                null,
-                null,
-                null);
-        cursor.moveToFirst();
-        Nature nature = new Nature(cursor);
-        cursor.close();
-        return nature;
-    }
-
 }
