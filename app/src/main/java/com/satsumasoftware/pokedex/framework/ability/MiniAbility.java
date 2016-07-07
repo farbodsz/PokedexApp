@@ -28,15 +28,9 @@ public class MiniAbility extends BaseAbility implements Parcelable {
                 new String[] {String.valueOf(mId)},
                 null, null, null);
         cursor.moveToFirst();
-        int generationId = cursor.getInt(cursor.getColumnIndex(AbilitiesDBHelper.COL_GENERATION_ID));
-        String nameJa = cursor.getString(cursor.getColumnIndex(AbilitiesDBHelper.COL_NAME_JAPANESE));
-        String nameKo = cursor.getString(cursor.getColumnIndex(AbilitiesDBHelper.COL_NAME_KOREAN));
-        String nameFr = cursor.getString(cursor.getColumnIndex(AbilitiesDBHelper.COL_NAME_FRENCH));
-        String nameDe = cursor.getString(cursor.getColumnIndex(AbilitiesDBHelper.COL_NAME_GERMAN));
-        String nameEs = cursor.getString(cursor.getColumnIndex(AbilitiesDBHelper.COL_NAME_SPANISH));
-        String nameIt = cursor.getString(cursor.getColumnIndex(AbilitiesDBHelper.COL_NAME_ITALIAN));
+        Ability ability = new Ability(cursor);
         cursor.close();
-        return new Ability(mId, generationId, mName, nameJa, nameKo, nameFr, nameDe, nameEs, nameIt);
+        return ability;
     }
 
     public static SparseArray<String> findAbilityNames(Context context, SparseIntArray abilityIds) {
@@ -100,7 +94,7 @@ public class MiniAbility extends BaseAbility implements Parcelable {
 
     protected MiniAbility(Parcel in) {
         mId = in.readInt();
-        mName = in.readString(); // TODO what if these are null? (see comment in getName())
+        mName = in.readString();
     }
 
     public static final Creator<MiniAbility> CREATOR = new Creator<MiniAbility>() {
@@ -123,7 +117,7 @@ public class MiniAbility extends BaseAbility implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(mId);
-        dest.writeString(mName); // TODO what if these are null? (see comment in getName())
+        dest.writeString(mName);
     }
 
 }

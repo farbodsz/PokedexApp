@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
 import com.satsumasoftware.pokedex.db.PokeDB;
 
 public class Ability extends BaseAbility implements Parcelable {
@@ -25,6 +26,19 @@ public class Ability extends BaseAbility implements Parcelable {
         mNameDe = nameDe;
         mNameEs = nameEs;
         mNameIt = nameIt;
+    }
+
+    public Ability(Cursor cursor) {
+        mId = cursor.getInt(cursor.getColumnIndex(AbilitiesDBHelper.COL_ID));
+        mGenerationId = cursor.getInt(cursor.getColumnIndex(AbilitiesDBHelper.COL_GENERATION_ID));
+
+        mName = cursor.getString(cursor.getColumnIndex(AbilitiesDBHelper.COL_NAME));
+        mNameJa = cursor.getString(cursor.getColumnIndex(AbilitiesDBHelper.COL_NAME_JAPANESE));
+        mNameKo = cursor.getString(cursor.getColumnIndex(AbilitiesDBHelper.COL_NAME_KOREAN));
+        mNameFr = cursor.getString(cursor.getColumnIndex(AbilitiesDBHelper.COL_NAME_FRENCH));
+        mNameDe = cursor.getString(cursor.getColumnIndex(AbilitiesDBHelper.COL_NAME_GERMAN));
+        mNameEs = cursor.getString(cursor.getColumnIndex(AbilitiesDBHelper.COL_NAME_SPANISH));
+        mNameIt = cursor.getString(cursor.getColumnIndex(AbilitiesDBHelper.COL_NAME_ITALIAN));
     }
 
     public int getGenerationId() {
