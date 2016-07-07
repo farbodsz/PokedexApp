@@ -1,16 +1,16 @@
 package com.satsumasoftware.pokedex.framework.move;
 
-public class Move {
+public class Move extends BaseMove {
 
     // TODO optimise (like Pokemon class)
 
     // TODO FIXME descriptions need to be formatted
 
-    private int mId, mGenerationId, mTypeId, mPower, mPp, mAccuracy, mPriority, mTargetId,
+    private int mGenerationId, mTypeId, mPower, mPp, mAccuracy, mPriority, mTargetId,
             mDamageClassId, mEffectId, mEffectChance, mContestTypeId, mContestEffectId,
             mSuperContestEffectId;
 
-    private String mName, mNameJa, mNameKo, mNameFr, mNameDe, mNameEs, mNameIt;
+    private String mNameJa, mNameKo, mNameFr, mNameDe, mNameEs, mNameIt;
 
 
     public Move(int id, int generationId, int typeId, int power, int pp, int accuracy, int priority,
@@ -39,10 +39,6 @@ public class Move {
         mNameDe = nameDe;
         mNameEs = nameEs;
         mNameIt = nameIt;
-    }
-
-    public int getId() {
-        return mId;
     }
 
     public int getGenerationId() {
@@ -95,10 +91,6 @@ public class Move {
 
     public int getSuperContestEffectId() {
         return mSuperContestEffectId;
-    }
-
-    public String getName() {
-        return mName;
     }
 
     public String getNameJapanese() {

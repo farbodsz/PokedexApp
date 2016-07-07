@@ -7,14 +7,7 @@ import android.os.Parcelable;
 
 import com.satsumasoftware.pokedex.db.MovesDBHelper;
 
-public class MiniMove implements Parcelable {
-
-    public static final String[] DB_COLUMNS =
-            {MovesDBHelper.COL_ID, MovesDBHelper.COL_NAME};
-
-    private int mId;
-    private String mName;
-
+public class MiniMove extends BaseMove implements Parcelable {
 
     public MiniMove(Context context, int id) {
         mId = id;
@@ -36,15 +29,6 @@ public class MiniMove implements Parcelable {
         mId = id;
         mName = name;
     }
-
-    public int getId() {
-        return mId;
-    }
-
-    public String getName() {
-        return mName;
-    }
-
 
     public Move toMove(Context context) {
         MovesDBHelper helper = new MovesDBHelper(context);
