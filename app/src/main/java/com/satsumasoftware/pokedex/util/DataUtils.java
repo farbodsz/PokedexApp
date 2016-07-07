@@ -2,6 +2,8 @@ package com.satsumasoftware.pokedex.util;
 
 public final class DataUtils {
 
+    public static final int NULL_INT = 0;
+
     public static String typeIdToString(int typeId) {
         // TODO Use a db to handle langs
         switch (typeId) {
