@@ -4,7 +4,7 @@ import android.support.annotation.ColorRes;
 import android.text.TextUtils;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.entities.pokemon.MiniPokemon;
+import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 
 @Deprecated
 /** Move to {@link DataUtils} */

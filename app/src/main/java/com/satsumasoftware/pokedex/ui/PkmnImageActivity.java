@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.entities.pokemon.BasePokemon;
-import com.satsumasoftware.pokedex.entities.pokemon.Pokemon;
+import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
+import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 import com.satsumasoftware.pokedex.util.ThemeUtils;
 
@@ -24,12 +24,12 @@ public class PkmnImageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        BasePokemon basePokemon = getIntent().getExtras().getParcelable(EXTRA_POKEMON);
-        if (basePokemon == null) {
+        MiniPokemon miniPokemon = getIntent().getExtras().getParcelable(EXTRA_POKEMON);
+        if (miniPokemon == null) {
             throw new NullPointerException("Parcelable BasePokemon object through Intent is null");
         }
 
-        mPokemon = basePokemon.toPokemon(this);
+        mPokemon = miniPokemon.toPokemon(this);
 
         if (mPokemon == null) {
             throw new NullPointerException("Pokemon is null");
