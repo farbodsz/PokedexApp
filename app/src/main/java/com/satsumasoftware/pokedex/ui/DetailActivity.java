@@ -75,14 +75,14 @@ public class DetailActivity extends AppCompatActivity {
 
     private View mRootLayout;
 
-    private static ViewPager mViewPager;
+    private static ViewPager sViewPager;
 
-    private static Pokemon mPokemon;
-    private static int mPkmnId;
-    private static String mPkmnName;
+    private static Pokemon sPokemon;
+    private static int sPkmnId;
+    private static String sPkmnName;
 
-    private static SparseIntArray mPkmnTypeIds;
-    private static ArrayMap<String, Integer> mPkmnPhysicalAttrs;
+    private static SparseIntArray sPkmnTypeIds;
+    private static ArrayMap<String, Integer> sPkmnPhysicalAttrs;
 
     private MenuItem mMenuItemFavourite;
 
@@ -96,24 +96,24 @@ public class DetailActivity extends AppCompatActivity {
             throw new NullPointerException("Parcelable BasePokemon object through Intent is null");
         }
 
-        mPokemon = miniPokemon.toPokemon(this);
+        sPokemon = miniPokemon.toPokemon(this);
 
-        if (mPokemon == null) {
+        if (sPokemon == null) {
             throw new NullPointerException("Pokemon is null");
         }
 
-        mPkmnTypeIds = mPokemon.getTypeIds();
-        mPkmnPhysicalAttrs = mPokemon.getPhysicalAttrs();
+        sPkmnTypeIds = sPokemon.getTypeIds();
+        sPkmnPhysicalAttrs = sPokemon.getPhysicalAttrs();
 
         switch (PrefUtils.detailColorType(this)) {
             case PrefUtils.PREF_DETAIL_COLORING_VALUE_DEFAULT:
                 // Do nothing
                 break;
             case PrefUtils.PREF_DETAIL_COLORING_VALUE_TYPE:
-                ThemeUtils.colourDetailByType(this, mPkmnTypeIds.get(1));
+                ThemeUtils.colourDetailByType(this, sPkmnTypeIds.get(1));
                 break;
             case PrefUtils.PREF_DETAIL_COLORING_VALUE_COLOUR:
-                ThemeUtils.colourDetailByColour(this, Pokemon.getColorId(mPkmnPhysicalAttrs));
+                ThemeUtils.colourDetailByColour(this, Pokemon.getColorId(sPkmnPhysicalAttrs));
                 break;
         }
         setContentView(R.layout.activity_detail);
@@ -128,21 +128,21 @@ public class DetailActivity extends AppCompatActivity {
 
         AdUtils.setupAds(this, R.id.adView);
 
-        mPkmnId = mPokemon.getId();
-        mPkmnName = mPokemon.getName();
+        sPkmnId = sPokemon.getId();
+        sPkmnName = sPokemon.getName();
 
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        mViewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+        sViewPager = (ViewPager) findViewById(R.id.viewPager);
+        sViewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setTabTextColors(
                 ContextCompat.getColor(this, R.color.mdu_text_white_secondary),
                 ContextCompat.getColor(this, R.color.mdu_text_white));
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.mdu_white));
-        tabLayout.setupWithViewPager(mViewPager);
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setupWithViewPager(sViewPager);
+        sViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         if (PrefUtils.playPokemonCryAtStart(this)) {
-            ActionUtils.playPokemonCry(this, mPokemon);
+            ActionUtils.playPokemonCry(this, sPokemon);
         }
     }
 
@@ -163,13 +163,13 @@ public class DetailActivity extends AppCompatActivity {
             return true;
         }
 
-        if (mPkmnId == 1) {
+        if (sPkmnId == 1) {
             previous.setIcon(R.drawable.ic_chevron_left_grey600_48dp);
-        } else if (mPkmnId == AppConfig.MAX_NATIONAL_ID) {
+        } else if (sPkmnId == AppConfig.MAX_NATIONAL_ID) {
             next.setIcon(R.drawable.ic_chevron_right_grey600_48dp);
         }
 
-        if (FavoriteUtils.isAFavouritePkmn(this, mPokemon.toMiniPokemon())) {
+        if (FavoriteUtils.isAFavouritePkmn(this, sPokemon.toMiniPokemon())) {
             mMenuItemFavourite.setIcon(R.drawable.ic_star_white_48dp);
             mMenuItemFavourite.setTitle(R.string.action_favourite_remove);
         }
@@ -182,7 +182,7 @@ public class DetailActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_previous:
                 if (Flavours.type == Flavours.Type.PAID) {
-                    if (mPkmnId != 1) {
+                    if (sPkmnId != 1) {
                         action_navigation(0);
                     } else {
                         Snackbar.make(mRootLayout, R.string.detail_nav_back_error, Snackbar.LENGTH_SHORT)
@@ -194,7 +194,7 @@ public class DetailActivity extends AppCompatActivity {
                 break;
             case R.id.action_next:
                 if (Flavours.type == Flavours.Type.PAID) {
-                    if (mPkmnId != AppConfig.MAX_NATIONAL_ID) {
+                    if (sPkmnId != AppConfig.MAX_NATIONAL_ID) {
                         action_navigation(1);
                     } else {
                         Snackbar.make(mRootLayout, R.string.detail_nav_forward_error, Snackbar.LENGTH_SHORT)
@@ -213,8 +213,8 @@ public class DetailActivity extends AppCompatActivity {
                 break;
             case R.id.action_favourite:
                 if (Flavours.type == Flavours.Type.PAID) {
-                    FavoriteUtils.markAsFavouritePkmn(this, mPokemon.toMiniPokemon(), mRootLayout);
-                    if (FavoriteUtils.isAFavouritePkmn(this, mPokemon.toMiniPokemon())) {
+                    FavoriteUtils.markAsFavouritePkmn(this, sPokemon.toMiniPokemon(), mRootLayout);
+                    if (FavoriteUtils.isAFavouritePkmn(this, sPokemon.toMiniPokemon())) {
                         mMenuItemFavourite.setIcon(R.drawable.ic_star_white_48dp);
                         mMenuItemFavourite.setTitle(R.string.action_favourite_remove);
                     } else {
@@ -228,7 +228,7 @@ public class DetailActivity extends AppCompatActivity {
                 goToExperienceCalculator(this);
                 break;
             case R.id.action_play_cry:
-                ActionUtils.playPokemonCry(this, mPokemon);
+                ActionUtils.playPokemonCry(this, sPokemon);
                 break;
             case R.id.action_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
@@ -238,7 +238,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void action_navigation(int navigationType) {
-        int pos = mPokemon.getNationalDexNumber();
+        int pos = sPokemon.getNationalDexNumber();
 
         int newPos;
         if (navigationType == 0) {
@@ -267,7 +267,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void action_compare_chooser() {
-        if (Pokemon.hasSwitchableForms(mPokemon.getFormSpecificValues())) {
+        if (Pokemon.hasSwitchableForms(sPokemon.getFormSpecificValues())) {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.dialog_title_compare_pokemon_forms)
                     .setMessage(R.string.dialog_msg_compare_pokemon_forms)
@@ -315,7 +315,7 @@ public class DetailActivity extends AppCompatActivity {
                     PokemonDBHelper.TABLE_NAME,
                     MiniPokemon.DB_COLUMNS,
                     PokemonDBHelper.COL_SPECIES_ID + "=? AND " + PokemonDBHelper.COL_FORM_IS_DEFAULT + "=? AND " + PokemonDBHelper.COL_FORM_ID + "!=?",
-                    new String[] {String.valueOf(mPokemon.getSpeciesId()), String.valueOf(1), String.valueOf(mPokemon.getFormId())},
+                    new String[] {String.valueOf(sPokemon.getSpeciesId()), String.valueOf(1), String.valueOf(sPokemon.getFormId())},
                     null, null, null);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -338,7 +338,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onEntryClick(View view, int position) {
                 Intent intent = new Intent(getBaseContext(), CompareActivity.class);
-                intent.putExtra(CompareActivity.EXTRA_POKEMON_1, mPokemon.toMiniPokemon());
+                intent.putExtra(CompareActivity.EXTRA_POKEMON_1, sPokemon.toMiniPokemon());
                 intent.putExtra(CompareActivity.EXTRA_POKEMON_2, arrayPokemon.get(position));
                 startActivity(intent);
 
@@ -351,7 +351,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private static void goToExperienceCalculator(Context context) {
         Intent intent = new Intent(context, ExperienceCalculatorActivity.class);
-        intent.putExtra(ExperienceCalculatorActivity.EXTRA_POKEMON, mPokemon.toMiniPokemon());
+        intent.putExtra(ExperienceCalculatorActivity.EXTRA_POKEMON, sPokemon.toMiniPokemon());
         context.startActivity(intent);
     }
 
@@ -461,21 +461,21 @@ public class DetailActivity extends AppCompatActivity {
         private PokemonDetail fetchGeneralData() {
             ArrayList<Object> values = new ArrayList<>(7);
 
-            values.add(mPokemon.toMiniPokemon());
-            values.add(Pokemon.isDefault(mPokemon.getMiscValues()));
-            values.add(mPokemon.getGenera().get("en") + " Pok\u00E9mon");
-            values.add(Pokemon.isFormMega(mPokemon.getFormSpecificValues()));
+            values.add(sPokemon.toMiniPokemon());
+            values.add(Pokemon.isDefault(sPokemon.getMiscValues()));
+            values.add(sPokemon.getGenera().get("en") + " Pok\u00E9mon");
+            values.add(Pokemon.isFormMega(sPokemon.getFormSpecificValues()));
 
-            values.add(DataUtils.typeIdToString(mPkmnTypeIds.get(1)));
-            boolean hasSecondaryType = Pokemon.hasSecondaryType(mPkmnTypeIds);
-            values.add(hasSecondaryType ? DataUtils.typeIdToString(mPkmnTypeIds.get(2)) : null);
+            values.add(DataUtils.typeIdToString(sPkmnTypeIds.get(1)));
+            boolean hasSecondaryType = Pokemon.hasSecondaryType(sPkmnTypeIds);
+            values.add(hasSecondaryType ? DataUtils.typeIdToString(sPkmnTypeIds.get(2)) : null);
             values.add(hasSecondaryType);
 
             return new PokemonDetail(values);
         }
 
         private PokemonDetail fetchAbilityData() {
-            final SparseIntArray abilityIds = mPokemon.getAbilityIds();
+            final SparseIntArray abilityIds = sPokemon.getAbilityIds();
             final SparseArray<String> abilities = MiniAbility.findAbilityNames(getActivity(), abilityIds);
 
             ArrayList<String> properties = new ArrayList<>();
@@ -524,29 +524,29 @@ public class DetailActivity extends AppCompatActivity {
             Resources res = getResources();
 
             properties.add(res.getString(R.string.attr_height));
-            values.add(Pokemon.getHeight(mPkmnPhysicalAttrs) + " m");
+            values.add(Pokemon.getHeight(sPkmnPhysicalAttrs) + " m");
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_HEIGHT);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(Pokemon.getHeight(mPkmnPhysicalAttrs)));
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(Pokemon.getHeight(sPkmnPhysicalAttrs)));
                     startActivity(intent);
                 }
             });
             properties.add(res.getString(R.string.attr_mass));
-            values.add(Pokemon.getWeight(mPkmnPhysicalAttrs) + " kg");
+            values.add(Pokemon.getWeight(sPkmnPhysicalAttrs) + " kg");
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_MASS);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(Pokemon.getWeight(mPkmnPhysicalAttrs)));
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(Pokemon.getWeight(sPkmnPhysicalAttrs)));
                     startActivity(intent);
                 }
             });
             properties.add(res.getString(R.string.attr_colour));
-            final String color = DataUtils.colorIdToString(Pokemon.getColorId(mPkmnPhysicalAttrs));
+            final String color = DataUtils.colorIdToString(Pokemon.getColorId(sPkmnPhysicalAttrs));
             values.add(color);
             listeners.add(new View.OnClickListener() {
                 @Override
@@ -558,14 +558,14 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
             properties.add(res.getString(R.string.attr_shape));
-            values.add(DataUtils.shapeIdToString(Pokemon.getShapeId(mPkmnPhysicalAttrs), true) +
-                    " (" + DataUtils.shapeIdToString(Pokemon.getShapeId(mPkmnPhysicalAttrs), false) + ")");
+            values.add(DataUtils.shapeIdToString(Pokemon.getShapeId(sPkmnPhysicalAttrs), true) +
+                    " (" + DataUtils.shapeIdToString(Pokemon.getShapeId(sPkmnPhysicalAttrs), false) + ")");
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_SHAPE);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, DataUtils.shapeIdToString(Pokemon.getShapeId(mPkmnPhysicalAttrs), false));
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, DataUtils.shapeIdToString(Pokemon.getShapeId(sPkmnPhysicalAttrs), false));
                     startActivity(intent);
                 }
             });
@@ -576,15 +576,15 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private PokemonDetail fetchGenderData() {
-            final ArrayMap<String, Integer> genderValues = mPokemon.getGenderValues();
+            final ArrayMap<String, Integer> genderValues = sPokemon.getGenderValues();
             ArrayList<Integer> values = new ArrayList<>();
             values.add(Pokemon.getGenderRate(genderValues));
 
-            return new PokemonDetail(values, mPkmnName);
+            return new PokemonDetail(values, sPkmnName);
         }
 
         private PokemonDetail fetchStatData() {
-            final ArrayMap<String, Integer> statValues = mPokemon.getStats();
+            final ArrayMap<String, Integer> statValues = sPokemon.getStats();
             ArrayList<Integer> values = new ArrayList<>();
 
             String[] keys = new String[] {"hp", "atk", "def", "spa", "spd", "spe"};
@@ -596,7 +596,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private PokemonDetail fetchTrainingData() {
-            ArrayMap<String, Integer> trainingValues = mPokemon.getTrainingValues();
+            ArrayMap<String, Integer> trainingValues = sPokemon.getTrainingValues();
             ArrayList<String> properties = new ArrayList<>();
             ArrayList<String> values = new ArrayList<>();
             ArrayList<View.OnClickListener> listeners = new ArrayList<>();
@@ -666,7 +666,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private PokemonDetail fetchPokedexData() {
-            ArrayMap<String, Integer> pokedexValues = mPokemon.getPokedexNumbers();
+            ArrayMap<String, Integer> pokedexValues = sPokemon.getPokedexNumbers();
             ArrayList<String> properties = new ArrayList<>();
             ArrayList<String> values = new ArrayList<>();
             ArrayList<View.OnClickListener> listeners = new ArrayList<>();
@@ -701,7 +701,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private PokemonDetail fetchMoreData() {
-            ArrayMap<String, Integer> moreValues = mPokemon.getMoreValues();
+            ArrayMap<String, Integer> moreValues = sPokemon.getMoreValues();
             ArrayList<String> properties = new ArrayList<>();
             ArrayList<String> values = new ArrayList<>();
             ArrayList<View.OnClickListener> listeners = new ArrayList<>();
@@ -795,7 +795,7 @@ public class DetailActivity extends AppCompatActivity {
             mCardView = (CardView) mRootView.findViewById(R.id.cardView);
             mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerView);
 
-            if (mPokemon == null) {
+            if (sPokemon == null) {
                 throw new NullPointerException("pokemon is null");
             }
 
@@ -821,7 +821,7 @@ public class DetailActivity extends AppCompatActivity {
             mCurrAsyncTask = new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... params) {
-                    mAltForms = mPokemon.getAlternateForms();
+                    mAltForms = sPokemon.getAlternateForms();
                     return null;
                 }
 
@@ -832,8 +832,8 @@ public class DetailActivity extends AppCompatActivity {
                     adapter.setOnEntryClickListener(new FormsTileAdapter.OnEntryClickListener() {
                         @Override
                         public void onEntryClick(View view, int position) {
-                            if (mAltForms.get(position).getFormId() == mPokemon.getFormId()) {
-                                mViewPager.setCurrentItem(0);
+                            if (mAltForms.get(position).getFormId() == sPokemon.getFormId()) {
+                                sViewPager.setCurrentItem(0);
                             } else {
                                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                                 intent.putExtra(EXTRA_POKEMON,
@@ -861,13 +861,13 @@ public class DetailActivity extends AppCompatActivity {
 
                 @Override
                 protected Void doInBackground(Void... params) {
-                    mAltForms = mPokemon.getAlternateForms();
-                    formSpecificVals = mPokemon.getFormSpecificValues();
-                    ArrayMap<String, Integer> miscValues = mPokemon.getMiscValues();
+                    mAltForms = sPokemon.getAlternateForms();
+                    formSpecificVals = sPokemon.getFormSpecificValues();
+                    ArrayMap<String, Integer> miscValues = sPokemon.getMiscValues();
                     currForm = new PokemonForm(
-                            mPkmnId, mPokemon.getSpeciesId(), mPokemon.getFormId(),
-                            mPkmnName, mPokemon.getFormName(), mPokemon.getFormAndPokemonName(),
-                            mPokemon.getNationalDexNumber(), mPkmnTypeIds.get(1),
+                            sPkmnId, sPokemon.getSpeciesId(), sPokemon.getFormId(),
+                            sPkmnName, sPokemon.getFormName(), sPokemon.getFormAndPokemonName(),
+                            sPokemon.getNationalDexNumber(), sPkmnTypeIds.get(1),
                             Pokemon.isDefault(miscValues), Pokemon.isFormDefault(formSpecificVals),
                             Pokemon.isFormMega(formSpecificVals));
                     return null;
@@ -879,7 +879,7 @@ public class DetailActivity extends AppCompatActivity {
                     if (mAltForms.isEmpty()) {
                         container.removeAllViews();
                         getActivity().getLayoutInflater().inflate(R.layout.list_item_null, container, true);
-                        String listMessage = getResources().getString(R.string.null_alternate_forms, mPkmnName);
+                        String listMessage = getResources().getString(R.string.null_alternate_forms, sPkmnName);
                         TextView tvListTxt = (TextView) mRootView.findViewById(R.id.item_null_text1);
                         tvListTxt.setText(listMessage);
                     } else {
@@ -888,8 +888,8 @@ public class DetailActivity extends AppCompatActivity {
                         adapter.setOnEntryClickListener(new FormsVGAdapter.OnEntryClickListener() {
                             @Override
                             public void onEntryClick(View view, int position) {
-                                if (mAltForms.get(position).getFormId() == mPokemon.getFormId()) {
-                                    mViewPager.setCurrentItem(0);
+                                if (mAltForms.get(position).getFormId() == sPokemon.getFormId()) {
+                                    sViewPager.setCurrentItem(0);
                                 } else {
                                     Intent intent = new Intent(getActivity(), DetailActivity.class);
                                     intent.putExtra(EXTRA_POKEMON, mAltForms.get(position).toMiniPokemon(getActivity()));
@@ -1023,7 +1023,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
                 @Override
                 protected Void doInBackground(Void... params) {
-                    PokemonMoves learnset = new PokemonMoves(getActivity(), mPokemon, learnMethod);
+                    PokemonMoves learnset = new PokemonMoves(getActivity(), sPokemon, learnMethod);
                     ArrayList<PokemonMoves.PokemonMove> arrayMoves = learnset.getPokemonMoves();
                     Collections.sort(arrayMoves, new Comparator<PokemonMoves.PokemonMove>() {
                         @Override
