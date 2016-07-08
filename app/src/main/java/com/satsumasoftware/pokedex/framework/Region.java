@@ -14,6 +14,9 @@ public class Region {
 
         String name;
         switch (id) {
+            case 0:
+                name = "Not a region";
+                break;
             case 1:
                 name = "Kanto";
                 break;
