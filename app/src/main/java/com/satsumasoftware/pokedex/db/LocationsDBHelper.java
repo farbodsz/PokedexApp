@@ -113,7 +113,7 @@ public class LocationsDBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(
                 TABLE_NAME,
                 null,
-                null,
+                COL_REGION_ID + "!=0",
                 null,
                 null,
                 null,
