@@ -13,7 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.SparseArray;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -30,7 +29,6 @@ import com.satsumasoftware.pokedex.framework.location.Location;
 import com.satsumasoftware.pokedex.framework.location.LocationArea;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.util.DataUtils;
-import com.satsumasoftware.pokedex.util.InfoUtils;
 
 import java.util.ArrayList;
 import java.util.Locale;
