@@ -1,11 +1,8 @@
 package com.satsumasoftware.pokedex.framework.encounter;
 
-import android.content.Context;
 import android.database.Cursor;
 
 import com.satsumasoftware.pokedex.db.PokeDB;
-import com.satsumasoftware.pokedex.framework.location.LocationArea;
-import com.satsumasoftware.pokedex.util.DataUtils;
 
 public class Encounter {
 
@@ -20,6 +17,16 @@ public class Encounter {
         mPokemonId = pokemonId;
         mMinLvl = minLevel;
         mMaxLvl = maxLevel;
+    }
+
+    public Encounter(Cursor cursor) {
+        mId = cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_ID));
+        mVersionId = cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_VERSION_ID));
+        mLocationAreaId = cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_LOCATION_AREA_ID));
+        mEncounterSlotId = cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_ENCOUNTER_SLOT_ID));
+        mPokemonId = cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_POKEMON_ID));
+        mMinLvl = cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_MIN_LEVEL));
+        mMaxLvl = cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_MAX_LEVEL));
     }
 
     public int getId() {
@@ -49,32 +56,4 @@ public class Encounter {
     public int getMaxLevel() {
         return mMaxLvl;
     }
-
-    public int getEncounterConditionId(Context context) {
-        // TODO STOPSHIP is this correct?
-        PokeDB pokeDB = new PokeDB(context);
-        Cursor cursor = pokeDB.getReadableDatabase().query(
-                PokeDB.EncounterConditionValueMap.TABLE_NAME,
-                null,
-                PokeDB.EncounterConditionValueMap.COL_ENCOUNTER_ID + "=?",
-                new String[] {String.valueOf(mId)},
-                null, null, null);
-        if (cursor.getCount() == 0) {
-            return DataUtils.NULL_INT;
-        }
-        cursor.moveToFirst();
-        int encounterConditionValueId = cursor.getInt(cursor.getColumnIndex(
-                PokeDB.EncounterConditionValueMap.COL_ENCOUNTER_CONDITION_VALUE_ID));
-        cursor.close();
-        return encounterConditionValueId;
-    }
-
-    public boolean hasEncounterCondition(Context context) {
-        return getEncounterConditionId(context) != DataUtils.NULL_INT;
-    }
-
-    public DisplayedEncounter toDisplayedEncounter(Context context, LocationArea locationArea) {
-        return new DisplayedEncounter(context, this, locationArea);
-    }
-
 }

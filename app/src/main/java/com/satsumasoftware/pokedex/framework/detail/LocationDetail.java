@@ -8,7 +8,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.framework.encounter.DisplayedEncounter;
+import com.satsumasoftware.pokedex.framework.encounter.Encounter;
+import com.satsumasoftware.pokedex.framework.encounter.EncounterDataHolder;
+import com.satsumasoftware.pokedex.framework.encounter.EncounterSlot;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 
 import java.util.ArrayList;
@@ -16,12 +18,12 @@ import java.util.ArrayList;
 public class LocationDetail implements DetailInfo {
 
     private String mTitle;
-    private ArrayList<DisplayedEncounter> mDisplayedEncounters;
+    private ArrayList<EncounterDataHolder> mEncounterDataHolders;
 
 
-    public LocationDetail(String title, ArrayList<DisplayedEncounter> displayedEncounters) {
+    public LocationDetail(String title, ArrayList<EncounterDataHolder> encounterDataHolders) {
         mTitle = title;
-        mDisplayedEncounters = displayedEncounters;
+        mEncounterDataHolders = encounterDataHolders;
     }
 
 
@@ -33,16 +35,20 @@ public class LocationDetail implements DetailInfo {
         title.setText(mTitle);
         container.addView(title);
 
-        for (DisplayedEncounter de : mDisplayedEncounters) {
+        for (int i = 0; i < mEncounterDataHolders.size(); i++) {
+            EncounterDataHolder encounterData = mEncounterDataHolders.get(i);
+            Encounter encounter = encounterData.getEncounter();
+            EncounterSlot encounterSlot = encounterData.getEncounterSlot();
+
             View row = inflater.inflate(R.layout.list_item_encounter, container, false);
 
             TextView pokemon = (TextView) row.findViewById(R.id.text1);
-            pokemon.setText(new MiniPokemon(context, de.getEncounter().getPokemonId()).getName());
+            pokemon.setText(new MiniPokemon(context, encounter.getPokemonId()).getName());
 
             TextView level = (TextView) row.findViewById(R.id.text2);
-            level.setText("Lv. " + de.getEncounter().getMinLevel() + " - " + de.getEncounter().getMaxLevel());
+            level.setText("Lv. " + encounter.getMinLevel() + " - " + encounter.getMaxLevel());
 
-            int rarity = de.getEncounterSlot().getRarity();
+            int rarity = encounterSlot.getRarity();
             TextView rate = (TextView) row.findViewById(R.id.text3);
             rate.setText(rarity + "%");
 
