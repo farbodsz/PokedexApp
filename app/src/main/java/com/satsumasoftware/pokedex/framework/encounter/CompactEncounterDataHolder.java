@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class CompactEncounterDataHolder {
 
     private int mPokemonId;
-    private int mMinLevel = -1, mMaxLevel = -1;
+    private int mMinLevel = -1, mMaxLevel = -1, mRarity = 0;
     private ArrayList<EncounterDataHolder> mEncounterDataHolders;
 
     public CompactEncounterDataHolder(int pokemonId) {
@@ -41,6 +41,8 @@ public class CompactEncounterDataHolder {
             mMaxLevel = encounterMaxLevel;
         }
 
+        mRarity += encounterDataHolder.getEncounterSlot().getRarity();
+
         mEncounterDataHolders.add(encounterDataHolder);
     }
 
@@ -50,6 +52,10 @@ public class CompactEncounterDataHolder {
 
     public int getMaxLevel() {
         return mMaxLevel;
+    }
+
+    public int getRarity() {
+        return mRarity;
     }
 
 }

@@ -43,7 +43,7 @@ public class LocationDetail implements DetailInfo {
             TextView level = (TextView) row.findViewById(R.id.text2);
             level.setText("Lv. " + compactHolder.getMinLevel() + " - " + compactHolder.getMaxLevel());
 
-            int rarity = 50;//encounterSlot.getRarity();
+            int rarity = compactHolder.getRarity();
             TextView rate = (TextView) row.findViewById(R.id.text3);
             rate.setText(rarity + "%");
 
