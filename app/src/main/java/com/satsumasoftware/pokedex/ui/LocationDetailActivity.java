@@ -24,6 +24,7 @@ import com.satsumasoftware.pokedex.framework.detail.DetailInfo;
 import com.satsumasoftware.pokedex.framework.detail.LocationDetail;
 import com.satsumasoftware.pokedex.framework.encounter.Encounter;
 import com.satsumasoftware.pokedex.framework.encounter.EncounterDataHolder;
+import com.satsumasoftware.pokedex.framework.encounter.EncounterMethodProse;
 import com.satsumasoftware.pokedex.framework.encounter.EncounterSlot;
 import com.satsumasoftware.pokedex.framework.location.Location;
 import com.satsumasoftware.pokedex.framework.location.LocationArea;
@@ -186,7 +187,7 @@ public class LocationDetailActivity extends AppCompatActivity {
             ArrayList<DetailInfo> locationDetails = new ArrayList<>();
             for (int i = 0; i < organisedEncounterData.size(); i++) {
                 int encounterMethodId = organisedEncounterData.keyAt(i);
-                String name = "Method id: " + encounterMethodId;
+                String name = new EncounterMethodProse(this, encounterMethodId).getName();
                 locationDetails.add(
                         new LocationDetail(name, organisedEncounterData.get(encounterMethodId)));
             }
