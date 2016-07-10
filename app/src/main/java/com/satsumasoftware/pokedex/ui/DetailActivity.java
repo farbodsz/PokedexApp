@@ -459,7 +459,7 @@ public class DetailActivity extends AppCompatActivity {
                     mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
                     // setup RecyclerView
-                    DetailAdapter adapter = new DetailAdapter(getActivity(), mDetails);
+                    DetailAdapter adapter = new DetailAdapter(getActivity(), mDetails, true);
                     mRecyclerView.setAdapter(adapter);
                 }
             }.execute();
