@@ -126,9 +126,10 @@ public class LocationDetailActivity extends AppCompatActivity {
 
         PokeDB pokeDB = new PokeDB(this);
 
-        int versionId = 14;  // TODO get depending on where the location is
-
         for (LocationArea locationArea : mLocationAreas) {
+
+            ArrayList<Integer> versions = getVersionsAtLocationArea(locationArea.getId(), pokeDB);
+            int versionId = versions.get(versions.size() - 1);  // by default, the selected version is the latest
 
             Log.d("LocationDetailActivity", "-- Location area : " + locationArea.getName() + " --");
 
@@ -195,6 +196,27 @@ public class LocationDetailActivity extends AppCompatActivity {
         }
 
         return locationDetailsList;
+    }
+
+    private ArrayList<Integer> getVersionsAtLocationArea(int locationAreaId, PokeDB pokeDB) {
+        ArrayList<Integer> versionIds = new ArrayList<>();
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.Encounters.TABLE_NAME,
+                new String[] {PokeDB.Encounters.COL_VERSION_ID, PokeDB.Encounters.COL_LOCATION_AREA_ID},
+                PokeDB.Encounters.COL_LOCATION_AREA_ID + "=?",
+                new String[] {String.valueOf(locationAreaId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int versionId = cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_VERSION_ID));
+            if (!versionIds.contains(versionId)) {
+                versionIds.add(versionId);
+            }
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return versionIds;
     }
 
     private void setupLayouts(ArrayList<ArrayList<DetailInfo>> locationDetailsList) {
