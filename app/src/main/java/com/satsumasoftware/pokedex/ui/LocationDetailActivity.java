@@ -22,6 +22,7 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.framework.detail.DetailInfo;
 import com.satsumasoftware.pokedex.framework.detail.LocationDetail;
+import com.satsumasoftware.pokedex.framework.encounter.CompactEncounterDataHolder;
 import com.satsumasoftware.pokedex.framework.encounter.Encounter;
 import com.satsumasoftware.pokedex.framework.encounter.EncounterDataHolder;
 import com.satsumasoftware.pokedex.framework.encounter.EncounterMethodProse;
@@ -135,20 +136,7 @@ public class LocationDetailActivity extends AppCompatActivity {
             Log.d("LocationDetailActivity", "-- Location area : " + locationArea.getName() + " --");
 
             // get all the encounters using locationAreaId and versionId
-            ArrayList<Encounter> encounters = new ArrayList<>();
-            Cursor encounterCursor = pokeDB.getReadableDatabase().query(
-                    PokeDB.Encounters.TABLE_NAME,
-                    null,
-                    PokeDB.Encounters.COL_VERSION_ID + "=? AND " +
-                            PokeDB.Encounters.COL_LOCATION_AREA_ID + "=?",
-                    new String[] {String.valueOf(versionId), String.valueOf(locationArea.getId())},
-                    null, null, null);
-            encounterCursor.moveToFirst();
-            while (!encounterCursor.isAfterLast()) {
-                encounters.add(new Encounter(encounterCursor));
-                encounterCursor.moveToNext();
-            }
-            encounterCursor.close();
+            ArrayList<Encounter> encounters = locationArea.findAllEncounters(this, versionId);
 
             // for each encounter, get its corresponding encounter slot - put these into the data holder
             ArrayList<EncounterDataHolder> encounterDataList = new ArrayList<>();
