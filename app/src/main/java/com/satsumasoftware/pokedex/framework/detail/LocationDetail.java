@@ -41,7 +41,10 @@ public class LocationDetail implements DetailInfo {
             pokemon.setText(new MiniPokemon(context, compactHolder.getPokemonId()).getName());
 
             TextView level = (TextView) row.findViewById(R.id.text2);
-            level.setText("Lv. " + compactHolder.getMinLevel() + " - " + compactHolder.getMaxLevel());
+            String levelText = (compactHolder.getMinLevel() == compactHolder.getMaxLevel()) ?
+                    "Lv. " + compactHolder.getMinLevel() :
+                    "Lv. " + compactHolder.getMinLevel() + " - " + compactHolder.getMaxLevel();
+            level.setText(levelText);
 
             int rarity = compactHolder.getRarity();
             TextView rate = (TextView) row.findViewById(R.id.text3);
