@@ -168,8 +168,32 @@ public class LocationDetailActivity extends AppCompatActivity {
             for (int i = 0; i < organisedEncounterData.size(); i++) {
                 int encounterMethodId = organisedEncounterData.keyAt(i);
                 String name = new EncounterMethodProse(this, encounterMethodId).getName();
-                locationDetails.add(
-                        new LocationDetail(name, organisedEncounterData.get(encounterMethodId)));
+
+                // make encounter data holder lists into shorter 'compact' data list(s) -
+                // each compact holder object represents many encounter data holder objects
+                // about the same pokemon (same pokemon id)
+                ArrayList<EncounterDataHolder> encounterDataHolders =
+                        organisedEncounterData.get(encounterMethodId);
+
+                SparseArray<CompactEncounterDataHolder> compactHolderArray = new SparseArray<>();
+                for (EncounterDataHolder encounterHolder : encounterDataHolders) {
+                    int pokemonId = encounterHolder.getEncounter().getPokemonId();
+
+                    if (compactHolderArray.get(pokemonId) == null) {
+                        CompactEncounterDataHolder compactHolder =
+                                new CompactEncounterDataHolder(pokemonId);
+                        compactHolder.addEncounterDataHolder(encounterHolder);
+                        compactHolderArray.put(pokemonId, compactHolder);
+                    } else {
+                        CompactEncounterDataHolder compactHolder =
+                                compactHolderArray.get(pokemonId);
+                        compactHolder.addEncounterDataHolder(encounterHolder);
+                        compactHolderArray.remove(pokemonId);
+                        compactHolderArray.put(pokemonId, compactHolder);
+                    }
+                }
+
+                locationDetails.add(new LocationDetail(name, compactHolderArray));
             }
 
             // add to the list
