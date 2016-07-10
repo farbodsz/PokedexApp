@@ -239,7 +239,10 @@ public class LocationDetailActivity extends AppCompatActivity {
             View aPage = getLayoutInflater().inflate(R.layout.fragment_detail_location, null);
             RecyclerView recyclerView = (RecyclerView) aPage.findViewById(R.id.recyclerView);
 
-            // setup the RecyclerView
+            // stop recycling of views (which causes a bug where views are merged together)
+            recyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
+
+            // setup the RecyclerView and adapter
             DetailAdapter adapter = new DetailAdapter(this, locationDetails);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setAdapter(adapter);
