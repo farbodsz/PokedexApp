@@ -1,5 +1,6 @@
 package com.satsumasoftware.pokedex.framework.encounter;
 
+import android.content.Context;
 import android.database.Cursor;
 
 import com.satsumasoftware.pokedex.db.PokeDB;
@@ -55,5 +56,20 @@ public class Encounter {
 
     public int getMaxLevel() {
         return mMaxLvl;
+    }
+
+
+    public EncounterSlot getEncounterSlotObject(Context context) {
+        PokeDB pokeDB = new PokeDB(context);
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.EncounterSlots.TABLE_NAME,
+                null,
+                PokeDB.EncounterSlots.COL_ID + "=?",
+                new String[] {String.valueOf(mEncounterSlotId)},
+                null, null, null);
+        cursor.moveToFirst();
+        EncounterSlot encounterSlot = new EncounterSlot(cursor);
+        cursor.close();
+        return encounterSlot;
     }
 }

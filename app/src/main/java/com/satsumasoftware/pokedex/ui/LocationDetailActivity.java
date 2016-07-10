@@ -141,16 +141,8 @@ public class LocationDetailActivity extends AppCompatActivity {
             // for each encounter, get its corresponding encounter slot - put these into the data holder
             ArrayList<EncounterDataHolder> encounterDataList = new ArrayList<>();
             for (Encounter encounter : encounters) {
-                Cursor slotsCursor = pokeDB.getReadableDatabase().query(
-                        PokeDB.EncounterSlots.TABLE_NAME,
-                        null,
-                        PokeDB.EncounterSlots.COL_ID + "=?",
-                        new String[] {String.valueOf(encounter.getEncounterSlotId())},
-                        null, null, null);
-                slotsCursor.moveToFirst();
-                EncounterSlot encounterSlot = new EncounterSlot(slotsCursor);
+                EncounterSlot encounterSlot = encounter.getEncounterSlotObject(this);
                 encounterDataList.add(new EncounterDataHolder(encounter, encounterSlot));
-                slotsCursor.close();
             }
 
             // organise data by encounter method with a sparse array
