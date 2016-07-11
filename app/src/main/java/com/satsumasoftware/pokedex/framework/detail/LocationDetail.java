@@ -5,6 +5,7 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -37,8 +38,13 @@ public class LocationDetail implements DetailInfo {
 
             View row = inflater.inflate(R.layout.list_item_encounter, container, false);
 
+            MiniPokemon pokemonObject = new MiniPokemon(context, compactHolder.getPokemonId());
+
+            ImageView imageView = (ImageView) row.findViewById(R.id.imageView);
+            pokemonObject.setPokemonImage(imageView);
+
             TextView pokemon = (TextView) row.findViewById(R.id.text1);
-            pokemon.setText(new MiniPokemon(context, compactHolder.getPokemonId()).getName());
+            pokemon.setText(pokemonObject.getName());
 
             TextView level = (TextView) row.findViewById(R.id.text2);
             String levelText = (compactHolder.getMinLevel() == compactHolder.getMaxLevel()) ?
