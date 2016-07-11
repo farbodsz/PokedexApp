@@ -1,55 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/background"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/mdu_keyline_1"
-    android:layout_marginRight="@dimen/mdu_keyline_1"
-    android:background="?android:attr/selectableItemBackground">
+    android:layout_height="60dp"
+    android:background="?android:attr/selectableItemBackground" >
 
-    <RelativeLayout
+    <ImageView
+        android:id="@+id/imageView"
+        android:src="@drawable/img_pkmn_002_ivysaur"
+        android:contentDescription="@string/img_desc_pokemon"
+        android:scaleType="fitCenter"
+        android:layout_width="@dimen/mdu_keyline_2_minus_16dp"
+        android:layout_height="@dimen/mdu_keyline_2_minus_16dp"
+        android:layout_gravity="center_vertical"
+        android:paddingRight="@dimen/mdu_padding_normal"
+        android:paddingEnd="@dimen/mdu_padding_normal"
+        android:layout_marginLeft="@dimen/mdu_keyline_1"
+        android:layout_marginStart="@dimen/mdu_keyline_1"
+        tools:ignore="RtlSymmetry" />
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:text="Pokemon name"
-            android:id="@+id/text1"
-            android:textSize="@dimen/list_text_size"
-            android:textColor="@color/mdu_text_black"
-            android:gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
-        <TextView
-            android:text="faf"
-            android:id="@+id/text2"
-            android:textSize="@dimen/list_text_size"
-            android:textColor="@color/mdu_text_black_secondary"
-            android:gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="?android:attr/listPreferredItemHeightSmall"
-            android:layout_marginLeft="@dimen/mdu_spacing_normal"
-            android:layout_marginStart="@dimen/mdu_spacing_normal"
-            android:layout_toRightOf="@id/text1"
-            android:layout_toEndOf="@id/text1" />
-        <TextView
-            android:text="25%"
-            android:id="@+id/text3"
-            android:textSize="@dimen/list_text_size"
-            android:textColor="@color/mdu_text_black_secondary"
-            android:gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="?android:attr/listPreferredItemHeightSmall"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/mdu_keyline_2"
+        android:layout_marginStart="@dimen/mdu_keyline_2"
+        android:layout_marginRight="@dimen/mdu_keyline_1"
+        android:layout_marginEnd="@dimen/mdu_keyline_1"
+        android:gravity="center_vertical">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:progressDrawable="@drawable/progress_stats_comparison"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/text1"
+                android:text="Ivysaur"
+                android:textSize="@dimen/list_text_size"
+                android:textColor="@color/mdu_text_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/text2"
+                android:text="Lv. 53 - 57"
+                android:textSize="@dimen/list_text_size"
+                android:textColor="@color/mdu_text_black_secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/text1"
+                android:layout_toEndOf="@+id/text1"
+                android:layout_marginLeft="@dimen/mdu_spacing_normal"
+                android:layout_marginStart="@dimen/mdu_spacing_normal"/>
+            <TextView
+                android:id="@+id/text3"
+                android:text="55%"
+                android:textSize="@dimen/list_text_size"
+                android:textColor="@color/mdu_text_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
 
-</LinearLayout>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/progress_stats_comparison"
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:layout_marginTop="@dimen/mdu_spacing_micro"/>
+    </LinearLayout>
+
+</FrameLayout>

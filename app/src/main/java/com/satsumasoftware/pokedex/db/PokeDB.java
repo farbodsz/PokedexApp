@@ -588,7 +588,7 @@ public class PokeDB extends SQLiteAssetHelper {
 
     public class VersionGroupRegions {
         public static final String TABLE_NAME = "version_group_regions";
-        public static final String COL_ID = "id";
+        public static final String COL_VERSION_GROUP_ID = "version_group_id";
         public static final String COL_REGION_ID = "region_id";
     }
 

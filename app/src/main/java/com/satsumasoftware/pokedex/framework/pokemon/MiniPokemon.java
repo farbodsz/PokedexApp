@@ -4,8 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ImageView;
 
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
+import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.DataUtils;
 
 public class MiniPokemon extends BasePokemon implements Parcelable {
@@ -93,6 +95,11 @@ public class MiniPokemon extends BasePokemon implements Parcelable {
 
     public int getAlterateDexNumber() {
         return mAltDexNumber;
+    }
+
+
+    public void setPokemonImage(ImageView imageView) {
+        ActionUtils.setPokemonImage(this, imageView);
     }
 
 
