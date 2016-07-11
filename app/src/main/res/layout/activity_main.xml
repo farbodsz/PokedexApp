@@ -30,12 +30,24 @@
                 <include layout="@layout/blank" /> <!-- This is to prevent bugs -->
             </android.support.design.widget.AppBarLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                style="@style/AppTheme.RecyclerView.StandardList"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    style="@style/AppTheme.RecyclerView.StandardList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <com.turingtechnologies.materialscrollbar.DragScrollBar
+                    android:id="@+id/scrollBar"
+                    app:msb_recyclerView="@id/recyclerView"
+                    app:msb_lightOnTouch="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+            </RelativeLayout>
         </android.support.design.widget.CoordinatorLayout>
 
         <com.google.android.gms.ads.AdView
