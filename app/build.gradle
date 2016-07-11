@@ -38,5 +38,6 @@ dependencies {
     compile 'com.satsuware.lib:mdutils:1.2.1'
     compile 'com.commit451:PhotoView:1.2.5'
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
+    compile 'com.turingtechnologies.materialscrollbar:lib:10.0.3'
     compile files('libs/univocity-parsers-2.0.0.jar')
 }
