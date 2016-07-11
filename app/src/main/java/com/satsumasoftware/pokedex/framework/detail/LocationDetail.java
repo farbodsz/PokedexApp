@@ -1,6 +1,7 @@
 package com.satsumasoftware.pokedex.framework.detail;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.encounter.CompactEncounterDataHolder;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
+import com.satsumasoftware.pokedex.ui.DetailActivity;
 
 public class LocationDetail implements DetailInfo {
 
@@ -26,7 +28,7 @@ public class LocationDetail implements DetailInfo {
 
 
     @Override
-    public void setupCard(Context context, ViewGroup container) {
+    public void setupCard(final Context context, ViewGroup container) {
         LayoutInflater inflater = LayoutInflater.from(context);
 
         TextView title = (TextView) inflater.inflate(R.layout.card_pokemon_detail_title, container, false);
@@ -38,7 +40,7 @@ public class LocationDetail implements DetailInfo {
 
             View row = inflater.inflate(R.layout.list_item_encounter, container, false);
 
-            MiniPokemon pokemonObject = new MiniPokemon(context, compactHolder.getPokemonId());
+            final MiniPokemon pokemonObject = new MiniPokemon(context, compactHolder.getPokemonId());
 
             ImageView imageView = (ImageView) row.findViewById(R.id.imageView);
             pokemonObject.setPokemonImage(imageView);
@@ -59,6 +61,16 @@ public class LocationDetail implements DetailInfo {
             ProgressBar progressBar = (ProgressBar) row.findViewById(R.id.progressBar);
             progressBar.setMax(100);
             progressBar.setProgress(rarity);
+
+            // go to the Pokemon detail page when the row is clicked
+            row.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra(DetailActivity.EXTRA_POKEMON, pokemonObject);
+                    context.startActivity(intent);
+                }
+            });
 
             container.addView(row);
         }
