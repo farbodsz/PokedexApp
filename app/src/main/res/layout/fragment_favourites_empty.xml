@@ -12,8 +12,8 @@
         android:src="@drawable/ic_add_circle_outline_black_24dp"
         android:tint="@color/mdu_grey_600"
         android:contentDescription="@string/action_add"
-        android:layout_width="96dp"
-        android:layout_height="96dp" />
+        android:layout_width="72dp"
+        android:layout_height="72dp" />
     <TextView
         android:text="@string/add_favourites"
         android:textSize="@dimen/list_placeholder_text_size"
