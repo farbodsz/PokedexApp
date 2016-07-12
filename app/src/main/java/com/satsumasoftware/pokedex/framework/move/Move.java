@@ -161,11 +161,14 @@ public class Move extends BaseMove {
                 new String[] {String.valueOf(mEffectId), String.valueOf(langId)},
                 null, null, null);
         cursor.moveToFirst();
-        String effect = shortEffect ?
+        String effectText = shortEffect ?
                 cursor.getString(cursor.getColumnIndex(PokeDB.MoveEffectProse.COL_SHORT_EFFECT)) :
                 cursor.getString(cursor.getColumnIndex(PokeDB.MoveEffectProse.COL_EFFECT));
         cursor.close();
-        return effect;
+
+        effectText = effectText.replace("$effect_chance", String.valueOf(mEffectChance));
+
+        return effectText;
     }
 
 }
