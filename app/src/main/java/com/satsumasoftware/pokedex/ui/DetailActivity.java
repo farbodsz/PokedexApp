@@ -175,7 +175,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         if (FavoriteUtils.isAFavouritePkmn(this, mPokemon.toMiniPokemon())) {
-            mMenuItemFavourite.setIcon(R.drawable.ic_star_white_48dp);
+            mMenuItemFavourite.setIcon(R.drawable.ic_star_white_24dp);
             mMenuItemFavourite.setTitle(R.string.action_favourite_remove);
         }
 
@@ -220,10 +220,10 @@ public class DetailActivity extends AppCompatActivity {
                 if (Flavours.type == Flavours.Type.PAID) {
                     FavoriteUtils.markAsFavouritePkmn(this, mPokemon.toMiniPokemon(), mRootLayout);
                     if (FavoriteUtils.isAFavouritePkmn(this, mPokemon.toMiniPokemon())) {
-                        mMenuItemFavourite.setIcon(R.drawable.ic_star_white_48dp);
+                        mMenuItemFavourite.setIcon(R.drawable.ic_star_white_24dp);
                         mMenuItemFavourite.setTitle(R.string.action_favourite_remove);
                     } else {
-                        mMenuItemFavourite.setIcon(R.drawable.ic_star_outline_white_48dp);
+                        mMenuItemFavourite.setIcon(R.drawable.ic_star_border_white_24dp);
                     }
                 } else {
                     AlertUtils.requiresProSnackbar(this, mRootLayout);
