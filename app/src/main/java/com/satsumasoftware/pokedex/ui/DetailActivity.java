@@ -1036,6 +1036,8 @@ public class DetailActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             mRootView = inflater.inflate(R.layout.fragment_detail_learnsets, container, false);
 
+            setupView();
+
             return mRootView;
         }
 
@@ -1084,14 +1086,6 @@ public class DetailActivity extends AppCompatActivity {
                     loadCard();
                 }
             });
-        }
-
-        @Override
-        public void setUserVisibleHint(boolean isVisibleToUser) {
-            super.setUserVisibleHint(isVisibleToUser);
-            if (isVisibleToUser) {
-                setupView();
-            }
         }
 
         private void loadCard() {
