@@ -161,21 +161,21 @@ public class DetailActivity extends AppCompatActivity {
         mMenuItemFavourite = menu.findItem(R.id.action_favourite);
 
         if (Flavours.type == Flavours.Type.FREE) {
-            previous.setIcon(R.drawable.ic_chevron_left_grey600_48dp);
-            next.setIcon(R.drawable.ic_chevron_right_grey600_48dp);
+            previous.setIcon(R.drawable.ic_chevron_left_grey600_24dp);
+            next.setIcon(R.drawable.ic_chevron_right_grey600_24dp);
             compare.setIcon(R.drawable.ic_compare_grey600_48dp);
-            mMenuItemFavourite.setIcon(R.drawable.ic_star_outline_grey600_48dp);
+            mMenuItemFavourite.setIcon(R.drawable.ic_star_border_grey600_24dp);
             return true;
         }
 
         if (mPkmnId == 1) {
-            previous.setIcon(R.drawable.ic_chevron_left_grey600_48dp);
+            previous.setIcon(R.drawable.ic_chevron_left_grey600_24dp);
         } else if (mPkmnId == AppConfig.MAX_NATIONAL_ID) {
-            next.setIcon(R.drawable.ic_chevron_right_grey600_48dp);
+            next.setIcon(R.drawable.ic_chevron_right_grey600_24dp);
         }
 
         if (FavoriteUtils.isAFavouritePkmn(this, mPokemon.toMiniPokemon())) {
-            mMenuItemFavourite.setIcon(R.drawable.ic_star_white_48dp);
+            mMenuItemFavourite.setIcon(R.drawable.ic_star_white_24dp);
             mMenuItemFavourite.setTitle(R.string.action_favourite_remove);
         }
 
@@ -220,10 +220,10 @@ public class DetailActivity extends AppCompatActivity {
                 if (Flavours.type == Flavours.Type.PAID) {
                     FavoriteUtils.markAsFavouritePkmn(this, mPokemon.toMiniPokemon(), mRootLayout);
                     if (FavoriteUtils.isAFavouritePkmn(this, mPokemon.toMiniPokemon())) {
-                        mMenuItemFavourite.setIcon(R.drawable.ic_star_white_48dp);
+                        mMenuItemFavourite.setIcon(R.drawable.ic_star_white_24dp);
                         mMenuItemFavourite.setTitle(R.string.action_favourite_remove);
                     } else {
-                        mMenuItemFavourite.setIcon(R.drawable.ic_star_outline_white_48dp);
+                        mMenuItemFavourite.setIcon(R.drawable.ic_star_border_white_24dp);
                     }
                 } else {
                     AlertUtils.requiresProSnackbar(this, mRootLayout);
