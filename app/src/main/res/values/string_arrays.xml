@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="no_filter">No filter</string>
+
     <string-array name="filter_name">
         <item>No filter</item>
         <item>A</item>
@@ -32,7 +34,7 @@
     </string-array>
 
     <string-array name="filter_type">
-        <item>No filter</item>
+        <item>@string/no_filter</item>
         <item>Normal</item>
         <item>Fire</item>
         <item>Fighting</item>
@@ -54,14 +56,14 @@
     </string-array>
 
     <string-array name="filter_numberSort">
-        <item>No filter</item>
+        <item>@string/no_filter</item>
         <item>Below</item>
         <item>Equal to</item>
         <item>Over</item>
     </string-array>
 
     <string-array name="filter_levellingRate">
-        <item>No filter</item>
+        <item>@string/no_filter</item>
         <item>Fluctuating</item>
         <item>Slow</item>
         <item>Medium Slow</item>
@@ -71,7 +73,7 @@
     </string-array>
 
     <string-array name="filter_gen">
-        <item>No filter</item>
+        <item>@string/no_filter</item>
         <item>I</item>
         <item>II</item>
         <item>III</item>
@@ -81,7 +83,7 @@
     </string-array>
 
     <string-array name="filter_gen_abilities">
-        <item>No filter</item>
+        <item>@string/no_filter</item>
         <item>III</item>
         <item>IV</item>
         <item>V</item>
