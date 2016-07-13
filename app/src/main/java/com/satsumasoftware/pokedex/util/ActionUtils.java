@@ -160,6 +160,15 @@ public final class ActionUtils {
         mediaPlayer.start();
     }
 
+
+    public static void setPokemonImage(MiniPokemon pokemon, ImageView imageView) {
+        setPokemonImage(pokemon.getId(),
+                InfoUtils.formatPokemonId(pokemon.getNationalDexNumber()),
+                pokemon.getName(),
+                false,
+                imageView);
+    }
+
     public static void setPokemonImage(Pokemon pokemon, ImageView imageView) {
         setPokemonImage(pokemon.getId(),
                 InfoUtils.formatPokemonId(pokemon.getNationalDexNumber()),

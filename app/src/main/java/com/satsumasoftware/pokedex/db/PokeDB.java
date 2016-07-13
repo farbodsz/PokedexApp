@@ -76,6 +76,13 @@ public class PokeDB extends SQLiteAssetHelper {
         public static final String COL_IS_DEFAULT = "is_default";
     }
 
+    public class EncounterMethodProse {
+        public static final String TABLE_NAME = "encounter_method_prose";
+        public static final String COL_ENCOUNTER_METHOD_ID = "encounter_method_id";
+        public static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
+        public static final String COL_NAME = "name";
+    }
+
     public class EncounterSlots {
         public static final String TABLE_NAME = "encounter_slots";
         public static final String COL_ID = "id";
@@ -581,7 +588,7 @@ public class PokeDB extends SQLiteAssetHelper {
 
     public class VersionGroupRegions {
         public static final String TABLE_NAME = "version_group_regions";
-        public static final String COL_ID = "id";
+        public static final String COL_VERSION_GROUP_ID = "version_group_id";
         public static final String COL_REGION_ID = "region_id";
     }
 

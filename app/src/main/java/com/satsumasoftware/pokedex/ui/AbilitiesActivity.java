@@ -134,7 +134,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
         if (Flavours.type == Flavours.Type.PAID) {
             item_buyPro.setVisible(false);
         } else {
-            item_filter.setIcon(R.drawable.ic_filter_list_grey600_48dp);
+            item_filter.setIcon(R.drawable.ic_filter_list_grey600_24dp);
         }
 
         if (mSortByName) {

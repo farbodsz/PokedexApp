@@ -5,13 +5,13 @@
 
     <item android:id="@+id/action_clearList"
         android:title="@string/action_clear_all"
-        android:icon="@drawable/ic_clear_all_white_48dp"
+        android:icon="@drawable/ic_clear_all_white_24dp"
         android:orderInCategory="0"
         app:showAsAction="ifRoom" />
 
     <item android:id="@+id/action_about"
         android:title="@string/action_about"
-        android:icon="@drawable/ic_info_outline_white_48dp"
+        android:icon="@drawable/ic_info_outline_white_24dp"
         android:orderInCategory="2"
         app:showAsAction="never" />
 

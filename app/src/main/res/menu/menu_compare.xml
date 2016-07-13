@@ -5,7 +5,7 @@
 
     <item android:id="@+id/action_calculate_experience"
         android:title="@string/header_tools_experience"
-        android:icon="@drawable/ic_assessment_white_48dp"
+        android:icon="@drawable/ic_assessment_white_24dp"
         android:orderInCategory="2"
         app:showAsAction="never" >
         <menu>
@@ -24,7 +24,7 @@
 
     <item android:id="@+id/action_play_cry"
         android:title="@string/action_play_cry"
-        android:icon="@drawable/ic_volume_up_white_48dp"
+        android:icon="@drawable/ic_volume_up_white_24dp"
         android:orderInCategory="4"
         app:showAsAction="never" >
         <menu>
@@ -43,7 +43,7 @@
 
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
-        android:icon="@drawable/ic_settings_white_48dp"
+        android:icon="@drawable/ic_settings_white_24dp"
         android:orderInCategory="9"
         app:showAsAction="never" />
 
