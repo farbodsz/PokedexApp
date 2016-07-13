@@ -145,8 +145,8 @@ public class DetailActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(sViewPager);
         sViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        tabLayout.setupWithViewPager(mViewPager);
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setupWithViewPager(sViewPager);
+        sViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         if (PrefUtils.playPokemonCryAtStart(this)) {
             ActionUtils.playPokemonCry(this, sPokemon);
@@ -171,18 +171,12 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         if (sPkmnId == 1) {
-            previous.setIcon(R.drawable.ic_chevron_left_grey600_48dp);
-        } else if (sPkmnId == AppConfig.MAX_NATIONAL_ID) {
-            next.setIcon(R.drawable.ic_chevron_right_grey600_48dp);
-        if (mPkmnId == 1) {
             previous.setIcon(R.drawable.ic_chevron_left_grey600_24dp);
-        } else if (mPkmnId == AppConfig.MAX_NATIONAL_ID) {
+        } else if (sPkmnId == AppConfig.MAX_NATIONAL_ID) {
             next.setIcon(R.drawable.ic_chevron_right_grey600_24dp);
         }
 
         if (FavoriteUtils.isAFavouritePkmn(this, sPokemon.toMiniPokemon())) {
-            mMenuItemFavourite.setIcon(R.drawable.ic_star_white_48dp);
-        if (FavoriteUtils.isAFavouritePkmn(this, mPokemon.toMiniPokemon())) {
             mMenuItemFavourite.setIcon(R.drawable.ic_star_white_24dp);
             mMenuItemFavourite.setTitle(R.string.action_favourite_remove);
         }
@@ -228,9 +222,6 @@ public class DetailActivity extends AppCompatActivity {
                 if (Flavours.type == Flavours.Type.PAID) {
                     FavoriteUtils.markAsFavouritePkmn(this, sPokemon.toMiniPokemon(), mRootLayout);
                     if (FavoriteUtils.isAFavouritePkmn(this, sPokemon.toMiniPokemon())) {
-                        mMenuItemFavourite.setIcon(R.drawable.ic_star_white_48dp);
-                    FavoriteUtils.markAsFavouritePkmn(this, mPokemon.toMiniPokemon(), mRootLayout);
-                    if (FavoriteUtils.isAFavouritePkmn(this, mPokemon.toMiniPokemon())) {
                         mMenuItemFavourite.setIcon(R.drawable.ic_star_white_24dp);
                         mMenuItemFavourite.setTitle(R.string.action_favourite_remove);
                     } else {
@@ -495,7 +486,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private PokemonDetail fetchAbilityData() {
-            final SparseIntArray abilityIds = mPokemon.getAbilityIds();
+            final SparseIntArray abilityIds = sPokemon.getAbilityIds();
 
             SparseArray<MiniAbility> abilities = new SparseArray<>(3);
             for (int i = 1; i < abilityIds.size() + 1; i++) {
@@ -961,12 +952,12 @@ public class DetailActivity extends AppCompatActivity {
             recyclerView.setHasFixedSize(true);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-            EvolutionsAdapter adapter = new EvolutionsAdapter(getActivity(), evolutions, mPokemon.toMiniPokemon());
+            EvolutionsAdapter adapter = new EvolutionsAdapter(getActivity(), evolutions, sPokemon.toMiniPokemon());
             adapter.setOnEntryClickListener(new EvolutionsAdapter.OnEntryClickListener() {
                 @Override
                 public void onEntryClick(View view, int position) {
                     MiniPokemon clickedPokemon = evolutions.get(position);
-                    if (clickedPokemon.getId() != mPkmnId) {
+                    if (clickedPokemon.getId() != sPkmnId) {
                         Intent intent = new Intent(getActivity(), DetailActivity.class);
                         intent.putExtra(EXTRA_POKEMON, clickedPokemon);
                         startActivity(intent);
@@ -979,7 +970,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private ArrayList<MiniPokemon> fetchOrderedEvolutions() {
-            int evolutionChainId = Pokemon.getEvolutionChainId(mPokemon.getEvolutionInfo());
+            int evolutionChainId = Pokemon.getEvolutionChainId(sPokemon.getEvolutionInfo());
 
             ArrayList<MiniPokemon> evolutions = new ArrayList<>();
 
