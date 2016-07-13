@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
-import com.satsumasoftware.pokedex.entities.Experience;
-import com.satsumasoftware.pokedex.entities.pokemon.MiniPokemon;
+import com.satsumasoftware.pokedex.framework.Experience;
+import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.InfoUtils;
 import com.satsuware.usefulviews.LabelledSpinner;

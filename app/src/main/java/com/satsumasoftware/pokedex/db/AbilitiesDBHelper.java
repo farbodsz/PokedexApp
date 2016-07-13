@@ -7,8 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.satsumasoftware.pokedex.entities.ability.Ability;
-import com.satsumasoftware.pokedex.entities.ability.MiniAbility;
+import com.satsumasoftware.pokedex.framework.ability.Ability;
+import com.satsumasoftware.pokedex.framework.ability.BaseAbility;
+import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 
 import java.util.ArrayList;
 
@@ -187,7 +188,7 @@ public class AbilitiesDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(
                 TABLE_NAME,
-                MiniAbility.DB_COLUMNS,
+                BaseAbility.DB_COLUMNS,
                 null,
                 null,
                 null,

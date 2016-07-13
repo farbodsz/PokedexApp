@@ -19,10 +19,10 @@ import android.widget.LinearLayout;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
-import com.satsumasoftware.pokedex.entities.ability.MiniAbility;
-import com.satsumasoftware.pokedex.misc.DividerItemDecoration;
+import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.ui.adapter.AbilityDexAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
+import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
 import com.satsumasoftware.pokedex.util.Flavours;
@@ -134,7 +134,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
         if (Flavours.type == Flavours.Type.PAID) {
             item_buyPro.setVisible(false);
         } else {
-            item_filter.setIcon(R.drawable.ic_filter_list_grey600_48dp);
+            item_filter.setIcon(R.drawable.ic_filter_list_grey600_24dp);
         }
 
         if (mSortByName) {

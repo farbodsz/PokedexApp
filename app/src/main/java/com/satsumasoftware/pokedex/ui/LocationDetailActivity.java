@@ -1,36 +1,38 @@
 package com.satsumasoftware.pokedex.ui;
 
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.util.ArrayMap;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.entities.detail.DetailInfo;
-import com.satsumasoftware.pokedex.entities.detail.LocationDetail;
-import com.satsumasoftware.pokedex.entities.encounter.DisplayedEncounter;
-import com.satsumasoftware.pokedex.entities.encounter.Encounter;
-import com.satsumasoftware.pokedex.entities.encounter.EncounterSlot;
-import com.satsumasoftware.pokedex.entities.location.Location;
-import com.satsumasoftware.pokedex.entities.location.LocationArea;
+import com.satsumasoftware.pokedex.db.PokeDB;
+import com.satsumasoftware.pokedex.framework.detail.DetailInfo;
+import com.satsumasoftware.pokedex.framework.detail.LocationDetail;
+import com.satsumasoftware.pokedex.framework.encounter.CompactEncounterDataHolder;
+import com.satsumasoftware.pokedex.framework.encounter.Encounter;
+import com.satsumasoftware.pokedex.framework.encounter.EncounterDataHolder;
+import com.satsumasoftware.pokedex.framework.encounter.EncounterMethodProse;
+import com.satsumasoftware.pokedex.framework.encounter.EncounterSlot;
+import com.satsumasoftware.pokedex.framework.location.Location;
+import com.satsumasoftware.pokedex.framework.location.LocationArea;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.util.DataUtils;
-import com.satsumasoftware.pokedex.util.InfoUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Locale;
 
 public class LocationDetailActivity extends AppCompatActivity {
@@ -54,7 +56,6 @@ public class LocationDetailActivity extends AppCompatActivity {
     private Location mLocation;
 
     private ArrayList<LocationArea> mLocationAreas;
-    private ArrayList<DisplayedEncounter> mDisplayedEncounters;
 
     private int mGameVersion;
 
@@ -88,19 +89,11 @@ public class LocationDetailActivity extends AppCompatActivity {
         mProgress = (ProgressBar) findViewById(R.id.locationDetail_progress);
         mNoPkmnMessage = (FrameLayout) findViewById(R.id.locationDetail_fl_noPokemon);
 
-        mDisplayedEncounters = new ArrayList<>();
-
-        //mEncounterDisplayedArrArr = new ArrayList<>();
-        //mLocationAreaTitles = new ArrayList<>();
-
-
         // TODO: Change the database so versions correspond with edited values (i.e. ignoring Conquest series)
 
-        fetchData();
-    }
-
-    private void fetchData() {
         mAsyncTask = new AsyncTask<Void, Integer, Void>() {
+            ArrayList<ArrayList<DetailInfo>> locationDetailsList;
+
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
@@ -110,132 +103,165 @@ public class LocationDetailActivity extends AppCompatActivity {
             }
 
             @Override
-            protected Void doInBackground(Void... params) {
-                Log.d(LOG_TAG, "========== Location - " + mLocation.getName() + "==========");
-
-                mLocationAreas = mLocation.getLocationAreas(getBaseContext());
-
-                Log.d(LOG_TAG, "Location Areas: " + mLocationAreas.size());
-
-                for (LocationArea locationArea : mLocationAreas) {
-                    Log.d(LOG_TAG, "----- Location Area: " + locationArea.getName() + "-----");
-
-                    ArrayList<Integer> versions = locationArea.findEncounterGameVersions(getBaseContext());
-                    Collections.sort(versions);
-                    int latestVersion = versions.get(versions.size()-1);
-                    Log.d(LOG_TAG, "Searching with version: " + latestVersion);
-
-                    ArrayList<Encounter> encounters = locationArea.findAllEncounters(getBaseContext(), latestVersion);
-                    Log.d(LOG_TAG, "- Encounters Size: " + encounters.size());
-
-                    for (Encounter encounter : encounters) {
-                        mDisplayedEncounters.add(encounter.toDisplayedEncounter(getBaseContext(), locationArea));
-                        Log.d(LOG_TAG, "----------");
-                        Log.d(LOG_TAG, "Pokemon Id " + encounter.getPokemonId());
-                        Log.d(LOG_TAG, "Min level " + encounter.getMinLevel());
-                        Log.d(LOG_TAG, "Max level " + encounter.getMaxLevel());
-
-                        EncounterSlot encounterSlot = new EncounterSlot(getBaseContext(), encounter.getEncounterSlotId());
-                        Log.d(LOG_TAG, " - EncounterSlot info - ");
-                        Log.d(LOG_TAG, "Rarity: " + encounterSlot.getRarity());
-                        Log.d(LOG_TAG, "MethodId: " + encounterSlot.getEncounterMethodId());
-                    }
-                }
+            protected Void doInBackground(Void... voids) {
+                locationDetailsList = fetchData();
                 return null;
             }
 
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
+                mProgress.setVisibility(View.GONE);
                 mTabLayout.setVisibility(View.VISIBLE);
                 mViewPager.setVisibility(View.VISIBLE);
-                mProgress.setVisibility(View.GONE);
-                displayData();
+                setupLayouts(locationDetailsList);
             }
         }.execute();
     }
 
-    private void displayData() {
-        final LayoutInflater inflater = LayoutInflater.from(this);
+    private ArrayList<ArrayList<DetailInfo>> fetchData() {
+        Log.d("LocationDetailActivity", "-------  Location : " + mLocation.getName() + " ------------");
+
+        mLocationAreas = mLocation.getLocationAreas(getBaseContext());
+
+        ArrayList<ArrayList<DetailInfo>> locationDetailsList = new ArrayList<>();
+
+        PokeDB pokeDB = new PokeDB(this);
 
         for (LocationArea locationArea : mLocationAreas) {
-            final String locationAreaName = locationArea.getName();
 
-            mAsyncTask = new AsyncTask<Void, Integer, Void>() {
-                View page;
-                RecyclerView recyclerView;
-                ProgressBar progressBar;
-                ArrayList<DetailInfo> locationDetails = new ArrayList<>();
+            ArrayList<Integer> versions = getVersionsAtLocationArea(locationArea.getId(), pokeDB);
+            int versionId = versions.get(versions.size() - 1);  // by default, the selected version is the latest
 
-                @Override
-                protected void onPreExecute() {
-                    super.onPreExecute();
-                    page = inflater.inflate(R.layout.fragment_detail_main, null);
+            Log.d("LocationDetailActivity", "-- Location area : " + locationArea.getName() + " --");
 
-                    progressBar = (ProgressBar) page.findViewById(R.id.progressBar);
-                    progressBar.setVisibility(View.VISIBLE);
+            // get all the encounters using locationAreaId and versionId
+            ArrayList<Encounter> encounters = locationArea.findAllEncounters(this, versionId);
 
-                    recyclerView = (RecyclerView) page.findViewById(R.id.recyclerView);
-                    recyclerView.setLayoutManager(new GridLayoutManager(
-                            LocationDetailActivity.this, getResources().getInteger(R.integer.detail_columns)));
-                    recyclerView.setVisibility(View.GONE);
+            // for each encounter, get its corresponding encounter slot - put these into the data holder
+            ArrayList<EncounterDataHolder> encounterDataList = new ArrayList<>();
+            for (Encounter encounter : encounters) {
+                EncounterSlot encounterSlot = encounter.getEncounterSlotObject(this);
+                encounterDataList.add(new EncounterDataHolder(encounter, encounterSlot));
+            }
+
+            // organise data by encounter method with a sparse array
+            SparseArray<ArrayList<EncounterDataHolder>> organisedEncounterData = new SparseArray<>();
+            for (EncounterDataHolder encounterDataHolder : encounterDataList) {
+
+                int encounterMethodId = encounterDataHolder.getEncounterSlot().getEncounterMethodId();
+                ArrayList<EncounterDataHolder> dataList = organisedEncounterData.get(encounterMethodId);
+
+                if (dataList == null) {
+                    ArrayList<EncounterDataHolder> newDataList = new ArrayList<>();
+                    newDataList.add(encounterDataHolder);
+                    organisedEncounterData.put(encounterMethodId, newDataList);
+                } else {
+                    organisedEncounterData.remove(encounterMethodId);
+                    dataList.add(encounterDataHolder);
+                    organisedEncounterData.put(encounterMethodId, dataList);
                 }
+            }
 
-                @Override
-                protected Void doInBackground(Void... params) {
-                    // TODO optimise
-                    ArrayList<Integer> methodIds = new ArrayList<>();
-                    ArrayMap<Integer, ArrayList<DisplayedEncounter>> deArrayMap = new ArrayMap<>();
-                    for (DisplayedEncounter de : mDisplayedEncounters) {
-                        int methodId = de.getEncounterSlot().getEncounterMethodId();
-                        if (!methodIds.contains(methodId)) {
-                            methodIds.add(de.getEncounterSlot().getEncounterMethodId());
-                        }
-                        //deArrayArray.get(methodId).add(de);
-                        if (deArrayMap.containsKey(methodId)) {
-                            ArrayList<DisplayedEncounter> deArray = deArrayMap.get(methodId);
-                            deArray.add(de);
-                            deArrayMap.remove(methodId);
-                            deArrayMap.put(methodId, deArray);
-                        } else {
-                            ArrayList<DisplayedEncounter> deArray = new ArrayList<>();
-                            deArray.add(de);
-                            deArrayMap.put(methodId, deArray);
-                        }
-                    }
+            // create location detail objects using the organised data
+            ArrayList<DetailInfo> locationDetails = new ArrayList<>();
+            for (int i = 0; i < organisedEncounterData.size(); i++) {
+                int encounterMethodId = organisedEncounterData.keyAt(i);
+                String name = new EncounterMethodProse(this, encounterMethodId).getName();
 
-                    for (int methodId : methodIds) {
-                        ArrayList<DisplayedEncounter> theseEncounters = deArrayMap.get(methodId);
-                        String title = InfoUtils.getEncounterMethodFromId(methodId);
-                        DetailInfo locationDetail = new LocationDetail(title, theseEncounters);
-                        locationDetails.add(locationDetail);
-                    }
-                    return null;
-                }
+                // make encounter data holder lists into shorter 'compact' data list(s) -
+                // each compact holder object represents many encounter data holder objects
+                // about the same pokemon (same pokemon id)
+                ArrayList<EncounterDataHolder> encounterDataHolders =
+                        organisedEncounterData.get(encounterMethodId);
 
-                @Override
-                protected void onPostExecute(Void aVoid) {
-                    super.onPostExecute(aVoid);
+                SparseArray<CompactEncounterDataHolder> compactHolderArray = new SparseArray<>();
+                for (EncounterDataHolder encounterHolder : encounterDataHolders) {
+                    int pokemonId = encounterHolder.getEncounter().getPokemonId();
 
-                    recyclerView.setVisibility(View.VISIBLE);
-                    progressBar.setVisibility(View.GONE);
-
-                    // stop recycling of views (which causes a bug where views are merged together)
-                    recyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
-
-                    // setup RecyclerView
-                    DetailAdapter adapter = new DetailAdapter(getBaseContext(), locationDetails);
-                    recyclerView.setAdapter(adapter);
-
-                    String title;
-                    if (locationAreaName.equals("")) {
-                        title = "General";
+                    if (compactHolderArray.get(pokemonId) == null) {
+                        CompactEncounterDataHolder compactHolder =
+                                new CompactEncounterDataHolder(pokemonId);
+                        compactHolder.addEncounterDataHolder(encounterHolder);
+                        compactHolderArray.put(pokemonId, compactHolder);
                     } else {
-                        title = locationAreaName;
+                        CompactEncounterDataHolder compactHolder =
+                                compactHolderArray.get(pokemonId);
+                        compactHolder.addEncounterDataHolder(encounterHolder);
+                        compactHolderArray.remove(pokemonId);
+                        compactHolderArray.put(pokemonId, compactHolder);
                     }
-                    mPagerAdapter.addViewWithTitle(page, title);
                 }
-            }.execute();
+
+                locationDetails.add(new LocationDetail(name, compactHolderArray));
+            }
+
+            // add to the list
+            locationDetailsList.add(locationDetails);
+        }
+
+        return locationDetailsList;
+    }
+
+    private ArrayList<Integer> getVersionsAtLocationArea(int locationAreaId, PokeDB pokeDB) {
+        ArrayList<Integer> versionIds = new ArrayList<>();
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.Encounters.TABLE_NAME,
+                new String[] {PokeDB.Encounters.COL_VERSION_ID, PokeDB.Encounters.COL_LOCATION_AREA_ID},
+                PokeDB.Encounters.COL_LOCATION_AREA_ID + "=?",
+                new String[] {String.valueOf(locationAreaId)},
+                null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int versionId = cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_VERSION_ID));
+            if (!versionIds.contains(versionId)) {
+                versionIds.add(versionId);
+            }
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return versionIds;
+    }
+
+    private void setupLayouts(ArrayList<ArrayList<DetailInfo>> locationDetailsList) {
+        if (locationDetailsList.isEmpty()) {
+            mTabLayout.setVisibility(View.GONE);
+            mViewPager.setVisibility(View.GONE);
+            mNoPkmnMessage.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        for (int i = 0; i < mLocationAreas.size(); i++) {
+            LocationArea locationArea = mLocationAreas.get(i);
+            ArrayList<DetailInfo> locationDetails = locationDetailsList.get(i);
+
+            View aPage = getLayoutInflater().inflate(R.layout.fragment_detail_location, null);
+            RecyclerView recyclerView = (RecyclerView) aPage.findViewById(R.id.recyclerView);
+
+            // stop recycling of views (which causes a bug where views are merged together)
+            recyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
+
+            // setup the RecyclerView and adapter
+            DetailAdapter adapter = new DetailAdapter(this, locationDetails);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setAdapter(adapter);
+
+            // get the title of the tab
+            String title = (locationArea.getName().trim().equals("") && mLocationAreas.size() != 1) ?
+                    "General" : locationArea.getName();
+
+            mPagerAdapter.addViewWithTitle(aPage, title);
+        }
+
+        mTabLayout.setupWithViewPager(mViewPager);
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+        mTabLayout.setTabTextColors(
+                ContextCompat.getColor(this, R.color.mdu_text_white_secondary),
+                ContextCompat.getColor(this, R.color.mdu_text_white));
+
+        if (mPagerAdapter.getCount() == 1) {
+            mTabLayout.setVisibility(View.GONE);
         }
     }
 

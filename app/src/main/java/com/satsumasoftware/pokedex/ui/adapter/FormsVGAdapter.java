@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.entities.pokemon.PokemonForm;
+import com.satsumasoftware.pokedex.framework.pokemon.PokemonForm;
 
 import java.util.ArrayList;
 

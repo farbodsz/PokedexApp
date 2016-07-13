@@ -22,10 +22,10 @@ import android.widget.Spinner;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.MovesDBHelper;
-import com.satsumasoftware.pokedex.entities.move.MiniMove;
-import com.satsumasoftware.pokedex.misc.DividerItemDecoration;
+import com.satsumasoftware.pokedex.framework.move.MiniMove;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.MoveDexAdapter;
+import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
 import com.satsumasoftware.pokedex.util.DataUtils;
@@ -134,7 +134,7 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
         if (Flavours.type == Flavours.Type.PAID) {
             item_buyPro.setVisible(false);
         } else {
-            item_filter.setIcon(R.drawable.ic_filter_list_grey600_48dp);
+            item_filter.setIcon(R.drawable.ic_filter_list_grey600_24dp);
         }
 
         if (mSortByName) {

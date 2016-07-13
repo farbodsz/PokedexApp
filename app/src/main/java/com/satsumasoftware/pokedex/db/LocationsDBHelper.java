@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.satsumasoftware.pokedex.entities.location.Location;
+import com.satsumasoftware.pokedex.framework.location.Location;
 
 import java.util.ArrayList;
 
@@ -56,7 +56,10 @@ public class LocationsDBHelper extends SQLiteOpenHelper {
     private void populateDatabase(SQLiteDatabase db) {
         PokeDB pokeDB = new PokeDB(mContext);
         Cursor cursor = pokeDB.getReadableDatabase().query(
-                PokeDB.Locations.TABLE_NAME, null, null, null, null, null, null);
+                PokeDB.Locations.TABLE_NAME,
+                null,
+                PokeDB.Locations.COL_REGION_ID + "!=0",
+                null, null, null, null);
         cursor.moveToFirst();
         db.beginTransaction();
         while (!cursor.isAfterLast()) {
@@ -65,9 +68,8 @@ public class LocationsDBHelper extends SQLiteOpenHelper {
             int locationId = cursor.getInt(cursor.getColumnIndex(PokeDB.Locations.COL_ID));
             values.put(COL_ID, locationId);
 
-            int regionIdColIndex = cursor.getColumnIndex(PokeDB.Locations.COL_REGION_ID);
             values.put(COL_REGION_ID,
-                    cursor.isNull(regionIdColIndex) ? -1 : cursor.getInt(regionIdColIndex));
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Locations.COL_REGION_ID)));
 
             // the identifier will not be used so it's not put in db
 
@@ -112,13 +114,7 @@ public class LocationsDBHelper extends SQLiteOpenHelper {
         ArrayList<Location> list = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(
-                TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
+                TABLE_NAME, null, null, null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             int id = cursor.getInt(cursor.getColumnIndex(COL_ID));

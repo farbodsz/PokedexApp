@@ -15,7 +15,7 @@ import android.widget.EditText;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
-import com.satsumasoftware.pokedex.entities.ability.MiniAbility;
+import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.ui.filter.FilterResultsActivity;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 import com.satsuware.usefulviews.LabelledSpinner;
@@ -28,8 +28,8 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
 
     private View mRootLayout;
 
-    private String mFilterName, mFilterSpecies, mFilterType1, mFilterType2,
-            mFilterAbility, mFilterGrowth, mFilterGen;
+    private String mFilterName, mFilterSpecies, mFilterType1, mFilterType2, mFilterGrowth, mFilterGen;
+    private int mFilterAbility;
     private ArrayList<MiniAbility> mArrayAbilities;
 
     @Override
@@ -103,7 +103,7 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
                 && mFilterSpecies.isEmpty()
                 && (mFilterType1 == null || mFilterType1.equals(getFirstOfList(R.array.filter_type)))
                 && (mFilterType2 == null || mFilterType2.equals(getFirstOfList(R.array.filter_type)))
-                && (mFilterAbility == null || mFilterAbility.equals(getFirstOfList(mArrayAbilities)))
+                && (mFilterAbility == 0 || mFilterAbility == getFirstOfList(mArrayAbilities))
                 && (mFilterGrowth == null || mFilterGrowth.equals(getFirstOfList(R.array.filter_levellingRate)))
                 && (mFilterGen == null || mFilterGen.equals(getFirstOfList(R.array.filter_gen)))) {
             Snackbar.make(mRootLayout, R.string.filter_error, Snackbar.LENGTH_SHORT).show();
@@ -124,7 +124,7 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
         if (mFilterType2 != null && !mFilterType2.equals(getFirstOfList(R.array.filter_type))) {
             intent.putExtra(FilterResultsActivity.FILTER_TYPE_2, mFilterType2);
         }
-        if (mFilterAbility != null && !mFilterAbility.equals(getFirstOfList(mArrayAbilities))) {
+        if (mFilterAbility != 0 && mFilterAbility != getFirstOfList(mArrayAbilities)) {
             intent.putExtra(FilterResultsActivity.FILTER_ABILITY, mFilterAbility);
         }
         if (mFilterGrowth != null && !mFilterGrowth.equals(getFirstOfList(R.array.filter_levellingRate))) {
@@ -144,11 +144,13 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
                 return ability1.getName().compareTo(ability2.getName()); // Ascending
             }
         });
+        MiniAbility placeHolder = new MiniAbility(0, getResources().getString(R.string.no_filter));
+        list.add(0, placeHolder);
         return list;
     }
 
-    private String getFirstOfList(ArrayList<MiniAbility> arrayList) {
-        return arrayList.get(0).getName();
+    private int getFirstOfList(ArrayList<MiniAbility> arrayList) {
+        return arrayList.get(0).getId();
     }
 
     private String getFirstOfList(int arrayResId) {
@@ -194,7 +196,7 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
                 mFilterType2 = selected;
                 break;
             case R.id.advancedFilter_spinnerAbility:
-                mFilterAbility = selected;
+                mFilterAbility = mArrayAbilities.get(position).getId();
                 break;
             case R.id.advancedFilter_spinnerGrowth:
                 mFilterGrowth = selected;

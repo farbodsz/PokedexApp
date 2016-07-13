@@ -10,7 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.entities.detail.DetailInfo;
+import com.satsumasoftware.pokedex.framework.detail.DetailInfo;
 
 import java.util.ArrayList;
 
@@ -29,13 +29,19 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
 
     private Context mContext;
     private ArrayList<DetailInfo> mDetailArray;
+    private boolean mAnimate;
 
     // Allows to remember the last item shown on screen
     private int mLastPosition = -1;
 
     public DetailAdapter(Context context, ArrayList<DetailInfo> detailArray) {
+        this(context, detailArray, false);
+    }
+
+    public DetailAdapter(Context context, ArrayList<DetailInfo> detailArray, boolean animate) {
         mContext = context;
         mDetailArray = detailArray;
+        mAnimate = animate;
     }
 
     @Override
@@ -53,7 +59,10 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
     public void onBindViewHolder(DetailViewHolder holder, int position) {
         DetailInfo info = mDetailArray.get(position);
         info.setupCard(mContext, holder.container);
-        setAnimation(holder.rootView, position);
+
+        if (mAnimate) {
+            setAnimation(holder.rootView, position);
+        }
     }
 
     private void setAnimation(View viewToAnimate, int position) {

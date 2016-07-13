@@ -6,8 +6,8 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.entities.nature.MiniNature;
-import com.satsumasoftware.pokedex.entities.nature.Nature;
+import com.satsumasoftware.pokedex.framework.nature.MiniNature;
+import com.satsumasoftware.pokedex.framework.nature.Nature;
 import com.satsumasoftware.pokedex.util.DataUtils;
 
 public class NatureDetailActivity extends AppCompatActivity {

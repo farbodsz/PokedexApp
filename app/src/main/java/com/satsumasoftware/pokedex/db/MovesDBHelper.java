@@ -6,8 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.satsumasoftware.pokedex.entities.move.MiniMove;
-import com.satsumasoftware.pokedex.entities.move.Move;
+import com.satsumasoftware.pokedex.framework.move.BaseMove;
+import com.satsumasoftware.pokedex.framework.move.MiniMove;
+import com.satsumasoftware.pokedex.framework.move.Move;
 
 import java.util.ArrayList;
 
@@ -110,15 +111,9 @@ public class MovesDBHelper extends SQLiteOpenHelper {
             values.put(COL_TYPE_ID,
                     cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_TYPE_ID)));
 
-            int powerColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_POWER);
-            values.put(COL_POWER, cursor.isNull(powerColIndex) ? -1 : cursor.getInt(powerColIndex));
-
-            int ppColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_PP);
-            values.put(COL_PP, cursor.isNull(ppColIndex) ? -1 : cursor.getInt(ppColIndex));
-
-            int accuracyColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_ACCURACY);
-            values.put(COL_ACCURACY, cursor.isNull(accuracyColIndex) ?
-                    -1 : cursor.getInt(accuracyColIndex));
+            values.put(COL_POWER, cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_POWER)));
+            values.put(COL_PP, cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_PP)));
+            values.put(COL_ACCURACY, cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_ACCURACY)));
 
             values.put(COL_PRIORITY,
                     cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_PRIORITY)));
@@ -128,23 +123,15 @@ public class MovesDBHelper extends SQLiteOpenHelper {
                     cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_DAMAGE_CLASS_ID)));
             values.put(COL_EFFECT_ID,
                     cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_EFFECT_ID)));
+            values.put(COL_EFFECT_CHANCE,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_EFFECT_CHANCE)));
 
-            int effectChanceColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_EFFECT_CHANCE);
-            values.put(COL_EFFECT_CHANCE, cursor.isNull(effectChanceColIndex) ?
-                    -1 : cursor.getInt(effectChanceColIndex));
-
-            int contestTypeIdColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_CONTEST_TYPE_ID);
-            values.put(COL_CONTEST_TYPE_ID, cursor.isNull(contestTypeIdColIndex) ?
-                    -1 : cursor.getInt(contestTypeIdColIndex));
-
-            int contestEffectIdColIndex = cursor.getColumnIndex(PokeDB.Moves.COL_CONTEST_EFFECT_ID);
-            values.put(COL_CONTEST_EFFECT_ID, cursor.isNull(contestEffectIdColIndex) ?
-                    -1 : cursor.getInt(contestEffectIdColIndex));
-
-            int superContestEffectIdColIndex =
-                    cursor.getColumnIndex(PokeDB.Moves.COL_SUPER_CONTEST_EFFECT_ID);
-            values.put(COL_SUPER_CONTEST_EFFECT_ID, cursor.isNull(superContestEffectIdColIndex) ?
-                    -1 : cursor.getInt(superContestEffectIdColIndex));
+            values.put(COL_CONTEST_TYPE_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_CONTEST_TYPE_ID)));
+            values.put(COL_CONTEST_EFFECT_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_CONTEST_EFFECT_ID)));
+            values.put(COL_SUPER_CONTEST_EFFECT_ID,
+                    cursor.getInt(cursor.getColumnIndex(PokeDB.Moves.COL_SUPER_CONTEST_EFFECT_ID)));
 
             putNameValues(values, moveId, pokeDB);
 
@@ -216,30 +203,7 @@ public class MovesDBHelper extends SQLiteOpenHelper {
                 null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            int id = cursor.getInt(cursor.getColumnIndex(COL_ID));
-            int generationId = cursor.getInt(cursor.getColumnIndex(COL_GENERATION_ID));
-            int typeId = cursor.getInt(cursor.getColumnIndex(COL_TYPE_ID));
-            int power = cursor.getInt(cursor.getColumnIndex(COL_POWER));
-            int pp = cursor.getInt(cursor.getColumnIndex(COL_PP));
-            int accuracy = cursor.getInt(cursor.getColumnIndex(COL_ACCURACY));
-            int priority = cursor.getInt(cursor.getColumnIndex(COL_PRIORITY));
-            int targetId = cursor.getInt(cursor.getColumnIndex(COL_TARGET_ID));
-            int damageClassId = cursor.getInt(cursor.getColumnIndex(COL_DAMAGE_CLASS_ID));
-            int effectId = cursor.getInt(cursor.getColumnIndex(COL_EFFECT_ID));
-            int effectChance = cursor.getInt(cursor.getColumnIndex(COL_EFFECT_CHANCE));
-            int contestTypeId = cursor.getInt(cursor.getColumnIndex(COL_CONTEST_TYPE_ID));
-            int contestEffectId = cursor.getInt(cursor.getColumnIndex(COL_CONTEST_EFFECT_ID));
-            int superContestEffectId = cursor.getInt(cursor.getColumnIndex(COL_SUPER_CONTEST_EFFECT_ID));
-            String name = cursor.getString(cursor.getColumnIndex(COL_NAME));
-            String nameJa = cursor.getString(cursor.getColumnIndex(COL_NAME_JAPANESE));
-            String nameKo = cursor.getString(cursor.getColumnIndex(COL_NAME_KOREAN));
-            String nameFr = cursor.getString(cursor.getColumnIndex(COL_NAME_FRENCH));
-            String nameDe = cursor.getString(cursor.getColumnIndex(COL_NAME_GERMAN));
-            String nameEs = cursor.getString(cursor.getColumnIndex(COL_NAME_SPANISH));
-            String nameIt = cursor.getString(cursor.getColumnIndex(COL_NAME_ITALIAN));
-            Move move = new Move(id, generationId, typeId, power, pp, accuracy, priority, targetId,
-                    damageClassId, effectId, effectChance, contestTypeId, contestEffectId,
-                    superContestEffectId, name, nameJa, nameKo, nameFr, nameDe, nameEs, nameIt);
+            Move move = new Move(cursor);
             list.add(move);
             cursor.moveToNext();
         }
@@ -252,7 +216,7 @@ public class MovesDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(
                 TABLE_NAME,
-                MiniMove.DB_COLUMNS,
+                BaseMove.DB_COLUMNS,
                 null,
                 null,
                 null,

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.satsumasoftware.pokedex.entities.pokemon.MiniPokemon;
+import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 
 import java.util.ArrayList;
 
@@ -530,11 +530,8 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
         values.put(COL_GENERATION_ID,
                 cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_GENERATION_ID)));
 
-        int evolvesFromSpeciesIdColIndex =
-                cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_EVOLVES_FROM_SPECIES_ID);
-        values.put(COL_EVOLVES_FROM_SPECIES_ID, cursor.isNull(evolvesFromSpeciesIdColIndex) ?
-                -1 : cursor.getInt(evolvesFromSpeciesIdColIndex));
-
+        values.put(COL_EVOLVES_FROM_SPECIES_ID,
+                cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_EVOLVES_FROM_SPECIES_ID)));
         values.put(COL_EVOLUTION_CHAIN_ID,
                 cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_EVOLUTION_CHAIN_ID)));
 
@@ -542,10 +539,8 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
                 cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_COLOR_ID)));
         values.put(COL_SHAPE_ID,
                 cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_SHAPE_ID)));
-        int habitatIdColIndex =
-                cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_HABITAT_ID);
         values.put(COL_HABITAT_ID,
-                cursor.isNull(habitatIdColIndex) ? -1 : cursor.getInt(habitatIdColIndex));
+                cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_HABITAT_ID)));
 
         values.put(COL_GENDER_RATE,
                 cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_GENDER_RATE)));
@@ -565,11 +560,8 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
                 cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_FORMS_SWITCHABLE)));
         values.put(COL_SPECIES_ORDER,
                 cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_ORDER)));
-
-        int conquestOrderColIndex =
-                cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_CONQUEST_ORDER);
         values.put(COL_SPECIES_CONQUEST_ORDER,
-                cursor.isNull(conquestOrderColIndex) ? -1 : cursor.getInt(conquestOrderColIndex));
+                cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonSpecies.COL_CONQUEST_ORDER)));
 
         cursor.close();
     }
@@ -740,15 +732,7 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
                 null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            int id = cursor.getInt(cursor.getColumnIndex(COL_ID));
-            int speciesId = cursor.getInt(cursor.getColumnIndex(COL_SPECIES_ID));
-            String name = cursor.getString(cursor.getColumnIndex(COL_NAME));
-            int formId = cursor.getInt(cursor.getColumnIndex(COL_FORM_ID));
-            String formName = cursor.getString(cursor.getColumnIndex(COL_FORM_NAME));
-            String formPokemonName = cursor.getString(cursor.getColumnIndex(COL_FORM_NAME));
-            int pokedexNumber = cursor.getInt(cursor.getColumnIndex(COL_POKEDEX_NATIONAL));
-            MiniPokemon pokemon = new MiniPokemon(id, speciesId, formId, name, formName,
-                    formPokemonName, pokedexNumber);
+            MiniPokemon pokemon = new MiniPokemon(cursor);
             list.add(pokemon);
             cursor.moveToNext();
         }

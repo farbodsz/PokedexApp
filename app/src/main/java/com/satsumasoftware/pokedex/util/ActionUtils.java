@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.entities.pokemon.MiniPokemon;
-import com.satsumasoftware.pokedex.entities.pokemon.Pokemon;
+import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
+import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.ui.ExperienceCalculatorActivity;
 
 import java.util.ArrayList;
@@ -158,6 +158,15 @@ public final class ActionUtils {
         //if (resId == 0) throw new NullPointerException("resId is null (given value of 0)");
 
         mediaPlayer.start();
+    }
+
+
+    public static void setPokemonImage(MiniPokemon pokemon, ImageView imageView) {
+        setPokemonImage(pokemon.getId(),
+                InfoUtils.formatPokemonId(pokemon.getNationalDexNumber()),
+                pokemon.getName(),
+                false,
+                imageView);
     }
 
     public static void setPokemonImage(Pokemon pokemon, ImageView imageView) {
