@@ -112,7 +112,6 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
                     return pokemon1.getName().compareTo(pokemon2.getName()); // Ascending
                 } else {
                     return pokemon1.getNationalDexNumber() - pokemon2.getNationalDexNumber(); // Ascending
-                    // TODO: Change to national id later (or other dex number), when added
                 }
             }
         });

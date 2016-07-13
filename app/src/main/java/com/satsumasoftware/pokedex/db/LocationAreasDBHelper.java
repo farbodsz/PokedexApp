@@ -6,10 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.satsumasoftware.pokedex.framework.location.LocationArea;
-
-import java.util.ArrayList;
-
 public class LocationAreasDBHelper extends SQLiteOpenHelper {
 
     /* General Database and Table information */
@@ -101,53 +97,5 @@ public class LocationAreasDBHelper extends SQLiteOpenHelper {
             cursor.moveToNext();
         }
         cursor.close();
-    }
-
-    public ArrayList<LocationArea> getLocationAreaList() {
-        ArrayList<LocationArea> list = new ArrayList<>();
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(
-                TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            int id = cursor.getInt(cursor.getColumnIndex(COL_ID));
-            int locationId = cursor.getInt(cursor.getColumnIndex(COL_LOCATION_ID));
-            String name = cursor.getString(cursor.getColumnIndex(COL_NAME));
-            LocationArea locationArea = new LocationArea(id, locationId, name);
-            list.add(locationArea);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return list;
-    }
-
-    public ArrayList<LocationArea> getLocationAreaList(int locationId) {
-        ArrayList<LocationArea> list = new ArrayList<>();
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(
-                TABLE_NAME,
-                null,
-                COL_LOCATION_ID + "=?",
-                new String[] {String.valueOf(locationId)},
-                null,
-                null,
-                null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            LocationArea locationArea = new LocationArea(
-                    cursor.getInt(cursor.getColumnIndex(COL_ID)),
-                    cursor.getInt(cursor.getColumnIndex(COL_LOCATION_ID)),
-                    cursor.getString(cursor.getColumnIndex(COL_NAME)));
-            list.add(locationArea);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return list;
     }
 }

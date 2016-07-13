@@ -4,7 +4,6 @@ import android.support.annotation.ColorRes;
 import android.text.TextUtils;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 
 @Deprecated
 /** Move to {@link DataUtils} */
@@ -36,10 +35,6 @@ public final class InfoUtils {
         }
 
         return idFormatted;
-    }
-
-    public static String formatStringIdentifier(String identifier) {
-        return identifier.replace("-", " ");
     }
 
     public static int getGenFromRoman(String romanNumerals) {
@@ -161,50 +156,6 @@ public final class InfoUtils {
         }
     }
 
-    @Deprecated
-    public static String getAbbreviationFromGrowth(String levellingRate) {
-        switch (levellingRate) {
-            case "Fl":
-            case "S":
-            case "MS":
-            case "MF":
-            case "F":
-            case "E":
-                return levellingRate;
-            case "Fluctuating":
-                return "Fl";
-            case "Slow":
-                return "S";
-            case "Medium Slow":
-                return "MS";
-            case "Medium Fast":
-                return "MF";
-            case "Fast":
-                return "F";
-            case "Erratic":
-                return "E";
-            default:
-                throw new IllegalArgumentException("value: '" + levellingRate + "' for parameter levellingRate is invalid");
-        }
-    }
-
-    public static String getColourFromId(int id) {
-        switch (id) {
-            case 1: return "Black";
-            case 2: return "Blue";
-            case 3: return "Brown";
-            case 4: return "Grey";
-            case 5: return "Green";
-            case 6: return "Pink";
-            case 7: return "Purple";
-            case 8: return "Red";
-            case 9: return "White";
-            case 10: return "Yellow";
-            default:
-                throw new IllegalArgumentException("value: '" + id + "' for parameter id is invalid");
-        }
-    }
-
     public static int getIdFromColour(String colour) {
         switch (colour) {
             case "Black": return 1;
@@ -219,97 +170,6 @@ public final class InfoUtils {
             case "Yellow": return 10;
             default:
                 throw new IllegalArgumentException("value: '" + colour + "' for parameter colour is invalid");
-        }
-    }
-
-    public static String getShapeFromId(int id, boolean findTechnicalTerm) {
-        switch (id) {
-            case 1:
-                if (findTechnicalTerm) {
-                    return "Pomaceous";
-                } else {
-                    return "Ball";
-                }
-            case 2:
-                if (findTechnicalTerm) {
-                    return "Caudal";
-                } else {
-                    return "Squiggle";
-                }
-            case 3:
-                if (findTechnicalTerm) {
-                    return "Ichthyic";
-                } else {
-                    return "Fish";
-                }
-            case 4:
-                if (findTechnicalTerm) {
-                    return "Brachial";
-                } else {
-                    return "Arms";
-                }
-            case 5:
-                if (findTechnicalTerm) {
-                    return "Alvine";
-                } else {
-                    return "Blob";
-                }
-            case 6:
-                if (findTechnicalTerm) {
-                    return "Sciurine";
-                } else {
-                    return "Upright";
-                }
-            case 7:
-                if (findTechnicalTerm) {
-                    return "Crural";
-                } else {
-                    return "Legs";
-                }
-            case 8:
-                if (findTechnicalTerm) {
-                    return "Mensal";
-                } else {
-                    return "Quadruped";
-                }
-            case 9:
-                if (findTechnicalTerm) {
-                    return "Alar";
-                } else {
-                    return "Wings";
-                }
-            case 10:
-                if (findTechnicalTerm) {
-                    return "Cilial";
-                } else {
-                    return "Tentacles";
-                }
-            case 11:
-                if (findTechnicalTerm) {
-                    return "Polycephalic";
-                } else {
-                    return "Heads";
-                }
-            case 12:
-                if (findTechnicalTerm) {
-                    return "Anthropomorphic";
-                } else {
-                    return "Humanoid";
-                }
-            case 13:
-                if (findTechnicalTerm) {
-                    return "Lepidopterous";
-                } else {
-                    return "Bug wings";
-                }
-            case 14:
-                if (findTechnicalTerm) {
-                    return "Chitinous";
-                } else {
-                    return "Armor";
-                }
-            default:
-                throw new IllegalArgumentException("value: '" + id + "' for parameter id is invalid");
         }
     }
 
@@ -362,34 +222,6 @@ public final class InfoUtils {
         }
     }
 
-    public static String getHabitatFromId(int id) {
-        // Habitats are something only in Pokemon FireRed and LeafGreen
-        switch (id) {
-            case 0:
-                return null;
-            case 1:
-                return "Cave";
-            case 2:
-                return "Forest";
-            case 3:
-                return "Grassland";
-            case 4:
-                return "Mountain";
-            case 5:
-                return "Rare";
-            case 6:
-                return "Rough Terrain";
-            case 7:
-                return "Sea";
-            case 8:
-                return "Urban";
-            case 9:
-                return "Water's Edge";
-            default:
-                throw new IllegalArgumentException("value: '" + id + "' for parameter id is invalid");
-        }
-    }
-
     public static int getIdFromHabitat(String habitat) {
         // Habitats are something only in Pokemon FireRed and LeafGreen
         switch (habitat) {
@@ -404,70 +236,6 @@ public final class InfoUtils {
             case "Water's Edge": return 9;
             default:
                 throw new IllegalArgumentException("value: '" + habitat + "' for parameter habitat is invalid");
-        }
-    }
-
-    public static String getStatFromAbbreviation(String abbreviation) {
-        switch (abbreviation) {
-            case "A":
-                return "Attack";
-            case "D":
-                return "Defense";
-            case "SA":
-                return "Special Attack";
-            case "SD":
-                return "Special Defense";
-            case "Sp":
-                return "Speed";
-            case "":
-                return "None";
-            default:
-                return null;
-        }
-    }
-
-    public static String getAbbreviationFromMoveCategory(String moveCategory) {
-        switch (moveCategory.toLowerCase()) {
-            case "physical": return "P";
-            case "special": return "Sp";
-            case "status": return "St";
-            default:
-                throw new IllegalArgumentException("move category '" + moveCategory +
-                    "' is an invalid parameter");
-        }
-    }
-
-    public static String getRegionFromId(int regionId) {
-        switch (regionId) {
-            case 0:
-                // Not a mappable location (e.g. a person, day care, etc.)
-                return "Not a location";
-            case 1: return "Kanto";
-            case 2: return "Johto";
-            case 3: return "Hoenn";
-            case 4: return "Sinnoh";
-            case 5: return "Unova";
-            case 6: return "Kalos";
-            default:
-                throw new NullPointerException("region id '" + regionId +
-                        "' is an invalid parameter");
-        }
-    }
-
-    public static int getIdFromRegion(String region) {
-        switch (region.toLowerCase()) {
-            case "not a location":
-                // Not a mappable location (e.g. a person, day care, etc.)
-                return 0;
-            case "kanto": return 1;
-            case "johto": return 2;
-            case "hoenn": return 3;
-            case "sinnoh": return 4;
-            case "unova": return 5;
-            case "kalos": return 6;
-            default:
-                throw new NullPointerException("region '" + region +
-                        "' is an invalid parameter");
         }
     }
 
@@ -542,49 +310,6 @@ public final class InfoUtils {
         }
     }
 
-    @Deprecated
-    public static String getNameAndForm(String pokemon, String form) {
-        switch (form) {
-            case "":
-                return pokemon;
-            case "Mega":
-                return "Mega " + pokemon;
-            case "Mega X":
-                return "Mega " + pokemon + " X";
-            case "Mega Y":
-                return "Mega " + pokemon + " Y";
-            case "Primal":
-                return "Primal " + pokemon;
-            default:
-                return pokemon + " (" + form + ")";
-        }
-    }
-
-    @Deprecated
-    public static String getNameAndForm(MiniPokemon pokemon) {
-        return getNameAndForm(pokemon.getName(), pokemon.getFormName());
-    }
-
-    public static String formatDBDescription(String string) {
-        string = removeDBQuotationMarks(string);
-        string = formatAccents(string);
-        return string;
-    }
-
-    public static String removeDBQuotationMarks(String string) {
-        if (string.startsWith("\"")) {
-            string = string.substring(1, string.length()-1);
-        }
-        return string;
-    }
-
-    public static String formatAccents(String string) {
-        if (string.contains("{E[ACUTE]}")) {
-            string = string.replace("{E[ACUTE]}", "\u00E9");
-        }
-        return string;
-    }
-
     public static String getTechnicalShapeFromSimple(String shape) {
         switch (shape) {
             case "Ball": return "Pomaceous";
@@ -602,27 +327,6 @@ public final class InfoUtils {
             case "Bug wings": return "Lepidopterous";
             case "Armor": return "Chitinous";
             default: return null;
-        }
-    }
-
-    public static String getEncounterMethodFromId(int encounterMethodId) {
-        switch (encounterMethodId) {
-            case 1: return "Walking in tall grass or cave";
-            case 2: return "Fishing with an Old Rod";
-            case 3: return "Fishing with a Good Rod";
-            case 4: return "Fishing with a Super Rod";
-            case 5: return "Surfing";
-            case 6: return "Smashing rocks";
-            case 7: return "Headbutting trees";
-            case 8: return "Walking in dark grass";
-            case 9: return "Walking in rustling grass";
-            case 10: return "Walking in dust clouds";
-            case 11: return "Walking in bridge shadows";
-            case 12: return "Fishing in dark spots";
-            case 13: return "Surfing in dark spots";
-            default:
-                throw new NullPointerException("encounterMethodId '" + encounterMethodId +
-                    "' is an invalid parameter");
         }
     }
 }

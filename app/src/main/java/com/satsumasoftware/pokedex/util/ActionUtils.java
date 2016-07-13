@@ -65,8 +65,6 @@ public final class ActionUtils {
     }
 
     public static void playPokemonCry(Context context, Pokemon pokemon) {
-        // TODO // FIXME: 03/04/2016 
-
         String normalFilename = "cry_" + pokemon.getSpeciesId();
 
         StringBuilder stringBuilder = new StringBuilder();

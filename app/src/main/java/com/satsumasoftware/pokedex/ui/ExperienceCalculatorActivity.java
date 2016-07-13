@@ -35,7 +35,8 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
     protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.experience_navigationView); }
 
 
-    private String mGrowth, mLevel;
+    private String mGrowth;
+    private int mLevel;
 
     private boolean mEnterPokemon;
     private ArrayList<String> mStrPkmnList = new ArrayList<>();
@@ -100,10 +101,10 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
         // Calculate for Pokemon in previous activity
         if (extras != null) {
             MiniPokemon pokemon = extras.getParcelable(EXTRA_POKEMON);
-            spinnerPokemonOrGrowth.setSelection(mStrPkmnList.indexOf(pokemon.getName())); // TODO <-- carry on from here
+            spinnerPokemonOrGrowth.setSelection(mStrPkmnList.indexOf(pokemon.getName()));
             mGrowth = InfoUtils.idToGrowth(findIntValue(this, pokemon.getName(), PokemonDBHelper.COL_GROWTH_RATE_ID));
             spinnerLevel.setSelection(50-1);
-            mLevel = "50";
+            mLevel = 50;
             calculateExp();
         }
 
@@ -128,14 +129,13 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
     }
 
     private void calculateExp() {
-        String exp = Experience.getTotalExperience(
+        int exp = Experience.getTotalExperience(
                 getBaseContext(),
                 Experience.getGrowthIdFromString(mGrowth),
                 mLevel);
-        if (exp == null) throw new NullPointerException("exp is null");
 
         TextView tvAnswer = (TextView) findViewById(R.id.experience_tvAnswer);
-        tvAnswer.setText(exp);
+        tvAnswer.setText(String.valueOf(exp));
 
         TextView tvDescription = (TextView) findViewById(R.id.experience_tvDescription);
         tvDescription.setText(getResources().getString(R.string.experience_description, mLevel, mGrowth));
@@ -155,7 +155,7 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
                 }
                 break;
             case R.id.experience_spinnerLevel:
-                mLevel = selected;
+                mLevel = Integer.parseInt(selected);
                 break;
         }
     }

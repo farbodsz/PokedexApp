@@ -70,21 +70,8 @@ public class MovesDetailActivity extends AppCompatActivity {
         setContestInfo();
 
         tvPp.setText(String.valueOf(mMove.getPp()));
-        int power = mMove.getPower();
-        int accuracy = mMove.getAccuracy();
-        /*
-        if (power.equals("n/a")) {
-            tvPower.setText("---");
-        } else {
-            tvPower.setText(power);
-        }
-        if (accuracy.equals("n/a")) {
-            tvAccuracy.setText("---");
-        } else {
-            tvAccuracy.setText(accuracy + "%");
-        } */
-        tvPower.setText(String.valueOf(power));
-        tvAccuracy.setText(accuracy + "%");
+        tvPower.setText(String.valueOf(mMove.getPower()));
+        tvAccuracy.setText(mMove.getAccuracy() + "%");
 
         tvGen.setText(InfoUtils.getRomanFromGen(mMove.getGenerationId()));
 

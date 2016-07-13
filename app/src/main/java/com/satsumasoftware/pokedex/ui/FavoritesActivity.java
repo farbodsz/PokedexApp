@@ -107,7 +107,7 @@ public class FavoritesActivity extends BaseActivity {
                 boolean wasFavourite = FavoriteUtils.isAFavouritePkmn(getBaseContext(), thisPokemon);
                 ActionUtils.handleListLongClick(FavoritesActivity.this, thisPokemon, mRootLayout);
                 boolean isFavourite = FavoriteUtils.isAFavouritePkmn(getBaseContext(), thisPokemon);
-                if (wasFavourite != isFavourite) { // TODO: Does this work?
+                if (wasFavourite != isFavourite) { // TODO: This doesn't work - refresh the list properly
                     refresh();
                 }
             }
@@ -116,7 +116,6 @@ public class FavoritesActivity extends BaseActivity {
     }
 
     private void refresh() {
-        // TODO: How to refresh the list better?
         startActivity(new Intent(this, FavoritesActivity.class));
     }
 

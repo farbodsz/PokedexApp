@@ -11,8 +11,6 @@ import java.util.regex.Pattern;
 
 public class Move extends BaseMove {
 
-    // TODO FIXME descriptions need to be formatted
-
     private int mGenerationId, mTypeId, mPower, mPp, mAccuracy, mPriority, mTargetId,
             mDamageClassId, mEffectId, mEffectChance, mContestTypeId, mContestEffectId,
             mSuperContestEffectId;

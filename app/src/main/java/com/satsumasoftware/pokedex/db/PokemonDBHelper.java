@@ -402,8 +402,8 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
                     values.put(COL_FORM_POKEMON_NAME, pokemonName);
                     break;
                 default:
-                    throw new IllegalArgumentException("language id '" +
-                            String.valueOf(languageId) + "' is invalid");
+                    throw new IllegalArgumentException("language id '" + languageId +
+                            "' is invalid");
             }
             cursor.moveToNext();
         }
@@ -432,8 +432,7 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
                     values.put(COL_ABILITY_HIDDEN_ID, abilityId);
                     break;
                 default:
-                    throw new IllegalArgumentException("slot '" + String.valueOf(slot)
-                            + "' is invalid");
+                    throw new IllegalArgumentException("slot '" + slot + "' is invalid");
             }
             cursor.moveToNext();
         }
@@ -460,8 +459,7 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
                     values.put(COL_TYPE_2_ID, typeId);
                     break;
                 default:
-                    throw new IllegalArgumentException("slot '" + String.valueOf(slot)
-                            + "' is invalid");
+                    throw new IllegalArgumentException("slot '" + slot + "' is invalid");
             }
             cursor.moveToNext();
         }
@@ -507,8 +505,7 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
                     values.put(COL_STAT_SPE_EV, statEV);
                     break;
                 default:
-                    throw new IllegalArgumentException("slot (statId) '" +
-                            String.valueOf(statId) + "' is invalid");
+                    throw new IllegalArgumentException("slot (statId) '" + statId + "' is invalid");
             }
             cursor.moveToNext();
         }
@@ -649,8 +646,7 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
                     values.put(COL_POKEDEX_UPDATED_HOENN, pokedexNumber);
                     break;
                 default:
-                    throw new IllegalArgumentException("pokedex id '" +
-                            String.valueOf(pokedexId) + "' is invalid");
+                    throw new IllegalArgumentException("pokedex id '" + pokedexId + "' is invalid");
             }
             cursor.moveToNext();
         }
@@ -711,8 +707,8 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
                     values.put(COL_GENUS, genus);
                     break;
                 default:
-                    throw new IllegalArgumentException("language id '" +
-                            String.valueOf(languageId) + "' is invalid");
+                    throw new IllegalArgumentException("language id '" + languageId +
+                            "' is invalid");
             }
             cursor.moveToNext();
         }

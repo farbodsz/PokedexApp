@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.satsumasoftware.pokedex.framework.nature.BaseNature;
 import com.satsumasoftware.pokedex.framework.nature.MiniNature;
-import com.satsumasoftware.pokedex.framework.nature.Nature;
 
 import java.util.ArrayList;
 
@@ -21,12 +20,12 @@ public class NaturesDBHelper extends SQLiteOpenHelper {
 
     /* All Column Names */
     public static final String COL_ID = "id";
-    public static final String COL_IDENTIFIER = "identifier";  // TODO remove identifier?
+    public static final String COL_IDENTIFIER = "identifier";
     public static final String COL_DECREASED_STAT_ID = "decreased_stat_id";
     public static final String COL_INCREASED_STAT_ID = "increased_stat_id";
     public static final String COL_HATES_FLAVOR_ID = "hates_flavor_id";
     public static final String COL_LIKES_FLAVOR_ID = "likes_flavor_id";
-    public static final String COL_GAME_INDEX = "game_index";  // TODO remove game index?
+    public static final String COL_GAME_INDEX = "game_index";
     public static final String COL_NAME = "name_en";
     public static final String COL_NAME_JAPANESE = "name_ja";
     public static final String COL_NAME_KOREAN = "name_ko";
@@ -152,34 +151,14 @@ public class NaturesDBHelper extends SQLiteOpenHelper {
                     values.put(COL_NAME, name);
                     break;
                 default:
-                    throw new IllegalArgumentException("language id '" +
-                            String.valueOf(languageId) + "' is invalid");
+                    throw new IllegalArgumentException("language id '" + languageId +
+                            "' is invalid");
             }
             cursor.moveToNext();
         }
         cursor.close();
     }
 
-    public ArrayList<Nature> getAllNatures() {
-        ArrayList<Nature> list = new ArrayList<>();
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(
-                TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Nature nature = new Nature(cursor);
-            list.add(nature);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return list;
-    }
 
     public ArrayList<MiniNature> getAllMiniNatures() {
         ArrayList<MiniNature> list = new ArrayList<>();
