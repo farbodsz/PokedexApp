@@ -171,7 +171,6 @@ public class LocationDetailActivity extends AppCompatActivity {
                 protected void onPreExecute() {
                     super.onPreExecute();
                     page = inflater.inflate(R.layout.fragment_detail_main, null);
-                    page.findViewById(R.id.appBarLayout_secondary);
 
                     progressBar = (ProgressBar) page.findViewById(R.id.progressBar);
                     progressBar.setVisibility(View.VISIBLE);
