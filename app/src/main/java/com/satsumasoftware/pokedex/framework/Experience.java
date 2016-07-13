@@ -1,16 +1,11 @@
 package com.satsumasoftware.pokedex.framework;
 
 import android.content.Context;
+import android.database.Cursor;
 
-import com.satsumasoftware.pokedex.util.CSVUtils;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import com.satsumasoftware.pokedex.db.PokeDB;
 
 public class Experience {
-
-    // TODO SQL
 
     public static final int GROWTH_FLUCTUATING = 1;
     public static final int GROWTH_SLOW = 2;
@@ -20,25 +15,17 @@ public class Experience {
     public static final int GROWTH_ERRATIC = 6;
 
     public static String getTotalExperience(Context context, int growthId, int level) {
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open(CSVUtils.EXP_INFO_DB)));
-            reader.readLine();
-            String data;
-            while ((data=reader.readLine()) != null) {
-                String[] line = data.split(",");
-
-                if (line.length > 1) {
-                    if (line[0].equals(String.valueOf(growthId))
-                            && Integer.parseInt(line[1]) == level) {
-                        return line[2];
-                    }
-                }
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        PokeDB pokeDB = new PokeDB(context);
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.Experience.TABLE_NAME,
+                null,
+                PokeDB.Experience.COL_GROWTH_RATE_ID + "=? AND " + PokeDB.Experience.COL_LEVEL + "=?",
+                new String[] {String.valueOf(growthId), String.valueOf(level)},
+                null, null, null);
+        cursor.moveToFirst();
+        int experience = cursor.getInt(cursor.getColumnIndex(PokeDB.Experience.COL_EXPERIENCE));
+        cursor.close();
+        return String.valueOf(experience);
     }
 
     public static int getGrowthIdFromString(String string) {
