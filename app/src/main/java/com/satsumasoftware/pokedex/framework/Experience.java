@@ -19,7 +19,7 @@ public class Experience {
     public static final int GROWTH_FAST = 5;
     public static final int GROWTH_ERRATIC = 6;
 
-    public static String getTotalExperience(Context context, int growthId, String level) {
+    public static String getTotalExperience(Context context, int growthId, int level) {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open(CSVUtils.EXP_INFO_DB)));
             reader.readLine();
@@ -29,7 +29,7 @@ public class Experience {
 
                 if (line.length > 1) {
                     if (line[0].equals(String.valueOf(growthId))
-                            && line[1].equals(level)) {
+                            && Integer.parseInt(line[1]) == level) {
                         return line[2];
                     }
                 }

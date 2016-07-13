@@ -35,7 +35,8 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
     protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.experience_navigationView); }
 
 
-    private String mGrowth, mLevel;
+    private String mGrowth;
+    private int mLevel;
 
     private boolean mEnterPokemon;
     private ArrayList<String> mStrPkmnList = new ArrayList<>();
@@ -103,7 +104,7 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
             spinnerPokemonOrGrowth.setSelection(mStrPkmnList.indexOf(pokemon.getName())); // TODO <-- carry on from here
             mGrowth = InfoUtils.idToGrowth(findIntValue(this, pokemon.getName(), PokemonDBHelper.COL_GROWTH_RATE_ID));
             spinnerLevel.setSelection(50-1);
-            mLevel = "50";
+            mLevel = 50;
             calculateExp();
         }
 
@@ -155,7 +156,7 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
                 }
                 break;
             case R.id.experience_spinnerLevel:
-                mLevel = selected;
+                mLevel = Integer.parseInt(selected);
                 break;
         }
     }
