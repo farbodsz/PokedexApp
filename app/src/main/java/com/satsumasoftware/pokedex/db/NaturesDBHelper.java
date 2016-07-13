@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.satsumasoftware.pokedex.framework.nature.BaseNature;
 import com.satsumasoftware.pokedex.framework.nature.MiniNature;
-import com.satsumasoftware.pokedex.framework.nature.Nature;
 
 import java.util.ArrayList;
 

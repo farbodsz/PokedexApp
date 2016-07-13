@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.satsumasoftware.pokedex.framework.ability.Ability;
 import com.satsumasoftware.pokedex.framework.ability.BaseAbility;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 

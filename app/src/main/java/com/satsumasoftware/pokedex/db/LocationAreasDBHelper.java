@@ -6,10 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.satsumasoftware.pokedex.framework.location.LocationArea;
-
-import java.util.ArrayList;
-
 public class LocationAreasDBHelper extends SQLiteOpenHelper {
 
     /* General Database and Table information */

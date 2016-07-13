@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.satsumasoftware.pokedex.framework.move.BaseMove;
 import com.satsumasoftware.pokedex.framework.move.MiniMove;
-import com.satsumasoftware.pokedex.framework.move.Move;
 
 import java.util.ArrayList;
 
