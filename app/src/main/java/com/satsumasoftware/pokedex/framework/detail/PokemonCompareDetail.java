@@ -143,6 +143,10 @@ public class PokemonCompareDetail implements DetailInfo {
 
     private void makeNormalCard(ViewGroup container, LayoutInflater inflater) {
         for (int i = 0; i < mProperties.size(); i++) {
+            if (mValuesArrays.get(0).get(i) == null && mValuesArrays.get(1).get(i) == null) {
+                continue;
+            }
+
             View row = inflater.inflate(R.layout.card_pokemon_detail_compare_row, container, false);
 
             TextView property = (TextView) row.findViewById(R.id.text_property);

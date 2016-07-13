@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -22,6 +23,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
@@ -46,6 +48,7 @@ import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonForm;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonMoves;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
+import com.satsumasoftware.pokedex.ui.adapter.EvolutionsAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsTileAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
@@ -63,6 +66,7 @@ import com.satsumasoftware.pokedex.util.PrefUtils;
 import com.satsumasoftware.pokedex.util.ThemeUtils;
 import com.satsuware.usefulviews.LabelledSpinner;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -140,6 +144,9 @@ public class DetailActivity extends AppCompatActivity {
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.mdu_white));
         tabLayout.setupWithViewPager(sViewPager);
         sViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        tabLayout.setupWithViewPager(mViewPager);
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         if (PrefUtils.playPokemonCryAtStart(this)) {
             ActionUtils.playPokemonCry(this, sPokemon);
@@ -156,10 +163,10 @@ public class DetailActivity extends AppCompatActivity {
         mMenuItemFavourite = menu.findItem(R.id.action_favourite);
 
         if (Flavours.type == Flavours.Type.FREE) {
-            previous.setIcon(R.drawable.ic_chevron_left_grey600_48dp);
-            next.setIcon(R.drawable.ic_chevron_right_grey600_48dp);
+            previous.setIcon(R.drawable.ic_chevron_left_grey600_24dp);
+            next.setIcon(R.drawable.ic_chevron_right_grey600_24dp);
             compare.setIcon(R.drawable.ic_compare_grey600_48dp);
-            mMenuItemFavourite.setIcon(R.drawable.ic_star_outline_grey600_48dp);
+            mMenuItemFavourite.setIcon(R.drawable.ic_star_border_grey600_24dp);
             return true;
         }
 
@@ -167,10 +174,16 @@ public class DetailActivity extends AppCompatActivity {
             previous.setIcon(R.drawable.ic_chevron_left_grey600_48dp);
         } else if (sPkmnId == AppConfig.MAX_NATIONAL_ID) {
             next.setIcon(R.drawable.ic_chevron_right_grey600_48dp);
+        if (mPkmnId == 1) {
+            previous.setIcon(R.drawable.ic_chevron_left_grey600_24dp);
+        } else if (mPkmnId == AppConfig.MAX_NATIONAL_ID) {
+            next.setIcon(R.drawable.ic_chevron_right_grey600_24dp);
         }
 
         if (FavoriteUtils.isAFavouritePkmn(this, sPokemon.toMiniPokemon())) {
             mMenuItemFavourite.setIcon(R.drawable.ic_star_white_48dp);
+        if (FavoriteUtils.isAFavouritePkmn(this, mPokemon.toMiniPokemon())) {
+            mMenuItemFavourite.setIcon(R.drawable.ic_star_white_24dp);
             mMenuItemFavourite.setTitle(R.string.action_favourite_remove);
         }
 
@@ -216,9 +229,12 @@ public class DetailActivity extends AppCompatActivity {
                     FavoriteUtils.markAsFavouritePkmn(this, sPokemon.toMiniPokemon(), mRootLayout);
                     if (FavoriteUtils.isAFavouritePkmn(this, sPokemon.toMiniPokemon())) {
                         mMenuItemFavourite.setIcon(R.drawable.ic_star_white_48dp);
+                    FavoriteUtils.markAsFavouritePkmn(this, mPokemon.toMiniPokemon(), mRootLayout);
+                    if (FavoriteUtils.isAFavouritePkmn(this, mPokemon.toMiniPokemon())) {
+                        mMenuItemFavourite.setIcon(R.drawable.ic_star_white_24dp);
                         mMenuItemFavourite.setTitle(R.string.action_favourite_remove);
                     } else {
-                        mMenuItemFavourite.setIcon(R.drawable.ic_star_outline_white_48dp);
+                        mMenuItemFavourite.setIcon(R.drawable.ic_star_border_white_24dp);
                     }
                 } else {
                     AlertUtils.requiresProSnackbar(this, mRootLayout);
@@ -369,7 +385,7 @@ public class DetailActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Returns the number of tabs
-            return 3;
+            return 4;
         }
 
         @Override
@@ -381,6 +397,8 @@ public class DetailActivity extends AppCompatActivity {
                 case 1:
                     return new FormsFragment();
                 case 2:
+                    return new EvolutionsFragment();
+                case 3:
                     return new MovesFragment();
             }
             return null;
@@ -395,6 +413,8 @@ public class DetailActivity extends AppCompatActivity {
                 case 1:
                     return getString(R.string.tab_pkmn_detail_forms).toUpperCase(l);
                 case 2:
+                    return getString(R.string.tab_pkmn_detail_evolutions).toUpperCase(l);
+                case 3:
                     return getString(R.string.tab_pkmn_detail_moves).toUpperCase(l);
             }
             return null;
@@ -450,7 +470,7 @@ public class DetailActivity extends AppCompatActivity {
                     mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
                     // setup RecyclerView
-                    DetailAdapter adapter = new DetailAdapter(getActivity(), mDetails);
+                    DetailAdapter adapter = new DetailAdapter(getActivity(), mDetails, true);
                     mRecyclerView.setAdapter(adapter);
                 }
             }.execute();
@@ -475,38 +495,46 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private PokemonDetail fetchAbilityData() {
-            final SparseIntArray abilityIds = sPokemon.getAbilityIds();
-            final SparseArray<String> abilities = MiniAbility.findAbilityNames(getActivity(), abilityIds);
+            final SparseIntArray abilityIds = mPokemon.getAbilityIds();
+
+            SparseArray<MiniAbility> abilities = new SparseArray<>(3);
+            for (int i = 1; i < abilityIds.size() + 1; i++) {
+                int id = abilityIds.get(i);
+                MiniAbility miniAbility = (id == DataUtils.NULL_INT) ?
+                        null : new MiniAbility(getActivity(), id);
+                abilities.put(i, miniAbility);
+            }
+            final SparseArray<MiniAbility> finalAbilities = abilities;
 
             ArrayList<String> properties = new ArrayList<>();
             ArrayList<String> values = new ArrayList<>();
             ArrayList<View.OnClickListener> listeners = new ArrayList<>();
 
-            for (int i = 0; i < 3; i++) {
-                if (abilityIds.get(i+1) == 0) {
+            for (int i = 1; i <= 3; i++) {
+                if (finalAbilities.get(i) == null) {
                     continue;
                 }
                 int propertyText = 0;
                 switch (i) {
-                    case 0:
-                        propertyText = (Pokemon.hasSecondaryAbility(abilityIds)) ? R.string.attr_ability_1 : R.string.attr_ability;
-                        break;
                     case 1:
-                        propertyText = R.string.attr_ability_2;
+                        propertyText = Pokemon.hasSecondaryAbility(abilityIds) ?
+                                R.string.attr_ability_1 : R.string.attr_ability;
                         break;
                     case 2:
+                        propertyText = R.string.attr_ability_2;
+                        break;
+                    case 3:
                         propertyText = R.string.attr_ability_hidden;
                         break;
                 }
-                properties.add(getResources().getString(propertyText));
-                values.add(abilities.get(i));
+                properties.add(getActivity().getResources().getString(propertyText));
+                values.add(finalAbilities.get(i).getName());
                 final int j = i;
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), AbilityDetailActivity.class);
-                        intent.putExtra(AbilityDetailActivity.EXTRA_ABILITY,
-                                new MiniAbility(abilityIds.get(j+1), abilities.get(j)));
+                        intent.putExtra(AbilityDetailActivity.EXTRA_ABILITY, finalAbilities.get(j));
                         startActivity(intent);
                     }
                 });
@@ -789,7 +817,7 @@ public class DetailActivity extends AppCompatActivity {
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            mRootView = inflater.inflate(R.layout.fragment_detail_evolutions, container, false);
+            mRootView = inflater.inflate(R.layout.fragment_detail_forms, container, false);
 
             // these have visibility 'gone'
             mCardView = (CardView) mRootView.findViewById(R.id.cardView);
@@ -911,6 +939,92 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
+    public static class EvolutionsFragment extends Fragment {
+
+        private View mRootView;
+
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                                 @Nullable Bundle savedInstanceState) {
+            mRootView = inflater.inflate(R.layout.fragment_detail_evolutions, container, false);
+
+            displayEvolutions();
+
+            return mRootView;
+        }
+
+        private void displayEvolutions() {
+            final ArrayList<MiniPokemon> evolutions = fetchOrderedEvolutions();
+
+            RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerView);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+            EvolutionsAdapter adapter = new EvolutionsAdapter(getActivity(), evolutions, mPokemon.toMiniPokemon());
+            adapter.setOnEntryClickListener(new EvolutionsAdapter.OnEntryClickListener() {
+                @Override
+                public void onEntryClick(View view, int position) {
+                    MiniPokemon clickedPokemon = evolutions.get(position);
+                    if (clickedPokemon.getId() != mPkmnId) {
+                        Intent intent = new Intent(getActivity(), DetailActivity.class);
+                        intent.putExtra(EXTRA_POKEMON, clickedPokemon);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                }
+            });
+
+            recyclerView.setAdapter(adapter);
+        }
+
+        private ArrayList<MiniPokemon> fetchOrderedEvolutions() {
+            int evolutionChainId = Pokemon.getEvolutionChainId(mPokemon.getEvolutionInfo());
+
+            ArrayList<MiniPokemon> evolutions = new ArrayList<>();
+
+            PokemonDBHelper helper = new PokemonDBHelper(getActivity());
+            Cursor cursor = helper.getReadableDatabase().query(
+                    PokemonDBHelper.TABLE_NAME,
+                    concatenateArrays(MiniPokemon.DB_COLUMNS,
+                            new String[] {PokemonDBHelper.COL_EVOLVES_FROM_SPECIES_ID,
+                                    PokemonDBHelper.COL_EVOLUTION_CHAIN_ID}),
+                    PokemonDBHelper.COL_EVOLUTION_CHAIN_ID + "=?",
+                    new String[] {String.valueOf(evolutionChainId)},
+                    null, null, null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                evolutions.add(new MiniPokemon(cursor));
+                cursor.moveToNext();
+            }
+            cursor.close();
+
+            Collections.sort(evolutions, new Comparator<MiniPokemon>() {
+                @Override
+                public int compare(MiniPokemon p1, MiniPokemon p2) {
+                    return Pokemon.getEvolvesFromSpeciesId(p1.toPokemon(getActivity()).getEvolutionInfo())
+                            - Pokemon.getEvolvesFromSpeciesId(p2.toPokemon(getActivity()).getEvolutionInfo());
+                }
+            });
+
+            return evolutions;
+        }
+
+        // TODO put in a utils class
+        public <T> T[] concatenateArrays (T[] a, T[] b) {
+            int aLen = a.length;
+            int bLen = b.length;
+
+            @SuppressWarnings("unchecked")
+            T[] c = (T[]) Array.newInstance(a.getClass().getComponentType(), aLen+bLen);
+            System.arraycopy(a, 0, c, 0, aLen);
+            System.arraycopy(b, 0, c, aLen, bLen);
+
+            return c;
+        }
+
+    }
+
     public static class MovesFragment extends Fragment implements LabelledSpinner.OnItemChosenListener {
 
         private View mRootView;
@@ -932,6 +1046,8 @@ public class DetailActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             mRootView = inflater.inflate(R.layout.fragment_detail_learnsets, container, false);
+
+            setupView();
 
             return mRootView;
         }
@@ -981,14 +1097,6 @@ public class DetailActivity extends AppCompatActivity {
                     loadCard();
                 }
             });
-        }
-
-        @Override
-        public void setUserVisibleHint(boolean isVisibleToUser) {
-            super.setUserVisibleHint(isVisibleToUser);
-            if (isVisibleToUser) {
-                setupView();
-            }
         }
 
         private void loadCard() {

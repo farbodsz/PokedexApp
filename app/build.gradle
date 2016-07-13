@@ -10,6 +10,8 @@ android {
         targetSdkVersion 24
         versionCode 300
         versionName "3.0"
+
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {

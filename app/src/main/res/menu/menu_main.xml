@@ -5,13 +5,13 @@
 
     <item android:id="@+id/action_filter"
         android:title="@string/action_filter"
-        android:icon="@drawable/ic_filter_list_white_48dp"
+        android:icon="@drawable/ic_filter_list_white_24dp"
         android:orderInCategory="1"
         app:showAsAction="ifRoom" />
 
     <item android:id="@+id/action_sort"
         android:title="@string/action_sort"
-        android:icon="@drawable/ic_sort_white_48dp"
+        android:icon="@drawable/ic_sort_white_24dp"
         android:orderInCategory="2"
         app:showAsAction="ifRoom" >
         <menu>
@@ -31,13 +31,13 @@
 
     <item android:id="@+id/action_about"
         android:title="@string/action_about"
-        android:icon="@drawable/ic_info_outline_white_48dp"
+        android:icon="@drawable/ic_info_outline_white_24dp"
         android:orderInCategory="3"
         app:showAsAction="never" />
 
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
-        android:icon="@drawable/ic_settings_white_48dp"
+        android:icon="@drawable/ic_settings_white_24dp"
         android:orderInCategory="4"
         app:showAsAction="never" />
 

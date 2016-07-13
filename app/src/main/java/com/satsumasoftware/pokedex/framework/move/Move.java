@@ -6,6 +6,9 @@ import android.database.Cursor;
 import com.satsumasoftware.pokedex.db.MovesDBHelper;
 import com.satsumasoftware.pokedex.db.PokeDB;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Move extends BaseMove {
 
     // TODO FIXME descriptions need to be formatted
@@ -161,11 +164,29 @@ public class Move extends BaseMove {
                 new String[] {String.valueOf(mEffectId), String.valueOf(langId)},
                 null, null, null);
         cursor.moveToFirst();
-        String effect = shortEffect ?
+        String effectText = shortEffect ?
                 cursor.getString(cursor.getColumnIndex(PokeDB.MoveEffectProse.COL_SHORT_EFFECT)) :
                 cursor.getString(cursor.getColumnIndex(PokeDB.MoveEffectProse.COL_EFFECT));
         cursor.close();
-        return effect;
+
+        effectText = effectText.replace("$effect_chance", String.valueOf(mEffectChance));
+
+        // matching the pattern: [label]{category:target}
+        Pattern pattern = Pattern.compile("\\[(.*?)\\]\\{(.*?):(.*?)\\}");
+
+        Matcher matcher = pattern.matcher(effectText);
+        while (matcher.find()) {
+            String entirePattern = matcher.group(0);
+            String label = matcher.group(1);
+            String category = matcher.group(2);
+            String target = matcher.group(3);
+
+            String displayedText = label.equals("") ? target : label;
+
+            effectText = effectText.replace(entirePattern, displayedText);
+        }
+
+        return effectText;
     }
 
 }

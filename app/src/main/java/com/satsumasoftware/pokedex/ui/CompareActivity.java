@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
@@ -274,82 +275,58 @@ public class CompareActivity extends AppCompatActivity {
         }
 
         private PokemonCompareDetail fetchAbilityData() {
-            ArrayList<ArrayList<String>> propertiesArray = new ArrayList<>(2);
             ArrayList<ArrayList<?>> valuesArray = new ArrayList<>(2);
             ArrayList<ArrayList<View.OnClickListener>> listenersArray = new ArrayList<>(2);
 
             for (Pokemon pokemon : mPokemonArray) {
                 final SparseIntArray abilityIds = pokemon.getAbilityIds();
-                final SparseArray<String> abilities = MiniAbility.findAbilityNames(getActivity(), abilityIds);
+                SparseArray<MiniAbility> abilities = new SparseArray<>(3);
+                for (int i = 1; i < abilityIds.size() + 1; i++) {
+                    int id = abilityIds.get(i);
+                    MiniAbility miniAbility = (id == DataUtils.NULL_INT) ?
+                            null : new MiniAbility(getActivity(), id);
+                    abilities.put(i, miniAbility);
+                }
+                final SparseArray<MiniAbility> finalAbilities = abilities;
 
-                ArrayList<String> properties = new ArrayList<>();
-                ArrayList<String> values = new ArrayList<>();
-                ArrayList<View.OnClickListener> listeners = new ArrayList<>();
+                ArrayList<String> values = new ArrayList<>(3);
+                ArrayList<View.OnClickListener> listeners = new ArrayList<>(3);
 
                 for (int i = 0; i < 3; i++) {
-                    if (abilityIds.get(i+1) == 0) {
-                        // contrary to DetailActivity, we add null values here as placeholders
-                        properties.add(null);
+                    Log.d("DetailActivity", "For loop i = " + i);
+                    if (finalAbilities.get(i + 1) == null) {
+                        Log.d("DetailActivity", "Continuing to next part of loop");
                         values.add(null);
                         listeners.add(null);
                         continue;
                     }
-                    int propertyText = 0;
-                    switch (i) {
-                        case 0:
-                            propertyText = (Pokemon.hasSecondaryAbility(abilityIds)) ? R.string.attr_ability_1 : R.string.attr_ability;
-                            break;
-                        case 1:
-                            propertyText = R.string.attr_ability_2;
-                            break;
-                        case 2:
-                            propertyText = R.string.attr_ability_hidden;
-                            break;
-                    }
-                    properties.add(getResources().getString(propertyText));
-                    values.add(abilities.get(i));
+                    Log.d("DetailActivity", "Ability name: " + finalAbilities.get(i + 1).getName());
+                    values.add(finalAbilities.get(i + 1).getName());
                     final int j = i;
                     listeners.add(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getActivity(), AbilityDetailActivity.class);
-                            intent.putExtra(AbilityDetailActivity.EXTRA_ABILITY,
-                                    new MiniAbility(abilityIds.get(j+1), abilities.get(j)));
+                            intent.putExtra(AbilityDetailActivity.EXTRA_ABILITY, finalAbilities.get(j + 1));
                             startActivity(intent);
                         }
                     });
                 }
 
-                propertiesArray.add(properties);
                 valuesArray.add(values);
                 listenersArray.add(listeners);
             }
 
-            ArrayList<String> pArr1 = propertiesArray.get(0);
-            ArrayList<String> pArr2 = propertiesArray.get(1);
+            ArrayList<String> propertiesArray = new ArrayList<>(3);
 
-            ArrayList<String> finalProperties = new ArrayList<>();
+            boolean bothAbility2sNull = (valuesArray.get(0).get(1) == null && valuesArray.get(1).get(1) == null);
+            propertiesArray.add(bothAbility2sNull ?
+                    getResources().getString(R.string.attr_ability) :
+                    getResources().getString(R.string.attr_ability_1));
+            propertiesArray.add(getResources().getString(R.string.attr_ability_2));
+            propertiesArray.add(getResources().getString(R.string.attr_ability_hidden));
 
-            // now we check to see if two corresponding values are null
-            if (pArr1.get(1) == null && pArr2.get(1) == null) {
-                // if both 'Ability 2' s are null
-                finalProperties.add(getResources().getString(R.string.attr_ability));
-                for (ArrayList<?> valArr : valuesArray) valArr.remove(1);
-                for (ArrayList<View.OnClickListener> lisArr : listenersArray) lisArr.remove(1);
-            } else {
-                finalProperties.add(getResources().getString(R.string.attr_ability_1));
-                finalProperties.add(getResources().getString(R.string.attr_ability_2));
-            }
-
-            if (pArr1.get(2) == null && pArr2.get(2) == null) {
-                // if both hidden abilities are null
-                for (ArrayList<?> valArr : valuesArray) valArr.remove(2);
-                for (ArrayList<View.OnClickListener> lisArr : listenersArray) lisArr.remove(2);
-            } else {
-                finalProperties.add(getResources().getString(R.string.attr_ability_hidden));
-            }
-
-            PokemonCompareDetail info = new PokemonCompareDetail(R.string.header_abilities, finalProperties, valuesArray);
+            PokemonCompareDetail info = new PokemonCompareDetail(R.string.header_abilities, propertiesArray, valuesArray);
             info.addOnClickListeners(listenersArray);
             return info;
         }

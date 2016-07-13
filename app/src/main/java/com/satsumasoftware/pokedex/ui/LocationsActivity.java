@@ -119,7 +119,7 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
         if (Flavours.type == Flavours.Type.PAID) {
             item_buyPro.setVisible(false);
         } else {
-            item_filter.setIcon(R.drawable.ic_filter_list_grey600_48dp);
+            item_filter.setIcon(R.drawable.ic_filter_list_grey600_24dp);
         }
 
         menu.findItem(R.id.action_sort).setVisible(false);
