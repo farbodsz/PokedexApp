@@ -190,26 +190,6 @@ public class MovesDBHelper extends SQLiteOpenHelper {
         cursor.close();
     }
 
-    public ArrayList<Move> getAllMoves() {
-        ArrayList<Move> list = new ArrayList<>();
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(
-                TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Move move = new Move(cursor);
-            list.add(move);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return list;
-    }
 
     public ArrayList<MiniMove> getAllMiniMoves() {
         ArrayList<MiniMove> list = new ArrayList<>();

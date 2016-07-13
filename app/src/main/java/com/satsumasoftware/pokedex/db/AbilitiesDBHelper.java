@@ -152,36 +152,6 @@ public class AbilitiesDBHelper extends SQLiteOpenHelper {
         cursor.close();
     }
 
-    public ArrayList<Ability> getAllAbilities() {
-        ArrayList<Ability> list = new ArrayList<>();
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(
-                TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            int id = cursor.getInt(cursor.getColumnIndex(COL_ID));
-            int generationId = cursor.getInt(cursor.getColumnIndex(COL_GENERATION_ID));
-            String name = cursor.getString(cursor.getColumnIndex(COL_NAME));
-            String nameJa = cursor.getString(cursor.getColumnIndex(COL_NAME_JAPANESE));
-            String nameKo = cursor.getString(cursor.getColumnIndex(COL_NAME_KOREAN));
-            String nameFr = cursor.getString(cursor.getColumnIndex(COL_NAME_FRENCH));
-            String nameDe = cursor.getString(cursor.getColumnIndex(COL_NAME_GERMAN));
-            String nameEs = cursor.getString(cursor.getColumnIndex(COL_NAME_SPANISH));
-            String nameIt = cursor.getString(cursor.getColumnIndex(COL_NAME_ITALIAN));
-            Ability ability = new Ability(id, generationId, name, nameJa, nameKo, nameFr, nameDe,
-                    nameEs, nameIt);
-            list.add(ability);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return list;
-    }
 
     public ArrayList<MiniAbility> getAllMiniAbilities() {
         ArrayList<MiniAbility> list = new ArrayList<>();

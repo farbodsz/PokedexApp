@@ -160,26 +160,6 @@ public class NaturesDBHelper extends SQLiteOpenHelper {
         cursor.close();
     }
 
-    public ArrayList<Nature> getAllNatures() {
-        ArrayList<Nature> list = new ArrayList<>();
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(
-                TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Nature nature = new Nature(cursor);
-            list.add(nature);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return list;
-    }
 
     public ArrayList<MiniNature> getAllMiniNatures() {
         ArrayList<MiniNature> list = new ArrayList<>();
