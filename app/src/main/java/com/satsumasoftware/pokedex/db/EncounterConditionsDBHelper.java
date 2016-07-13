@@ -90,7 +90,7 @@ public class EncounterConditionsDBHelper extends SQLiteOpenHelper {
 
             db.insert(TABLE_NAME, null, values);
 
-            Log.d(LOG_TAG, "Added encounter condition of id " + String.valueOf(id));
+            Log.d(LOG_TAG, "Added encounter condition of id " + id);
 
             cursor.moveToNext();
         }

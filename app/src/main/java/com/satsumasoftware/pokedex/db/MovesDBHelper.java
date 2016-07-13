@@ -182,8 +182,8 @@ public class MovesDBHelper extends SQLiteOpenHelper {
                     values.put(COL_NAME, name);
                     break;
                 default:
-                    throw new IllegalArgumentException("language id '" +
-                            String.valueOf(languageId) + "' is invalid");
+                    throw new IllegalArgumentException("language id '" + languageId +
+                            "' is invalid");
             }
             cursor.moveToNext();
         }
