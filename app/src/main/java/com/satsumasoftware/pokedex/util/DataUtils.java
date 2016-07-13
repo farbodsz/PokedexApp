@@ -1,5 +1,6 @@
 package com.satsumasoftware.pokedex.util;
 
+@Deprecated
 public final class DataUtils {
 
     // TODO Use a db to handle langs
