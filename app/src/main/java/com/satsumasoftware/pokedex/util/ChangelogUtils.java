@@ -9,14 +9,18 @@ import java.util.ArrayList;
 
 public final class ChangelogUtils {
 
+    public static final String FILENAME = "changelog.csv";
+    public static final String SEPARATOR = ",\",\",";
+
+
     public static ArrayList<Integer> getListOfVersions(Context context) {
         ArrayList<Integer> arrayVersions = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open(CSVUtils.CHANGELOG)));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open(FILENAME)));
             reader.readLine(); // Ignores the first line
             String data;
             while ((data=reader.readLine()) != null) {
-                String line[] = data.split(CSVUtils.CHANGELOG_SEP);
+                String line[] = data.split(SEPARATOR);
                 if (line.length > 1) {
                     arrayVersions.add(Integer.parseInt(line[0]));
                 }
@@ -31,11 +35,11 @@ public final class ChangelogUtils {
     public static ArrayList<String> getVersionChanges(Context context, int versionCode) {
         ArrayList<String> arrayFeatures = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open(CSVUtils.CHANGELOG)));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(context.getAssets().open(FILENAME)));
             reader.readLine(); // Ignores the first line
             String data;
             while ((data=reader.readLine()) != null) {
-                String line[] = data.split(CSVUtils.CHANGELOG_SEP);
+                String line[] = data.split(SEPARATOR);
                 if (line.length > 1) {
                     if (Integer.parseInt(line[0]) == versionCode) {
 
