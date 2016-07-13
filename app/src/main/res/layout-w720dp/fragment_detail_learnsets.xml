@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,16 +19,16 @@
         android:paddingBottom="@dimen/card_padding_vertical"
         android:paddingLeft="@dimen/card_padding_lateral"
         android:paddingRight="@dimen/card_padding_lateral" >
-        <com.farbod.labelledspinner.LabelledSpinner
+        <com.satsuware.usefulviews.LabelledSpinner
             android:id="@+id/detailL_spinnerMethod"
-            custom:labelText="@string/filter_moves_method"
-            custom:widgetColor="@color/mdu_text_white"
+            app:labelText="@string/filter_moves_method"
+            app:widgetColor="@color/mdu_text_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <com.farbod.labelledspinner.LabelledSpinner
+        <com.satsuware.usefulviews.LabelledSpinner
             android:id="@+id/detailL_spinnerGame"
-            custom:labelText="@string/filter_game_version"
-            custom:widgetColor="@color/mdu_text_white"
+            app:labelText="@string/filter_game_version"
+            app:widgetColor="@color/mdu_text_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/detailL_spinnerMethod"/>
