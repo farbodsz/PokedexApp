@@ -101,7 +101,7 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
         // Calculate for Pokemon in previous activity
         if (extras != null) {
             MiniPokemon pokemon = extras.getParcelable(EXTRA_POKEMON);
-            spinnerPokemonOrGrowth.setSelection(mStrPkmnList.indexOf(pokemon.getName())); // TODO <-- carry on from here
+            spinnerPokemonOrGrowth.setSelection(mStrPkmnList.indexOf(pokemon.getName()));
             mGrowth = InfoUtils.idToGrowth(findIntValue(this, pokemon.getName(), PokemonDBHelper.COL_GROWTH_RATE_ID));
             spinnerLevel.setSelection(50-1);
             mLevel = 50;

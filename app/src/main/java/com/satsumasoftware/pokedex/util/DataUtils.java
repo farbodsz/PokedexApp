@@ -2,10 +2,11 @@ package com.satsumasoftware.pokedex.util;
 
 public final class DataUtils {
 
+    // TODO Use a db to handle langs
+
     public static final int NULL_INT = 0;
 
     public static String typeIdToString(int typeId) {
-        // TODO Use a db to handle langs
         switch (typeId) {
             case 1: return "Normal";
             case 2: return "Fighting";
@@ -34,7 +35,6 @@ public final class DataUtils {
     }
 
     public static int typeToId(String type) {
-        // TODO Use a db to handle langs
         switch (type.toLowerCase()) {
             case "normal": return 1;
             case "fighting": return 2;
@@ -63,7 +63,6 @@ public final class DataUtils {
     }
 
     public static String colorIdToString(int colorId) {
-        // TODO Use a db to handle langs
         switch (colorId) {
             case 1: return "Black";
             case 2: return "Blue";
@@ -82,7 +81,6 @@ public final class DataUtils {
     }
 
     public static String shapeIdToString(int shapeId, boolean technicalTerm) {
-        // TODO Use a db to handle langs
         switch (shapeId) {
             case 1:
                 if (technicalTerm) {
@@ -175,7 +173,6 @@ public final class DataUtils {
     }
 
     public static String habitatIdToString(int habitatId) {
-        // TODO Use a db to handle langs
         // Habitats are something only in Pokemon FireRed and LeafGreen
         switch (habitatId) {
             case 1: return "Cave";
@@ -236,7 +233,6 @@ public final class DataUtils {
     }
 
     public static String regionIdToString(int regionId) {
-        // TODO use db ('region_names')
         switch(regionId) {
             case 1: return "Kanto";
             case 2: return "Johto";
@@ -252,7 +248,6 @@ public final class DataUtils {
 
     @Deprecated
     public static int regionToId(String region) {
-        // TODO use db ('region_names')
         switch(region.toLowerCase()) {
             case "kanto": return 1;
             case "johto": return 2;

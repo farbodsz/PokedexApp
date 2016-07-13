@@ -21,12 +21,12 @@ public class NaturesDBHelper extends SQLiteOpenHelper {
 
     /* All Column Names */
     public static final String COL_ID = "id";
-    public static final String COL_IDENTIFIER = "identifier";  // TODO remove identifier?
+    public static final String COL_IDENTIFIER = "identifier";
     public static final String COL_DECREASED_STAT_ID = "decreased_stat_id";
     public static final String COL_INCREASED_STAT_ID = "increased_stat_id";
     public static final String COL_HATES_FLAVOR_ID = "hates_flavor_id";
     public static final String COL_LIKES_FLAVOR_ID = "likes_flavor_id";
-    public static final String COL_GAME_INDEX = "game_index";  // TODO remove game index?
+    public static final String COL_GAME_INDEX = "game_index";
     public static final String COL_NAME = "name_en";
     public static final String COL_NAME_JAPANESE = "name_ja";
     public static final String COL_NAME_KOREAN = "name_ko";
