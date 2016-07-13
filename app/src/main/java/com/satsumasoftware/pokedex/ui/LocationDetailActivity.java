@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,18 +36,11 @@ import java.util.Locale;
 
 public class LocationDetailActivity extends AppCompatActivity {
 
-    private static final String LOG_TAG = "LocationDetailActivity";
-
     public static final String EXTRA_LOCATION = "LOCATION";
-
-    private static final int GAME_VERSION_ID = 14;  // TODO: replace with user input or preference
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private LocationAreaPagerAdapter mPagerAdapter;
-
-    //private ArrayList<ArrayList<EncounterInfo>> mEncounterDisplayedArrArr;
-    //private ArrayList<String> mLocationAreaTitles;
 
     private ProgressBar mProgress;
     private FrameLayout mNoPkmnMessage;
@@ -56,8 +48,6 @@ public class LocationDetailActivity extends AppCompatActivity {
     private Location mLocation;
 
     private ArrayList<LocationArea> mLocationAreas;
-
-    private int mGameVersion;
 
     private AsyncTask<Void, Integer, Void> mAsyncTask;
 
@@ -120,8 +110,6 @@ public class LocationDetailActivity extends AppCompatActivity {
     }
 
     private ArrayList<ArrayList<DetailInfo>> fetchData() {
-        Log.d("LocationDetailActivity", "-------  Location : " + mLocation.getName() + " ------------");
-
         mLocationAreas = mLocation.getLocationAreas(getBaseContext());
 
         ArrayList<ArrayList<DetailInfo>> locationDetailsList = new ArrayList<>();
@@ -132,8 +120,6 @@ public class LocationDetailActivity extends AppCompatActivity {
 
             ArrayList<Integer> versions = getVersionsAtLocationArea(locationArea.getId(), pokeDB);
             int versionId = versions.get(versions.size() - 1);  // by default, the selected version is the latest
-
-            Log.d("LocationDetailActivity", "-- Location area : " + locationArea.getName() + " --");
 
             // get all the encounters using locationAreaId and versionId
             ArrayList<Encounter> encounters = locationArea.findAllEncounters(this, versionId);
