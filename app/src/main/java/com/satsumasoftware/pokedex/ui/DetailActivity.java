@@ -825,7 +825,8 @@ public class DetailActivity extends AppCompatActivity {
             if (PrefUtils.showPokemonImages(getContext())) {
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mRecyclerView.setHasFixedSize(true);
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),
+                        getResources().getInteger(R.integer.detail_columns_tiles)));
                 displayTiles();
             } else {
                 mCardView.setVisibility(View.VISIBLE);

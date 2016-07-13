@@ -52,5 +52,6 @@
 
 
     <integer name="detail_columns">1</integer>
+    <integer name="detail_columns_tiles">1</integer>
 
 </resources>
