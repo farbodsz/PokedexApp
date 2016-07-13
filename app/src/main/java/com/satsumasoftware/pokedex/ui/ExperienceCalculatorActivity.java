@@ -129,14 +129,13 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
     }
 
     private void calculateExp() {
-        String exp = Experience.getTotalExperience(
+        int exp = Experience.getTotalExperience(
                 getBaseContext(),
                 Experience.getGrowthIdFromString(mGrowth),
                 mLevel);
-        if (exp == null) throw new NullPointerException("exp is null");
 
         TextView tvAnswer = (TextView) findViewById(R.id.experience_tvAnswer);
-        tvAnswer.setText(exp);
+        tvAnswer.setText(String.valueOf(exp));
 
         TextView tvDescription = (TextView) findViewById(R.id.experience_tvDescription);
         tvDescription.setText(getResources().getString(R.string.experience_description, mLevel, mGrowth));

@@ -14,7 +14,7 @@ public class Experience {
     public static final int GROWTH_FAST = 5;
     public static final int GROWTH_ERRATIC = 6;
 
-    public static String getTotalExperience(Context context, int growthId, int level) {
+    public static int getTotalExperience(Context context, int growthId, int level) {
         PokeDB pokeDB = new PokeDB(context);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.Experience.TABLE_NAME,
@@ -25,7 +25,7 @@ public class Experience {
         cursor.moveToFirst();
         int experience = cursor.getInt(cursor.getColumnIndex(PokeDB.Experience.COL_EXPERIENCE));
         cursor.close();
-        return String.valueOf(experience);
+        return experience;
     }
 
     public static int getGrowthIdFromString(String string) {
