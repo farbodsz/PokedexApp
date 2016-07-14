@@ -5,6 +5,7 @@ import android.database.Cursor;
 
 import com.satsumasoftware.pokedex.db.MovesDBHelper;
 import com.satsumasoftware.pokedex.db.PokeDB;
+import com.satsumasoftware.pokedex.util.DataUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -79,12 +80,20 @@ public class Move extends BaseMove {
         return mTypeId;
     }
 
+    public boolean hasPower() {
+        return mPower != DataUtils.NULL_INT;
+    }
+
     public int getPower() {
         return mPower;
     }
 
     public int getPp() {
         return mPp;
+    }
+
+    public boolean hasAccuracy() {
+        return mAccuracy != DataUtils.NULL_INT;
     }
 
     public int getAccuracy() {
@@ -107,16 +116,32 @@ public class Move extends BaseMove {
         return mEffectId;
     }
 
+    public boolean hasEffectChance() {
+        return mEffectChance != DataUtils.NULL_INT;
+    }
+
     public int getEffectChance() {
         return mEffectChance;
+    }
+
+    public boolean hasContestType() {
+        return mContestTypeId != DataUtils.NULL_INT;
     }
 
     public int getContestTypeId() {
         return mContestTypeId;
     }
 
+    public boolean hasContestEffect() {
+        return mContestEffectId != DataUtils.NULL_INT;
+    }
+
     public int getContestEffectId() {
         return mContestEffectId;
+    }
+
+    public boolean hasSuperContestEffect() {
+        return mSuperContestEffectId != DataUtils.NULL_INT;
     }
 
     public int getSuperContestEffectId() {
