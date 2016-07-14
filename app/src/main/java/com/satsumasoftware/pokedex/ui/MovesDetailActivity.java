@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
@@ -70,8 +71,8 @@ public class MovesDetailActivity extends AppCompatActivity {
         setContestInfo();
 
         tvPp.setText(String.valueOf(mMove.getPp()));
-        tvPower.setText(String.valueOf(mMove.getPower()));
-        tvAccuracy.setText(mMove.getAccuracy() + "%");
+        tvPower.setText(mMove.hasPower() ? String.valueOf(mMove.getPower()) : "-");
+        tvAccuracy.setText(mMove.hasAccuracy() ? mMove.getAccuracy() + "%" : "-");
 
         tvGen.setText(InfoUtils.getRomanFromGen(mMove.getGenerationId()));
 
@@ -110,6 +111,12 @@ public class MovesDetailActivity extends AppCompatActivity {
     }
 
     private void setContestInfo() {  // TODO langs
+        if (!mMove.hasContestType()) {
+            ViewGroup viewGroup = (ViewGroup) tvContest.getParent();
+            viewGroup.setVisibility(View.GONE);
+            return;
+        }
+
         switch (mMove.getContestTypeId()) {
             case 1:
                 tvContest.setBackgroundResource(R.color.contest_cool);
