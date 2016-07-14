@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="?colorPrimaryDark"
@@ -32,8 +31,9 @@
         android:layout_height="wrap_content"/>
 
     <TextView
-        android:text="Did you know..."
+        android:text="@string/tip_persistent_text"
         android:textColor="@color/mdu_text_white_secondary"
+        android:textSize="16sp"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,8 +41,9 @@
 
     <TextView
         android:id="@+id/tip_text"
-        android:text="You can change the colour of the detail screen in the Settings page"
+        android:text="@string/tip_dummy"
         android:textColor="@color/mdu_text_white"
+        android:textSize="18sp"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

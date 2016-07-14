@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="usage_tips">
 
+    <string name="tip_persistent_text">Top Tip!</string>
+    <string name="tip_dummy" translatable="false">Here is a really useful tip about the app
+        \nAnd it runs on two lines</string>
+
+    <string-array name="usage_tips">
         <item>Tap on details in the Pokémon detail page to view more information</item>
 
         <item>You can change the colour of the Pokémon detail screen in Settings</item>
@@ -15,6 +19,6 @@
         <item>Looking for Pokémon images? Go to Settings and check \"Enable Pokémon images\"</item>
 
         <item>To view a Pokémon image more closely, tap on it</item>
-
     </string-array>
+
 </resources>
