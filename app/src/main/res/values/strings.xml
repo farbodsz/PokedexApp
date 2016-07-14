@@ -41,6 +41,7 @@
     <string name="navigation_item_locations" translatable="false">@string/title_activity_locations</string>
     <string name="navigation_item_favourites" translatable="false">@string/title_activity_favorites</string>
     <string name="navigation_item_experience" translatable="false">@string/title_activity_experience_calculator</string>
+    <string name="navigation_item_settings" translatable="false">@string/title_activity_settings</string>
 
 
     <string name="action_settings">Settings</string>
