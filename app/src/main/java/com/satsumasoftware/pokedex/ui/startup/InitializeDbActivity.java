@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
@@ -23,10 +24,15 @@ import com.satsumasoftware.pokedex.util.DatabaseUtils;
 import com.satsumasoftware.pokedex.util.FavoriteUtils;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class InitializeDbActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "InitializeDBActivity";
+
+    private Timer mTimer;
+    private int mTipIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,28 @@ public class InitializeDbActivity extends AppCompatActivity {
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setIndeterminate(true);
+
+        final TextView tipText = (TextView) findViewById(R.id.tip_text);
+
+        final String[] tips = getResources().getStringArray(R.array.usage_tips);
+
+        mTimer = new Timer(true);
+        mTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                final String tip = tips[mTipIndex];
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tipText.setText(tip);
+                    }
+                });
+
+                mTipIndex = (mTipIndex == tips.length - 1) ?
+                        0 : (mTipIndex + 1);
+            }
+        }, 0, 5000);  // every 5 seconds
 
         FavoriteUtils.doFavouritesTempConversion(this);
 
@@ -101,6 +129,9 @@ public class InitializeDbActivity extends AppCompatActivity {
             protected void onPostExecute(Void aVoid) {
                 DatabaseUtils.markDatabaseUpgraded(getBaseContext());
                 Log.d(LOG_TAG, "Completed initialising DBs");
+
+                mTimer.cancel();
+
                 startActivity(new Intent(InitializeDbActivity.this, WelcomeActivity.class));
                 finish();
             }
