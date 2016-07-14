@@ -42,6 +42,6 @@
         <item
             android:id="@+id/navigation_item_settings"
             android:title="@string/navigation_item_settings"
-            android:icon="@drawable/ic_settings_white_24dp"/>
+            android:icon="@drawable/ic_settings_black_24dp"/>
     </group>
 </menu>
