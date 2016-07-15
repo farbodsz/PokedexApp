@@ -843,8 +843,8 @@ public class CompareActivity extends AppCompatActivity {
                     adapter.setOnEntryClickListener(new PokemonMovesVgAdapter.OnEntryClickListener() {
                         @Override
                         public void onEntryClick(View view, int position) {
-                            Intent intent = new Intent(getActivity(), MovesDetailActivity.class);
-                            intent.putExtra(MovesDetailActivity.EXTRA_MOVE,
+                            Intent intent = new Intent(getActivity(), MoveDetailActivity.class);
+                            intent.putExtra(MoveDetailActivity.EXTRA_MOVE,
                                     arrayMovesFinal.get(position).toMiniMove(getActivity()));
                             startActivity(intent);
                         }

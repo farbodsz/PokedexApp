@@ -19,7 +19,7 @@ import com.satsumasoftware.pokedex.util.Flavours;
 import com.satsumasoftware.pokedex.util.InfoUtils;
 
 
-public class MovesDetailActivity extends AppCompatActivity {
+public class MoveDetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_MOVE = "MOVE";
 
@@ -84,7 +84,7 @@ public class MovesDetailActivity extends AppCompatActivity {
                     intent.putExtra(FilterResultsActivity.FILTER_MOVE, mMove.getId());
                     startActivity(intent);
                 } else {
-                    AlertUtils.requiresProToast(MovesDetailActivity.this);
+                    AlertUtils.requiresProToast(MoveDetailActivity.this);
                 }
             }
         });

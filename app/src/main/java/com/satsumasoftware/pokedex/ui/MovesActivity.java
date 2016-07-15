@@ -111,8 +111,8 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
         adapter.setOnRowClickListener(new MoveDexAdapter.OnRowClickListener() {
             @Override
             public void onRowClick(View view, int position) {
-                Intent intent = new Intent(MovesActivity.this, MovesDetailActivity.class);
-                intent.putExtra(MovesDetailActivity.EXTRA_MOVE, itemsFinal.get(position));
+                Intent intent = new Intent(MovesActivity.this, MoveDetailActivity.class);
+                intent.putExtra(MoveDetailActivity.EXTRA_MOVE, itemsFinal.get(position));
                 startActivity(intent);
             }
         });

@@ -155,7 +155,7 @@
             android:label="@string/title_activity_ability_detail"
             android:theme="@style/AppTheme.Dialog.AbilityDetail" />
         <activity
-            android:name=".ui.MovesDetailActivity"
+            android:name=".ui.MoveDetailActivity"
             android:label="@string/title_activity_moves_detail"
             android:theme="@style/AppTheme.Dialog.MoveDetail" />
         <activity
