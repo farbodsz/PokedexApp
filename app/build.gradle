@@ -39,7 +39,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-ads:9.2.1'
     compile 'com.satsuware.lib:usefulviews:2.3.6'
     compile 'com.satsuware.lib:mdutils:1.2.1'
-    compile 'com.commit451:PhotoView:1.2.5'
+    compile 'com.github.chrisbanes:PhotoView:1.2.6'
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
-    compile files('libs/univocity-parsers-2.0.0.jar')
 }
