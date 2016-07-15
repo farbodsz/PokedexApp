@@ -1,4 +1,4 @@
-package com.satsumasoftware.pokedex.ui;
+package com.satsumasoftware.pokedex.ui.dialog;
 
 import android.content.Intent;
 import android.content.res.Resources;

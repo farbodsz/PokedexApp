@@ -147,23 +147,23 @@
             android:label="@string/title_activity_changelog"
             android:theme="@style/AppTheme.Changelog" />
         <activity
-            android:name=".ui.PkmnTypeDetailActivity"
+            android:name=".ui.dialog.PkmnTypeDetailActivity"
             android:label="@string/title_activity_pkmn_type_detail"
             android:theme="@style/AppTheme.Dialog.PokemonDetail" />
         <activity
-            android:name=".ui.AbilityDetailActivity"
+            android:name=".ui.dialog.AbilityDetailActivity"
             android:label="@string/title_activity_ability_detail"
             android:theme="@style/AppTheme.Dialog.AbilityDetail" />
         <activity
-            android:name=".ui.MoveDetailActivity"
+            android:name=".ui.dialog.MoveDetailActivity"
             android:label="@string/title_activity_moves_detail"
             android:theme="@style/AppTheme.Dialog.MoveDetail" />
         <activity
-            android:name=".ui.NatureDetailActivity"
+            android:name=".ui.dialog.NatureDetailActivity"
             android:label="@string/title_activity_nature_detail"
             android:theme="@style/AppTheme.Dialog.NatureDetail" />
         <activity
-            android:name=".ui.PropertyDetailActivity"
+            android:name=".ui.dialog.PropertyDetailActivity"
             android:label="@string/title_activity_property_detail"
             android:theme="@style/AppTheme.Dialog.PropertyDetail" />
         <activity android:name=".ui.PkmnImageActivity" />

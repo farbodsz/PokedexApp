@@ -19,7 +19,7 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.ui.PkmnImageActivity;
-import com.satsumasoftware.pokedex.ui.PkmnTypeDetailActivity;
+import com.satsumasoftware.pokedex.ui.dialog.PkmnTypeDetailActivity;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.DataUtils;
 import com.satsumasoftware.pokedex.util.InfoUtils;

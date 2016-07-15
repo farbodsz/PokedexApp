@@ -1,4 +1,4 @@
-package com.satsumasoftware.pokedex.ui;
+package com.satsumasoftware.pokedex.ui.dialog;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
