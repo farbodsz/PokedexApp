@@ -74,7 +74,7 @@ import java.util.Locale;
 
 public class DetailActivity extends AppCompatActivity {
 
-    public static final String EXTRA_POKEMON = "POKEMON";  // TODO implement this for all use cases
+    public static final String EXTRA_POKEMON = "POKEMON";
 
     private View mRootLayout;
 

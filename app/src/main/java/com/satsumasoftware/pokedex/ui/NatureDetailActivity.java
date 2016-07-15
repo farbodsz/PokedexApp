@@ -12,13 +12,15 @@ import com.satsumasoftware.pokedex.util.DataUtils;
 
 public class NatureDetailActivity extends AppCompatActivity {
 
+    public static final String EXTRA_NATURE = "NATURE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_detail_nature);
 
-        MiniNature miniNature = getIntent().getExtras().getParcelable("NATURE");
+        MiniNature miniNature = getIntent().getExtras().getParcelable(EXTRA_NATURE);
         if (miniNature == null) {
             throw new NullPointerException("Parcelable Nature object through Intent is null");
         }

@@ -19,7 +19,7 @@ import com.satsumasoftware.pokedex.util.InfoUtils;
 
 public class AbilityDetailActivity extends AppCompatActivity {
 
-    public static final String EXTRA_ABILITY = "ABILITY";  // TODO: add this for all use cases
+    public static final String EXTRA_ABILITY = "ABILITY";
 
     private Ability mAbility;
 

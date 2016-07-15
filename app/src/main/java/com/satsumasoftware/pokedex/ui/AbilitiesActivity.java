@@ -112,7 +112,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
             @Override
             public void onRowClick(View view, int position) {
                 Intent intent = new Intent(AbilitiesActivity.this, AbilityDetailActivity.class);
-                intent.putExtra("ABILITY", itemsFinal.get(position));
+                intent.putExtra(AbilityDetailActivity.EXTRA_ABILITY, itemsFinal.get(position));
                 startActivity(intent);
             }
         });

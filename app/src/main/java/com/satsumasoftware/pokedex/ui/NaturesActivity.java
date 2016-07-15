@@ -69,7 +69,7 @@ public class NaturesActivity extends BaseActivity {
             @Override
             public void onRowClick(View view, int position) {
                 Intent intent = new Intent(NaturesActivity.this, NatureDetailActivity.class);
-                intent.putExtra("NATURE", itemsFinal.get(position));
+                intent.putExtra(NatureDetailActivity.EXTRA_NATURE, itemsFinal.get(position));
                 startActivity(intent);
             }
         });
