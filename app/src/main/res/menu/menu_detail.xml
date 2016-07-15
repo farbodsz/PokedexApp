@@ -29,7 +29,7 @@
 
     <item android:id="@+id/action_compare"
         android:title="@string/action_compare"
-        android:icon="@drawable/ic_compare_white_48dp"
+        android:icon="@drawable/ic_compare_white_24dp"
         android:orderInCategory="7"
         app:showAsAction="always" />
 
