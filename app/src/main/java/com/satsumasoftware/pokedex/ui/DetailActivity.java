@@ -164,7 +164,7 @@ public class DetailActivity extends AppCompatActivity {
         if (Flavours.type == Flavours.Type.FREE) {
             previous.setIcon(R.drawable.ic_chevron_left_grey600_24dp);
             next.setIcon(R.drawable.ic_chevron_right_grey600_24dp);
-            compare.setIcon(R.drawable.ic_compare_grey600_48dp);
+            compare.setIcon(R.drawable.ic_compare_grey600_24dp);
             mMenuItemFavourite.setIcon(R.drawable.ic_star_border_grey600_24dp);
             return true;
         }
