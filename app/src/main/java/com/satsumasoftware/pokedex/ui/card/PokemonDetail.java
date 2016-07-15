@@ -28,7 +28,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
-public class PokemonDetail implements DetailInfo {
+public class PokemonDetail implements DetailCard {
 
     public static final int MODE_NORMAL = 0, MODE_GENERAL_INFO = 1, MODE_GENDER = 2, MODE_STATS = 3;
     @IntDef({MODE_NORMAL, MODE_GENERAL_INFO, MODE_GENDER, MODE_STATS})

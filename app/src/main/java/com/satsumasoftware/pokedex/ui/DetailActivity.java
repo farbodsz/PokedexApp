@@ -40,7 +40,7 @@ import android.widget.Toast;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
-import com.satsumasoftware.pokedex.ui.card.DetailInfo;
+import com.satsumasoftware.pokedex.ui.card.DetailCard;
 import com.satsumasoftware.pokedex.ui.card.PokemonDetail;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
@@ -419,7 +419,7 @@ public class DetailActivity extends AppCompatActivity {
         private View mRootView;
 
         private RecyclerView mRecyclerView;
-        private ArrayList<DetailInfo> mDetails;
+        private ArrayList<DetailCard> mDetails;
 
         private AsyncTask<Void, Integer, Void> mCurrAsyncTask;
 
