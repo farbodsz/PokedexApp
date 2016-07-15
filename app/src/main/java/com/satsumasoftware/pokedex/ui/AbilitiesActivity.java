@@ -22,6 +22,7 @@ import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.ui.adapter.AbilityDexAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
+import com.satsumasoftware.pokedex.ui.dialog.AbilityDetailActivity;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
@@ -112,7 +113,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
             @Override
             public void onRowClick(View view, int position) {
                 Intent intent = new Intent(AbilitiesActivity.this, AbilityDetailActivity.class);
-                intent.putExtra("ABILITY", itemsFinal.get(position));
+                intent.putExtra(AbilityDetailActivity.EXTRA_ABILITY, itemsFinal.get(position));
                 startActivity(intent);
             }
         });

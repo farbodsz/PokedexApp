@@ -32,13 +32,16 @@ import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
-import com.satsumasoftware.pokedex.framework.detail.DetailInfo;
-import com.satsumasoftware.pokedex.framework.detail.PokemonCompareDetail;
+import com.satsumasoftware.pokedex.ui.card.DetailCard;
+import com.satsumasoftware.pokedex.ui.card.PokemonCompareDetail;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonMoves;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesVgAdapter;
+import com.satsumasoftware.pokedex.ui.dialog.AbilityDetailActivity;
+import com.satsumasoftware.pokedex.ui.dialog.MoveDetailActivity;
+import com.satsumasoftware.pokedex.ui.dialog.PropertyDetailActivity;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AppConfig;
@@ -58,11 +61,8 @@ public class CompareActivity extends AppCompatActivity {
     public static final String EXTRA_POKEMON_1 = "POKEMON_1";
     public static final String EXTRA_POKEMON_2 = "POKEMON_2";
 
-    private static Pokemon mPokemon1, mPokemon2;
-    private static String mPkmnName1, mPkmnName2;
-    private String mPkmnFullName1, mPkmnFullName2;
-
-    private static Pokemon[] mPokemonArray;
+    private static Pokemon sPokemon1, sPokemon2;
+    private static Pokemon[] sPokemonArray;
 
 
     @Override
@@ -95,15 +95,9 @@ public class CompareActivity extends AppCompatActivity {
 
         AdUtils.setupAds(this, R.id.adView);
 
-        mPokemon1 = miniPokemon1.toPokemon(this);
-        mPokemon2 = miniPokemon2.toPokemon(this);
-        mPokemonArray = new Pokemon[] {mPokemon1, mPokemon2};
-
-        mPkmnName1 = mPokemon1.getName();
-        mPkmnName2 = mPokemon2.getName();
-
-        mPkmnFullName1 = mPokemon1.getFormAndPokemonName();
-        mPkmnFullName2 = mPokemon2.getFormAndPokemonName();
+        sPokemon1 = miniPokemon1.toPokemon(this);
+        sPokemon2 = miniPokemon2.toPokemon(this);
+        sPokemonArray = new Pokemon[] {sPokemon1, sPokemon2};
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
@@ -115,22 +109,25 @@ public class CompareActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        getSupportActionBar().setSubtitle(mPkmnFullName1 + " vs. " + mPkmnFullName2);
+        getSupportActionBar().setSubtitle(sPokemon1.getFormAndPokemonName() + " vs. " + sPokemon2.getFormAndPokemonName());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_compare, menu);
 
+        String fullName1 = sPokemon1.getFormAndPokemonName();
+        String fullName2 = sPokemon2.getFormAndPokemonName();
+
         menu.findItem(R.id.action_calculate_experience_pkmn1)
-                .setTitle(getResources().getString(R.string.action_calculate_experience_of, mPkmnFullName1));
+                .setTitle(getResources().getString(R.string.action_calculate_experience_of, fullName1));
         menu.findItem(R.id.action_calculate_experience_pkmn2)
-                .setTitle(getResources().getString(R.string.action_calculate_experience_of, mPkmnFullName2));
+                .setTitle(getResources().getString(R.string.action_calculate_experience_of, fullName2));
 
         menu.findItem(R.id.action_play_cry_pkmn1)
-                .setTitle(getResources().getString(R.string.action_play_cry_of, mPkmnFullName1));
+                .setTitle(getResources().getString(R.string.action_play_cry_of, fullName1));
         menu.findItem(R.id.action_play_cry_pkmn2)
-                .setTitle(getResources().getString(R.string.action_play_cry_of, mPkmnFullName2));
+                .setTitle(getResources().getString(R.string.action_play_cry_of, fullName2));
 
         return true;
     }
@@ -140,19 +137,19 @@ public class CompareActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_calculate_experience_pkmn1:
                 Intent expCalcIntent1 = new Intent(this, ExperienceCalculatorActivity.class);
-                expCalcIntent1.putExtra(ExperienceCalculatorActivity.EXTRA_POKEMON, mPokemon1.toMiniPokemon());
+                expCalcIntent1.putExtra(ExperienceCalculatorActivity.EXTRA_POKEMON, sPokemon1.toMiniPokemon());
                 startActivity(expCalcIntent1);
                 break;
             case R.id.action_calculate_experience_pkmn2:
                 Intent expCalcIntent2 = new Intent(this, ExperienceCalculatorActivity.class);
-                expCalcIntent2.putExtra(ExperienceCalculatorActivity.EXTRA_POKEMON, mPokemon2.toMiniPokemon());
+                expCalcIntent2.putExtra(ExperienceCalculatorActivity.EXTRA_POKEMON, sPokemon2.toMiniPokemon());
                 startActivity(expCalcIntent2);
                 break;
             case R.id.action_play_cry_pkmn1:
-                ActionUtils.playPokemonCry(this, mPokemon1);
+                ActionUtils.playPokemonCry(this, sPokemon1);
                 break;
             case R.id.action_play_cry_pkmn2:
-                ActionUtils.playPokemonCry(this, mPokemon2);
+                ActionUtils.playPokemonCry(this, sPokemon2);
                 break;
             case R.id.action_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
@@ -203,7 +200,7 @@ public class CompareActivity extends AppCompatActivity {
         private View mRootView;
 
         private RecyclerView mRecyclerView;
-        private ArrayList<DetailInfo> mDetails;
+        private ArrayList<DetailCard> mDetails;
 
         private AsyncTask<Void, Integer, Void> mCurrAsyncTask;
 
@@ -253,7 +250,7 @@ public class CompareActivity extends AppCompatActivity {
         private PokemonCompareDetail fetchGeneralData() {
             ArrayList<ArrayList<?>> valueArrays = new ArrayList<>(2);
 
-            for (Pokemon pokemon : mPokemonArray) {
+            for (Pokemon pokemon : sPokemonArray) {
                 ArrayList<Object> valueArray = new ArrayList<>(7);
 
                 valueArray.add(pokemon.toMiniPokemon());
@@ -278,7 +275,7 @@ public class CompareActivity extends AppCompatActivity {
             ArrayList<ArrayList<?>> valuesArray = new ArrayList<>(2);
             ArrayList<ArrayList<View.OnClickListener>> listenersArray = new ArrayList<>(2);
 
-            for (Pokemon pokemon : mPokemonArray) {
+            for (Pokemon pokemon : sPokemonArray) {
                 final SparseIntArray abilityIds = pokemon.getAbilityIds();
                 SparseArray<MiniAbility> abilities = new SparseArray<>(3);
                 for (int i = 1; i < abilityIds.size() + 1; i++) {
@@ -343,7 +340,7 @@ public class CompareActivity extends AppCompatActivity {
             ArrayList<ArrayList<?>> valuesArray = new ArrayList<>(2);
             ArrayList<ArrayList<View.OnClickListener>> listenersArray = new ArrayList<>(2);
 
-            for (Pokemon pokemon : mPokemonArray) {
+            for (Pokemon pokemon : sPokemonArray) {
                 final ArrayMap<String, Integer> physicalValues = pokemon.getPhysicalAttrs();
                 ArrayList<String> values = new ArrayList<>();
                 ArrayList<View.OnClickListener> listeners = new ArrayList<>();
@@ -403,7 +400,7 @@ public class CompareActivity extends AppCompatActivity {
         private PokemonCompareDetail fetchGenderData() {
             ArrayList<ArrayList<?>> valuesArray = new ArrayList<>(2);
 
-            for (Pokemon pokemon : mPokemonArray) {
+            for (Pokemon pokemon : sPokemonArray) {
                 final ArrayMap<String, Integer> genderValues = pokemon.getGenderValues();
                 ArrayList<Integer> values = new ArrayList<>();
                 values.add(Pokemon.getGenderRate(genderValues));
@@ -411,13 +408,13 @@ public class CompareActivity extends AppCompatActivity {
                 valuesArray.add(values);
             }
 
-            return new PokemonCompareDetail(valuesArray, new String[] {mPkmnName1, mPkmnName2});
+            return new PokemonCompareDetail(valuesArray, new String[] {sPokemon1.getName(), sPokemon2.getName()});
         }
 
         private PokemonCompareDetail fetchStatData() {
             ArrayList<ArrayList<?>> valuesArray = new ArrayList<>(2);
 
-            for (Pokemon pokemon : mPokemonArray) {
+            for (Pokemon pokemon : sPokemonArray) {
                 final ArrayMap<String, Integer> statValues = pokemon.getStats();
                 ArrayList<Integer> values = new ArrayList<>();
 
@@ -444,7 +441,7 @@ public class CompareActivity extends AppCompatActivity {
             ArrayList<ArrayList<?>> valuesArray = new ArrayList<>(2);
             ArrayList<ArrayList<View.OnClickListener>> listenersArray = new ArrayList<>(2);
 
-            for (Pokemon pokemon : mPokemonArray) {
+            for (Pokemon pokemon : sPokemonArray) {
                 ArrayMap<String, Integer> trainingValues = pokemon.getTrainingValues();
                 ArrayList<String> values = new ArrayList<>();
                 ArrayList<View.OnClickListener> listeners = new ArrayList<>();
@@ -520,7 +517,7 @@ public class CompareActivity extends AppCompatActivity {
 
             String[] pokedexKeys = Pokemon.POKEDEX_KEYS;
 
-            for (Pokemon pokemon : mPokemonArray) {
+            for (Pokemon pokemon : sPokemonArray) {
                 ArrayMap<String, Integer> pokedexValues = pokemon.getPokedexNumbers();
                 ArrayList<String> properties = new ArrayList<>(pokedexValues.size());
                 ArrayList<String> values = new ArrayList<>(pokedexValues.size());
@@ -609,7 +606,7 @@ public class CompareActivity extends AppCompatActivity {
             ArrayList<ArrayList<?>> valuesArray = new ArrayList<>(2);
             ArrayList<ArrayList<View.OnClickListener>> listenersArray = new ArrayList<>(2);
 
-            for (Pokemon pokemon : mPokemonArray) {
+            for (Pokemon pokemon : sPokemonArray) {
                 ArrayMap<String, Integer> moreValues = pokemon.getMoreValues();
                 ArrayList<String> values = new ArrayList<>();
                 ArrayList<View.OnClickListener> listeners = new ArrayList<>();
@@ -714,10 +711,10 @@ public class CompareActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             mRootView = inflater.inflate(R.layout.fragment_compare_learnsets, container, false);
 
-            ArrayMap<String, Integer> formInfos1 = mPokemon1.getFormSpecificValues();
-            ArrayMap<String, Integer> formInfos2 = mPokemon2.getFormSpecificValues();
+            ArrayMap<String, Integer> formInfos1 = sPokemon1.getFormSpecificValues();
+            ArrayMap<String, Integer> formInfos2 = sPokemon2.getFormSpecificValues();
 
-            if (mPkmnName1.equals(mPkmnName2)) {
+            if (sPokemon1.getName().equals(sPokemon2.getName())) {
                 if ((Pokemon.isFormDefault(formInfos1) && Pokemon.isFormMega(formInfos2)) ||
                         Pokemon.isFormMega(formInfos1) && Pokemon.isFormDefault(formInfos2)) {
                     mSameLearnset = true;
@@ -777,7 +774,7 @@ public class CompareActivity extends AppCompatActivity {
                         if (mAsyncTask != null) {
                             mAsyncTask.cancel(true);
                         }
-                        loadCard(mContainer1, mPokemon1);
+                        loadCard(mContainer1, sPokemon1);
                     }
                 });
             } else {
@@ -787,8 +784,8 @@ public class CompareActivity extends AppCompatActivity {
                         if (mAsyncTask != null) {
                             mAsyncTask.cancel(true);
                         }
-                        loadCard(mContainer1, mPokemon1);
-                        loadCard(mContainer2, mPokemon2);
+                        loadCard(mContainer1, sPokemon1);
+                        loadCard(mContainer2, sPokemon2);
                     }
                 });
             }
@@ -843,8 +840,8 @@ public class CompareActivity extends AppCompatActivity {
                     adapter.setOnEntryClickListener(new PokemonMovesVgAdapter.OnEntryClickListener() {
                         @Override
                         public void onEntryClick(View view, int position) {
-                            Intent intent = new Intent(getActivity(), MovesDetailActivity.class);
-                            intent.putExtra(MovesDetailActivity.EXTRA_MOVE,
+                            Intent intent = new Intent(getActivity(), MoveDetailActivity.class);
+                            intent.putExtra(MoveDetailActivity.EXTRA_MOVE,
                                     arrayMovesFinal.get(position).toMiniMove(getActivity()));
                             startActivity(intent);
                         }

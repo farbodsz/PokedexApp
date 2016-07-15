@@ -1,4 +1,4 @@
-package com.satsumasoftware.pokedex.framework.detail;
+package com.satsumasoftware.pokedex.ui.card;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +19,7 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.ui.PkmnImageActivity;
-import com.satsumasoftware.pokedex.ui.PkmnTypeDetailActivity;
+import com.satsumasoftware.pokedex.ui.dialog.PkmnTypeDetailActivity;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.DataUtils;
 import com.satsumasoftware.pokedex.util.InfoUtils;
@@ -29,7 +29,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 
-public class PokemonCompareDetail implements DetailInfo {
+public class PokemonCompareDetail implements DetailCard {
 
     public static final int MODE_NORMAL = 0, MODE_GENERAL_INFO = 1, MODE_GENDER = 2, MODE_STATS = 3;
     @IntDef({MODE_NORMAL, MODE_GENERAL_INFO, MODE_GENDER, MODE_STATS})

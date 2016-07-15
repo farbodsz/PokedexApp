@@ -19,8 +19,8 @@ import android.widget.ProgressBar;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
-import com.satsumasoftware.pokedex.framework.detail.DetailInfo;
-import com.satsumasoftware.pokedex.framework.detail.LocationDetail;
+import com.satsumasoftware.pokedex.ui.card.DetailCard;
+import com.satsumasoftware.pokedex.ui.card.LocationDetail;
 import com.satsumasoftware.pokedex.framework.encounter.CompactEncounterDataHolder;
 import com.satsumasoftware.pokedex.framework.encounter.Encounter;
 import com.satsumasoftware.pokedex.framework.encounter.EncounterDataHolder;
@@ -82,7 +82,7 @@ public class LocationDetailActivity extends AppCompatActivity {
         // TODO: Change the database so versions correspond with edited values (i.e. ignoring Conquest series)
 
         mAsyncTask = new AsyncTask<Void, Integer, Void>() {
-            ArrayList<ArrayList<DetailInfo>> locationDetailsList;
+            ArrayList<ArrayList<DetailCard>> locationDetailsList;
 
             @Override
             protected void onPreExecute() {
@@ -109,10 +109,10 @@ public class LocationDetailActivity extends AppCompatActivity {
         }.execute();
     }
 
-    private ArrayList<ArrayList<DetailInfo>> fetchData() {
+    private ArrayList<ArrayList<DetailCard>> fetchData() {
         mLocationAreas = mLocation.getLocationAreas(getBaseContext());
 
-        ArrayList<ArrayList<DetailInfo>> locationDetailsList = new ArrayList<>();
+        ArrayList<ArrayList<DetailCard>> locationDetailsList = new ArrayList<>();
 
         PokeDB pokeDB = new PokeDB(this);
 
@@ -150,7 +150,7 @@ public class LocationDetailActivity extends AppCompatActivity {
             }
 
             // create location detail objects using the organised data
-            ArrayList<DetailInfo> locationDetails = new ArrayList<>();
+            ArrayList<DetailCard> locationDetails = new ArrayList<>();
             for (int i = 0; i < organisedEncounterData.size(); i++) {
                 int encounterMethodId = organisedEncounterData.keyAt(i);
                 String name = new EncounterMethodProse(this, encounterMethodId).getName();
@@ -210,7 +210,7 @@ public class LocationDetailActivity extends AppCompatActivity {
         return versionIds;
     }
 
-    private void setupLayouts(ArrayList<ArrayList<DetailInfo>> locationDetailsList) {
+    private void setupLayouts(ArrayList<ArrayList<DetailCard>> locationDetailsList) {
         if (locationDetailsList.isEmpty()) {
             mTabLayout.setVisibility(View.GONE);
             mViewPager.setVisibility(View.GONE);
@@ -220,7 +220,7 @@ public class LocationDetailActivity extends AppCompatActivity {
 
         for (int i = 0; i < mLocationAreas.size(); i++) {
             LocationArea locationArea = mLocationAreas.get(i);
-            ArrayList<DetailInfo> locationDetails = locationDetailsList.get(i);
+            ArrayList<DetailCard> locationDetails = locationDetailsList.get(i);
 
             View aPage = getLayoutInflater().inflate(R.layout.fragment_detail_location, null);
             RecyclerView recyclerView = (RecyclerView) aPage.findViewById(R.id.recyclerView);

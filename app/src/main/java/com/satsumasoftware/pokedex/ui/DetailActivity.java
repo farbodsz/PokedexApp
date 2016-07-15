@@ -40,8 +40,8 @@ import android.widget.Toast;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
-import com.satsumasoftware.pokedex.framework.detail.DetailInfo;
-import com.satsumasoftware.pokedex.framework.detail.PokemonDetail;
+import com.satsumasoftware.pokedex.ui.card.DetailCard;
+import com.satsumasoftware.pokedex.ui.card.PokemonDetail;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonForm;
@@ -52,6 +52,9 @@ import com.satsumasoftware.pokedex.ui.adapter.FormsTileAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesVgAdapter;
+import com.satsumasoftware.pokedex.ui.dialog.AbilityDetailActivity;
+import com.satsumasoftware.pokedex.ui.dialog.MoveDetailActivity;
+import com.satsumasoftware.pokedex.ui.dialog.PropertyDetailActivity;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AdUtils;
@@ -74,15 +77,13 @@ import java.util.Locale;
 
 public class DetailActivity extends AppCompatActivity {
 
-    public static final String EXTRA_POKEMON = "POKEMON";  // TODO implement this for all use cases
+    public static final String EXTRA_POKEMON = "POKEMON";
 
     private View mRootLayout;
 
     private static ViewPager sViewPager;
 
     private static Pokemon sPokemon;
-    private static int sPkmnId;
-    private static String sPkmnName;
 
     private static SparseIntArray sPkmnTypeIds;
     private static ArrayMap<String, Integer> sPkmnPhysicalAttrs;
@@ -131,9 +132,6 @@ public class DetailActivity extends AppCompatActivity {
 
         AdUtils.setupAds(this, R.id.adView);
 
-        sPkmnId = sPokemon.getId();
-        sPkmnName = sPokemon.getName();
-
         sViewPager = (ViewPager) findViewById(R.id.viewPager);
         sViewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -169,10 +167,13 @@ public class DetailActivity extends AppCompatActivity {
             return true;
         }
 
-        if (sPkmnId == 1) {
-            previous.setIcon(R.drawable.ic_chevron_left_grey600_24dp);
-        } else if (sPkmnId == AppConfig.MAX_NATIONAL_ID) {
-            next.setIcon(R.drawable.ic_chevron_right_grey600_24dp);
+        switch (sPokemon.getId()) {
+            case 1:
+                previous.setIcon(R.drawable.ic_chevron_left_grey600_24dp);
+                break;
+            case AppConfig.MAX_NATIONAL_ID:
+                next.setIcon(R.drawable.ic_chevron_right_grey600_24dp);
+                break;
         }
 
         if (FavoriteUtils.isAFavouritePkmn(this, sPokemon.toMiniPokemon())) {
@@ -188,7 +189,7 @@ public class DetailActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_previous:
                 if (Flavours.type == Flavours.Type.PAID) {
-                    if (sPkmnId != 1) {
+                    if (sPokemon.getId() != 1) {
                         action_navigation(0);
                     } else {
                         Snackbar.make(mRootLayout, R.string.detail_nav_back_error, Snackbar.LENGTH_SHORT)
@@ -200,7 +201,7 @@ public class DetailActivity extends AppCompatActivity {
                 break;
             case R.id.action_next:
                 if (Flavours.type == Flavours.Type.PAID) {
-                    if (sPkmnId != AppConfig.MAX_NATIONAL_ID) {
+                    if (sPokemon.getId() != AppConfig.MAX_NATIONAL_ID) {
                         action_navigation(1);
                     } else {
                         Snackbar.make(mRootLayout, R.string.detail_nav_forward_error, Snackbar.LENGTH_SHORT)
@@ -421,7 +422,7 @@ public class DetailActivity extends AppCompatActivity {
         private View mRootView;
 
         private RecyclerView mRecyclerView;
-        private ArrayList<DetailInfo> mDetails;
+        private ArrayList<DetailCard> mDetails;
 
         private AsyncTask<Void, Integer, Void> mCurrAsyncTask;
 
@@ -598,7 +599,7 @@ public class DetailActivity extends AppCompatActivity {
             ArrayList<Integer> values = new ArrayList<>();
             values.add(Pokemon.getGenderRate(genderValues));
 
-            return new PokemonDetail(values, sPkmnName);
+            return new PokemonDetail(values, sPokemon.getName());
         }
 
         private PokemonDetail fetchStatData() {
@@ -884,8 +885,8 @@ public class DetailActivity extends AppCompatActivity {
                     formSpecificVals = sPokemon.getFormSpecificValues();
                     ArrayMap<String, Integer> miscValues = sPokemon.getMiscValues();
                     currForm = new PokemonForm(
-                            sPkmnId, sPokemon.getSpeciesId(), sPokemon.getFormId(),
-                            sPkmnName, sPokemon.getFormName(), sPokemon.getFormAndPokemonName(),
+                            sPokemon.getId(), sPokemon.getSpeciesId(), sPokemon.getFormId(),
+                            sPokemon.getName(), sPokemon.getFormName(), sPokemon.getFormAndPokemonName(),
                             sPokemon.getNationalDexNumber(), sPkmnTypeIds.get(1),
                             Pokemon.isDefault(miscValues), Pokemon.isFormDefault(formSpecificVals),
                             Pokemon.isFormMega(formSpecificVals));
@@ -898,7 +899,7 @@ public class DetailActivity extends AppCompatActivity {
                     if (mAltForms.isEmpty()) {
                         container.removeAllViews();
                         getActivity().getLayoutInflater().inflate(R.layout.list_item_null, container, true);
-                        String listMessage = getResources().getString(R.string.null_alternate_forms, sPkmnName);
+                        String listMessage = getResources().getString(R.string.null_alternate_forms, sPokemon.getName());
                         TextView tvListTxt = (TextView) mRootView.findViewById(R.id.item_null_text1);
                         tvListTxt.setText(listMessage);
                     } else {
@@ -957,7 +958,7 @@ public class DetailActivity extends AppCompatActivity {
                 @Override
                 public void onEntryClick(View view, int position) {
                     MiniPokemon clickedPokemon = evolutions.get(position);
-                    if (clickedPokemon.getId() != sPkmnId) {
+                    if (clickedPokemon.getId() != sPokemon.getId()) {
                         Intent intent = new Intent(getActivity(), DetailActivity.class);
                         intent.putExtra(EXTRA_POKEMON, clickedPokemon);
                         startActivity(intent);
@@ -1139,8 +1140,8 @@ public class DetailActivity extends AppCompatActivity {
                     adapter.setOnEntryClickListener(new PokemonMovesVgAdapter.OnEntryClickListener() {
                         @Override
                         public void onEntryClick(View view, int position) {
-                            Intent intent = new Intent(getActivity(), MovesDetailActivity.class);
-                            intent.putExtra(MovesDetailActivity.EXTRA_MOVE,
+                            Intent intent = new Intent(getActivity(), MoveDetailActivity.class);
+                            intent.putExtra(MoveDetailActivity.EXTRA_MOVE,
                                     arrayMovesFinal.get(position).toMiniMove(getActivity()));
                             startActivity(intent);
                         }

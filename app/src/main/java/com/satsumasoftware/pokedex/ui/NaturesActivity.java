@@ -15,6 +15,7 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.NaturesDBHelper;
 import com.satsumasoftware.pokedex.framework.nature.MiniNature;
 import com.satsumasoftware.pokedex.ui.adapter.NatureDexAdapter;
+import com.satsumasoftware.pokedex.ui.dialog.NatureDetailActivity;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
@@ -69,7 +70,7 @@ public class NaturesActivity extends BaseActivity {
             @Override
             public void onRowClick(View view, int position) {
                 Intent intent = new Intent(NaturesActivity.this, NatureDetailActivity.class);
-                intent.putExtra("NATURE", itemsFinal.get(position));
+                intent.putExtra(NatureDetailActivity.EXTRA_NATURE, itemsFinal.get(position));
                 startActivity(intent);
             }
         });

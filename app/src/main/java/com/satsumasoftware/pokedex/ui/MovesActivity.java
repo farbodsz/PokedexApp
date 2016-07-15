@@ -25,6 +25,7 @@ import com.satsumasoftware.pokedex.db.MovesDBHelper;
 import com.satsumasoftware.pokedex.framework.move.MiniMove;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.MoveDexAdapter;
+import com.satsumasoftware.pokedex.ui.dialog.MoveDetailActivity;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
@@ -111,8 +112,8 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
         adapter.setOnRowClickListener(new MoveDexAdapter.OnRowClickListener() {
             @Override
             public void onRowClick(View view, int position) {
-                Intent intent = new Intent(MovesActivity.this, MovesDetailActivity.class);
-                intent.putExtra("MOVE", itemsFinal.get(position));
+                Intent intent = new Intent(MovesActivity.this, MoveDetailActivity.class);
+                intent.putExtra(MoveDetailActivity.EXTRA_MOVE, itemsFinal.get(position));
                 startActivity(intent);
             }
         });

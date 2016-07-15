@@ -331,7 +331,7 @@ public class FilterResultsActivity extends AppCompatActivity {
                 @Override
                 public void onEntryClick(View view, int position) {
                     Intent intent = new Intent(FilterResultsActivity.this, DetailActivity.class);
-                    intent.putExtra("POKEMON", pokemonList.get(position));
+                    intent.putExtra(DetailActivity.EXTRA_POKEMON, pokemonList.get(position));
                     startActivity(intent);
                 }
             });

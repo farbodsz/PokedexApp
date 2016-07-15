@@ -1,4 +1,4 @@
-package com.satsumasoftware.pokedex.framework.detail;
+package com.satsumasoftware.pokedex.ui.card;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import com.satsumasoftware.pokedex.framework.encounter.CompactEncounterDataHolde
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.ui.DetailActivity;
 
-public class LocationDetail implements DetailInfo {
+public class LocationDetail implements DetailCard {
 
     private String mTitle;
     private SparseArray<CompactEncounterDataHolder> mCompactHolders;
