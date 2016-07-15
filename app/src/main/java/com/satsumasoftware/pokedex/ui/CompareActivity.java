@@ -59,9 +59,6 @@ public class CompareActivity extends AppCompatActivity {
     public static final String EXTRA_POKEMON_2 = "POKEMON_2";
 
     private static Pokemon sPokemon1, sPokemon2;
-    private static String sPkmnName1, sPkmnName2;
-    private String mPkmnFullName1, mPkmnFullName2;
-
     private static Pokemon[] sPokemonArray;
 
 
@@ -99,12 +96,6 @@ public class CompareActivity extends AppCompatActivity {
         sPokemon2 = miniPokemon2.toPokemon(this);
         sPokemonArray = new Pokemon[] {sPokemon1, sPokemon2};
 
-        sPkmnName1 = sPokemon1.getName();
-        sPkmnName2 = sPokemon2.getName();
-
-        mPkmnFullName1 = sPokemon1.getFormAndPokemonName();
-        mPkmnFullName2 = sPokemon2.getFormAndPokemonName();
-
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
@@ -115,22 +106,25 @@ public class CompareActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        getSupportActionBar().setSubtitle(mPkmnFullName1 + " vs. " + mPkmnFullName2);
+        getSupportActionBar().setSubtitle(sPokemon1.getFormAndPokemonName() + " vs. " + sPokemon2.getFormAndPokemonName());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_compare, menu);
 
+        String fullName1 = sPokemon1.getFormAndPokemonName();
+        String fullName2 = sPokemon2.getFormAndPokemonName();
+
         menu.findItem(R.id.action_calculate_experience_pkmn1)
-                .setTitle(getResources().getString(R.string.action_calculate_experience_of, mPkmnFullName1));
+                .setTitle(getResources().getString(R.string.action_calculate_experience_of, fullName1));
         menu.findItem(R.id.action_calculate_experience_pkmn2)
-                .setTitle(getResources().getString(R.string.action_calculate_experience_of, mPkmnFullName2));
+                .setTitle(getResources().getString(R.string.action_calculate_experience_of, fullName2));
 
         menu.findItem(R.id.action_play_cry_pkmn1)
-                .setTitle(getResources().getString(R.string.action_play_cry_of, mPkmnFullName1));
+                .setTitle(getResources().getString(R.string.action_play_cry_of, fullName1));
         menu.findItem(R.id.action_play_cry_pkmn2)
-                .setTitle(getResources().getString(R.string.action_play_cry_of, mPkmnFullName2));
+                .setTitle(getResources().getString(R.string.action_play_cry_of, fullName2));
 
         return true;
     }
@@ -411,7 +405,7 @@ public class CompareActivity extends AppCompatActivity {
                 valuesArray.add(values);
             }
 
-            return new PokemonCompareDetail(valuesArray, new String[] {sPkmnName1, sPkmnName2});
+            return new PokemonCompareDetail(valuesArray, new String[] {sPokemon1.getName(), sPokemon2.getName()});
         }
 
         private PokemonCompareDetail fetchStatData() {
@@ -717,7 +711,7 @@ public class CompareActivity extends AppCompatActivity {
             ArrayMap<String, Integer> formInfos1 = sPokemon1.getFormSpecificValues();
             ArrayMap<String, Integer> formInfos2 = sPokemon2.getFormSpecificValues();
 
-            if (sPkmnName1.equals(sPkmnName2)) {
+            if (sPokemon1.getName().equals(sPokemon2.getName())) {
                 if ((Pokemon.isFormDefault(formInfos1) && Pokemon.isFormMega(formInfos2)) ||
                         Pokemon.isFormMega(formInfos1) && Pokemon.isFormDefault(formInfos2)) {
                     mSameLearnset = true;
