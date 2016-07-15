@@ -94,7 +94,10 @@ public class MovesDBHelper extends SQLiteOpenHelper {
     private void populateDatabase(SQLiteDatabase db) {
         PokeDB pokeDB = new PokeDB(mContext);
         Cursor cursor = pokeDB.getReadableDatabase().query(
-                PokeDB.Moves.TABLE_NAME, null, null, null, null, null, null);
+                PokeDB.Moves.TABLE_NAME,
+                null,
+                PokeDB.Moves.COL_ID + "< 10000",  // ignore shadow moves
+                null, null, null, null);
         cursor.moveToFirst();
         db.beginTransaction();
         while (!cursor.isAfterLast()) {
