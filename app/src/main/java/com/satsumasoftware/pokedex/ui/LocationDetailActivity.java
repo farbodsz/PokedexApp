@@ -19,8 +19,8 @@ import android.widget.ProgressBar;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
-import com.satsumasoftware.pokedex.framework.detail.DetailInfo;
-import com.satsumasoftware.pokedex.framework.detail.LocationDetail;
+import com.satsumasoftware.pokedex.ui.card.DetailInfo;
+import com.satsumasoftware.pokedex.ui.card.LocationDetail;
 import com.satsumasoftware.pokedex.framework.encounter.CompactEncounterDataHolder;
 import com.satsumasoftware.pokedex.framework.encounter.Encounter;
 import com.satsumasoftware.pokedex.framework.encounter.EncounterDataHolder;

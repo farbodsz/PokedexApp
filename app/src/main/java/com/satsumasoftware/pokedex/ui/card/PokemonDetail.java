@@ -1,4 +1,4 @@
-package com.satsumasoftware.pokedex.framework.detail;
+package com.satsumasoftware.pokedex.ui.card;
 
 import android.content.Context;
 import android.content.Intent;

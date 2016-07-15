@@ -10,7 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.framework.detail.DetailInfo;
+import com.satsumasoftware.pokedex.ui.card.DetailInfo;
 
 import java.util.ArrayList;
 
