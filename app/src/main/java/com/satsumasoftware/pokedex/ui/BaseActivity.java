@@ -159,12 +159,14 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         }, NAVDRAWER_LAUNCH_DELAY);
 
-        mNavigationView.getMenu().findItem(getSelfNavDrawerItem()).setChecked(false);
-        menuItem.setChecked(true);
+        if (menuItem.isCheckable()) {
+            mNavigationView.getMenu().findItem(getSelfNavDrawerItem()).setChecked(false);
+            menuItem.setChecked(true);
 
-        mMainContent.animate()
-                .alpha(0)
-                .setDuration(MAIN_CONTENT_FADEOUT_DURATION);
+            mMainContent.animate()
+                    .alpha(0)
+                    .setDuration(MAIN_CONTENT_FADEOUT_DURATION);
+        }
 
         mDrawerLayout.closeDrawers();
     }

@@ -38,10 +38,11 @@
             android:icon="@drawable/ic_assessment_black_24dp"/>
     </group>
 
-    <group android:id="@+id/navigation_group_4" android:checkableBehavior="single">
+    <group android:id="@+id/navigation_group_4">
         <item
             android:id="@+id/navigation_item_settings"
             android:title="@string/navigation_item_settings"
-            android:icon="@drawable/ic_settings_black_24dp"/>
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:checkable="false"/>
     </group>
 </menu>
