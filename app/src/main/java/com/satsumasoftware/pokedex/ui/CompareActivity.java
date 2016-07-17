@@ -32,13 +32,13 @@ import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
-import com.satsumasoftware.pokedex.ui.card.DetailCard;
-import com.satsumasoftware.pokedex.ui.card.PokemonCompareDetail;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonMoves;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesVgAdapter;
+import com.satsumasoftware.pokedex.ui.card.DetailCard;
+import com.satsumasoftware.pokedex.ui.card.PokemonCompareDetail;
 import com.satsumasoftware.pokedex.ui.dialog.AbilityDetailActivity;
 import com.satsumasoftware.pokedex.ui.dialog.MoveDetailActivity;
 import com.satsumasoftware.pokedex.ui.dialog.PropertyDetailActivity;
