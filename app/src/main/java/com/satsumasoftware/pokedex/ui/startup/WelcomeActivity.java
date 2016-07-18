@@ -37,7 +37,7 @@ public class WelcomeActivity extends AppCompatActivity {
         welcomeText.append("Here is what's new:\n\n");
 
 
-        ArrayList<String> versionChanges = ChangelogUtils.getVersionChanges(this, BuildConfig.VERSION_CODE);
+        ArrayList<String> versionChanges = ChangelogUtils.getVersionChanges(this, 400);  // todo change later to BuildConfig version
         for (int i = 0; i < versionChanges.size(); i++) {
             String bulletAndPoint = "\u2022 " + versionChanges.get(i); // u2022 is a bullet point
             welcomeText.append(bulletAndPoint);
