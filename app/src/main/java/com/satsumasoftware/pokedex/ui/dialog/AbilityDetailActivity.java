@@ -13,8 +13,8 @@ import com.satsumasoftware.pokedex.framework.ability.Ability;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.ui.filter.FilterResultsActivity;
 import com.satsumasoftware.pokedex.util.AlertUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
-import com.satsumasoftware.pokedex.util.InfoUtils;
 
 
 public class AbilityDetailActivity extends AppCompatActivity {
@@ -46,7 +46,7 @@ public class AbilityDetailActivity extends AppCompatActivity {
 
         descriptionText.setText(mAbility.getFlavorText(this));
 
-        genText.setText(InfoUtils.getRomanFromGen(mAbility.getGenerationId()));
+        genText.setText(DataUtilsKt.genIdToRoman(mAbility.getGenerationId()));
 
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override

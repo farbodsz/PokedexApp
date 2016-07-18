@@ -24,7 +24,7 @@ import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AppConfig;
 import com.satsumasoftware.pokedex.util.DataUtils;
-import com.satsumasoftware.pokedex.util.InfoUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -171,7 +171,7 @@ public class FilterResultsActivity extends AppCompatActivity {
         if (growth != null) {
             //conditionGrowth = line[21].equalsIgnoreCase(InfoUtils.getAbbreviationFromGrowth(growth));
             selectionsList.add(PokemonDBHelper.COL_GROWTH_RATE_ID+" LIKE ?");
-            selectionArgsList.add(String.valueOf(InfoUtils.growthToId(growth)));
+            selectionArgsList.add(String.valueOf(DataUtilsKt.growthNameToId(growth)));
         }
 
         String exp = mExtras.getString(FILTER_EXP_TO_100);
@@ -183,7 +183,7 @@ public class FilterResultsActivity extends AppCompatActivity {
         String generation = mExtras.getString(FILTER_GENERATION);
         if (generation != null) {
             selectionsList.add(PokemonDBHelper.COL_GENERATION_ID + "=?");
-            selectionArgsList.add(String.valueOf(InfoUtils.getGenFromRoman(generation)));
+            selectionArgsList.add(String.valueOf(DataUtilsKt.romanToGenId(generation)));
         }
 
         String catchRate = mExtras.getString(FILTER_CATCH_RATE);
@@ -213,19 +213,19 @@ public class FilterResultsActivity extends AppCompatActivity {
         String colour = mExtras.getString(FILTER_COLOUR);
         if (colour != null) {
             selectionsList.add(PokemonDBHelper.COL_COLOR_ID + "=?");
-            selectionArgsList.add(String.valueOf(InfoUtils.getIdFromColour(colour)));
+            selectionArgsList.add(String.valueOf(DataUtilsKt.colourNameToId(colour)));
         }
 
         String shape = mExtras.getString(FILTER_SHAPE);
         if (shape != null) {
             selectionsList.add(PokemonDBHelper.COL_SHAPE_ID + "=?");
-            selectionArgsList.add(String.valueOf(InfoUtils.getIdFromShape(shape)));
+            selectionArgsList.add(String.valueOf(DataUtilsKt.shapeNameToId(shape)));
         }
 
         String habitat = mExtras.getString(FILTER_HABITAT);
         if (habitat != null) {
             selectionsList.add(PokemonDBHelper.COL_HABITAT_ID + "=?");
-            selectionArgsList.add(String.valueOf(InfoUtils.getIdFromHabitat(habitat)));
+            selectionArgsList.add(String.valueOf(DataUtilsKt.habitatNameToId(habitat)));
         }
 
         String eggSteps = mExtras.getString(FILTER_EGG_STEPS);

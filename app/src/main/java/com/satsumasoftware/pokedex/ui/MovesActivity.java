@@ -30,8 +30,8 @@ import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
 import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
-import com.satsumasoftware.pokedex.util.InfoUtils;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 
 import java.util.ArrayList;
@@ -260,7 +260,7 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
 
             case R.id.filterDrawer_llGen_content:
                 String genQuery = "(" + MovesDBHelper.COL_GENERATION_ID + "=\"" +
-                        InfoUtils.getGenFromRoman(text) + "\")";
+                        DataUtilsKt.romanToGenId(text) + "\")";
                 mFilterSelectionGen = reformatFilterSelection(mFilterSelectionGen);
                 if (isChecked) {
                     mFilterSelectionGen = mFilterSelectionGen + genQuery;

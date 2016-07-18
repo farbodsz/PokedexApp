@@ -61,9 +61,9 @@ import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
 import com.satsumasoftware.pokedex.util.AppConfig;
 import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.FavoriteUtils;
 import com.satsumasoftware.pokedex.util.Flavours;
-import com.satsumasoftware.pokedex.util.InfoUtils;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 import com.satsumasoftware.pokedex.util.ThemeUtils;
 import com.satsuware.usefulviews.LabelledSpinner;
@@ -646,7 +646,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
             properties.add(res.getString(R.string.attr_levelling_rate));
-            final String levellingRate = InfoUtils.idToGrowth(Pokemon.getGrowthRateId(trainingValues));
+            final String levellingRate = DataUtilsKt.growthIdToName(Pokemon.getGrowthRateId(trainingValues));
             values.add(levellingRate);
             listeners.add(new View.OnClickListener() {
                 @Override
@@ -703,7 +703,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
 
                 properties.add(DataUtils.getPokedexNameFromId(id));
-                values.add(InfoUtils.formatPokemonId(pokedexValues.get(pokedexKey)));
+                values.add(DataUtilsKt.formatPokemonId(pokedexValues.get(pokedexKey)));
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -727,7 +727,7 @@ public class DetailActivity extends AppCompatActivity {
             Resources res = getResources();
 
             properties.add(res.getString(R.string.attr_generation));
-            final String generation = InfoUtils.getRomanFromGen(Pokemon.getGenerationId(moreValues));
+            final String generation = DataUtilsKt.genIdToRoman(Pokemon.getGenerationId(moreValues));
             values.add(generation);
             listeners.add(new View.OnClickListener() {
                 @Override

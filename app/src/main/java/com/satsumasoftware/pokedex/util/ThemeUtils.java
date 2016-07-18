@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
+import android.support.annotation.ColorRes;
 import android.support.annotation.StyleRes;
 import android.util.TypedValue;
 
@@ -141,4 +142,74 @@ public final class ThemeUtils {
         }
     }
 
+    @ColorRes
+    public static int getTypeBkgdColorRes(int typeId) {
+        // TODO: Generate programmatically
+        switch (typeId) {
+            case 1: return R.color.type_normal;
+            case 2: return R.color.type_fighting;
+            case 3: return R.color.type_flying;
+            case 4: return R.color.type_poison;
+            case 5: return R.color.type_ground;
+            case 6: return R.color.type_rock;
+            case 7: return R.color.type_bug;
+            case 8: return R.color.type_ghost;
+            case 9: return R.color.type_steel;
+            case 10: return R.color.type_fire;
+            case 11: return R.color.type_water;
+            case 12: return R.color.type_grass;
+            case 13: return R.color.type_electric;
+            case 14: return R.color.type_psychic;
+            case 15: return R.color.type_ice;
+            case 16: return R.color.type_dragon;
+            case 17: return R.color.type_dark;
+            case 18: return R.color.type_fairy;
+            default: return R.color.mdu_text_black;
+        }
+    }
+
+    @Deprecated
+    public static int getTypeBkgdColorRes(String type) {
+        if (type.equalsIgnoreCase("normal")) {
+            return R.color.type_normal;
+        } else if (type.equalsIgnoreCase("fire")) {
+            return R.color.type_fire;
+        } else if (type.equalsIgnoreCase("fighting")) {
+            return R.color.type_fighting;
+        } else if (type.equalsIgnoreCase("water")) {
+            return R.color.type_water;
+        } else if (type.equalsIgnoreCase("flying")) {
+            return R.color.type_flying;
+        } else if (type.equalsIgnoreCase("grass")) {
+            return R.color.type_grass;
+        } else if (type.equalsIgnoreCase("poison")) {
+            return R.color.type_poison;
+        } else if (type.equalsIgnoreCase("electric")) {
+            return R.color.type_electric;
+        } else if (type.equalsIgnoreCase("ground")) {
+            return R.color.type_ground;
+        } else if (type.equalsIgnoreCase("psychic")) {
+            return R.color.type_psychic;
+        } else if (type.equalsIgnoreCase("rock")) {
+            return R.color.type_rock;
+        } else if (type.equalsIgnoreCase("ice")) {
+            return R.color.type_ice;
+        } else if (type.equalsIgnoreCase("bug")) {
+            return R.color.type_bug;
+        } else if (type.equalsIgnoreCase("dragon")) {
+            return R.color.type_dragon;
+        } else if (type.equalsIgnoreCase("ghost")) {
+            return R.color.type_ghost;
+        } else if (type.equalsIgnoreCase("dark")) {
+            return R.color.type_dark;
+        } else if (type.equalsIgnoreCase("steel")) {
+            return R.color.type_steel;
+        } else if (type.equalsIgnoreCase("fairy")) {
+            return R.color.type_fairy;
+        } else if (type.equalsIgnoreCase("none")) {
+            return R.color.mdu_text_black;
+        } else {
+            return R.color.mdu_text_black;
+        }
+    }
 }

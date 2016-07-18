@@ -46,7 +46,7 @@ import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AppConfig;
 import com.satsumasoftware.pokedex.util.DataUtils;
-import com.satsumasoftware.pokedex.util.InfoUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsuware.usefulviews.LabelledSpinner;
 
 import java.util.ArrayList;
@@ -468,7 +468,7 @@ public class CompareActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                final String levellingRate = InfoUtils.idToGrowth(Pokemon.getGrowthRateId(trainingValues));
+                final String levellingRate = DataUtilsKt.growthIdToName(Pokemon.getGrowthRateId(trainingValues));
                 values.add(levellingRate);
                 listeners.add(new View.OnClickListener() {
                     @Override
@@ -540,7 +540,7 @@ public class CompareActivity extends AppCompatActivity {
                     }
 
                     properties.add(DataUtils.getPokedexNameFromId(id));
-                    values.add(InfoUtils.formatPokemonId(pokedexValues.get(pokedexKey)));
+                    values.add(DataUtilsKt.formatPokemonId(pokedexValues.get(pokedexKey)));
                     listeners.add(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -611,7 +611,7 @@ public class CompareActivity extends AppCompatActivity {
                 ArrayList<String> values = new ArrayList<>();
                 ArrayList<View.OnClickListener> listeners = new ArrayList<>();
 
-                final String generation = InfoUtils.getRomanFromGen(Pokemon.getGenerationId(moreValues));
+                final String generation = DataUtilsKt.genIdToRoman(Pokemon.getGenerationId(moreValues));
                 values.add(generation);
                 listeners.add(new View.OnClickListener() {
                     @Override

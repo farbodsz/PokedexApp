@@ -22,8 +22,9 @@ import com.satsumasoftware.pokedex.ui.PkmnImageActivity;
 import com.satsumasoftware.pokedex.ui.dialog.PkmnTypeDetailActivity;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.DataUtils;
-import com.satsumasoftware.pokedex.util.InfoUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.PrefUtils;
+import com.satsumasoftware.pokedex.util.ThemeUtils;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -203,7 +204,7 @@ public class PokemonCompareDetail implements DetailCard {
 
             final MiniPokemon pokemon = (MiniPokemon) valuesArray.get(0);
 
-            String pokedexNumber = InfoUtils.formatPokemonId(pokemon.getNationalDexNumber());
+            String pokedexNumber = DataUtilsKt.formatPokemonId(pokemon.getNationalDexNumber());
             dexNumberViews[i].setText("# " + pokedexNumber);
 
             String name = pokemon.getName();
@@ -221,7 +222,7 @@ public class PokemonCompareDetail implements DetailCard {
             if (PrefUtils.showPokemonImages(context)) {
                 int id = pokemon.getId();
                 boolean isFormMega = (Boolean) valuesArray.get(3);
-                ActionUtils.setPokemonImage(id, InfoUtils.formatPokemonId(pokemon.getSpeciesId()),
+                ActionUtils.setPokemonImage(id, DataUtilsKt.formatPokemonId(pokemon.getSpeciesId()),
                         name, isFormMega, imageViews[i]);
                 imageViews[i].setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -250,7 +251,7 @@ public class PokemonCompareDetail implements DetailCard {
             String type1 = (String) valuesArray.get(4);
             type1View.setText(type1);
             type1View.setOnClickListener(typeClickListener);
-            type1View.setBackgroundResource(InfoUtils.getTypeBkgdColorRes(type1));
+            type1View.setBackgroundResource(ThemeUtils.getTypeBkgdColorRes(type1));
             type1View.setTextColor(ContextCompat.getColor(context, R.color.mdu_text_white));
 
             boolean hasSecondaryType = (Boolean) valuesArray.get(6);
@@ -260,7 +261,7 @@ public class PokemonCompareDetail implements DetailCard {
                 String type2 = (String) valuesArray.get(5);
                 type2View.setText(type2);
                 type2View.setOnClickListener(typeClickListener);
-                type2View.setBackgroundResource(InfoUtils.getTypeBkgdColorRes(type2));
+                type2View.setBackgroundResource(ThemeUtils.getTypeBkgdColorRes(type2));
                 type2View.setTextColor(ContextCompat.getColor(context, R.color.mdu_text_white));
             }
         }

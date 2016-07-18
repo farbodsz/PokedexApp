@@ -161,7 +161,7 @@ public final class ActionUtils {
 
     public static void setPokemonImage(MiniPokemon pokemon, ImageView imageView) {
         setPokemonImage(pokemon.getId(),
-                InfoUtils.formatPokemonId(pokemon.getNationalDexNumber()),
+                DataUtilsKt.formatPokemonId(pokemon.getNationalDexNumber()),
                 pokemon.getName(),
                 false,
                 imageView);
@@ -169,7 +169,7 @@ public final class ActionUtils {
 
     public static void setPokemonImage(Pokemon pokemon, ImageView imageView) {
         setPokemonImage(pokemon.getId(),
-                InfoUtils.formatPokemonId(pokemon.getNationalDexNumber()),
+                DataUtilsKt.formatPokemonId(pokemon.getNationalDexNumber()),
                 pokemon.getName(),
                 Pokemon.isFormMega(pokemon.getFormSpecificValues()),
                 imageView);

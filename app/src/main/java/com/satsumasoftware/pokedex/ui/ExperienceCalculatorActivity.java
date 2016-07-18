@@ -18,7 +18,7 @@ import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.framework.Experience;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.util.AdUtils;
-import com.satsumasoftware.pokedex.util.InfoUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsuware.usefulviews.LabelledSpinner;
 
 import java.util.ArrayList;
@@ -102,7 +102,7 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
         if (extras != null) {
             MiniPokemon pokemon = extras.getParcelable(EXTRA_POKEMON);
             spinnerPokemonOrGrowth.setSelection(mStrPkmnList.indexOf(pokemon.getName()));
-            mGrowth = InfoUtils.idToGrowth(findIntValue(this, pokemon.getName(), PokemonDBHelper.COL_GROWTH_RATE_ID));
+            mGrowth = DataUtilsKt.growthIdToName(findIntValue(this, pokemon.getName(), PokemonDBHelper.COL_GROWTH_RATE_ID));
             spinnerLevel.setSelection(50-1);
             mLevel = 50;
             calculateExp();
@@ -148,7 +148,7 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
             case R.id.experience_spinnerPokemonOrGrowth:
                 if (mEnterPokemon) {
                     // mGrowth will be abbreviated here, thus
-                    mGrowth = InfoUtils.idToGrowth(findIntValue(
+                    mGrowth = DataUtilsKt.growthIdToName(findIntValue(
                             getBaseContext(), selected, PokemonDBHelper.COL_GROWTH_RATE_ID));
                 } else {
                     mGrowth = selected;

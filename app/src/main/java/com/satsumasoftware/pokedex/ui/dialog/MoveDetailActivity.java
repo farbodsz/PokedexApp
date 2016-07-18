@@ -15,8 +15,9 @@ import com.satsumasoftware.pokedex.framework.move.Move;
 import com.satsumasoftware.pokedex.ui.filter.FilterResultsActivity;
 import com.satsumasoftware.pokedex.util.AlertUtils;
 import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
-import com.satsumasoftware.pokedex.util.InfoUtils;
+import com.satsumasoftware.pokedex.util.ThemeUtils;
 
 
 public class MoveDetailActivity extends AppCompatActivity {
@@ -64,7 +65,7 @@ public class MoveDetailActivity extends AppCompatActivity {
         tvDescription.setText(mMove.getEffectProse(this, true));
 
         tvType.setText(DataUtils.typeIdToString(mMove.getTypeId()));
-        tvType.setBackgroundResource(InfoUtils.getTypeBkgdColorRes(mMove.getTypeId()));
+        tvType.setBackgroundResource(ThemeUtils.getTypeBkgdColorRes(mMove.getTypeId()));
 
         setCategoryInfo();
 
@@ -74,7 +75,7 @@ public class MoveDetailActivity extends AppCompatActivity {
         tvPower.setText(mMove.hasPower() ? String.valueOf(mMove.getPower()) : "-");
         tvAccuracy.setText(mMove.hasAccuracy() ? mMove.getAccuracy() + "%" : "-");
 
-        tvGen.setText(InfoUtils.getRomanFromGen(mMove.getGenerationId()));
+        tvGen.setText(DataUtilsKt.genIdToRoman(mMove.getGenerationId()));
 
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override

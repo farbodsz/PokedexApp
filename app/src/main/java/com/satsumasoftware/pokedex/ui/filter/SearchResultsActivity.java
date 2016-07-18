@@ -26,8 +26,8 @@ import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
-import com.satsumasoftware.pokedex.util.InfoUtils;
 
 import java.util.ArrayList;
 
@@ -85,7 +85,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         PokemonDBHelper helper = new PokemonDBHelper(this);
         SQLiteDatabase db = helper.getReadableDatabase();
 
-        String selection = PokemonDBHelper.COL_ID + " LIKE '%"+InfoUtils.unformatPokemonId(searchQuery)+"%' OR " +
+        String selection = PokemonDBHelper.COL_ID + " LIKE '%"+ DataUtilsKt.unformatPokemonId(searchQuery)+"%' OR " +
                 "LOWER("+ PokemonDBHelper.COL_NAME+") LIKE '%"+searchQuery.toLowerCase()+"%' OR " +
                 "LOWER("+ PokemonDBHelper.COL_NAME_JAPANESE+") LIKE '%"+searchQuery.toLowerCase()+"%' OR " +
                 "LOWER("+ PokemonDBHelper.COL_NAME_ROMAJI+") LIKE '%"+searchQuery.toLowerCase()+"%' OR " +
@@ -108,7 +108,7 @@ public class SearchResultsActivity extends AppCompatActivity {
         while (!cursor.isAfterLast()) {
             int pokedexNumber = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_POKEDEX_NATIONAL));
             if (TextUtils.isDigitsOnly(searchQuery)) {
-                String formattedId = InfoUtils.formatPokemonId(pokedexNumber);
+                String formattedId = DataUtilsKt.formatPokemonId(pokedexNumber);
                 if (formattedId.contains(searchQuery)) {
                     MiniPokemon pokemon = new MiniPokemon(cursor);
                     mArrayPokemon.add(pokemon);
