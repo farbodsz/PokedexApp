@@ -11,7 +11,7 @@ public class LocationAreasDBHelper extends SQLiteOpenHelper {
     /* General Database and Table information */
     private static final String DATABASE_NAME = "location_areas.db";
     public static final String TABLE_NAME = "location_areas";
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 10;
 
     /* All Column Names */
     public static final String COL_ID = "id";

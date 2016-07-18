@@ -21,7 +21,7 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "pokemon.db";
     public static final String TABLE_NAME = "pokemon";
-    public static final int DATABASE_VERSION = 7;
+    public static final int DATABASE_VERSION = 10;
 
     /*
      * All Column Names
