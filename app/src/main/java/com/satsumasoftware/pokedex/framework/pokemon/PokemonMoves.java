@@ -12,7 +12,6 @@ public class PokemonMoves {
 
     private Context mContext;
     private int mPokemonId, mVersionGroupId, mPokemonMoveMethodId;
-    private ArrayList<Integer> mMoveIds, mLevels, mOrders;
 
     private ArrayList<PokemonMove> mPokemonMoves;
 
@@ -38,9 +37,6 @@ public class PokemonMoves {
     }
 
     private void findValues() {
-        ArrayList<Integer> moveIds = new ArrayList<>();
-        ArrayList<Integer> levels = new ArrayList<>();
-        ArrayList<Integer> orders = new ArrayList<>();
         ArrayList<PokemonMove> pokemonMoves = new ArrayList<>();
 
         PokeDB pokeDB = new PokeDB(mContext);
@@ -55,22 +51,12 @@ public class PokemonMoves {
                 null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            int moveId = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_MOVE_ID));
-            int level = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_LEVEL));
-            int order = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_ORDER));
-            pokemonMoves.add(new PokemonMove(moveId, level, order));
-            //moveIds.add(moveId);
-            //levels.add(level);
-            //orders.add(order);
+            pokemonMoves.add(new PokemonMove(cursor));
             cursor.moveToNext();
         }
         cursor.close();
 
         mPokemonMoves = pokemonMoves;
-
-        //mMoveIds = moveIds;
-        //mLevels = levels;
-        //mOrders = orders;
     }
 
 
@@ -86,20 +72,6 @@ public class PokemonMoves {
         return mVersionGroupId;
     }
 
-    /*
-    public ArrayList<Integer> getMoveIds() {
-        return mMoveIds;
-    }
-
-    public ArrayList<Integer> getLevels() {
-        return mLevels;
-    }
-
-    public ArrayList<Integer> getOrderNumbers() {
-        return mOrders;
-    }
-    */
-
     public ArrayList<PokemonMove> getPokemonMoves() {
         return mPokemonMoves;
     }
@@ -113,6 +85,12 @@ public class PokemonMoves {
             mMoveId = moveId;
             mLevel = level;
             mOrderNumber = orderNumber;
+        }
+
+        public PokemonMove(Cursor cursor) {
+            mMoveId = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_MOVE_ID));
+            mLevel = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_LEVEL));
+            mOrderNumber = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_ORDER));
         }
 
         public int getMoveId() {
@@ -134,7 +112,5 @@ public class PokemonMoves {
         public boolean hasLearnLevel() {
             return mLevel != 0; // TODO FIXME is -1 the correct number
         }
-
     }
-
 }
