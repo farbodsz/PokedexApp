@@ -8,13 +8,19 @@
     <string-array name="usage_tips">
         <item>Tap on details in the Pokémon detail page to view more information</item>
 
-        <item>You can change the colour of the Pokémon detail screen in Settings</item>
-
         <item>Swipe from right to left in the Pokédex to filter (or click the filter icon)</item>
 
         <item>Buy the Pro version to compare Pokémon, make a Favourites list, filter and search, and more!</item>
 
         <item>Long press a Pokémon in the list for quick actions</item>
+
+        <item>Want to help us translate this app into your language? Go to the About page for details</item>
+
+        <item>Try searching for Charizard in a different language (how about searching 'Glurak'?)</item>
+
+        <item>Email us your ideas and suggestions. See the About page for more details</item>
+
+        <item>You can change the colour of the Pokémon detail screen in Settings</item>
 
         <item>Looking for Pokémon images? Go to Settings and check \"Enable Pokémon images\"</item>
 
