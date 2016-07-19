@@ -14,7 +14,6 @@ import com.satsumasoftware.pokedex.framework.move.MiniMove;
 import com.satsumasoftware.pokedex.framework.move.Move;
 import com.satsumasoftware.pokedex.ui.filter.FilterResultsActivity;
 import com.satsumasoftware.pokedex.util.AlertUtils;
-import com.satsumasoftware.pokedex.util.DataUtils;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
 import com.satsumasoftware.pokedex.util.ThemeUtils;
@@ -64,7 +63,7 @@ public class MoveDetailActivity extends AppCompatActivity {
 
         tvDescription.setText(mMove.getEffectProse(this, true));
 
-        tvType.setText(DataUtils.typeIdToString(mMove.getTypeId()));
+        tvType.setText(DataUtilsKt.typeIdToName(mMove.getTypeId()));
         tvType.setBackgroundResource(ThemeUtils.getTypeBkgdColorRes(mMove.getTypeId()));
 
         setCategoryInfo();

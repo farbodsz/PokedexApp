@@ -27,7 +27,7 @@ import com.satsumasoftware.pokedex.ui.adapter.LocationDexAdapter;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
-import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
 
 import java.util.ArrayList;
@@ -193,7 +193,7 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
     public void onFilterItemClick(View view, int position, String text, boolean isChecked, View itemView) {
         switch (itemView.getId()) {
             case R.id.filterDrawer_llLocRegions_content:
-                String regionQuery = "(" + LocationsDBHelper.COL_REGION_ID + "=\"" + DataUtils.regionToId(text) + "\")";
+                String regionQuery = "(" + LocationsDBHelper.COL_REGION_ID + "=\"" + DataUtilsKt.regionNameToId(text) + "\")";
                 mFilterSelectionRegion = reformatFilterSelection(mFilterSelectionRegion);
                 if (isChecked) {
                     mFilterSelectionRegion = mFilterSelectionRegion + regionQuery;

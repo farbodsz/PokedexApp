@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
-import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.ThemeUtils;
 
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class PkmnTypeDetailActivity extends AppCompatActivity {
         double normalT = 1, fightingT = 1, flyingT = 1, poisonT = 1, groundT = 1, rockT = 1, bugT = 1, ghostT = 1, steelT = 1,
                 fireT = 1, waterT = 1, grassT = 1, electrT = 1, psychicT = 1, iceT = 1, dragonT = 1, darkT = 1, fairyT = 1;
 
-        switch (DataUtils.typeIdToString(mTypeIds.get(1)).toLowerCase()) {
+        switch (DataUtilsKt.typeIdToName(mTypeIds.get(1)).toLowerCase()) {
             case "normal":
                 fighting1 = 2; // Fighting against normal is super effective (i.e. it is mArrayWeak to it)
                 ghost1 = 0;
@@ -210,7 +210,7 @@ public class PkmnTypeDetailActivity extends AppCompatActivity {
 
         int type2Id = mTypeIds.get(2);
         if (Pokemon.hasSecondaryType(type2Id)) {
-            switch (DataUtils.typeIdToString(type2Id).toLowerCase()) {
+            switch (DataUtilsKt.typeIdToName(type2Id).toLowerCase()) {
                 case "normal":
                     fighting2 = 2; // Fighting against normal is super effective (i.e. it is mArrayWeak to it)
                     ghost2 = 0;

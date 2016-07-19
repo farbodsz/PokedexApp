@@ -21,7 +21,6 @@ import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.ui.PkmnImageActivity;
 import com.satsumasoftware.pokedex.ui.dialog.PkmnTypeDetailActivity;
 import com.satsumasoftware.pokedex.util.ActionUtils;
-import com.satsumasoftware.pokedex.util.DataUtils;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 import com.satsumasoftware.pokedex.util.ThemeUtils;
@@ -293,7 +292,7 @@ public class PokemonCompareDetail implements DetailCard {
                 maleTexts[i].setTextColor(ContextCompat.getColor(context, R.color.mdu_text_black_secondary));
                 progressBars[i].setProgressDrawable(ContextCompat.getDrawable(context, R.drawable.progress_gender_neutral));
             } else {
-                double genderMale = DataUtils.maleFromGenderRate(genderRateId);
+                double genderMale = DataUtilsKt.maleFromGenderRate(genderRateId);
                 double genderFemale = 100.0 - genderMale;
                 progressBars[i].setProgress((int) genderMale);
                 maleTexts[i].setText(Html.fromHtml("<i><b>Male: </b>" + genderMale + "%</i>"));

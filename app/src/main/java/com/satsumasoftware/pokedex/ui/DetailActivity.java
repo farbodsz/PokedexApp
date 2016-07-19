@@ -60,7 +60,6 @@ import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
 import com.satsumasoftware.pokedex.util.AppConfig;
-import com.satsumasoftware.pokedex.util.DataUtils;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.FavoriteUtils;
 import com.satsumasoftware.pokedex.util.Flavours;
@@ -477,9 +476,9 @@ public class DetailActivity extends AppCompatActivity {
             values.add(sPokemon.getGenera().get("en") + " Pok\u00E9mon");
             values.add(Pokemon.isFormMega(sPokemon.getFormSpecificValues()));
 
-            values.add(DataUtils.typeIdToString(sPkmnTypeIds.get(1)));
+            values.add(DataUtilsKt.typeIdToName(sPkmnTypeIds.get(1)));
             boolean hasSecondaryType = Pokemon.hasSecondaryType(sPkmnTypeIds);
-            values.add(hasSecondaryType ? DataUtils.typeIdToString(sPkmnTypeIds.get(2)) : null);
+            values.add(hasSecondaryType ? DataUtilsKt.typeIdToName(sPkmnTypeIds.get(2)) : null);
             values.add(hasSecondaryType);
 
             return new PokemonDetail(values);
@@ -491,7 +490,7 @@ public class DetailActivity extends AppCompatActivity {
             SparseArray<MiniAbility> abilities = new SparseArray<>(3);
             for (int i = 1; i < abilityIds.size() + 1; i++) {
                 int id = abilityIds.get(i);
-                MiniAbility miniAbility = (id == DataUtils.NULL_INT) ?
+                MiniAbility miniAbility = (id == DataUtilsKt.NULL_INT) ?
                         null : new MiniAbility(getActivity(), id);
                 abilities.put(i, miniAbility);
             }
@@ -565,7 +564,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
             properties.add(res.getString(R.string.attr_colour));
-            final String color = DataUtils.colorIdToString(Pokemon.getColorId(sPkmnPhysicalAttrs));
+            final String color = DataUtilsKt.colorIdToName(Pokemon.getColorId(sPkmnPhysicalAttrs));
             values.add(color);
             listeners.add(new View.OnClickListener() {
                 @Override
@@ -577,14 +576,14 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
             properties.add(res.getString(R.string.attr_shape));
-            values.add(DataUtils.shapeIdToString(Pokemon.getShapeId(sPkmnPhysicalAttrs), true) +
-                    " (" + DataUtils.shapeIdToString(Pokemon.getShapeId(sPkmnPhysicalAttrs), false) + ")");
+            values.add(DataUtilsKt.shapeIdToName(Pokemon.getShapeId(sPkmnPhysicalAttrs), true) +
+                    " (" + DataUtilsKt.shapeIdToName(Pokemon.getShapeId(sPkmnPhysicalAttrs), false) + ")");
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_SHAPE);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, DataUtils.shapeIdToString(Pokemon.getShapeId(sPkmnPhysicalAttrs), false));
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, DataUtilsKt.shapeIdToName(Pokemon.getShapeId(sPkmnPhysicalAttrs), false));
                     startActivity(intent);
                 }
             });
@@ -658,7 +657,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
             properties.add(res.getString(R.string.attr_exp_growth_abbr));
-            final String exp = String.valueOf(DataUtils.maxExpFromGrowthId(Pokemon.getGrowthRateId(trainingValues)));
+            final String exp = String.valueOf(DataUtilsKt.growthIdGetMaxExp(Pokemon.getGrowthRateId(trainingValues)));
             values.add(exp);
             listeners.add(new View.OnClickListener() {
                 @Override
@@ -702,7 +701,7 @@ public class DetailActivity extends AppCompatActivity {
                     continue;
                 }
 
-                properties.add(DataUtils.getPokedexNameFromId(id));
+                properties.add(DataUtilsKt.pokedexIdToName(id));
                 values.add(DataUtilsKt.formatPokemonId(pokedexValues.get(pokedexKey)));
                 listeners.add(new View.OnClickListener() {
                     @Override
@@ -767,7 +766,7 @@ public class DetailActivity extends AppCompatActivity {
 
             if (Pokemon.hasHabitatInfo(moreValues)) {
                 properties.add(res.getString(R.string.attr_habitat));
-                final String habitat = DataUtils.habitatIdToString(Pokemon.getHabitatId(moreValues));
+                final String habitat = DataUtilsKt.habitatIdToName(Pokemon.getHabitatId(moreValues));
                 values.add(habitat);
                 listeners.add(new View.OnClickListener() {
                     @Override
