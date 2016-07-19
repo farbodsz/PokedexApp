@@ -14,6 +14,7 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.encounter.CompactEncounterDataHolder;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.ui.DetailActivity;
+import com.satsumasoftware.pokedex.util.PrefUtils;
 
 public class LocationDetail implements DetailCard {
 
@@ -43,7 +44,11 @@ public class LocationDetail implements DetailCard {
             final MiniPokemon pokemonObject = new MiniPokemon(context, compactHolder.getPokemonId());
 
             ImageView imageView = (ImageView) row.findViewById(R.id.imageView);
-            pokemonObject.setPokemonImage(imageView);
+            if (PrefUtils.showPokemonImages(context)) {
+                pokemonObject.setPokemonImage(imageView);
+            } else {
+                imageView.setVisibility(View.GONE);
+            }
 
             TextView pokemon = (TextView) row.findViewById(R.id.text1);
             pokemon.setText(pokemonObject.getName());

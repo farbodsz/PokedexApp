@@ -15,6 +15,7 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
+import com.satsumasoftware.pokedex.util.PrefUtils;
 
 import java.util.ArrayList;
 
@@ -72,7 +73,11 @@ public class EvolutionsAdapter extends RecyclerView.Adapter<EvolutionsAdapter.Ev
 
         boolean sameAsCurrent = pokemon.getId() == mCurrentPokemon.getId();
 
-        pokemon.setPokemonImage(holder.imageView);
+        if (PrefUtils.showPokemonImages(mContext)) {
+            pokemon.setPokemonImage(holder.imageView);
+        } else {
+            holder.imageView.setVisibility(View.GONE);
+        }
 
         String name = pokemon.getFormAndPokemonName();
         holder.text1.setText(sameAsCurrent ? Html.fromHtml("<b>" + name + "</b>") : name);
