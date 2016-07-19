@@ -75,9 +75,9 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 mFilterName = FilterResultsActivity.FILTER_HAPPINESS;
                 break;
             case PROPERTY_LEVELLING_RATE:
-                title = DataUtilsKt.growthAbbrToFullName(mValue);
+                title = mValue;
                 propertyName = res.getString(R.string.attr_levelling_rate);
-                description = res.getString(R.string.description_levelling, DataUtilsKt.growthAbbrToFullName(mValue));
+                description = res.getString(R.string.description_levelling, mValue);
                 mFilterName = FilterResultsActivity.FILTER_GROWTH;
                 break;
             case PROPERTY_EXP:
