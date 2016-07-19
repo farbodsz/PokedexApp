@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.nature.MiniNature;
 import com.satsumasoftware.pokedex.framework.nature.Nature;
-import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
 public class NatureDetailActivity extends AppCompatActivity {
 
@@ -31,7 +31,7 @@ public class NatureDetailActivity extends AppCompatActivity {
         TextView tvStatDecreased = (TextView) findViewById(R.id.natureDecreasedStat);
 
         tvNature.setText(nature.getName());
-        tvStatIncreased.setText(DataUtils.getStatFromId(nature.getIncreasedStatId()));
-        tvStatDecreased.setText(DataUtils.getStatFromId(nature.getDecreasedStatId()));
+        tvStatIncreased.setText(DataUtilsKt.pokemonStatIdToName(nature.getIncreasedStatId()));
+        tvStatDecreased.setText(DataUtilsKt.pokemonStatIdToName(nature.getDecreasedStatId()));
     }
 }

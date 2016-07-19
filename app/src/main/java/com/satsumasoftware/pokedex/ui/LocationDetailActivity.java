@@ -29,7 +29,7 @@ import com.satsumasoftware.pokedex.framework.location.LocationArea;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.ui.card.DetailCard;
 import com.satsumasoftware.pokedex.ui.card.LocationDetail;
-import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -67,7 +67,7 @@ public class LocationDetailActivity extends AppCompatActivity {
 
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle(mLocation.getName());
-        getSupportActionBar().setSubtitle(DataUtils.regionIdToString(mLocation.getRegionId()));
+        getSupportActionBar().setSubtitle(DataUtilsKt.regionIdToName(mLocation.getRegionId()));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mTabLayout = (TabLayout) findViewById(R.id.locationDetail_tabs);

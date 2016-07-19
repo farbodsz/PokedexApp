@@ -29,9 +29,8 @@ import com.satsumasoftware.pokedex.ui.dialog.MoveDetailActivity;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
-import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
-import com.satsumasoftware.pokedex.util.InfoUtils;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 
 import java.util.ArrayList;
@@ -243,7 +242,7 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
     public void onFilterItemClick(View view, int position, String text, boolean isChecked, View itemView) {
         switch (itemView.getId()) {
             case R.id.filterDrawer_llType_content:
-                String typeQuery = "(" + MovesDBHelper.COL_TYPE_ID + "=\"" + DataUtils.typeToId(text) + "\")";
+                String typeQuery = "(" + MovesDBHelper.COL_TYPE_ID + "=\"" + DataUtilsKt.typeNameToId(text) + "\")";
                 mFilterSelectionType = reformatFilterSelection(mFilterSelectionType);
                 if (isChecked) {
                     mFilterSelectionType = mFilterSelectionType + typeQuery;
@@ -260,7 +259,7 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
 
             case R.id.filterDrawer_llGen_content:
                 String genQuery = "(" + MovesDBHelper.COL_GENERATION_ID + "=\"" +
-                        InfoUtils.getGenFromRoman(text) + "\")";
+                        DataUtilsKt.romanToGenId(text) + "\")";
                 mFilterSelectionGen = reformatFilterSelection(mFilterSelectionGen);
                 if (isChecked) {
                     mFilterSelectionGen = mFilterSelectionGen + genQuery;

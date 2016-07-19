@@ -26,8 +26,8 @@ import com.satsumasoftware.pokedex.ui.dialog.AbilityDetailActivity;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
-import com.satsumasoftware.pokedex.util.InfoUtils;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 
 import java.util.ArrayList;
@@ -241,7 +241,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
 
             case R.id.filterDrawer_llGen_content:
                 String genQuery = "(" + AbilitiesDBHelper.COL_GENERATION_ID + "=\"" +
-                        InfoUtils.getGenFromRoman(text) + "\")";
+                        DataUtilsKt.romanToGenId(text) + "\")";
                 mFilterSelectionGen = reformatFilterSelection(mFilterSelectionGen);
                 if (isChecked) {
                     mFilterSelectionGen = mFilterSelectionGen + genQuery;

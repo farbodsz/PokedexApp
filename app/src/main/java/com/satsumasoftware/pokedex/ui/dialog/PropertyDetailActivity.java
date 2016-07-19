@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.ui.filter.FilterResultsActivity;
-import com.satsumasoftware.pokedex.util.InfoUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
 public class PropertyDetailActivity extends AppCompatActivity {
 
@@ -75,9 +75,9 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 mFilterName = FilterResultsActivity.FILTER_HAPPINESS;
                 break;
             case PROPERTY_LEVELLING_RATE:
-                title = InfoUtils.getGrowthFromAbbreviation(mValue);
+                title = DataUtilsKt.growthAbbrToFullName(mValue);
                 propertyName = res.getString(R.string.attr_levelling_rate);
-                description = res.getString(R.string.description_levelling, InfoUtils.getGrowthFromAbbreviation(mValue));
+                description = res.getString(R.string.description_levelling, DataUtilsKt.growthAbbrToFullName(mValue));
                 mFilterName = FilterResultsActivity.FILTER_GROWTH;
                 break;
             case PROPERTY_EXP:
@@ -111,7 +111,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 break;
             case PROPERTY_SHAPE:
                 propertyName = res.getString(R.string.attr_shape);
-                description = res.getString(R.string.description_shape, mValue, InfoUtils.getTechnicalShapeFromSimple(mValue));
+                description = res.getString(R.string.description_shape, mValue, DataUtilsKt.getTechnicalShapeFromSimple(mValue));
                 mFilterName = FilterResultsActivity.FILTER_SHAPE;
                 break;
             case PROPERTY_HABITAT:

@@ -5,7 +5,7 @@ import android.database.Cursor;
 
 import com.satsumasoftware.pokedex.db.MovesDBHelper;
 import com.satsumasoftware.pokedex.db.PokeDB;
-import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -81,7 +81,7 @@ public class Move extends BaseMove {
     }
 
     public boolean hasPower() {
-        return mPower != DataUtils.NULL_INT;
+        return mPower != DataUtilsKt.NULL_INT;
     }
 
     public int getPower() {
@@ -93,7 +93,7 @@ public class Move extends BaseMove {
     }
 
     public boolean hasAccuracy() {
-        return mAccuracy != DataUtils.NULL_INT;
+        return mAccuracy != DataUtilsKt.NULL_INT;
     }
 
     public int getAccuracy() {
@@ -117,7 +117,7 @@ public class Move extends BaseMove {
     }
 
     public boolean hasEffectChance() {
-        return mEffectChance != DataUtils.NULL_INT;
+        return mEffectChance != DataUtilsKt.NULL_INT;
     }
 
     public int getEffectChance() {
@@ -125,7 +125,7 @@ public class Move extends BaseMove {
     }
 
     public boolean hasContestType() {
-        return mContestTypeId != DataUtils.NULL_INT;
+        return mContestTypeId != DataUtilsKt.NULL_INT;
     }
 
     public int getContestTypeId() {
@@ -133,7 +133,7 @@ public class Move extends BaseMove {
     }
 
     public boolean hasContestEffect() {
-        return mContestEffectId != DataUtils.NULL_INT;
+        return mContestEffectId != DataUtilsKt.NULL_INT;
     }
 
     public int getContestEffectId() {
@@ -141,7 +141,7 @@ public class Move extends BaseMove {
     }
 
     public boolean hasSuperContestEffect() {
-        return mSuperContestEffectId != DataUtils.NULL_INT;
+        return mSuperContestEffectId != DataUtilsKt.NULL_INT;
     }
 
     public int getSuperContestEffectId() {

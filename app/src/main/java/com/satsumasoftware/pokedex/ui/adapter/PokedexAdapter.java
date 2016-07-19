@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
-import com.satsumasoftware.pokedex.util.InfoUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.PokedexV
     public void onBindViewHolder(PokedexViewHolder holder, int position) {
         MiniPokemon thisPokemon = mArrayPokemon.get(position);
 
-        holder.tvId.setText(InfoUtils.formatPokemonId(thisPokemon.getNationalDexNumber()));
+        holder.tvId.setText(DataUtilsKt.formatPokemonId(thisPokemon.getNationalDexNumber()));
 
         if (PrefUtils.combinePokemonNameInPokedex(mContext)) {
             holder.tvName.setText(thisPokemon.getFormAndPokemonName());

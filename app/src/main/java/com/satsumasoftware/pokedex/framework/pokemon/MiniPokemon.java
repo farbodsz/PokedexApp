@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.util.ActionUtils;
-import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
 public class MiniPokemon extends BasePokemon implements Parcelable {
 
@@ -86,7 +86,7 @@ public class MiniPokemon extends BasePokemon implements Parcelable {
     }
 
     public boolean hasAddedAltDexInfo() {
-        return mAltDexNumber != DataUtils.NULL_INT;
+        return mAltDexNumber != DataUtilsKt.NULL_INT;
     }
 
     public int getAlternateDexId() {

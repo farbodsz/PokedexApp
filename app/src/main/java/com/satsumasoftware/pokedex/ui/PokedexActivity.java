@@ -34,8 +34,8 @@ import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
-import com.satsumasoftware.pokedex.util.InfoUtils;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 
 import java.util.ArrayList;
@@ -274,8 +274,8 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
     public void onFilterItemClick(View view, int position, String text, boolean isChecked, View itemView) {
         switch (itemView.getId()) {
             case R.id.filterDrawer_llType_content:
-                String typeQuery = "((" + PokemonDBHelper.COL_TYPE_1_ID + "=\"" + InfoUtils.typeToId(text) + "\") OR " +
-                        "(" + PokemonDBHelper.COL_TYPE_2_ID + "=\"" + InfoUtils.typeToId(text) + "\"))";
+                String typeQuery = "((" + PokemonDBHelper.COL_TYPE_1_ID + "=\"" + DataUtilsKt.typeNameToId(text) + "\") OR " +
+                        "(" + PokemonDBHelper.COL_TYPE_2_ID + "=\"" + DataUtilsKt.typeNameToId(text) + "\"))";
                 mFilterSelectionType = reformatFilterSelection(mFilterSelectionType);
                 if (isChecked) {
                     mFilterSelectionType = mFilterSelectionType + typeQuery;
@@ -292,7 +292,7 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
 
             case R.id.filterDrawer_llGrowth_content:
                 String growthQuery = "(" + PokemonDBHelper.COL_GROWTH_RATE_ID + "=\"" +
-                        InfoUtils.growthToId(text) + "\")";
+                        DataUtilsKt.growthNameToId(text) + "\")";
                 mFilterSelectionGrowth = reformatFilterSelection(mFilterSelectionGrowth);
                 if (isChecked) {
                     mFilterSelectionGrowth = mFilterSelectionGrowth + growthQuery;
@@ -310,7 +310,7 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
 
             case R.id.filterDrawer_llGen_content:
                 String genQuery = "(" + PokemonDBHelper.COL_GENERATION_ID + "=\"" +
-                        InfoUtils.getGenFromRoman(text) + "\")";
+                        DataUtilsKt.romanToGenId(text) + "\")";
                 mFilterSelectionGen = reformatFilterSelection(mFilterSelectionGen);
                 if (isChecked) {
                     mFilterSelectionGen = mFilterSelectionGen + genQuery;
