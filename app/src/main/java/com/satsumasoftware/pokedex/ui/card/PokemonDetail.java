@@ -22,7 +22,7 @@ import com.satsumasoftware.pokedex.ui.dialog.PkmnTypeDetailActivity;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.PrefUtils;
-import com.satsumasoftware.pokedex.util.ThemeUtils;
+import com.satsumasoftware.pokedex.util.ThemeUtilsKt;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -190,7 +190,7 @@ public class PokemonDetail implements DetailCard {
         String type1 = (String) mValues.get(4);
         type1View.setText(type1);
         type1View.setOnClickListener(typeClickListener);
-        type1View.setBackgroundResource(ThemeUtils.getTypeBkgdColorRes(type1));
+        type1View.setBackgroundResource(ThemeUtilsKt.getTypeBkgdColorRes(type1));
         type1View.setTextColor(ContextCompat.getColor(context, R.color.mdu_text_white));
 
         boolean hasSecondaryType = (Boolean) mValues.get(6);
@@ -200,7 +200,7 @@ public class PokemonDetail implements DetailCard {
             String type2 = (String) mValues.get(5);
             type2View.setText(type2);
             type2View.setOnClickListener(typeClickListener);
-            type2View.setBackgroundResource(ThemeUtils.getTypeBkgdColorRes(type2));
+            type2View.setBackgroundResource(ThemeUtilsKt.getTypeBkgdColorRes(type2));
             type2View.setTextColor(ContextCompat.getColor(context, R.color.mdu_text_white));
         }
 
