@@ -64,7 +64,7 @@ import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.FavoriteUtils;
 import com.satsumasoftware.pokedex.util.Flavours;
 import com.satsumasoftware.pokedex.util.PrefUtils;
-import com.satsumasoftware.pokedex.util.ThemeUtils;
+import com.satsumasoftware.pokedex.util.ThemeUtilsKt;
 import com.satsuware.usefulviews.LabelledSpinner;
 
 import java.lang.reflect.Array;
@@ -113,10 +113,10 @@ public class DetailActivity extends AppCompatActivity {
                 // Do nothing
                 break;
             case PrefUtils.PREF_DETAIL_COLORING_VALUE_TYPE:
-                ThemeUtils.colourDetailByType(this, sPkmnTypeIds.get(1));
+                ThemeUtilsKt.colourDetailByType(this, sPkmnTypeIds.get(1));
                 break;
             case PrefUtils.PREF_DETAIL_COLORING_VALUE_COLOUR:
-                ThemeUtils.colourDetailByColour(this, Pokemon.getColorId(sPkmnPhysicalAttrs));
+                ThemeUtilsKt.colourDetailByColour(this, Pokemon.getColorId(sPkmnPhysicalAttrs));
                 break;
         }
         setContentView(R.layout.activity_detail);

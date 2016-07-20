@@ -14,7 +14,7 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
-import com.satsumasoftware.pokedex.util.ThemeUtils;
+import com.satsumasoftware.pokedex.util.ThemeUtilsKt;
 
 import java.util.ArrayList;
 
@@ -475,7 +475,7 @@ public class PkmnTypeDetailActivity extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
                 TextView thisItem = (TextView) view.findViewById(R.id.lv_compressed_text1);
                 String thisType = thisItem.getText().toString();
-                thisItem.setBackgroundColor(getResources().getColor(ThemeUtils.getTypeBkgdColorRes(thisType)));
+                thisItem.setBackgroundColor(getResources().getColor(ThemeUtilsKt.getTypeBkgdColorRes(thisType)));
                 return view;
             }
         };
@@ -485,7 +485,7 @@ public class PkmnTypeDetailActivity extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
                 TextView thisItem = (TextView) view.findViewById(R.id.lv_compressed_text1);
                 String thisType = thisItem.getText().toString();
-                thisItem.setBackgroundColor(getResources().getColor(ThemeUtils.getTypeBkgdColorRes(thisType)));
+                thisItem.setBackgroundColor(getResources().getColor(ThemeUtilsKt.getTypeBkgdColorRes(thisType)));
                 return view;
             }
         };
@@ -495,7 +495,7 @@ public class PkmnTypeDetailActivity extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
                 TextView thisItem = (TextView) view.findViewById(R.id.lv_compressed_text1);
                 String thisType = thisItem.getText().toString();
-                thisItem.setBackgroundColor(getResources().getColor(ThemeUtils.getTypeBkgdColorRes(thisType)));
+                thisItem.setBackgroundColor(getResources().getColor(ThemeUtilsKt.getTypeBkgdColorRes(thisType)));
                 return view;
             }
         };
