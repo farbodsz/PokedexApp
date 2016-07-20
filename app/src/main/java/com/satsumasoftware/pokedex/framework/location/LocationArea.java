@@ -65,12 +65,7 @@ public class LocationArea {
 
         ArrayList<Encounter> encounters = new ArrayList<>(cursor.getCount());
         while (!cursor.isAfterLast()) {
-            int encounterId = cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_ID));
-            int encounterSlotId = cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_ENCOUNTER_SLOT_ID));
-            int pokemonId = cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_POKEMON_ID));
-            int minLevel = cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_MIN_LEVEL));
-            int maxLevel = cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_MAX_LEVEL));
-            encounters.add(new Encounter(encounterId, versionId, mId, encounterSlotId, pokemonId, minLevel, maxLevel));
+            encounters.add(new Encounter(cursor));
             cursor.moveToNext();
         }
         cursor.close();
