@@ -9,8 +9,8 @@ android {
         applicationId "com.phoenixenterprise.pokedex"
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 403
-        versionName "4.0.3"
+        versionCode 404
+        versionName "4.0.4"
 
         vectorDrawables.useSupportLibrary = true
     }
@@ -23,10 +23,10 @@ android {
     }
     productFlavors {
         freeFlavour {
-            applicationId "com.phoenixenterprise.pokedex.free"
+            applicationId "com.satsumasoftware.pokedex.free"
         }
         paidFlavour {
-            applicationId "com.phoenixenterprise.pokedex"
+            applicationId "com.satsumasoftware.pokedex"
         }
     }
 }
