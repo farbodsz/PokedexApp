@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name" translatable="false">Pokédex Free</string>
+    <string name="app_name" translatable="false">PokéData Free</string>
 
     <string name="title_activity_splash" translatable="false">@string/app_name</string>
     <string name="title_activity_welcome" translatable="false">@string/app_name</string>
