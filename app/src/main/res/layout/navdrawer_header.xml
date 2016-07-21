@@ -11,13 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="24dp" />
 
-    <ImageView
-        android:id="@+id/navdrawer_image"
-        android:src="@drawable/nav_image"
-        android:contentDescription="@string/img_desc_banner"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="135dp" />
+        android:layout_height="135dp">
+
+        <View
+            android:background="@color/theme_primary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/img_desc_banner"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center_horizontal"
+            android:adjustViewBounds="true"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </FrameLayout>
 
 </LinearLayout>
