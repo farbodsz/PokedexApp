@@ -38,12 +38,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
+import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonForm;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonMoves;
+import com.satsumasoftware.pokedex.framework.version.VersionGroup;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.EvolutionsAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsTileAdapter;
@@ -1020,7 +1022,7 @@ public class DetailActivity extends AppCompatActivity {
 
         private View mRootView;
 
-        private String mLearnMethod, mGameVersion;
+        private String mLearnMethod;
 
         private LinearLayout mContainer;
         private Button mSubmitButton;
@@ -1028,8 +1030,10 @@ public class DetailActivity extends AppCompatActivity {
 
         private ArrayList<String> mArrayMethodTitles = new ArrayList<>();
         private ArrayList<Integer> mArrayMethodTypes = new ArrayList<>();
-        private ArrayList<String> mArrayGameTitles;
-        private ArrayList<Integer> mArrayGameTypes = new ArrayList<>();
+
+        private ArrayList<VersionGroup> mVersionGroups;
+        private ArrayList<String> mVersionGroupNames;
+        private int mVGroupListPos;
 
         private AsyncTask<Void, Integer, Void> mAsyncTask;
 
@@ -1052,28 +1056,33 @@ public class DetailActivity extends AppCompatActivity {
             mArrayMethodTypes.add(AppConfig.LEARN_METHOD_MACHINE);
             mArrayMethodTypes.add(AppConfig.LEARN_METHOD_TUTOR);
 
-            mArrayGameTitles = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.game_versions)));
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_RED_BLUE);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_YELLOW);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_GOLD_SILVER);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_CRYSTAL);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_RUBY_SAPPHIRE);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_EMERALD);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_FIRERED_LEAFGREEN);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_DIAMOND_PEARL);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_PLATINUM);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_HEARTGOLD_SOULSILVER);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_BLACK_WHITE);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_BLACK2_WHITE2);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_X_Y); // TODO: add only what is there (i.e. Yveltal would not have Diamond and Pearl game version info)
+            int genId = Pokemon.getGenerationId(sPokemon.getMoreValues());
+            mVersionGroups = new ArrayList<>();
+            mVersionGroupNames = new ArrayList<>();
+            PokeDB pokeDB = new PokeDB(getActivity());
+            Cursor cursor = pokeDB.getReadableDatabase().query(
+                    PokeDB.VersionGroups.TABLE_NAME,
+                    null,
+                    PokeDB.VersionGroups.COL_GENERATION_ID + ">=?",
+                    new String[] {String.valueOf(genId)},
+                    null, null, null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                VersionGroup versionGroup = new VersionGroup(cursor);
+                mVersionGroups.add(versionGroup);
+                mVersionGroupNames.add(versionGroup.fetchName(getActivity()));
+                cursor.moveToNext();
+            }
+            cursor.close();
+
 
             mSpinnerMethod = (LabelledSpinner) mRootView.findViewById(R.id.detailL_spinnerMethod);
             mSpinnerMethod.setItemsArray(mArrayMethodTitles);
             mSpinnerMethod.setSelection(0);
             mSpinnerMethod.setOnItemChosenListener(this);
             mSpinnerGame = (LabelledSpinner) mRootView.findViewById(R.id.detailL_spinnerGame);
-            mSpinnerGame.setItemsArray(R.array.game_versions);
-            mSpinnerGame.setSelection(mArrayGameTitles.size() - 1);
+            mSpinnerGame.setItemsArray(mVersionGroupNames);
+            mSpinnerGame.setSelection(mVersionGroups.size() - 1);
             mSpinnerGame.setOnItemChosenListener(this);
 
             mContainer = (LinearLayout) mRootView.findViewById(R.id.detailL_llContainer);
@@ -1113,12 +1122,11 @@ public class DetailActivity extends AppCompatActivity {
             final LinearLayout itemsContainer = (LinearLayout) card.findViewById(R.id.card_learnset_linearLayout);
 
             title.setText(mLearnMethod);
-            subtitle.setText("Pok\u00E9mon " + mGameVersion);
+            subtitle.setText("Pok\u00E9mon " + mVersionGroupNames.get(mVGroupListPos));
 
             int methodNoInList = mArrayMethodTitles.indexOf(mLearnMethod);
             final int learnMethod = mArrayMethodTypes.get(methodNoInList);
-            int gameNoInList = mArrayGameTitles.indexOf(mGameVersion);
-            final int gameVersion = mArrayGameTypes.get(gameNoInList);
+            final VersionGroup versionGroup = mVersionGroups.get(mVGroupListPos);
 
             mAsyncTask = new AsyncTask<Void, Integer, Void>() {
                 PokemonMovesVgAdapter adapter;
@@ -1131,7 +1139,8 @@ public class DetailActivity extends AppCompatActivity {
                 }
                 @Override
                 protected Void doInBackground(Void... params) {
-                    PokemonMoves learnset = new PokemonMoves(getActivity(), sPokemon, learnMethod);
+                    PokemonMoves learnset = new PokemonMoves(
+                            getActivity(), sPokemon.getId(), learnMethod, versionGroup.getId());
                     ArrayList<PokemonMoves.PokemonMove> arrayMoves = learnset.getPokemonMoves();
                     Collections.sort(arrayMoves, new Comparator<PokemonMoves.PokemonMove>() {
                         @Override
@@ -1183,7 +1192,7 @@ public class DetailActivity extends AppCompatActivity {
                     mLearnMethod = selected;
                     break;
                 case R.id.detailL_spinnerGame:
-                    mGameVersion = selected;
+                    mVGroupListPos = position;
                     break;
             }
         }
