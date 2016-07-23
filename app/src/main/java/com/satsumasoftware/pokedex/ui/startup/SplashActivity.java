@@ -12,7 +12,7 @@ import com.satsumasoftware.pokedex.util.PrefUtils;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static final int SLEEP_TIME = 700;
+    private static final int SLEEP_TIME = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
