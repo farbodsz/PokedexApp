@@ -22,6 +22,7 @@ import com.satsumasoftware.pokedex.db.NaturesDBHelper;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.util.DatabaseUtils;
 import com.satsumasoftware.pokedex.util.FavoriteUtils;
+import com.satsumasoftware.pokedex.util.PrefUtils;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -141,5 +142,11 @@ public class InitializeDbActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Toast.makeText(this, R.string.initialise_wait_prompt, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        PrefUtils.setTipsContinueFromIndex(this, mTipIndex);
     }
 }

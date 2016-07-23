@@ -21,4 +21,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"/>
+
+    <TextView
+        android:text="@string/tip_persistent_text"
+        android:textColor="@color/mdu_text_white_secondary"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp" />
+
+    <TextView
+        android:id="@+id/tip_text"
+        android:text="@string/tip_dummy"
+        android:textColor="@color/mdu_text_white"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/mdu_spacing_normal"
+        android:paddingLeft="@dimen/mdu_padding_normal"
+        android:paddingRight="@dimen/mdu_padding_normal"/>
+
 </LinearLayout>

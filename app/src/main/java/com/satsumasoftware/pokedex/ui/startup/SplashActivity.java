@@ -3,6 +3,7 @@ package com.satsumasoftware.pokedex.ui.startup;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.ui.PokedexActivity;
@@ -17,6 +18,13 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        TextView tipText = (TextView) findViewById(R.id.tip_text);
+        String[] tipsArray = getResources().getStringArray(R.array.usage_tips);
+
+        int index = PrefUtils.getTipsContinueFromIndex(this);
+        tipText.setText(tipsArray[index]);
+        PrefUtils.setTipsContinueFromIndex(this, index + 1);
 
         Thread timer = new Thread() {
             public void run() {
