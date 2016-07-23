@@ -74,19 +74,6 @@ fun growthIdToName(id: Int) = when (id) {
 }
 
 @Deprecated(deprecationUseDb)
-fun growthAbbrToFullName(abbreviation: String): String {
-    return when (abbreviation.toLowerCase()) {
-        "fl" -> "Fluctuating"
-        "s" -> "Slow"
-        "ms" -> "Medium Slow"
-        "mf" -> "Medium Fast"
-        "f" -> "Fast"
-        "e" -> "Erratic"
-        else -> throw IllegalArgumentException("invalid abbreviation '$abbreviation'")
-    }
-}
-
-@Deprecated(deprecationUseDb)
 fun growthIdGetMaxExp(growthRateId: Int) = when (growthRateId) {
     1 -> 1250000
     2 -> 1000000
