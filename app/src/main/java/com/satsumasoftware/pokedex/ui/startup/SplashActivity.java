@@ -24,7 +24,8 @@ public class SplashActivity extends AppCompatActivity {
 
         int index = PrefUtils.getTipsContinueFromIndex(this);
         tipText.setText(tipsArray[index]);
-        PrefUtils.setTipsContinueFromIndex(this, index + 1);
+        PrefUtils.setTipsContinueFromIndex(this,
+                index == tipsArray.length - 1 ? 0 : index + 1);
 
         Thread timer = new Thread() {
             public void run() {
