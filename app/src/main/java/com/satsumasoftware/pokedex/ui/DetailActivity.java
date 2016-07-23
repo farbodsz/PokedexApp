@@ -1090,6 +1090,15 @@ public class DetailActivity extends AppCompatActivity {
             });
         }
 
+        @Override
+        public void setUserVisibleHint(boolean isVisibleToUser) {
+            super.setUserVisibleHint(isVisibleToUser);
+            if (isVisibleToUser && getActivity() != null) {
+                // getActivity() can give NPE when using tab buttons instead of swiping
+                loadCard();
+            }
+        }
+
         private void loadCard() {
             mContainer.removeAllViews();
             mContainer.addView(makeCard());
