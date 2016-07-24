@@ -14,17 +14,9 @@ public class PokemonLearnset {
 
     private ArrayList<PokemonMove> mPokemonMoves;
 
-
-    public PokemonLearnset(Context context, MiniPokemon pokemon, int moveMethodId) {
-        this(context, pokemon.getId(), moveMethodId);
-    }
-
+    @Deprecated
     public PokemonLearnset(Context context, Pokemon pokemon, int moveMethodId) {
-        this(context, pokemon.getId(), moveMethodId);
-    }
-
-    public PokemonLearnset(Context context, int pokemonId, int moveMethodId) {
-        this(context, pokemonId, moveMethodId, 16);  // TODO replace with latest version / default from a settings option
+        this(context, pokemon.getId(), moveMethodId, 16);
     }
 
     public PokemonLearnset(Context context, int pokemonId, int moveMethodId, int versionGroupId) {
