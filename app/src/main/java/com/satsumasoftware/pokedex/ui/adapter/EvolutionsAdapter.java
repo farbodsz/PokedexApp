@@ -98,8 +98,8 @@ public class EvolutionsAdapter extends RecyclerView.Adapter<EvolutionsAdapter.Ev
                 case 2:
                     int tradeSpeciesId = evolutionData.getTradeSpeciesId();
                     evolutionMethod = (tradeSpeciesId == DataUtilsKt.NULL_INT) ?
-                            "Trade with " + new MiniPokemon(mContext, tradeSpeciesId, false).getName() :
-                            "Trade";
+                            "Trade" :
+                            "Trade with " + new MiniPokemon(mContext, tradeSpeciesId, false).getName();
                     break;
                 case 3:
                     evolutionMethod = "By item";
