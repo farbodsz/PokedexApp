@@ -7,17 +7,17 @@ import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.move.MiniMove;
-import com.satsumasoftware.pokedex.framework.pokemon.PokemonMoves;
+import com.satsumasoftware.pokedex.framework.pokemon.PokemonMove;
 
 import java.util.ArrayList;
 
 public class PokemonMovesVgAdapter {
 
     private ViewGroup mViewGroup;
-    private ArrayList<PokemonMoves.PokemonMove> mPokemonMoves;
+    private ArrayList<PokemonMove> mPokemonMoves;
     private Activity mActivity;
 
-    public PokemonMovesVgAdapter(Activity activity, ViewGroup viewGroup, ArrayList<PokemonMoves.PokemonMove> arrayEntries) {
+    public PokemonMovesVgAdapter(Activity activity, ViewGroup viewGroup, ArrayList<PokemonMove> arrayEntries) {
         mViewGroup = viewGroup;
         mActivity = activity;
         mPokemonMoves = arrayEntries;
@@ -38,7 +38,7 @@ public class PokemonMovesVgAdapter {
 
     private View makeListItem(final int position, ViewGroup container) {
         View view = mActivity.getLayoutInflater().inflate(R.layout.list_item_move, container, false);
-        PokemonMoves.PokemonMove pokemonMove = mPokemonMoves.get(position);
+        PokemonMove pokemonMove = mPokemonMoves.get(position);
 
         TextView level = (TextView) view.findViewById(R.id.text1);
         level.setText(pokemonMove.hasLearnLevel() ?
