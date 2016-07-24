@@ -1,7 +1,6 @@
 package com.satsumasoftware.pokedex.ui.adapter;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -11,11 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonEvolution;
-import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 
 import java.util.ArrayList;
@@ -86,24 +83,7 @@ public class EvolutionsAdapter extends RecyclerView.Adapter<EvolutionsAdapter.Ev
         if (evolutionData == null) {
             evolutionMethod = "Base form";
         } else {
-            // TODO get values via the database, for different languages (chosen in Settings)
-            switch (evolutionData.getEvolutionTriggerId()) {
-                case 1:
-                    evolutionMethod = "Lv. " + evolutionData.getMinimumLevel();
-                    break;
-                case 2:
-                    int tradeSpeciesId = evolutionData.getTradeSpeciesId();
-                    evolutionMethod = (tradeSpeciesId == DataUtilsKt.NULL_INT) ?
-                            "Trade" :
-                            "Trade with " + new MiniPokemon(mContext, tradeSpeciesId, false).getName();
-                    break;
-                case 3:
-                    evolutionMethod = "By item";
-                    break;
-                case 4:
-                    evolutionMethod = "By shed";
-                    break;
-            }
+            evolutionMethod = evolutionData.makeDescriptionText(mContext);
         }
 
         holder.text2.setText(evolutionMethod);

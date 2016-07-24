@@ -1,7 +1,9 @@
 package com.satsumasoftware.pokedex.framework.pokemon
 
+import android.content.Context
 import android.database.Cursor
 import com.satsumasoftware.pokedex.db.PokeDB
+import com.satsumasoftware.pokedex.util.NULL_INT
 
 data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutionTriggerId: Int,
                             val triggerItemId: Int, val minimumLevel: Int, val genderId: Int,
@@ -33,5 +35,30 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
             cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonEvolution.COL_TRADE_SPECIES_ID)),
             cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonEvolution.COL_NEEDS_OVERWORLD_RAIN)) == 1,
             cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonEvolution.COL_TURN_UPSIDE_DOWN)) == 1)
+
+
+    fun makeDescriptionText(context: Context): String {
+        // TODO get string values via the database for different langs
+
+        val description = StringBuilder()
+
+        when (evolutionTriggerId) {
+            1 -> {
+                val levelText = "Lv. " + minimumLevel
+                description.append(levelText)
+            }
+            2 -> {
+                val tradeText = if (tradeSpeciesId == NULL_INT)
+                    "Trade"
+                else
+                    "Trade with " + MiniPokemon(context, tradeSpeciesId, false).name
+                description.append(tradeText)
+            }
+            3 -> description.append("By item")
+            4 -> description.append("By shed")
+        }
+
+        return description.toString()
+    }
 
 }
