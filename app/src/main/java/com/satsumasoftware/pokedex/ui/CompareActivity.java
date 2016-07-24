@@ -35,7 +35,7 @@ import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonMove;
-import com.satsumasoftware.pokedex.framework.pokemon.PokemonMoves;
+import com.satsumasoftware.pokedex.framework.pokemon.PokemonLearnset;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesVgAdapter;
 import com.satsumasoftware.pokedex.ui.card.DetailCard;
@@ -823,7 +823,7 @@ public class CompareActivity extends AppCompatActivity {
                 }
                 @Override
                 protected Void doInBackground(Void... params) {
-                    PokemonMoves learnset = new PokemonMoves(getActivity(), pokemon, learnMethod);
+                    PokemonLearnset learnset = new PokemonLearnset(getActivity(), pokemon, learnMethod);
                     ArrayList<PokemonMove> arrayMoves = learnset.getPokemonMoves();
                     Collections.sort(arrayMoves, new Comparator<PokemonMove>() {
                         @Override

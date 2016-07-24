@@ -45,7 +45,7 @@ import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonForm;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonMove;
-import com.satsumasoftware.pokedex.framework.pokemon.PokemonMoves;
+import com.satsumasoftware.pokedex.framework.pokemon.PokemonLearnset;
 import com.satsumasoftware.pokedex.framework.version.VersionGroup;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.EvolutionsAdapter;
@@ -1141,7 +1141,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
                 @Override
                 protected Void doInBackground(Void... params) {
-                    PokemonMoves learnset = new PokemonMoves(
+                    PokemonLearnset learnset = new PokemonLearnset(
                             getActivity(), sPokemon.getId(), learnMethod, versionGroup.getId());
                     ArrayList<PokemonMove> arrayMoves = learnset.getPokemonMoves();
                     Collections.sort(arrayMoves, new Comparator<PokemonMove>() {

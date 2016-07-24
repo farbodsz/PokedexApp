@@ -7,7 +7,7 @@ import com.satsumasoftware.pokedex.db.PokeDB;
 
 import java.util.ArrayList;
 
-public class PokemonMoves {
+public class PokemonLearnset {
 
     private Context mContext;
     private int mPokemonId, mVersionGroupId, mPokemonMoveMethodId;
@@ -15,19 +15,19 @@ public class PokemonMoves {
     private ArrayList<PokemonMove> mPokemonMoves;
 
 
-    public PokemonMoves(Context context, MiniPokemon pokemon, int moveMethodId) {
+    public PokemonLearnset(Context context, MiniPokemon pokemon, int moveMethodId) {
         this(context, pokemon.getId(), moveMethodId);
     }
 
-    public PokemonMoves(Context context, Pokemon pokemon, int moveMethodId) {
+    public PokemonLearnset(Context context, Pokemon pokemon, int moveMethodId) {
         this(context, pokemon.getId(), moveMethodId);
     }
 
-    public PokemonMoves(Context context, int pokemonId, int moveMethodId) {
+    public PokemonLearnset(Context context, int pokemonId, int moveMethodId) {
         this(context, pokemonId, moveMethodId, 16);  // TODO replace with latest version / default from a settings option
     }
 
-    public PokemonMoves(Context context, int pokemonId, int moveMethodId, int versionGroupId) {
+    public PokemonLearnset(Context context, int pokemonId, int moveMethodId, int versionGroupId) {
         mContext = context;
         mPokemonId = pokemonId;
         mPokemonMoveMethodId = moveMethodId;
