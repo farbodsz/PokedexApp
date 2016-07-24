@@ -44,7 +44,8 @@ import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonForm;
-import com.satsumasoftware.pokedex.framework.pokemon.PokemonMoves;
+import com.satsumasoftware.pokedex.framework.pokemon.PokemonMove;
+import com.satsumasoftware.pokedex.framework.pokemon.PokemonLearnset;
 import com.satsumasoftware.pokedex.framework.version.VersionGroup;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.EvolutionsAdapter;
@@ -71,7 +72,6 @@ import com.satsuware.usefulviews.LabelledSpinner;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Locale;
@@ -1142,12 +1142,12 @@ public class DetailActivity extends AppCompatActivity {
                 }
                 @Override
                 protected Void doInBackground(Void... params) {
-                    PokemonMoves learnset = new PokemonMoves(
+                    PokemonLearnset learnset = new PokemonLearnset(
                             getActivity(), sPokemon.getId(), learnMethod, versionGroup.getId());
-                    ArrayList<PokemonMoves.PokemonMove> arrayMoves = learnset.getPokemonMoves();
-                    Collections.sort(arrayMoves, new Comparator<PokemonMoves.PokemonMove>() {
+                    ArrayList<PokemonMove> arrayMoves = learnset.getPokemonMoves();
+                    Collections.sort(arrayMoves, new Comparator<PokemonMove>() {
                         @Override
-                        public int compare(PokemonMoves.PokemonMove lhs, PokemonMoves.PokemonMove rhs) {
+                        public int compare(PokemonMove lhs, PokemonMove rhs) {
                             if (learnMethod == AppConfig.LEARN_METHOD_LEVEL_UP) {
                                 return lhs.getLevel() - rhs.getLevel();
                             } else {
@@ -1155,7 +1155,7 @@ public class DetailActivity extends AppCompatActivity {
                             }
                         }
                     });
-                    final ArrayList<PokemonMoves.PokemonMove> arrayMovesFinal = arrayMoves;
+                    final ArrayList<PokemonMove> arrayMovesFinal = arrayMoves;
                     adapter = new PokemonMovesVgAdapter(getActivity(), itemsContainer, arrayMoves);
                     adapter.setOnEntryClickListener(new PokemonMovesVgAdapter.OnEntryClickListener() {
                         @Override
