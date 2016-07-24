@@ -77,16 +77,13 @@ public class EvolutionsAdapter extends RecyclerView.Adapter<EvolutionsAdapter.Ev
         String name = pokemon.getFormAndPokemonName();
         holder.text1.setText(sameAsCurrent ? Html.fromHtml("<b>" + name + "</b>") : name);
 
-        String evolutionMethod = "";
-
         PokemonEvolution evolutionData = pokemon.getEvolutionDataObject(mContext);
-        if (evolutionData == null) {
-            evolutionMethod = "Base form";
-        } else {
-            evolutionMethod = evolutionData.makeDescriptionText(mContext);
-        }
 
-        holder.text2.setText(evolutionMethod);
+        String evolutionDescription = (evolutionData == null) ?
+                "Base form" :
+                evolutionData.makeDescriptionText(mContext);
+
+        holder.text2.setText(evolutionDescription);
     }
 
     @Override
