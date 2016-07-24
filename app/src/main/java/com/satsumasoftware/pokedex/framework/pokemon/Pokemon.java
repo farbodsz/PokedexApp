@@ -2,11 +2,13 @@ package com.satsumasoftware.pokedex.framework.pokemon;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.widget.ImageView;
 
+import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AppConfig;
@@ -633,6 +635,25 @@ public class Pokemon extends BasePokemon {
         }
         cursor.close();
         return list;
+    }
+
+    @Nullable
+    public PokemonEvolution getEvolutionDataObject(Context context) {
+        PokeDB pokeDB = new PokeDB(context);
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.PokemonEvolution.TABLE_NAME,
+                null,
+                PokeDB.PokemonEvolution.COL_EVOLVED_SPECIES_ID + "=?",
+                new String[] {String.valueOf(mSpeciesId)},
+                null, null, null);
+        if (cursor.getCount() == 0) {
+            cursor.close();
+            return null;
+        }
+        cursor.moveToFirst();
+        PokemonEvolution evolution = new PokemonEvolution(cursor);
+        cursor.close();
+        return evolution;
     }
 
 
