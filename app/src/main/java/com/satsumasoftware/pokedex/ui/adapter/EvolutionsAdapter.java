@@ -1,7 +1,6 @@
 package com.satsumasoftware.pokedex.ui.adapter;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -48,14 +47,11 @@ public class EvolutionsAdapter extends RecyclerView.Adapter<EvolutionsAdapter.Ev
     private ArrayList<MiniPokemon> mEvolutions;
     private MiniPokemon mCurrentPokemon;
 
-    private SQLiteDatabase mDatabase;
-
     public EvolutionsAdapter(Context context, ArrayList<MiniPokemon> evolutions,
                              MiniPokemon currentPokemon) {
         mContext = context;
         mEvolutions = evolutions;
         mCurrentPokemon = currentPokemon;
-        mDatabase = new PokeDB(context).getReadableDatabase();
     }
 
     @Override
