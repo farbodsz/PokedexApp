@@ -71,13 +71,13 @@ public class EvolutionsAdapter extends RecyclerView.Adapter<EvolutionsAdapter.Ev
     public void onBindViewHolder(EvolutionsViewHolder holder, int position) {
         Pokemon pokemon = mEvolutions.get(position).toPokemon(mContext);
 
-        boolean sameAsCurrent = pokemon.getId() == mCurrentPokemon.getId();
-
         if (PrefUtils.showPokemonImages(mContext)) {
             pokemon.setPokemonImage(holder.imageView);
         } else {
             holder.imageView.setVisibility(View.GONE);
         }
+
+        boolean sameAsCurrent = pokemon.getSpeciesId() == mCurrentPokemon.getSpeciesId();
 
         String name = pokemon.getFormAndPokemonName();
         holder.text1.setText(sameAsCurrent ? Html.fromHtml("<b>" + name + "</b>") : name);
@@ -90,9 +90,7 @@ public class EvolutionsAdapter extends RecyclerView.Adapter<EvolutionsAdapter.Ev
                 PokeDB.PokemonEvolution.COL_EVOLVED_SPECIES_ID + "=?",
                 new String[] {String.valueOf(pokemon.getSpeciesId())},
                 null, null, null);
-        if (Pokemon.isFormMega(pokemon.getFormSpecificValues())) {
-            evolutionMethod = "Mega stone";
-        } else if (cursor.getCount() == 0) {
+        if (cursor.getCount() == 0) {
             evolutionMethod = "Base form";
         } else {
             cursor.moveToFirst();

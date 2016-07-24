@@ -982,8 +982,9 @@ public class DetailActivity extends AppCompatActivity {
                     concatenateArrays(MiniPokemon.DB_COLUMNS,
                             new String[] {PokemonDBHelper.COL_EVOLVES_FROM_SPECIES_ID,
                                     PokemonDBHelper.COL_EVOLUTION_CHAIN_ID}),
-                    PokemonDBHelper.COL_EVOLUTION_CHAIN_ID + "=?",
-                    new String[] {String.valueOf(evolutionChainId)},
+                    PokemonDBHelper.COL_EVOLUTION_CHAIN_ID + "=? AND " +
+                            PokemonDBHelper.COL_IS_DEFAULT + "=?",
+                    new String[] {String.valueOf(evolutionChainId), "1"},
                     null, null, null);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
