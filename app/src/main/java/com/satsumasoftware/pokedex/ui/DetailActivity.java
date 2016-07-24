@@ -1063,8 +1063,10 @@ public class DetailActivity extends AppCompatActivity {
             Cursor cursor = pokeDB.getReadableDatabase().query(
                     PokeDB.VersionGroups.TABLE_NAME,
                     null,
-                    PokeDB.VersionGroups.COL_GENERATION_ID + ">=?",
-                    new String[] {String.valueOf(genId)},
+                    PokeDB.VersionGroups.COL_ID + "!=? AND " +
+                            PokeDB.VersionGroups.COL_ID + "!=? AND " +
+                            PokeDB.VersionGroups.COL_GENERATION_ID + ">=?",
+                    new String[] {String.valueOf(12), String.valueOf(13), String.valueOf(genId)},
                     null, null, null);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
