@@ -16,6 +16,7 @@ import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonEvolution;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 
 import java.util.ArrayList;
@@ -92,10 +93,13 @@ public class EvolutionsAdapter extends RecyclerView.Adapter<EvolutionsAdapter.Ev
             // TODO get values via the database, for different languages (chosen in Settings)
             switch (evolutionData.getEvolutionTriggerId()) {
                 case 1:
-                    evolutionMethod = "By level-up";
+                    evolutionMethod = "Lv. " + evolutionData.getMinimumLevel();
                     break;
                 case 2:
-                    evolutionMethod = "By trade";
+                    int tradeSpeciesId = evolutionData.getTradeSpeciesId();
+                    evolutionMethod = (tradeSpeciesId == DataUtilsKt.NULL_INT) ?
+                            "Trade with " + tradeSpeciesId :
+                            "Trade";
                     break;
                 case 3:
                     evolutionMethod = "By item";
