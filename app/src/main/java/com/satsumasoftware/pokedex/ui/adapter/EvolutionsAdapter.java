@@ -15,6 +15,7 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
+import com.satsumasoftware.pokedex.framework.pokemon.PokemonEvolution;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 
 import java.util.ArrayList;
@@ -83,20 +84,13 @@ public class EvolutionsAdapter extends RecyclerView.Adapter<EvolutionsAdapter.Ev
         holder.text1.setText(sameAsCurrent ? Html.fromHtml("<b>" + name + "</b>") : name);
 
         String evolutionMethod = "";
-        Cursor cursor = mDatabase.query(
-                PokeDB.PokemonEvolution.TABLE_NAME,
-                new String[] {PokeDB.PokemonEvolution.COL_EVOLVED_SPECIES_ID,
-                        PokeDB.PokemonEvolution.COL_EVOLUTION_TRIGGER_ID},
-                PokeDB.PokemonEvolution.COL_EVOLVED_SPECIES_ID + "=?",
-                new String[] {String.valueOf(pokemon.getSpeciesId())},
-                null, null, null);
-        if (cursor.getCount() == 0) {
+
+        PokemonEvolution evolutionData = pokemon.getEvolutionDataObject(mContext);
+        if (evolutionData == null) {
             evolutionMethod = "Base form";
         } else {
-            cursor.moveToFirst();
             // TODO get values via the database, for different languages (chosen in Settings)
-            int evolutionTriggerId = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonEvolution.COL_EVOLUTION_TRIGGER_ID));
-            switch (evolutionTriggerId) {
+            switch (evolutionData.getEvolutionTriggerId()) {
                 case 1:
                     evolutionMethod = "By level-up";
                     break;
@@ -111,7 +105,6 @@ public class EvolutionsAdapter extends RecyclerView.Adapter<EvolutionsAdapter.Ev
                     break;
             }
         }
-        cursor.close();
 
         holder.text2.setText(evolutionMethod);
     }
