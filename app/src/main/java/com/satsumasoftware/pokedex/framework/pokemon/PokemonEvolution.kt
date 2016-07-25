@@ -3,7 +3,11 @@ package com.satsumasoftware.pokedex.framework.pokemon
 import android.content.Context
 import android.database.Cursor
 import com.satsumasoftware.pokedex.db.PokeDB
+import com.satsumasoftware.pokedex.framework.Gender
+import com.satsumasoftware.pokedex.framework.location.Location
+import com.satsumasoftware.pokedex.framework.move.MiniMove
 import com.satsumasoftware.pokedex.util.NULL_INT
+import com.satsumasoftware.pokedex.util.typeIdToName
 
 data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutionTriggerId: Int,
                             val triggerItemId: Int, val minimumLevel: Int, val genderId: Int,
@@ -58,8 +62,62 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
                     "Trade with " + MiniPokemon(context, tradeSpeciesId, false).name
                 description.append(tradeText)
             }
-            3 -> description.append("By item")
+            3 -> description.append("Use item")  // TODO specify item
             4 -> description.append("By shed")
+        }
+
+        if (genderId != NULL_INT) {
+            description.append(" (${Gender(genderId).getSymbol()} only)")
+        }
+
+        if (locationId != NULL_INT) {
+            description.append(", around ${Location(context, locationId).name}")
+        }
+
+        if (heldItemId != NULL_INT) {
+            description.append(", while holding an item")  // TODO specify item
+        }
+
+        if (!timeOfDay.equals("")) {
+            description.append(", during the $timeOfDay")  // TODO specify item
+        }
+
+        if (knownMoveId != NULL_INT) {
+            description.append(", while knowing ${MiniMove(context, knownMoveId).name}")
+        }
+
+        if (knownMoveTypeId != NULL_INT) {
+            description.append(", while knowing a ${typeIdToName(knownMoveTypeId)}-type move")
+        }
+
+        if (minimumHappiness != NULL_INT) {
+            description.append(", with at least $minimumHappiness happiness")
+        }
+
+        if (minimumBeauty != NULL_INT) {
+            description.append(", with at least $minimumBeauty beauty")
+        }
+
+        if (minimumAffection != NULL_INT) {
+            description.append(", with at least $minimumAffection affection")
+        }
+
+        // TODO relativePhysicalStats
+
+        if (partySpeciesId != NULL_INT) {
+            description.append(", with ${MiniPokemon(context, partySpeciesId, false).name} in the party")
+        }
+
+        if (partyTypeId != NULL_INT) {
+            description.append(", with a ${typeIdToName(partyTypeId)}-type Pokémon in the party")
+        }
+
+        if (needsOverworldRain) {
+            description.append(", while it is raining outside of battle")
+        }
+
+        if (turnUpsideDown) {
+            description.append(", with the 3DS turned upside down")
         }
 
         return description.toString()
