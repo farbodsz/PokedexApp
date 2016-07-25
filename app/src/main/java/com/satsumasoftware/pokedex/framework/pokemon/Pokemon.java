@@ -638,7 +638,7 @@ public class Pokemon extends BasePokemon {
     }
 
     @Nullable
-    public PokemonEvolution getEvolutionDataObject(Context context) {
+    public ArrayList<PokemonEvolution> getEvolutionDataObjects(Context context) {
         PokeDB pokeDB = new PokeDB(context);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.PokemonEvolution.TABLE_NAME,
@@ -646,14 +646,21 @@ public class Pokemon extends BasePokemon {
                 PokeDB.PokemonEvolution.COL_EVOLVED_SPECIES_ID + "=?",
                 new String[] {String.valueOf(mSpeciesId)},
                 null, null, null);
+
         if (cursor.getCount() == 0) {
             cursor.close();
             return null;
         }
+
+        ArrayList<PokemonEvolution> evolutionDataList = new ArrayList<>();
         cursor.moveToFirst();
-        PokemonEvolution evolution = new PokemonEvolution(cursor);
+        while (!cursor.isAfterLast()) {
+            evolutionDataList.add(new PokemonEvolution(cursor));
+            cursor.moveToNext();
+        }
         cursor.close();
-        return evolution;
+
+        return evolutionDataList;
     }
 
 
