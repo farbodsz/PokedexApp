@@ -43,8 +43,6 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
 
 
     fun makeDescriptionText(context: Context): String {
-        // TODO get string values via the database for different langs
-
         val description = StringBuilder()
 
         when (evolutionTriggerId) {
@@ -63,7 +61,7 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
                     "Trade with " + MiniPokemon(context, tradeSpeciesId, false).name
                 description.append(tradeText)
             }
-            3 -> description.append("Use item")  // TODO specify item
+            3 -> description.append("Use item #$triggerItemId")  // TODO item name
             4 -> description.append("By shed")
         }
 
@@ -77,11 +75,11 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
         }
 
         if (heldItemId != NULL_INT) {
-            description.append(", while holding an item")  // TODO specify item
+            description.append(", while holding item #$heldItemId")  // TODO item name
         }
 
         if (!timeOfDay.equals("")) {
-            description.append(", during the $timeOfDay")  // TODO specify item
+            description.append(", during the $timeOfDay")
         }
 
         if (knownMoveId != NULL_INT) {
