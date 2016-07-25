@@ -1,8 +1,6 @@
 package com.satsumasoftware.pokedex.ui.adapter;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -12,11 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonEvolution;
-import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 
 import java.util.ArrayList;
@@ -48,14 +44,11 @@ public class EvolutionsAdapter extends RecyclerView.Adapter<EvolutionsAdapter.Ev
     private ArrayList<MiniPokemon> mEvolutions;
     private MiniPokemon mCurrentPokemon;
 
-    private SQLiteDatabase mDatabase;
-
     public EvolutionsAdapter(Context context, ArrayList<MiniPokemon> evolutions,
                              MiniPokemon currentPokemon) {
         mContext = context;
         mEvolutions = evolutions;
         mCurrentPokemon = currentPokemon;
-        mDatabase = new PokeDB(context).getReadableDatabase();
     }
 
     @Override
@@ -84,33 +77,22 @@ public class EvolutionsAdapter extends RecyclerView.Adapter<EvolutionsAdapter.Ev
         String name = pokemon.getFormAndPokemonName();
         holder.text1.setText(sameAsCurrent ? Html.fromHtml("<b>" + name + "</b>") : name);
 
-        String evolutionMethod = "";
+        ArrayList<PokemonEvolution> evolutionDataList = pokemon.getEvolutionDataObjects(mContext);
 
-        PokemonEvolution evolutionData = pokemon.getEvolutionDataObject(mContext);
-        if (evolutionData == null) {
-            evolutionMethod = "Base form";
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (evolutionDataList == null) {
+            stringBuilder.append("Base form");
         } else {
-            // TODO get values via the database, for different languages (chosen in Settings)
-            switch (evolutionData.getEvolutionTriggerId()) {
-                case 1:
-                    evolutionMethod = "Lv. " + evolutionData.getMinimumLevel();
-                    break;
-                case 2:
-                    int tradeSpeciesId = evolutionData.getTradeSpeciesId();
-                    evolutionMethod = (tradeSpeciesId == DataUtilsKt.NULL_INT) ?
-                            "Trade" :
-                            "Trade with " + new MiniPokemon(mContext, tradeSpeciesId, false).getName();
-                    break;
-                case 3:
-                    evolutionMethod = "By item";
-                    break;
-                case 4:
-                    evolutionMethod = "By shed";
-                    break;
+            for (int i = 0; i < evolutionDataList.size(); i++) {
+                stringBuilder.append(evolutionDataList.get(i).makeDescriptionText(mContext));
+                if (i != evolutionDataList.size() - 1) {
+                    stringBuilder.append(";\n");
+                }
             }
         }
 
-        holder.text2.setText(evolutionMethod);
+        holder.text2.setText(stringBuilder);
     }
 
     @Override
