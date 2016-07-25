@@ -7,7 +7,7 @@ import com.satsumasoftware.pokedex.util.NULL_INT
 
 data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutionTriggerId: Int,
                             val triggerItemId: Int, val minimumLevel: Int, val genderId: Int,
-                            val locationId: Int, val heldItemId: Int, val timeOfDay: Int,
+                            val locationId: Int, val heldItemId: Int, val timeOfDay: String,
                             val knownMoveId: Int, val knownMoveTypeId: Int,
                             val minimumHappiness: Int, val minimumBeauty: Int,
                             val minimumAffection: Int, val relativePhysicalStats: Int,
@@ -23,7 +23,7 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
             cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonEvolution.COL_GENDER_ID)),
             cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonEvolution.COL_LOCATION_ID)),
             cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonEvolution.COL_HELD_ITEM_ID)),
-            cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonEvolution.COL_TIME_OF_DAY)),
+            cursor.getString(cursor.getColumnIndex(PokeDB.PokemonEvolution.COL_TIME_OF_DAY)),
             cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonEvolution.COL_KNOWN_MOVE_ID)),
             cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonEvolution.COL_KNOWN_MOVE_TYPE_ID)),
             cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonEvolution.COL_MINIMUM_HAPPINESS)),
