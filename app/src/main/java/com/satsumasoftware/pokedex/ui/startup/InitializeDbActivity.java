@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
 import com.satsumasoftware.pokedex.db.EncounterConditionsDBHelper;
+import com.satsumasoftware.pokedex.db.ItemsDBHelper;
 import com.satsumasoftware.pokedex.db.LocationAreasDBHelper;
 import com.satsumasoftware.pokedex.db.LocationsDBHelper;
 import com.satsumasoftware.pokedex.db.MovesDBHelper;
@@ -72,6 +73,7 @@ public class InitializeDbActivity extends AppCompatActivity {
         final SQLiteOpenHelper[] helpers = {
                 new AbilitiesDBHelper(this),
                 new EncounterConditionsDBHelper(this),
+                new ItemsDBHelper(this),
                 new LocationAreasDBHelper(this),
                 new LocationsDBHelper(this),
                 new MovesDBHelper(this),
@@ -81,6 +83,7 @@ public class InitializeDbActivity extends AppCompatActivity {
         final String[] tableNames = {
                 AbilitiesDBHelper.TABLE_NAME,
                 EncounterConditionsDBHelper.TABLE_NAME,
+                ItemsDBHelper.TABLE_NAME,
                 LocationAreasDBHelper.TABLE_NAME,
                 LocationsDBHelper.TABLE_NAME,
                 MovesDBHelper.TABLE_NAME,
