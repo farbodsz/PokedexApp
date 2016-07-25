@@ -55,9 +55,7 @@ public class MiniPokemon extends BasePokemon implements Parcelable {
         mNationalNumber = nationalDexNumber;
     }
 
-    @Deprecated
-    public static MiniPokemon createFromSpecies(Context context, int speciesId, boolean isFormMega) {
-        MiniPokemon miniPokemon = null;
+    public MiniPokemon(Context context, int speciesId, boolean isFormMega) {
         int isMegaAsInt = (isFormMega ? 1 : 0);
         PokemonDBHelper pokemonDBHelper = new PokemonDBHelper(context);
         Cursor cursor = pokemonDBHelper.getReadableDatabase().query(
@@ -67,12 +65,14 @@ public class MiniPokemon extends BasePokemon implements Parcelable {
                 new String[] {String.valueOf(speciesId), String.valueOf(isMegaAsInt)},
                 null, null, null);
         cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            miniPokemon = new MiniPokemon(cursor);  // TODO did I mean to use moveToNext() here?
-        }
+        mId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_ID));
+        mSpeciesId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_SPECIES_ID));
+        mFormId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_ID));
+        mName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_NAME));
+        mFormName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_NAME));
+        mFormPokemonName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_POKEMON_NAME));
+        mNationalNumber = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_POKEDEX_NATIONAL));
         cursor.close();
-        return miniPokemon;
-
     }
 
     public Pokemon toPokemon(Context context) {

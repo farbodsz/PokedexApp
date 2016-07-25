@@ -6,6 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.satsumasoftware.pokedex.db.LocationAreasDBHelper;
+import com.satsumasoftware.pokedex.db.LocationsDBHelper;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,21 @@ public class Location implements Parcelable {
         mId = id;
         mRegionId = regionId;
         mName = name;
+    }
+
+    public Location(Context context, int id) {
+        LocationsDBHelper dbHelper = new LocationsDBHelper(context);
+        Cursor cursor = dbHelper.getReadableDatabase().query(
+                LocationsDBHelper.TABLE_NAME,
+                null,
+                LocationsDBHelper.COL_ID + "=?",
+                new String[] {String.valueOf(id)},
+                null, null, null);
+        cursor.moveToFirst();
+        mId = id;
+        mRegionId = cursor.getInt(cursor.getColumnIndex(LocationsDBHelper.COL_REGION_ID));
+        mName = cursor.getString(cursor.getColumnIndex(LocationsDBHelper.COL_NAME));
+        cursor.close();
     }
 
 

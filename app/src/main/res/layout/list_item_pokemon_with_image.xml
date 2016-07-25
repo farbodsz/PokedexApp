@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/background"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="wrap_content"
+    android:minHeight="72dp"
     android:background="?android:attr/selectableItemBackground" >
 
     <ImageView
@@ -13,9 +14,9 @@
         android:scaleType="fitCenter"
         android:layout_width="@dimen/mdu_keyline_2_minus_16dp"
         android:layout_height="@dimen/mdu_keyline_2_minus_16dp"
-        android:layout_gravity="center_vertical"
         android:paddingRight="@dimen/mdu_padding_normal"
         android:paddingEnd="@dimen/mdu_padding_normal"
+        android:paddingTop="@dimen/mdu_padding_normal"
         android:layout_marginLeft="@dimen/mdu_keyline_1"
         android:layout_marginStart="@dimen/mdu_keyline_1"
         tools:ignore="RtlSymmetry" />
@@ -28,6 +29,8 @@
         android:layout_marginStart="@dimen/mdu_keyline_2"
         android:layout_marginRight="@dimen/mdu_keyline_1"
         android:layout_marginEnd="@dimen/mdu_keyline_1"
+        android:paddingTop="@dimen/mdu_padding_normal"
+        android:paddingBottom="@dimen/mdu_padding_normal"
         android:gravity="center_vertical">
 
         <TextView
