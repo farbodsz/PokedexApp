@@ -9,8 +9,8 @@ android {
         applicationId "com.phoenixenterprise.pokedex"
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 405
-        versionName "4.0.5"
+        versionCode 406
+        versionName "4.0.6"
 
         vectorDrawables.useSupportLibrary = true
     }
