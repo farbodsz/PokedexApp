@@ -7,6 +7,7 @@ import com.satsumasoftware.pokedex.framework.Gender
 import com.satsumasoftware.pokedex.framework.location.Location
 import com.satsumasoftware.pokedex.framework.move.MiniMove
 import com.satsumasoftware.pokedex.util.NULL_INT
+import com.satsumasoftware.pokedex.util.regionIdToName
 import com.satsumasoftware.pokedex.util.typeIdToName
 
 data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutionTriggerId: Int,
@@ -71,7 +72,8 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
         }
 
         if (locationId != NULL_INT) {
-            description.append(", around ${Location(context, locationId).name}")
+            val location = Location(context, locationId)
+            description.append(", around ${location.name} (${regionIdToName(location.regionId)})")
         }
 
         if (heldItemId != NULL_INT) {
