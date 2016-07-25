@@ -44,7 +44,11 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
 
         when (evolutionTriggerId) {
             1 -> {
-                val levelText = "Lv. " + minimumLevel
+                val levelText = if (minimumLevel == NULL_INT) {
+                    "Level-up"
+                } else {
+                    "Level " + minimumLevel
+                }
                 description.append(levelText)
             }
             2 -> {
