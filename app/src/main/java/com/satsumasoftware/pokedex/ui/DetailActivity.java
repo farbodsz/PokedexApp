@@ -52,7 +52,7 @@ import com.satsumasoftware.pokedex.ui.adapter.EvolutionsAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsTileAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
-import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesVgAdapter;
+import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesAdapter;
 import com.satsumasoftware.pokedex.ui.card.DetailCard;
 import com.satsumasoftware.pokedex.ui.card.PokemonDetail;
 import com.satsumasoftware.pokedex.ui.dialog.AbilityDetailActivity;
@@ -1079,18 +1079,18 @@ public class DetailActivity extends AppCompatActivity {
             cursor.close();
 
 
-            mSpinnerMethod = (LabelledSpinner) mRootView.findViewById(R.id.detailL_spinnerMethod);
+            mSpinnerMethod = (LabelledSpinner) mRootView.findViewById(R.id.spinner_learn_method);
             mSpinnerMethod.setItemsArray(mArrayMethodTitles);
             mSpinnerMethod.setSelection(0);
             mSpinnerMethod.setOnItemChosenListener(this);
-            mSpinnerGame = (LabelledSpinner) mRootView.findViewById(R.id.detailL_spinnerGame);
+            mSpinnerGame = (LabelledSpinner) mRootView.findViewById(R.id.spinner_game_version);
             mSpinnerGame.setItemsArray(mVersionGroupNames);
             mSpinnerGame.setSelection(mVersionGroups.size() - 1);
             mSpinnerGame.setOnItemChosenListener(this);
 
-            mContainer = (LinearLayout) mRootView.findViewById(R.id.detailL_llContainer);
+            mContainer = (LinearLayout) mRootView.findViewById(R.id.container);
 
-            mSubmitButton = (Button) mRootView.findViewById(R.id.detailL_btnGo);
+            mSubmitButton = (Button) mRootView.findViewById(R.id.button_go);
             mSubmitButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1122,7 +1122,15 @@ public class DetailActivity extends AppCompatActivity {
             final TextView title = (TextView) card.findViewById(R.id.card_learnset_titleText);
             final TextView subtitle = (TextView) card.findViewById(R.id.card_learnset_subtitleText);
             final ProgressBar progressBar = (ProgressBar) card.findViewById(R.id.card_learnset_progressBar);
-            final LinearLayout itemsContainer = (LinearLayout) card.findViewById(R.id.card_learnset_linearLayout);
+            final RecyclerView recyclerView = (RecyclerView) card.findViewById(R.id.recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            });
+            recyclerView.addItemDecoration(new DividerItemDecoration(
+                    getActivity(), DividerItemDecoration.VERTICAL_LIST));
 
             title.setText(mLearnMethod);
             subtitle.setText("Pok\u00E9mon " + mVersionGroupNames.get(mVGroupListPos));
@@ -1132,7 +1140,7 @@ public class DetailActivity extends AppCompatActivity {
             final VersionGroup versionGroup = mVersionGroups.get(mVGroupListPos);
 
             mAsyncTask = new AsyncTask<Void, Integer, Void>() {
-                PokemonMovesVgAdapter adapter;
+                PokemonMovesAdapter adapter;
                 @Override
                 protected void onPreExecute() {
                     super.onPreExecute();
@@ -1156,8 +1164,8 @@ public class DetailActivity extends AppCompatActivity {
                         }
                     });
                     final ArrayList<PokemonMove> arrayMovesFinal = arrayMoves;
-                    adapter = new PokemonMovesVgAdapter(getActivity(), itemsContainer, arrayMoves);
-                    adapter.setOnEntryClickListener(new PokemonMovesVgAdapter.OnEntryClickListener() {
+                    adapter = new PokemonMovesAdapter(getActivity(), arrayMoves);
+                    adapter.setOnEntryClickListener(new PokemonMovesAdapter.OnEntryClickListener() {
                         @Override
                         public void onEntryClick(View view, int position) {
                             Intent intent = new Intent(getActivity(), MoveDetailActivity.class);
@@ -1171,7 +1179,7 @@ public class DetailActivity extends AppCompatActivity {
                 @Override
                 protected void onPostExecute(Void result) {
                     super.onPostExecute(result);
-                    adapter.createListItems();
+                    recyclerView.setAdapter(adapter);
                     progressBar.setVisibility(View.GONE);
                 }
             }.execute();
@@ -1191,10 +1199,10 @@ public class DetailActivity extends AppCompatActivity {
         public void onItemChosen(View labelledSpinner, AdapterView<?> adapterView, View itemView, int position, long id) {
             String selected = adapterView.getItemAtPosition(position).toString();
             switch (labelledSpinner.getId()) {
-                case R.id.detailL_spinnerMethod:
+                case R.id.spinner_learn_method:
                     mLearnMethod = selected;
                     break;
-                case R.id.detailL_spinnerGame:
+                case R.id.spinner_game_version:
                     mVGroupListPos = position;
                     break;
             }
