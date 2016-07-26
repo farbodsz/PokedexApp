@@ -377,7 +377,7 @@ public class DetailActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Returns the number of tabs
-            return 4;
+            return 5;
         }
 
         @Override
@@ -392,6 +392,8 @@ public class DetailActivity extends AppCompatActivity {
                     return new EvolutionsFragment();
                 case 3:
                     return new MovesFragment();
+                case 4:
+                    return new LocationsFragment();
             }
             return null;
         }
@@ -408,6 +410,8 @@ public class DetailActivity extends AppCompatActivity {
                     return getString(R.string.tab_pkmn_detail_evolutions).toUpperCase(l);
                 case 3:
                     return getString(R.string.tab_pkmn_detail_moves).toUpperCase(l);
+                case 4:
+                    return getString(R.string.tab_pkmn_detail_locations).toUpperCase(l);
             }
             return null;
         }
@@ -1203,4 +1207,18 @@ public class DetailActivity extends AppCompatActivity {
         @Override
         public void onNothingChosen(View labelledSpinner, AdapterView<?> adapterView) {}
     }
+
+    public static class LocationsFragment extends Fragment {
+
+        private View mRootView;
+
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            mRootView = inflater.inflate(R.layout.empty_view, container, false);  // TODO create layout
+
+            return mRootView;
+        }
+    }
+
 }
