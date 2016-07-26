@@ -13,6 +13,7 @@ import android.support.v4.util.ArrayMap;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -37,12 +38,13 @@ import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonLearnset;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonMove;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
-import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesVgAdapter;
+import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesAdapter;
 import com.satsumasoftware.pokedex.ui.card.DetailCard;
 import com.satsumasoftware.pokedex.ui.card.PokemonCompareDetail;
 import com.satsumasoftware.pokedex.ui.dialog.AbilityDetailActivity;
 import com.satsumasoftware.pokedex.ui.dialog.MoveDetailActivity;
 import com.satsumasoftware.pokedex.ui.dialog.PropertyDetailActivity;
+import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AppConfig;
@@ -802,7 +804,15 @@ public class CompareActivity extends AppCompatActivity {
             final TextView title = (TextView) card.findViewById(R.id.card_learnset_titleText);
             final TextView subtitle = (TextView) card.findViewById(R.id.card_learnset_subtitleText);
             final ProgressBar progressBar = (ProgressBar) card.findViewById(R.id.card_learnset_progressBar);
-            final LinearLayout itemsContainer = (LinearLayout) card.findViewById(R.id.card_learnset_linearLayout);
+            final RecyclerView recyclerView = (RecyclerView) card.findViewById(R.id.recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            });
+            recyclerView.addItemDecoration(new DividerItemDecoration(
+                    getActivity(), DividerItemDecoration.VERTICAL_LIST));
 
             title.setText(mLearnMethod);
             subtitle.setText("Pok"+"\u00E9"+"mon " + mGameVersion);
@@ -813,7 +823,7 @@ public class CompareActivity extends AppCompatActivity {
             final int gameVersion = mArrayGameTypes.get(gameNoInList);
 
             mAsyncTask = new AsyncTask<Void, Integer, Void>() {
-                PokemonMovesVgAdapter adapter;
+                PokemonMovesAdapter adapter;
                 @Override
                 protected void onPreExecute() {
                     super.onPreExecute();
@@ -836,8 +846,8 @@ public class CompareActivity extends AppCompatActivity {
                         }
                     });
                     final ArrayList<PokemonMove> arrayMovesFinal = arrayMoves;
-                    adapter = new PokemonMovesVgAdapter(getActivity(), itemsContainer, arrayMoves);
-                    adapter.setOnEntryClickListener(new PokemonMovesVgAdapter.OnEntryClickListener() {
+                    adapter = new PokemonMovesAdapter(getActivity(), arrayMoves);
+                    adapter.setOnEntryClickListener(new PokemonMovesAdapter.OnEntryClickListener() {
                         @Override
                         public void onEntryClick(View view, int position) {
                             Intent intent = new Intent(getActivity(), MoveDetailActivity.class);
@@ -851,7 +861,7 @@ public class CompareActivity extends AppCompatActivity {
                 @Override
                 protected void onPostExecute(Void result) {
                     super.onPostExecute(result);
-                    adapter.createListItems();
+                    recyclerView.setAdapter(adapter);
                     progressBar.setVisibility(View.GONE);
                 }
             }.execute();

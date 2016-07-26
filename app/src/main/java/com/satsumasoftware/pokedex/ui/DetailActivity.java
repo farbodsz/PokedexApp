@@ -52,7 +52,7 @@ import com.satsumasoftware.pokedex.ui.adapter.EvolutionsAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsTileAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
-import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesVgAdapter;
+import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesAdapter;
 import com.satsumasoftware.pokedex.ui.card.DetailCard;
 import com.satsumasoftware.pokedex.ui.card.PokemonDetail;
 import com.satsumasoftware.pokedex.ui.dialog.AbilityDetailActivity;
@@ -1122,7 +1122,15 @@ public class DetailActivity extends AppCompatActivity {
             final TextView title = (TextView) card.findViewById(R.id.card_learnset_titleText);
             final TextView subtitle = (TextView) card.findViewById(R.id.card_learnset_subtitleText);
             final ProgressBar progressBar = (ProgressBar) card.findViewById(R.id.card_learnset_progressBar);
-            final LinearLayout itemsContainer = (LinearLayout) card.findViewById(R.id.card_learnset_linearLayout);
+            final RecyclerView recyclerView = (RecyclerView) card.findViewById(R.id.recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            });
+            recyclerView.addItemDecoration(new DividerItemDecoration(
+                    getActivity(), DividerItemDecoration.VERTICAL_LIST));
 
             title.setText(mLearnMethod);
             subtitle.setText("Pok\u00E9mon " + mVersionGroupNames.get(mVGroupListPos));
@@ -1132,7 +1140,7 @@ public class DetailActivity extends AppCompatActivity {
             final VersionGroup versionGroup = mVersionGroups.get(mVGroupListPos);
 
             mAsyncTask = new AsyncTask<Void, Integer, Void>() {
-                PokemonMovesVgAdapter adapter;
+                PokemonMovesAdapter adapter;
                 @Override
                 protected void onPreExecute() {
                     super.onPreExecute();
@@ -1156,8 +1164,8 @@ public class DetailActivity extends AppCompatActivity {
                         }
                     });
                     final ArrayList<PokemonMove> arrayMovesFinal = arrayMoves;
-                    adapter = new PokemonMovesVgAdapter(getActivity(), itemsContainer, arrayMoves);
-                    adapter.setOnEntryClickListener(new PokemonMovesVgAdapter.OnEntryClickListener() {
+                    adapter = new PokemonMovesAdapter(getActivity(), arrayMoves);
+                    adapter.setOnEntryClickListener(new PokemonMovesAdapter.OnEntryClickListener() {
                         @Override
                         public void onEntryClick(View view, int position) {
                             Intent intent = new Intent(getActivity(), MoveDetailActivity.class);
@@ -1171,7 +1179,7 @@ public class DetailActivity extends AppCompatActivity {
                 @Override
                 protected void onPostExecute(Void result) {
                     super.onPostExecute(result);
-                    adapter.createListItems();
+                    recyclerView.setAdapter(adapter);
                     progressBar.setVisibility(View.GONE);
                 }
             }.execute();
