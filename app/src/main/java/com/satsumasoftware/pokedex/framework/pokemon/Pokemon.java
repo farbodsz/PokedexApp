@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
+import com.satsumasoftware.pokedex.framework.encounter.Encounter;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AppConfig;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
@@ -661,6 +662,27 @@ public class Pokemon extends BasePokemon {
         cursor.close();
 
         return evolutionDataList;
+    }
+
+    public ArrayList<Encounter> findAllEncounters(Context context, int versionId) {
+        PokeDB pokeDB = new PokeDB(context);
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.Encounters.TABLE_NAME,
+                null,
+                PokeDB.Encounters.COL_POKEMON_ID + "=? AND " +
+                        PokeDB.Encounters.COL_VERSION_ID + "=?",
+                new String[] {String.valueOf(mId), String.valueOf(versionId)},
+                null, null, null);
+        cursor.moveToFirst();
+
+        ArrayList<Encounter> encounters = new ArrayList<>(cursor.getCount());
+        while (!cursor.isAfterLast()) {
+            encounters.add(new Encounter(cursor));
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return encounters;
     }
 
 
