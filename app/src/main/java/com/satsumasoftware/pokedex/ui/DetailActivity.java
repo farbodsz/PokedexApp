@@ -1079,18 +1079,18 @@ public class DetailActivity extends AppCompatActivity {
             cursor.close();
 
 
-            mSpinnerMethod = (LabelledSpinner) mRootView.findViewById(R.id.detailL_spinnerMethod);
+            mSpinnerMethod = (LabelledSpinner) mRootView.findViewById(R.id.spinner_learn_method);
             mSpinnerMethod.setItemsArray(mArrayMethodTitles);
             mSpinnerMethod.setSelection(0);
             mSpinnerMethod.setOnItemChosenListener(this);
-            mSpinnerGame = (LabelledSpinner) mRootView.findViewById(R.id.detailL_spinnerGame);
+            mSpinnerGame = (LabelledSpinner) mRootView.findViewById(R.id.spinner_game_version);
             mSpinnerGame.setItemsArray(mVersionGroupNames);
             mSpinnerGame.setSelection(mVersionGroups.size() - 1);
             mSpinnerGame.setOnItemChosenListener(this);
 
-            mContainer = (LinearLayout) mRootView.findViewById(R.id.detailL_llContainer);
+            mContainer = (LinearLayout) mRootView.findViewById(R.id.container);
 
-            mSubmitButton = (Button) mRootView.findViewById(R.id.detailL_btnGo);
+            mSubmitButton = (Button) mRootView.findViewById(R.id.button_go);
             mSubmitButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1199,10 +1199,10 @@ public class DetailActivity extends AppCompatActivity {
         public void onItemChosen(View labelledSpinner, AdapterView<?> adapterView, View itemView, int position, long id) {
             String selected = adapterView.getItemAtPosition(position).toString();
             switch (labelledSpinner.getId()) {
-                case R.id.detailL_spinnerMethod:
+                case R.id.spinner_learn_method:
                     mLearnMethod = selected;
                     break;
-                case R.id.detailL_spinnerGame:
+                case R.id.spinner_game_version:
                     mVGroupListPos = position;
                     break;
             }

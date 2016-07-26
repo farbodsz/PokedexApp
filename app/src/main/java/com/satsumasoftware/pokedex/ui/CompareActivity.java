@@ -754,19 +754,19 @@ public class CompareActivity extends AppCompatActivity {
             mArrayGameTypes.add(AppConfig.GAME_VERSION_BLACK2_WHITE2);
             mArrayGameTypes.add(AppConfig.GAME_VERSION_X_Y); // TODO: add what actually needs to be added
 
-            mSpinnerMethod = (LabelledSpinner) mRootView.findViewById(R.id.compareL_spinnerMethod);
+            mSpinnerMethod = (LabelledSpinner) mRootView.findViewById(R.id.spinner_learn_method);
             mSpinnerMethod.setItemsArray(mArrayMethodTitles);
             mSpinnerMethod.setSelection(0);
             mSpinnerMethod.setOnItemChosenListener(this);
-            mSpinnerGame = (LabelledSpinner) mRootView.findViewById(R.id.compareL_spinnerGame);
+            mSpinnerGame = (LabelledSpinner) mRootView.findViewById(R.id.spinner_game_version);
             mSpinnerGame.setItemsArray(R.array.game_versions);
             mSpinnerGame.setSelection(mArrayGameTitles.size() - 1);
             mSpinnerGame.setOnItemChosenListener(this);
 
-            mContainer1 = (LinearLayout) mRootView.findViewById(R.id.compareL_llContainer_1);
-            mContainer2 = (LinearLayout) mRootView.findViewById(R.id.compareL_llContainer_2);
+            mContainer1 = (LinearLayout) mRootView.findViewById(R.id.container_1);
+            mContainer2 = (LinearLayout) mRootView.findViewById(R.id.container_2);
 
-            mSubmitButton = (Button) mRootView.findViewById(R.id.compareL_btnGo);
+            mSubmitButton = (Button) mRootView.findViewById(R.id.button_go);
 
             if (mSameLearnset) {
                 mContainer2.setVisibility(View.GONE);
@@ -882,10 +882,10 @@ public class CompareActivity extends AppCompatActivity {
         public void onItemChosen(View labelledSpinner, AdapterView<?> adapterView, View itemView, int position, long id) {
             String selected = adapterView.getItemAtPosition(position).toString();
             switch (labelledSpinner.getId()) {
-                case R.id.compareL_spinnerMethod:
+                case R.id.spinner_learn_method:
                     mLearnMethod = selected;
                     break;
-                case R.id.compareL_spinnerGame:
+                case R.id.spinner_game_version:
                     mGameVersion = selected;
                     break;
             }
