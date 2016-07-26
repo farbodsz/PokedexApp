@@ -13,7 +13,15 @@ data class VersionGroup(val id: Int, val generationId: Int) {
             cursor.getInt(cursor.getColumnIndex(PokeDB.VersionGroups.COL_ID)),
             cursor.getInt(cursor.getColumnIndex(PokeDB.VersionGroups.COL_GENERATION_ID)))
 
+
     fun fetchName(context: Context): String {
+        if (name == null) {
+            name = fetchNameFromDb(context)
+        }
+        return name!!
+    }
+
+    private fun fetchNameFromDb(context: Context): String {
         val pokeDB = PokeDB(context)
         val cursor = pokeDB.readableDatabase.query(
                 PokeDB.Versions.TABLE_NAME,
