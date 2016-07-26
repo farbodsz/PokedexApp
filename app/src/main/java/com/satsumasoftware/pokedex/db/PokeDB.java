@@ -5,7 +5,7 @@ import android.content.Context;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 @SuppressWarnings("unused")
-public class PokeDB extends SQLiteAssetHelper {
+public final class PokeDB extends SQLiteAssetHelper {
 
     private static final String DATABASE_NAME = "pokedex.db";
     private static final int DATABASE_VERSION = 10;
