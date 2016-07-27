@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="6dp"
+    android:paddingRight="6dp"
+    android:background="?android:attr/selectableItemBackground" >
+
+    <TextView
+        android:id="@+id/text1"
+        android:text="ABC"
+        android:textSize="@dimen/list_text_size"
+        android:textColor="@color/mdu_text_black_secondary"
+        android:gravity="center"
+        android:minEms="1"
+        android:maxEms="3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:text="BLAH BLAH BLAH"
+        android:textSize="@dimen/list_text_size"
+        android:textColor="@color/mdu_text_black"
+        android:gravity="center_vertical"
+        android:layout_gravity="start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:layout_toLeftOf="@+id/text1"
+        android:layout_toStartOf="@+id/text1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/text3"
+        android:text="BLAH BLAH BLAH"
+        android:textSize="@dimen/list_text_size"
+        android:textColor="@color/mdu_text_black"
+        android:gravity="center_vertical|end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/text1"
+        android:layout_toEndOf="@+id/text1" />
+</RelativeLayout>
