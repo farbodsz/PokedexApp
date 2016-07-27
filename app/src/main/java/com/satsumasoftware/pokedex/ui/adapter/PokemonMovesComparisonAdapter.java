@@ -1,19 +1,18 @@
 package com.satsumasoftware.pokedex.ui.adapter;
 
 import android.content.Context;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.framework.move.MiniMove;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonMove;
 import com.satsumasoftware.pokedex.util.AppConfig;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class PokemonMovesComparisonAdapter extends RecyclerView.Adapter<PokemonMovesComparisonAdapter.PokemonMoveViewHolder> {
 
@@ -37,10 +36,11 @@ public class PokemonMovesComparisonAdapter extends RecyclerView.Adapter<PokemonM
     }
 
     private Context mContext;
-    private SparseArray<PokemonMove[]> mPokemonMoves;
+    private List<Pair<Integer, PokemonMove[]>> mPokemonMoves;
     private int mLearnMethod;
 
-    public PokemonMovesComparisonAdapter(Context context, SparseArray<PokemonMove[]> pokemonMoves, int learnMethod) {
+    public PokemonMovesComparisonAdapter(Context context, List<Pair<Integer, PokemonMove[]>> pokemonMoves,
+                                         int learnMethod) {
         mContext = context;
         mPokemonMoves = pokemonMoves;
         mLearnMethod = learnMethod;
@@ -59,8 +59,9 @@ public class PokemonMovesComparisonAdapter extends RecyclerView.Adapter<PokemonM
 
     @Override
     public void onBindViewHolder(PokemonMoveViewHolder holder, int position) {
-        int level = mPokemonMoves.keyAt(position);
-        PokemonMove[] moves = mPokemonMoves.valueAt(position);
+        Pair pair = mPokemonMoves.get(position);
+        int level = (int) pair.first;
+        PokemonMove[] moves = (PokemonMove[]) pair.second;
 
         holder.level.setText(mLearnMethod == AppConfig.LEARN_METHOD_LEVEL_UP ?
                 String.valueOf(level) : "-");
