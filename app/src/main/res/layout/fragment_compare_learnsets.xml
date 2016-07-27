@@ -53,26 +53,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp" />
             <LinearLayout
-                android:orientation="horizontal"
+                android:id="@+id/container"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false">
-                <LinearLayout
-                    android:id="@+id/container_1"
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" >
-                    <!-- Cards will be added here programmatically -->
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/container_2"
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" >
-                    <!-- Cards will be added here programmatically -->
-                </LinearLayout>
+                android:layout_height="wrap_content">
+                <!-- Cards will be added here programmatically -->
             </LinearLayout>
         </FrameLayout>
     </LinearLayout>
