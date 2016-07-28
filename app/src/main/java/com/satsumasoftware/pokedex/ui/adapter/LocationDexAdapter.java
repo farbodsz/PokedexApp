@@ -70,7 +70,7 @@ public class LocationDexAdapter extends RecyclerView.Adapter<LocationDexAdapter.
         Location location = mLocations.get(position);
 
         holder.tvName.setText(location.getName());
-        holder.tvRegion.setText(new Region(mContext, location.getRegionId()).getName());
+        holder.tvRegion.setText(new Region(location.getRegionId()).getName());
     }
 
     @Override
