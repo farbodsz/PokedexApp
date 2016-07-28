@@ -10,12 +10,12 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/changelog_adView">
+        android:layout_above="@+id/adView">
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <android.support.v7.widget.Toolbar
-                android:id="@+id/changelog_toolbar"
+                android:id="@+id/toolbar"
                 style="@style/AppTheme.Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -24,11 +24,11 @@
         </android.support.design.widget.AppBarLayout>
 
         <include layout="@layout/progress_indeterminate"
-            android:id="@+id/changelog_progress"
+            android:id="@+id/progress_indeterminate"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/changelog_rv"
+            android:id="@+id/recyclerView"
             style="@style/AppTheme.RecyclerView.StandardList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
     </android.support.design.widget.CoordinatorLayout>
 
     <com.google.android.gms.ads.AdView
-        android:id="@+id/changelog_adView"
+        android:id="@+id/adView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

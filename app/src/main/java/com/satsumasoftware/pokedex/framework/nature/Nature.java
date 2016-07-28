@@ -6,21 +6,17 @@ import com.satsumasoftware.pokedex.db.NaturesDBHelper;
 
 public class Nature extends BaseNature {
 
-    private int mDecreasedStatId, mIncreasedStatId, mHatesFlavorId, mLikesFlavorId, mGameIndex;
-    private String mIdentifier;
-
+    private int mDecreasedStatId, mIncreasedStatId, mHatesFlavorId, mLikesFlavorId;
     private String mNameJa, mNameKo, mNameFr, mNameDe, mNameEs, mNameIt;
 
-    public Nature(int id, String identifier, int decreasedStatId, int increasedStatId,
-                  int hatesFlavorId, int likesFlavorId, int gameIndex, String name, String nameJa,
-                  String nameKo, String nameFr, String nameDe, String nameEs, String nameIt) {
+    public Nature(int id, int decreasedStatId, int increasedStatId, int hatesFlavorId,
+                  int likesFlavorId, String name, String nameJa, String nameKo, String nameFr,
+                  String nameDe, String nameEs, String nameIt) {
         mId = id;
-        mIdentifier = identifier;
         mDecreasedStatId = decreasedStatId;
         mIncreasedStatId = increasedStatId;
         mHatesFlavorId = hatesFlavorId;
         mLikesFlavorId = likesFlavorId;
-        mGameIndex = gameIndex;
 
         mName = name;
         mNameJa = nameJa;
@@ -33,12 +29,10 @@ public class Nature extends BaseNature {
 
     public Nature(Cursor cursor) {
         mId = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_ID));
-        mIdentifier = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_IDENTIFIER));
         mDecreasedStatId = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_DECREASED_STAT_ID));
         mIncreasedStatId = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_INCREASED_STAT_ID));
         mHatesFlavorId = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_HATES_FLAVOR_ID));
         mLikesFlavorId = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_LIKES_FLAVOR_ID));
-        mGameIndex = cursor.getInt(cursor.getColumnIndex(NaturesDBHelper.COL_GAME_INDEX));
 
         mName = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME));
         mNameJa = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME_JAPANESE));
@@ -47,10 +41,6 @@ public class Nature extends BaseNature {
         mNameDe = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME_GERMAN));
         mNameEs = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME_SPANISH));
         mNameIt = cursor.getString(cursor.getColumnIndex(NaturesDBHelper.COL_NAME_ITALIAN));
-    }
-
-    public String getIdentifier() {
-        return mIdentifier;
     }
 
     public int getDecreasedStatId() {
@@ -67,10 +57,6 @@ public class Nature extends BaseNature {
 
     public int getLikesFlavorId() {
         return mLikesFlavorId;
-    }
-
-    public int getGameIndex() {
-        return mGameIndex;
     }
 
     public String getNameJapanese() {

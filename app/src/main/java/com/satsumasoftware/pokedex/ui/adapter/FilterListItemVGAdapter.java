@@ -46,8 +46,8 @@ public class FilterListItemVGAdapter {
         final String itemText = mArrayItems.get(itemNo);
 
         View view = mActivity.getLayoutInflater().inflate(R.layout.list_item_filter, container, false);
-        final TextView textView = (TextView) view.findViewById(R.id.item_filter_text1);
-        final CheckBox checkBox = (CheckBox) view.findViewById(R.id.item_filter_checkbox);
+        final TextView textView = (TextView) view.findViewById(R.id.filter_text);
+        final CheckBox checkBox = (CheckBox) view.findViewById(R.id.filter_checkbox);
 
         textView.setText(itemText);
 

@@ -122,7 +122,7 @@ public class DetailActivity extends AppCompatActivity {
                 break;
         }
         setContentView(R.layout.activity_detail);
-        mRootLayout = findViewById(R.id.detail_rootLayout);
+        mRootLayout = findViewById(R.id.rootLayout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -336,7 +336,7 @@ public class DetailActivity extends AppCompatActivity {
             arrayPokemon = dbHelper.getAllPokemon();
         }
 
-        RecyclerView pokemonList = (RecyclerView) listPicker.findViewById(R.id.dialog_rv);
+        RecyclerView pokemonList = (RecyclerView) listPicker.findViewById(R.id.recyclerView);
         pokemonList.setHasFixedSize(true);
         pokemonList.setLayoutManager(new LinearLayoutManager(this));
         pokemonList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
@@ -901,7 +901,7 @@ public class DetailActivity extends AppCompatActivity {
                         container.removeAllViews();
                         getActivity().getLayoutInflater().inflate(R.layout.list_item_null, container, true);
                         String listMessage = getResources().getString(R.string.null_alternate_forms, sPokemon.getName());
-                        TextView tvListTxt = (TextView) mRootView.findViewById(R.id.item_null_text1);
+                        TextView tvListTxt = (TextView) mRootView.findViewById(R.id.item_null_text);
                         tvListTxt.setText(listMessage);
                     } else {
                         FormsVGAdapter adapter = new FormsVGAdapter(getActivity(), container, currForm, mAltForms);
@@ -936,6 +936,8 @@ public class DetailActivity extends AppCompatActivity {
 
         private View mRootView;
 
+        private AsyncTask<Void, Void, Void> mAsyncTask;
+
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -948,27 +950,42 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private void displayEvolutions() {
-            final ArrayList<MiniPokemon> evolutions = fetchOrderedEvolutions();
+            mAsyncTask = new AsyncTask<Void, Void, Void>() {
+                ArrayList<MiniPokemon> evolutions;
 
-            RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerView);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-            EvolutionsAdapter adapter = new EvolutionsAdapter(getActivity(), evolutions, sPokemon.toMiniPokemon());
-            adapter.setOnEntryClickListener(new EvolutionsAdapter.OnEntryClickListener() {
                 @Override
-                public void onEntryClick(View view, int position) {
-                    MiniPokemon clickedPokemon = evolutions.get(position);
-                    if (clickedPokemon.getId() != sPokemon.getId()) {
-                        Intent intent = new Intent(getActivity(), DetailActivity.class);
-                        intent.putExtra(EXTRA_POKEMON, clickedPokemon);
-                        startActivity(intent);
-                        getActivity().finish();
-                    }
+                protected Void doInBackground(Void... voids) {
+                    evolutions = fetchOrderedEvolutions();
+                    return null;
                 }
-            });
 
-            recyclerView.setAdapter(adapter);
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+
+                    RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerView);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+                    EvolutionsAdapter adapter = new EvolutionsAdapter(
+                            getActivity(), evolutions, sPokemon.toMiniPokemon());
+
+                    adapter.setOnEntryClickListener(new EvolutionsAdapter.OnEntryClickListener() {
+                        @Override
+                        public void onEntryClick(View view, int position) {
+                            MiniPokemon clickedPokemon = evolutions.get(position);
+                            if (clickedPokemon.getId() != sPokemon.getId()) {
+                                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                                intent.putExtra(EXTRA_POKEMON, clickedPokemon);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
+                        }
+                    });
+
+                    recyclerView.setAdapter(adapter);
+                }
+            }.execute();
         }
 
         private ArrayList<MiniPokemon> fetchOrderedEvolutions() {
@@ -1017,6 +1034,13 @@ public class DetailActivity extends AppCompatActivity {
             return c;
         }
 
+        @Override
+        public void onStop() {
+            super.onStop();
+            if (mAsyncTask != null) {
+                mAsyncTask.cancel(true);
+            }
+        }
     }
 
     public static class MovesFragment extends Fragment implements LabelledSpinner.OnItemChosenListener {
@@ -1119,9 +1143,9 @@ public class DetailActivity extends AppCompatActivity {
         private View makeCard() {
             View card = getActivity().getLayoutInflater().inflate(R.layout.card_detail_learnset, mContainer, false);
 
-            final TextView title = (TextView) card.findViewById(R.id.card_learnset_titleText);
-            final TextView subtitle = (TextView) card.findViewById(R.id.card_learnset_subtitleText);
-            final ProgressBar progressBar = (ProgressBar) card.findViewById(R.id.card_learnset_progressBar);
+            final TextView title = (TextView) card.findViewById(R.id.title);
+            final TextView subtitle = (TextView) card.findViewById(R.id.subtitle);
+            final ProgressBar progressBar = (ProgressBar) card.findViewById(R.id.progress_indeterminate);
             final RecyclerView recyclerView = (RecyclerView) card.findViewById(R.id.recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
                 @Override

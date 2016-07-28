@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/advancedFilter_rl_rootLayout"
+    android:id="@+id/rootLayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,11 +9,10 @@
     tools:context=".ui.AdvancedFilterActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/advancedFilter_appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
         <android.support.v7.widget.Toolbar
-            android:id="@+id/advancedFilter_toolbar"
+            android:id="@+id/toolbar"
             style="@style/AppTheme.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -29,7 +28,7 @@
             android:layout_height="wrap_content">
 
             <android.support.v7.widget.CardView
-                android:id="@+id/advancedFilter_cvPrompt"
+                android:id="@+id/cardView_prompt"
                 style="@style/AppTheme.CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
@@ -46,7 +45,7 @@
                         android:paddingLeft="@dimen/card_padding_lateral"
                         android:paddingRight="@dimen/card_padding_lateral"/>
                     <Button
-                        android:id="@+id/advancedFilter_btnPrompt"
+                        android:id="@+id/button_prompt"
                         android:text="@string/dialog_ok_got_it"
                         style="@style/AppTheme.Button.Flat"
                         android:layout_width="wrap_content"
@@ -74,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" >
                         <EditText
-                            android:id="@+id/advancedFilter_etName"
+                            android:id="@+id/editText_name"
                             android:hint="@string/filter_name"
                             style="@style/AppTheme.EditText"
                             android:inputType="textNoSuggestions"
@@ -86,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" >
                         <EditText
-                            android:id="@+id/advancedFilter_etSpecies"
+                            android:id="@+id/editText_species"
                             android:hint="@string/attr_classification"
                             style="@style/AppTheme.EditText"
                             android:inputType="textNoSuggestions"
@@ -99,35 +98,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
                     <com.satsuware.usefulviews.LabelledSpinner
-                        android:id="@+id/advancedFilter_spinnerType1"
+                        android:id="@+id/spinner_type_1"
                         custom:labelText="@string/attr_type_1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
                     <com.satsuware.usefulviews.LabelledSpinner
-                        android:id="@+id/advancedFilter_spinnerType2"
+                        android:id="@+id/spinner_type_2"
                         custom:labelText="@string/attr_type_2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
                 </LinearLayout>
                 <com.satsuware.usefulviews.LabelledSpinner
-                    android:id="@+id/advancedFilter_spinnerAbility"
+                    android:id="@+id/spinner_ability"
                     custom:labelText="@string/attr_ability"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <com.satsuware.usefulviews.LabelledSpinner
-                    android:id="@+id/advancedFilter_spinnerGrowth"
+                    android:id="@+id/spinner_growth"
                     custom:labelText="@string/filter_levelling"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <com.satsuware.usefulviews.LabelledSpinner
-                    android:id="@+id/advancedFilter_spinnerGeneration"
+                    android:id="@+id/spinner_generation"
                     custom:labelText="@string/attr_generation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <Button
-                    android:id="@+id/advancedFilter_btnGo"
+                    android:id="@+id/button_go"
                     android:text="@string/action_filter"
                     style="@style/AppTheme.Button.Raised"
                     android:layout_marginTop="@dimen/card_padding_actions"

@@ -26,13 +26,13 @@ import java.util.ArrayList;
 public class ExperienceCalculatorActivity extends BaseActivity implements LabelledSpinner.OnItemChosenListener {
 
     @Override
-    protected Toolbar getSelfToolbar() { return (Toolbar) findViewById(R.id.experience_toolbar); }
+    protected Toolbar getSelfToolbar() { return (Toolbar) findViewById(R.id.toolbar); }
     @Override
-    protected DrawerLayout getSelfDrawerLayout() { return (DrawerLayout) findViewById(R.id.experience_drawerLayout); }
+    protected DrawerLayout getSelfDrawerLayout() { return (DrawerLayout) findViewById(R.id.drawerLayout); }
     @Override
     protected int getSelfNavDrawerItem() { return NAVDRAWER_ITEM_EXPERIENCE; }
     @Override
-    protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.experience_navigationView); }
+    protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.navigationView); }
 
 
     private String mGrowth;
@@ -49,15 +49,15 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_experience_calculator);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.experience_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        AdUtils.setupAds(this, R.id.experience_adView);
+        AdUtils.setupAds(this, R.id.adView);
 
         Bundle extras = getIntent().getExtras();
 
-        RadioButton selectPokemon = (RadioButton) findViewById(R.id.experience_radioPokemon);
-        RadioButton selectLevellingRate = (RadioButton) findViewById(R.id.experience_radioLevellingRate);
+        RadioButton selectPokemon = (RadioButton) findViewById(R.id.radioButton_pokemon);
+        RadioButton selectLevellingRate = (RadioButton) findViewById(R.id.radioButton_levelling_rate);
 
         mEnterPokemon = true;
 
@@ -67,7 +67,7 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
             if (!mStrPkmnList.contains(name)) mStrPkmnList.add(name);
         }
 
-        final LabelledSpinner spinnerPokemonOrGrowth = (LabelledSpinner) findViewById(R.id.experience_spinnerPokemonOrGrowth);
+        final LabelledSpinner spinnerPokemonOrGrowth = (LabelledSpinner) findViewById(R.id.spinner_pokemon_or_growth);
         spinnerPokemonOrGrowth.setOnItemChosenListener(this);
 
         setupPokemonOrGrowthSpinner(spinnerPokemonOrGrowth);
@@ -92,7 +92,7 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
         });
 
 
-        LabelledSpinner spinnerLevel = (LabelledSpinner) findViewById(R.id.experience_spinnerLevel);
+        LabelledSpinner spinnerLevel = (LabelledSpinner) findViewById(R.id.spinner_level);
         ArrayList<Integer> arrayLevels = new ArrayList<>();
         for (int i = 1; i < 101; i++) { arrayLevels.add(i); } // Adding numbers 1 to 100
         spinnerLevel.setItemsArray(arrayLevels);
@@ -109,7 +109,7 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
         }
 
 
-        Button btnCalc = (Button) findViewById(R.id.experience_btnCalc);
+        Button btnCalc = (Button) findViewById(R.id.button_calculate);
         btnCalc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,10 +134,10 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
                 Experience.getGrowthIdFromString(mGrowth),
                 mLevel);
 
-        TextView tvAnswer = (TextView) findViewById(R.id.experience_tvAnswer);
+        TextView tvAnswer = (TextView) findViewById(R.id.text_answer);
         tvAnswer.setText(String.valueOf(exp));
 
-        TextView tvDescription = (TextView) findViewById(R.id.experience_tvDescription);
+        TextView tvDescription = (TextView) findViewById(R.id.text_description);
         tvDescription.setText(getResources().getString(R.string.experience_description, mLevel, mGrowth));
     }
 
@@ -145,7 +145,7 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
     public void onItemChosen(View labelledSpinner, AdapterView<?> adapterView, View itemView, int position, long id) {
         String selected = adapterView.getItemAtPosition(position).toString();
         switch (labelledSpinner.getId()) {
-            case R.id.experience_spinnerPokemonOrGrowth:
+            case R.id.spinner_pokemon_or_growth:
                 if (mEnterPokemon) {
                     // mGrowth will be abbreviated here, thus
                     mGrowth = DataUtilsKt.growthIdToName(findIntValue(
@@ -154,7 +154,7 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
                     mGrowth = selected;
                 }
                 break;
-            case R.id.experience_spinnerLevel:
+            case R.id.spinner_level:
                 mLevel = Integer.parseInt(selected);
                 break;
         }
