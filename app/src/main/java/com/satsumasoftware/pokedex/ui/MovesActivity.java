@@ -22,6 +22,7 @@ import android.widget.Spinner;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.MovesDBHelper;
+import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.move.MiniMove;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.MoveDexAdapter;
@@ -242,7 +243,7 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
     public void onFilterItemClick(View view, int position, String text, boolean isChecked, View itemView) {
         switch (itemView.getId()) {
             case R.id.container_types:
-                String typeQuery = "(" + MovesDBHelper.COL_TYPE_ID + "=\"" + DataUtilsKt.typeNameToId(text) + "\")";
+                String typeQuery = "(" + MovesDBHelper.COL_TYPE_ID + "=\"" + new Type(text).getId() + "\")";
                 mFilterSelectionType = reformatFilterSelection(mFilterSelectionType);
                 if (isChecked) {
                     mFilterSelectionType = mFilterSelectionType + typeQuery;

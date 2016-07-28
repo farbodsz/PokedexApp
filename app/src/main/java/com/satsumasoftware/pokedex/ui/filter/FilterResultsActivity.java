@@ -18,6 +18,7 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
+import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.ui.DetailActivity;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
@@ -129,14 +130,14 @@ public class FilterResultsActivity extends AppCompatActivity {
             //conditionType = line[10].equalsIgnoreCase(type1) || line[11].equalsIgnoreCase(type1);
             selectionsList.add(PokemonDBHelper.COL_TYPE_1_ID +" LIKE ? " +
                     "OR "+ PokemonDBHelper.COL_TYPE_2_ID +" LIKE ?");
-            selectionArgsList.add(String.valueOf(DataUtilsKt.typeNameToId(type1)));
-            selectionArgsList.add(String.valueOf(DataUtilsKt.typeNameToId(type1)));
+            selectionArgsList.add(String.valueOf(new Type(type1).getId()));
+            selectionArgsList.add(String.valueOf(new Type(type1).getId()));
         } else if ((type1 == null) && (type2 != null)) {
             //conditionType = line[10].equalsIgnoreCase(type2) || line[11].equalsIgnoreCase(type2);
             selectionsList.add(PokemonDBHelper.COL_TYPE_1_ID +" LIKE ? " +
                     "OR "+ PokemonDBHelper.COL_TYPE_2_ID +" LIKE ?");
-            selectionArgsList.add(String.valueOf(DataUtilsKt.typeNameToId(type2)));
-            selectionArgsList.add(String.valueOf(DataUtilsKt.typeNameToId(type2)));
+            selectionArgsList.add(String.valueOf(new Type(type2).getId()));
+            selectionArgsList.add(String.valueOf(new Type(type2).getId()));
         } else if ((type1 != null) && (type2 != null)) {
             //conditionType = (line[10].equalsIgnoreCase(type1) || line[11].equalsIgnoreCase(type1)) &&
                     //(line[10].equalsIgnoreCase(type2) || line[11].equalsIgnoreCase(type2));
@@ -144,10 +145,10 @@ public class FilterResultsActivity extends AppCompatActivity {
                     "OR "+ PokemonDBHelper.COL_TYPE_2_ID +" LIKE ?) " +
                     "AND ("+ PokemonDBHelper.COL_TYPE_1_ID +" LIKE ? " +
                     "OR "+ PokemonDBHelper.COL_TYPE_2_ID +" LIKE ?)");
-            selectionArgsList.add(String.valueOf(DataUtilsKt.typeNameToId(type1)));
-            selectionArgsList.add(String.valueOf(DataUtilsKt.typeNameToId(type1)));
-            selectionArgsList.add(String.valueOf(DataUtilsKt.typeNameToId(type2)));
-            selectionArgsList.add(String.valueOf(DataUtilsKt.typeNameToId(type2)));
+            selectionArgsList.add(String.valueOf(new Type(type1).getId()));
+            selectionArgsList.add(String.valueOf(new Type(type1).getId()));
+            selectionArgsList.add(String.valueOf(new Type(type2).getId()));
+            selectionArgsList.add(String.valueOf(new Type(type2).getId()));
         }
 
         int abilityId = mExtras.getInt(FILTER_ABILITY);

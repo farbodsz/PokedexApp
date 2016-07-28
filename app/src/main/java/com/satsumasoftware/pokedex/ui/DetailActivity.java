@@ -41,6 +41,7 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
+import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
@@ -479,9 +480,9 @@ public class DetailActivity extends AppCompatActivity {
             values.add(sPokemon.getGenera().get("en") + " Pok\u00E9mon");
             values.add(Pokemon.isFormMega(sPokemon.getFormSpecificValues()));
 
-            values.add(DataUtilsKt.typeIdToName(sPkmnTypeIds.get(1)));
+            values.add(new Type(sPkmnTypeIds.get(1)).getName());
             boolean hasSecondaryType = Pokemon.hasSecondaryType(sPkmnTypeIds);
-            values.add(hasSecondaryType ? DataUtilsKt.typeIdToName(sPkmnTypeIds.get(2)) : null);
+            values.add(hasSecondaryType ? new Type(sPkmnTypeIds.get(2)).getName() : null);
             values.add(hasSecondaryType);
 
             return new PokemonDetail(values);

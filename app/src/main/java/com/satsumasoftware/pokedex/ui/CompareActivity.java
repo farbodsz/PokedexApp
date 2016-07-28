@@ -36,6 +36,7 @@ import android.widget.Toast;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
+import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
@@ -266,9 +267,9 @@ public class CompareActivity extends AppCompatActivity {
 
                 SparseIntArray pokemonTypeIds = pokemon.getTypeIds();
 
-                valueArray.add(DataUtilsKt.typeIdToName(pokemonTypeIds.get(1)));
+                valueArray.add(new Type(pokemonTypeIds.get(1)).getName());
                 boolean hasSecondaryType = Pokemon.hasSecondaryType(pokemonTypeIds);
-                valueArray.add(hasSecondaryType ? DataUtilsKt.typeIdToName(pokemonTypeIds.get(2)) : null);
+                valueArray.add(hasSecondaryType ? new Type(pokemonTypeIds.get(2)).getName() : null);
                 valueArray.add(hasSecondaryType);
 
                 valueArrays.add(valueArray);
