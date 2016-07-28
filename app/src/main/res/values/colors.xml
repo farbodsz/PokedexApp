@@ -152,8 +152,8 @@
     <color name="pkmnColor_brown_primary">@color/mdu_brown_500</color>
     <color name="pkmnColor_brown_primary_dark">@color/mdu_brown_700</color>
     <color name="pkmnColor_brown_accent">@color/mdu_blue_grey_500</color>
-    <color name="pkmnColor_grey_primary">@color/mdu_grey_500</color>
-    <color name="pkmnColor_grey_primary_dark">@color/mdu_grey_700</color>
+    <color name="pkmnColor_grey_primary">@color/mdu_grey_400</color>
+    <color name="pkmnColor_grey_primary_dark">@color/mdu_grey_500</color>
     <color name="pkmnColor_grey_accent">@color/mdu_deep_orange_500</color>
     <color name="pkmnColor_green_primary">@color/mdu_green_500</color>
     <color name="pkmnColor_green_primary_dark">@color/mdu_green_700</color>
