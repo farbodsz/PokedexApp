@@ -50,14 +50,14 @@ public class FormsVGAdapter {
             throw new NullPointerException("pkmn form is null");
         }
 
-        TextView tvForm = (TextView) view.findViewById(R.id.item_form_text1);
+        TextView tvForm = (TextView) view.findViewById(R.id.text1);
         if (pokemonForm.isDefault()) {
             tvForm.setText("Normal");
         } else {
             tvForm.setText(pokemonForm.getFormName());
         }
 
-        TextView tvIsCurrent = (TextView) view.findViewById(R.id.item_form_text2);
+        TextView tvIsCurrent = (TextView) view.findViewById(R.id.text2);
         if (pokemonForm.getFormId() == mPokemon.getFormId()) {
             tvIsCurrent.setText("(selected)");
         } else {

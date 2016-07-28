@@ -19,7 +19,7 @@ public class AbilityDexAdapter extends RecyclerView.Adapter<AbilityDexAdapter.Ab
         AbilityViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            textView = (TextView) itemView.findViewById(R.id.item_simple_text1);
+            textView = (TextView) itemView.findViewById(R.id.text1);
         }
 
         @Override

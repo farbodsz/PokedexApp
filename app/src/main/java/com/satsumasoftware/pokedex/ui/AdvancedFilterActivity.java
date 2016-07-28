@@ -36,9 +36,9 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advanced_filter);
-        mRootLayout = findViewById(R.id.advancedFilter_rl_rootLayout);
+        mRootLayout = findViewById(R.id.rootLayout);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.advancedFilter_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -52,11 +52,11 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
     }
 
     private void setupLayouts() {
-        final CardView cvPrompt = (CardView) findViewById(R.id.advancedFilter_cvPrompt);
+        final CardView cvPrompt = (CardView) findViewById(R.id.cardView_prompt);
         if (PrefUtils.isFilterPromptDone(this)) {
             cvPrompt.setVisibility(View.GONE);
         } else {
-            Button promptBtn = (Button) findViewById(R.id.advancedFilter_btnPrompt);
+            Button promptBtn = (Button) findViewById(R.id.button_prompt);
             promptBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -66,14 +66,14 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
             });
         }
 
-        final EditText etName = (EditText) findViewById(R.id.advancedFilter_etName);
-        final EditText etSpecies = (EditText) findViewById(R.id.advancedFilter_etSpecies);
-        LabelledSpinner spinnerType1 = (LabelledSpinner) findViewById(R.id.advancedFilter_spinnerType1);
-        LabelledSpinner spinnerType2 = (LabelledSpinner) findViewById(R.id.advancedFilter_spinnerType2);
-        LabelledSpinner spinnerAbility = (LabelledSpinner) findViewById(R.id.advancedFilter_spinnerAbility);
-        LabelledSpinner spinnerGrowth = (LabelledSpinner) findViewById(R.id.advancedFilter_spinnerGrowth);
-        LabelledSpinner spinnerGen = (LabelledSpinner) findViewById(R.id.advancedFilter_spinnerGeneration);
-        Button btnFilter = (Button) findViewById(R.id.advancedFilter_btnGo);
+        final EditText etName = (EditText) findViewById(R.id.editText_name);
+        final EditText etSpecies = (EditText) findViewById(R.id.editText_species);
+        LabelledSpinner spinnerType1 = (LabelledSpinner) findViewById(R.id.spinner_type_1);
+        LabelledSpinner spinnerType2 = (LabelledSpinner) findViewById(R.id.spinner_type_2);
+        LabelledSpinner spinnerAbility = (LabelledSpinner) findViewById(R.id.spinner_ability);
+        LabelledSpinner spinnerGrowth = (LabelledSpinner) findViewById(R.id.spinner_growth);
+        LabelledSpinner spinnerGen = (LabelledSpinner) findViewById(R.id.spinner_generation);
+        Button btnFilter = (Button) findViewById(R.id.button_go);
 
         spinnerType1.setItemsArray(R.array.filter_type);
         spinnerType1.setOnItemChosenListener(this);
@@ -170,9 +170,9 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
             case R.id.action_help:
                 // It has already been marked done (which controls whether or not it shows
                 // on opening the activity), so we don't need to deal with this here
-                final CardView cvPrompt = (CardView) findViewById(R.id.advancedFilter_cvPrompt);
+                final CardView cvPrompt = (CardView) findViewById(R.id.cardView_prompt);
                 cvPrompt.setVisibility(View.VISIBLE);
-                Button promptBtn = (Button) findViewById(R.id.advancedFilter_btnPrompt);
+                Button promptBtn = (Button) findViewById(R.id.button_prompt);
                 promptBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -189,19 +189,19 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
     public void onItemChosen(View labelledSpinner, AdapterView<?> adapterView, View itemView, int position, long id) {
         String selected = adapterView.getItemAtPosition(position).toString();
         switch (labelledSpinner.getId()) {
-            case R.id.advancedFilter_spinnerType1:
+            case R.id.spinner_type_1:
                 mFilterType1 = selected;
                 break;
-            case R.id.advancedFilter_spinnerType2:
+            case R.id.spinner_type_2:
                 mFilterType2 = selected;
                 break;
-            case R.id.advancedFilter_spinnerAbility:
+            case R.id.spinner_ability:
                 mFilterAbility = mArrayAbilities.get(position).getId();
                 break;
-            case R.id.advancedFilter_spinnerGrowth:
+            case R.id.spinner_growth:
                 mFilterGrowth = selected;
                 break;
-            case R.id.advancedFilter_spinnerGeneration:
+            case R.id.spinner_generation:
                 mFilterGen = selected;
                 break;
         }

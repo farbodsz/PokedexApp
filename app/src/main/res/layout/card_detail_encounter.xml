@@ -16,7 +16,7 @@
             android:paddingLeft="@dimen/card_padding_lateral"
             android:paddingRight="@dimen/card_padding_lateral" >
             <TextView
-                android:id="@+id/card_encounter_titleText"
+                android:id="@+id/title"
                 style="@style/AppTheme.CardView.Text.Title.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

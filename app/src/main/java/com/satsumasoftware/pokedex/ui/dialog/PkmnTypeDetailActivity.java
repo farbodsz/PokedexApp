@@ -473,7 +473,7 @@ public class PkmnTypeDetailActivity extends AppCompatActivity {
             public View getView(int position, View convertView, ViewGroup parent) {
                 // See: http://stackoverflow.com/questions/20809272/android-change-listview-item-text-color
                 View view = super.getView(position, convertView, parent);
-                TextView thisItem = (TextView) view.findViewById(R.id.lv_compressed_text1);
+                TextView thisItem = (TextView) view.findViewById(R.id.text1);
                 String thisType = thisItem.getText().toString();
                 thisItem.setBackgroundColor(getResources().getColor(ThemeUtilsKt.getTypeBkgdColorRes(thisType)));
                 return view;
@@ -483,7 +483,7 @@ public class PkmnTypeDetailActivity extends AppCompatActivity {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
-                TextView thisItem = (TextView) view.findViewById(R.id.lv_compressed_text1);
+                TextView thisItem = (TextView) view.findViewById(R.id.text1);
                 String thisType = thisItem.getText().toString();
                 thisItem.setBackgroundColor(getResources().getColor(ThemeUtilsKt.getTypeBkgdColorRes(thisType)));
                 return view;
@@ -493,7 +493,7 @@ public class PkmnTypeDetailActivity extends AppCompatActivity {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
-                TextView thisItem = (TextView) view.findViewById(R.id.lv_compressed_text1);
+                TextView thisItem = (TextView) view.findViewById(R.id.text1);
                 String thisType = thisItem.getText().toString();
                 thisItem.setBackgroundColor(getResources().getColor(ThemeUtilsKt.getTypeBkgdColorRes(thisType)));
                 return view;

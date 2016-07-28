@@ -22,13 +22,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <RadioButton
-                android:id="@+id/experience_radioPokemon"
+                android:id="@+id/radioButton_pokemon"
                 android:text="@string/experience_select_pokemon"
                 android:checked="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <RadioButton
-                android:id="@+id/experience_radioLevellingRate"
+                android:id="@+id/radioButton_levelling_rate"
                 android:text="@string/experience_select_levelling_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -39,13 +39,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <com.satsuware.usefulviews.LabelledSpinner
-                android:id="@+id/experience_spinnerPokemonOrGrowth"
+                android:id="@+id/spinner_pokemon_or_growth"
                 app:labelText="@string/attr_pokemon"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
             <com.satsuware.usefulviews.LabelledSpinner
-                android:id="@+id/experience_spinnerLevel"
+                android:id="@+id/spinner_level"
                 app:labelText="@string/header_level"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/experience_btnCalc"
+            android:id="@+id/button_calculate"
             android:text="@string/experience_calculate"
             style="@style/AppTheme.Button.Raised"
             android:layout_marginTop="@dimen/card_padding_actions"
@@ -61,13 +61,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/experience_tvAnswer"
+            android:id="@+id/text_answer"
             style="@style/AppTheme.CardView.Text.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/card_padding_vertical_large"/>
         <TextView
-            android:id="@+id/experience_tvDescription"
+            android:id="@+id/text_description"
             style="@style/AppTheme.CardView.Text.Subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

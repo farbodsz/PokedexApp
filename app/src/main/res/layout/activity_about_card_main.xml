@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <TextView
-            android:id="@+id/about_tvAppInfo"
+            android:id="@+id/text_app_info"
             style="@style/AppTheme.CardView.Text.Supporting"
             android:text="@string/dummy_about_app"
             android:paddingBottom="@dimen/card_padding_vertical_large"

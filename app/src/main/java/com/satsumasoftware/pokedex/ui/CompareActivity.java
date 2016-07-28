@@ -786,9 +786,9 @@ public class CompareActivity extends AppCompatActivity {
         private View makeCard() {
             View card = getActivity().getLayoutInflater().inflate(R.layout.card_detail_learnset, mContainer, false);
 
-            final TextView title = (TextView) card.findViewById(R.id.card_learnset_titleText);
-            final TextView subtitle = (TextView) card.findViewById(R.id.card_learnset_subtitleText);
-            final ProgressBar progressBar = (ProgressBar) card.findViewById(R.id.card_learnset_progressBar);
+            final TextView title = (TextView) card.findViewById(R.id.title);
+            final TextView subtitle = (TextView) card.findViewById(R.id.subtitle);
+            final ProgressBar progressBar = (ProgressBar) card.findViewById(R.id.progress_indeterminate);
             final RecyclerView recyclerView = (RecyclerView) card.findViewById(R.id.recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
                 @Override

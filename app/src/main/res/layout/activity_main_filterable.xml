@@ -11,6 +11,6 @@
         android:id="@+id/navigationView" />
 
     <include layout="@layout/filter_drawer"
-        android:id="@+id/main_filterDrawer" />
+        android:id="@+id/filter_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

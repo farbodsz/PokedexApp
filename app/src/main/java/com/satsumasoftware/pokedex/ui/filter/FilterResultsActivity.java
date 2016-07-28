@@ -66,9 +66,9 @@ public class FilterResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_results);
-        mRootLayout = findViewById(R.id.filteredInfo_rootLayout);
+        mRootLayout = findViewById(R.id.rootLayout);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.filteredInfo_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         assert getSupportActionBar() != null;
@@ -76,13 +76,13 @@ public class FilterResultsActivity extends AppCompatActivity {
 
         mExtras = getIntent().getExtras();
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.filteredInfo_rv);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setVisibility(View.GONE);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
-        final ProgressBar progress = (ProgressBar) findViewById(R.id.filteredInfo_progress);
+        final ProgressBar progress = (ProgressBar) findViewById(R.id.progress_indeterminate);
         mAsyncTask = new AsyncTask<Void, Integer, Void>() {
             @Override
             protected Void doInBackground(Void... params) {

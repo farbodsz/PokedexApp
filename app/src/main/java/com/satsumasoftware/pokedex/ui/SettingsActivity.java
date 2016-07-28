@@ -30,7 +30,7 @@ public class SettingsActivity extends AppCompatActivity {
         LinearLayout root = (LinearLayout) findViewById(android.R.id.list).getParent().getParent().getParent();
         AppBarLayout appBar = (AppBarLayout) LayoutInflater.from(this).inflate(R.layout.settings_toolbar, root, false);
         root.addView(appBar, 0); // insert at top
-        setSupportActionBar((Toolbar) root.findViewById(R.id.settings_toolbar));
+        setSupportActionBar((Toolbar) root.findViewById(R.id.toolbar));
 
         assert getSupportActionBar() != null;
         getSupportActionBar().setHomeButtonEnabled(true);

@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <Button
-                android:id="@+id/about_btnFeedback"
+                android:id="@+id/button_feedback"
                 android:text="@string/about_feedback_action"
                 style="@style/AppTheme.Button.Flat"
                 android:layout_width="wrap_content"

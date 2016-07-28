@@ -9,7 +9,7 @@
     android:baselineAligned="false"
     android:background="?android:selectableItemBackground">
     <TextView
-        android:id="@+id/item_filter_text1"
+        android:id="@+id/filter_text"
         android:textColor="@color/mdu_text_black"
         android:textSize="14sp"
         android:layout_width="0dp"
@@ -20,7 +20,7 @@
         android:ellipsize="end"
         android:maxLines="1" />
     <CheckBox
-        android:id="@+id/item_filter_checkbox"
+        android:id="@+id/filter_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/mdu_keyline_1"

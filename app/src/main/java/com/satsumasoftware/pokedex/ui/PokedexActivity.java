@@ -100,7 +100,7 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
             PreferenceManager.setDefaultValues(this, R.xml.preferences_fragment, false); // Sets up the Settings page
         }
 
-        mNoResults = findViewById(R.id.main_frag_noResults);
+        mNoResults = findViewById(R.id.fragment_no_results);
     }
 
     private void populateList(ArrayList<MiniPokemon> pokemonList) {
@@ -218,14 +218,14 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
 
 
     private void setupFilterDrawer() {
-        Spinner spinnerName = (Spinner) findViewById(R.id.filterDrawer_spinnerName);
-        LinearLayout llTypes = (LinearLayout) findViewById(R.id.filterDrawer_llType_content);
-        LinearLayout llGrowth = (LinearLayout) findViewById(R.id.filterDrawer_llGrowth_content);
-        LinearLayout llGens = (LinearLayout) findViewById(R.id.filterDrawer_llGen_content);
-        Button btnAdvancedFilter = (Button) findViewById(R.id.filterDrawer_btnAdvanced);
+        Spinner spinnerName = (Spinner) findViewById(R.id.spinner_name);
+        LinearLayout llTypes = (LinearLayout) findViewById(R.id.container_types);
+        LinearLayout llGrowth = (LinearLayout) findViewById(R.id.container_growth);
+        LinearLayout llGens = (LinearLayout) findViewById(R.id.container_generations);
+        Button btnAdvancedFilter = (Button) findViewById(R.id.button_advanced_filter);
 
-        findViewById(R.id.filterDrawer_llNameList_group).setVisibility(View.GONE);
-        findViewById(R.id.filterDrawer_llLocRegions_group).setVisibility(View.GONE);
+        findViewById(R.id.viewGroup_name_list).setVisibility(View.GONE);
+        findViewById(R.id.viewGroup_location_region).setVisibility(View.GONE);
 
         ArrayAdapter<CharSequence> nameAdapter = ArrayAdapter.createFromResource(this, R.array.filter_name, android.R.layout.simple_spinner_item);
         nameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -273,7 +273,7 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
     @Override
     public void onFilterItemClick(View view, int position, String text, boolean isChecked, View itemView) {
         switch (itemView.getId()) {
-            case R.id.filterDrawer_llType_content:
+            case R.id.container_types:
                 String typeQuery = "((" + PokemonDBHelper.COL_TYPE_1_ID + "=\"" + DataUtilsKt.typeNameToId(text) + "\") OR " +
                         "(" + PokemonDBHelper.COL_TYPE_2_ID + "=\"" + DataUtilsKt.typeNameToId(text) + "\"))";
                 mFilterSelectionType = reformatFilterSelection(mFilterSelectionType);
@@ -290,7 +290,7 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
                 updateFilteredList();
                 break;
 
-            case R.id.filterDrawer_llGrowth_content:
+            case R.id.container_growth:
                 String growthQuery = "(" + PokemonDBHelper.COL_GROWTH_RATE_ID + "=\"" +
                         DataUtilsKt.growthNameToId(text) + "\")";
                 mFilterSelectionGrowth = reformatFilterSelection(mFilterSelectionGrowth);
@@ -308,7 +308,7 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
                 break;
 
 
-            case R.id.filterDrawer_llGen_content:
+            case R.id.container_generations:
                 String genQuery = "(" + PokemonDBHelper.COL_GENERATION_ID + "=\"" +
                         DataUtilsKt.romanToGenId(text) + "\")";
                 mFilterSelectionGen = reformatFilterSelection(mFilterSelectionGen);

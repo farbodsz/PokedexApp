@@ -1,7 +1,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/filteredInfo_rootLayout"
+    android:id="@+id/rootLayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
         <android.support.v7.widget.Toolbar
-            android:id="@+id/filteredInfo_toolbar"
+            android:id="@+id/toolbar"
             style="@style/AppTheme.Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,14 +20,14 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/progress_indeterminate"
-        android:id="@+id/filteredInfo_progress"
+        android:id="@+id/progress_indeterminate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/filteredInfo_rv"
+        android:id="@+id/recyclerView"
         style="@style/AppTheme.RecyclerView.StandardList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

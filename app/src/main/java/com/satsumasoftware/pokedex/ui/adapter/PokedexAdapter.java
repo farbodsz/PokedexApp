@@ -24,9 +24,9 @@ public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.PokedexV
             super(itemView);
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
-            tvId = (TextView) itemView.findViewById(R.id.item_pokedex_text1);
-            tvName = (TextView) itemView.findViewById(R.id.item_pokedex_text2);
-            tvForm = (TextView) itemView.findViewById(R.id.item_pokedex_text3);
+            tvId = (TextView) itemView.findViewById(R.id.text1);
+            tvName = (TextView) itemView.findViewById(R.id.text2);
+            tvForm = (TextView) itemView.findViewById(R.id.text3);
         }
 
         @Override
