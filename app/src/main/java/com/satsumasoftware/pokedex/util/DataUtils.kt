@@ -52,25 +52,6 @@ fun genIdToRoman(generationId: Int) = when (generationId) {
 
 
 @Deprecated(deprecationUseDb)
-fun shapeNameToId(shape: String) = when (shape) {
-    "Pomaceous", "Ball" -> 1
-    "Caudal", "Squiggle" -> 2
-    "Ichthyic", "Fish" -> 3
-    "Brachial", "Arms" -> 4
-    "Alvine", "Blob" -> 5
-    "Sciurine", "Upright" -> 6
-    "Crural", "Legs" -> 7
-    "Mensal", "Quadruped" -> 8
-    "Alar", "Wings" -> 9
-    "Cilial", "Tentacles" -> 10
-    "Polycephalic", "Heads" -> 11
-    "Anthropomorphic", "Humanoid" -> 12
-    "Lepidopterous", "Bug wings" -> 13
-    "Chitinous", "Armor" -> 14
-    else -> throw IllegalArgumentException("invalid shape name '$shape'")
-}
-
-@Deprecated(deprecationUseDb)
 fun pokedexIdToName(pokedexId: Int) = when (pokedexId) {
     1 -> "National"
     2 -> "Kanto"
