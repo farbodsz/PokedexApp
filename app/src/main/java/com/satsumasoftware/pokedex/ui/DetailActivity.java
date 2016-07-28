@@ -40,6 +40,7 @@ import android.widget.Toast;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
+import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
@@ -568,7 +569,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
             properties.add(res.getString(R.string.attr_colour));
-            final String color = DataUtilsKt.colorIdToName(Pokemon.getColorId(sPkmnPhysicalAttrs));
+            final String color = new Color(Pokemon.getColorId(sPkmnPhysicalAttrs)).getName();
             values.add(color);
             listeners.add(new View.OnClickListener() {
                 @Override

@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
+import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
@@ -208,7 +209,7 @@ public class FilterResultsActivity extends AppCompatActivity {
         String colour = mExtras.getString(FILTER_COLOUR);
         if (colour != null) {
             selectionsList.add(PokemonDBHelper.COL_COLOR_ID + "=?");
-            selectionArgsList.add(String.valueOf(DataUtilsKt.colourNameToId(colour)));
+            selectionArgsList.add(String.valueOf(new Color(colour).getId()));
         }
 
         String shape = mExtras.getString(FILTER_SHAPE);

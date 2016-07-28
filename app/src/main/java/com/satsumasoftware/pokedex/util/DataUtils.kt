@@ -52,37 +52,6 @@ fun genIdToRoman(generationId: Int) = when (generationId) {
 
 
 @Deprecated(deprecationUseDb)
-fun colourNameToId(colour: String) = when (colour.toLowerCase()) {
-    "black" -> 1
-    "blue" -> 2
-    "brown" -> 3
-    "grey" -> 4
-    "green" -> 5
-    "pink" -> 6
-    "purple" -> 7
-    "red" -> 8
-    "white" -> 9
-    "yellow" -> 10
-    else -> throw IllegalArgumentException("invalid colour name '$colour'")
-}
-
-@Deprecated(deprecationUseDb)
-fun colorIdToName(colorId: Int) = when (colorId) {
-    1 -> "Black"
-    2 -> "Blue"
-    3 -> "Brown"
-    4 -> "Grey"
-    5 -> "Green"
-    6 -> "Pink"
-    7 -> "Purple"
-    8 -> "Red"
-    9 -> "White"
-    10 -> "Yellow"
-    else -> throw IllegalArgumentException("invalid colour id '$colorId'")
-}
-
-
-@Deprecated(deprecationUseDb)
 fun shapeIdToName(shapeId: Int, technicalTerm: Boolean) = when (shapeId) {
     1 -> if (technicalTerm) "Pomaceous" else "Ball"
     2 -> if (technicalTerm) "Caudal" else "Squiggle"

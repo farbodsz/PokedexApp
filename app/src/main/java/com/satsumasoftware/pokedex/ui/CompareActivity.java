@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
+import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
@@ -372,7 +373,7 @@ public class CompareActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                final String color = DataUtilsKt.colorIdToName(Pokemon.getColorId(physicalValues));
+                final String color = new Color(Pokemon.getColorId(physicalValues)).getName();
                 values.add(color);
                 listeners.add(new View.OnClickListener() {
                     @Override
