@@ -9,10 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.ItemsDBHelper;
 import com.satsumasoftware.pokedex.framework.item.MiniItem;
+import com.satsumasoftware.pokedex.ui.adapter.ItemsAdapter;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
@@ -62,9 +64,15 @@ public class ItemsActivity extends BaseActivity {
         });
         final ArrayList<MiniItem> itemsFinal = items;
 
-        // TODO create adapter
+        ItemsAdapter adapter = new ItemsAdapter(itemsFinal);
+        adapter.setOnRowClickListener(new ItemsAdapter.OnRowClickListener() {
+            @Override
+            public void onRowClick(View view, int position) {
+                // TODO
+            }
+        });
 
-        //mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(adapter);
     }
 
     @Override
