@@ -169,12 +169,10 @@ public class FilterResultsActivity extends AppCompatActivity {
 
         //TODO: Add filtering for statistics
 
-        String growthAsString = mExtras.getString(FILTER_GROWTH);
-        if (growthAsString != null) {
-            int growthId = Integer.parseInt(growthAsString);
-            //conditionGrowth = line[21].equalsIgnoreCase(InfoUtils.getAbbreviationFromGrowth(growth));
+        String growthId = mExtras.getString(FILTER_GROWTH);
+        if (growthId != null) {
             selectionsList.add(PokemonDBHelper.COL_GROWTH_RATE_ID+" LIKE ?");
-            selectionArgsList.add(String.valueOf(new GrowthRate(growthId).getId()));
+            selectionArgsList.add(growthId);
         }
 
         String generation = mExtras.getString(FILTER_GENERATION);
@@ -207,22 +205,22 @@ public class FilterResultsActivity extends AppCompatActivity {
             selectionArgsList.add(String.valueOf(height));
         }
 
-        String colour = mExtras.getString(FILTER_COLOUR);
-        if (colour != null) {
+        String colorId = mExtras.getString(FILTER_COLOUR);
+        if (colorId != null) {
             selectionsList.add(PokemonDBHelper.COL_COLOR_ID + "=?");
-            selectionArgsList.add(String.valueOf(new Color(colour).getId()));
+            selectionArgsList.add(colorId);
         }
 
-        String shape = mExtras.getString(FILTER_SHAPE);
-        if (shape != null) {
+        String shapeId = mExtras.getString(FILTER_SHAPE);
+        if (shapeId != null) {
             selectionsList.add(PokemonDBHelper.COL_SHAPE_ID + "=?");
-            selectionArgsList.add(String.valueOf(DataUtilsKt.shapeNameToId(shape)));
+            selectionArgsList.add(shapeId);
         }
 
-        String habitat = mExtras.getString(FILTER_HABITAT);
-        if (habitat != null) {
+        String habitatId = mExtras.getString(FILTER_HABITAT);
+        if (habitatId != null) {
             selectionsList.add(PokemonDBHelper.COL_HABITAT_ID + "=?");
-            selectionArgsList.add(String.valueOf(new Habitat(habitat).getId()));
+            selectionArgsList.add(habitatId);
         }
 
         String eggSteps = mExtras.getString(FILTER_EGG_STEPS);
