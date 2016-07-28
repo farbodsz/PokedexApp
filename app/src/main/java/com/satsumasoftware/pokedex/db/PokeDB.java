@@ -119,11 +119,11 @@ public class PokeDB extends SQLiteAssetHelper {
     }
 
 
-    public class ItemCategories {
-        public static final String TABLE_NAME = "item_categories";
-        public static final String COL_ID = "id";
-        public static final String COL_POCKET_ID = "pocket_id";
-        public static final String COL_IDENTIFIER = "identifier";
+    protected class ItemCategories {
+        static final String TABLE_NAME = "item_categories";
+        static final String COL_ID = "id";
+        static final String COL_POCKET_ID = "pocket_id";
+        static final String COL_IDENTIFIER = "identifier";
     }
 
     public class ItemFlagMap {
@@ -140,11 +140,11 @@ public class PokeDB extends SQLiteAssetHelper {
         public static final String COL_FLAVOR_TEXT = "flavor_text";
     }
 
-    public class ItemNames {
-        public static final String TABLE_NAME = "item_names";
-        public static final String COL_ITEM_ID = "item_id";
-        public static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
-        public static final String COL_NAME = "name";
+    protected class ItemNames {
+        static final String TABLE_NAME = "item_names";
+        static final String COL_ITEM_ID = "item_id";
+        static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
+        static final String COL_NAME = "name";
     }
 
     public class ItemProse {
@@ -155,14 +155,14 @@ public class PokeDB extends SQLiteAssetHelper {
         public static final String COL_EFFECT = "effect";
     }
 
-    public class Items {
-        public static final String TABLE_NAME = "items";
-        public static final String COL_ID = "id";
-        public static final String COL_IDENTIFIER = "identifier";
-        public static final String COL_CATEGORY_ID = "category_id";
-        public static final String COL_COST = "cost";
-        public static final String COL_FLING_POWER = "fling_power";
-        public static final String COL_FLING_EFFECT_ID = "fling_effect_id";
+    protected class Items {
+        static final String TABLE_NAME = "items";
+        static final String COL_ID = "id";
+        static final String COL_IDENTIFIER = "identifier";
+        static final String COL_CATEGORY_ID = "category_id";
+        static final String COL_COST = "cost";
+        static final String COL_FLING_POWER = "fling_power";
+        static final String COL_FLING_EFFECT_ID = "fling_effect_id";
     }
 
 
