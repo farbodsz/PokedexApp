@@ -52,51 +52,6 @@ fun genIdToRoman(generationId: Int) = when (generationId) {
 
 
 @Deprecated(deprecationUseDb)
-fun growthNameToId(growthRate: String) = when (growthRate.toLowerCase()) {
-    "fluctuating" -> 6
-    "slow" -> 1
-    "medium slow" -> 4
-    "medium fast" -> 2
-    "fast" -> 3
-    "erratic" -> 5
-    else -> throw IllegalArgumentException("invalid growth rate '$growthRate'")
-}
-
-@Deprecated(deprecationUseDb)
-fun growthIdToName(id: Int) = when (id) {
-    6 -> "Fluctuating"
-    1 -> "Slow"
-    4 -> "Medium Slow"
-    2 -> "Medium Fast"
-    3 -> "Fast"
-    5 -> "Erratic"
-    else -> throw IllegalArgumentException("invalid growth id '$id'")
-}
-
-@Deprecated(deprecationUseDb)
-fun growthIdGetMaxExp(growthRateId: Int) = when (growthRateId) {
-    1 -> 1250000
-    2 -> 1000000
-    3 -> 800000
-    4 -> 1059860
-    5 -> 600000
-    6 -> 1640000
-    else -> throw IllegalArgumentException("invalid growth rate id '$growthRateId'")
-}
-
-@Deprecated(deprecationUseDb)
-fun growthMaxExpToId(maxExp: Int) = when (maxExp) {
-    1250000 -> 1
-    1000000 -> 2
-    800000 -> 3
-    1059860 -> 4
-    600000 -> 5
-    1640000 -> 6
-    else -> throw IllegalArgumentException("invalid max exp value '$maxExp'")
-}
-
-
-@Deprecated(deprecationUseDb)
 fun typeNameToId(typeName: String) = when (typeName.toLowerCase()) {
     "normal" -> 1
     "fighting" -> 2

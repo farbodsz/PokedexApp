@@ -26,6 +26,7 @@ import android.widget.Spinner;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
+import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
@@ -292,7 +293,7 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
 
             case R.id.container_growth:
                 String growthQuery = "(" + PokemonDBHelper.COL_GROWTH_RATE_ID + "=\"" +
-                        DataUtilsKt.growthNameToId(text) + "\")";
+                        new GrowthRate(text).getId() + "\")";
                 mFilterSelectionGrowth = reformatFilterSelection(mFilterSelectionGrowth);
                 if (isChecked) {
                     mFilterSelectionGrowth = mFilterSelectionGrowth + growthQuery;

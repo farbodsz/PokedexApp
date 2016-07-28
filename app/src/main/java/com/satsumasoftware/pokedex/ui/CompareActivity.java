@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
+import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
@@ -473,25 +474,26 @@ public class CompareActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                final String levellingRate = DataUtilsKt.growthIdToName(Pokemon.getGrowthRateId(trainingValues));
-                values.add(levellingRate);
+
+                final GrowthRate growthRate = new GrowthRate(Pokemon.getGrowthRateId(trainingValues));
+
+                values.add(growthRate.getName());
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_LEVELLING_RATE);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, levellingRate);
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(growthRate.getId()));
                         startActivity(intent);
                     }
                 });
-                final String exp = String.valueOf(DataUtilsKt.growthIdGetMaxExp(Pokemon.getGrowthRateId(trainingValues)));
-                values.add(exp);
+                values.add(String.valueOf(growthRate.findMaxExperience()));
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_EXP);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, exp);
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(growthRate.getId()));
                         startActivity(intent);
                     }
                 });

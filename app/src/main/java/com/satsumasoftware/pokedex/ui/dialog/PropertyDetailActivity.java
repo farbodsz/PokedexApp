@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
+import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.ui.filter.FilterResultsActivity;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
@@ -75,16 +76,18 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 mFilterName = FilterResultsActivity.FILTER_HAPPINESS;
                 break;
             case PROPERTY_LEVELLING_RATE:
-                title = mValue;
+                // mValue is the growth id
+                title = new GrowthRate(Integer.parseInt(mValue)).getName();
                 propertyName = res.getString(R.string.attr_levelling_rate);
                 description = res.getString(R.string.description_levelling, mValue);
                 mFilterName = FilterResultsActivity.FILTER_GROWTH;
                 break;
             case PROPERTY_EXP:
-                title = mValue + " exp points";
+                // mValue is the growth id
+                title = new GrowthRate(Integer.parseInt(mValue)).findMaxExperience() + " exp points";
                 propertyName = res.getString(R.string.attr_exp_growth);
                 description = res.getString(R.string.description_exp, mValue);
-                mFilterName = FilterResultsActivity.FILTER_EXP_TO_100;
+                mFilterName = FilterResultsActivity.FILTER_GROWTH;
                 break;
             case PROPERTY_GENERATION:
                 title = "Gen. " + mValue;

@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
+import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.ui.DetailActivity;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
@@ -43,7 +44,6 @@ public class FilterResultsActivity extends AppCompatActivity {
     public static final String FILTER_GENERATION = "GENERATION";
     public static final String FILTER_CATCH_RATE = "CATCH_RATE";
     public static final String FILTER_HAPPINESS = "HAPPINESS";
-    public static final String FILTER_EXP_TO_100 = "EXP_TO_100";
     public static final String FILTER_MASS = "MASS";
     public static final String FILTER_HEIGHT = "HEIGHT";
     public static final String FILTER_COLOUR = "COLOUR";
@@ -166,17 +166,12 @@ public class FilterResultsActivity extends AppCompatActivity {
 
         //TODO: Add filtering for statistics
 
-        String growth = mExtras.getString(FILTER_GROWTH);
-        if (growth != null) {
+        String growthAsString = mExtras.getString(FILTER_GROWTH);
+        if (growthAsString != null) {
+            int growthId = Integer.parseInt(growthAsString);
             //conditionGrowth = line[21].equalsIgnoreCase(InfoUtils.getAbbreviationFromGrowth(growth));
             selectionsList.add(PokemonDBHelper.COL_GROWTH_RATE_ID+" LIKE ?");
-            selectionArgsList.add(String.valueOf(DataUtilsKt.growthNameToId(growth)));
-        }
-
-        String exp = mExtras.getString(FILTER_EXP_TO_100);
-        if (exp != null) {
-            selectionsList.add(PokemonDBHelper.COL_GROWTH_RATE_ID + "=?");
-            selectionArgsList.add(String.valueOf(DataUtilsKt.growthMaxExpToId(Integer.parseInt(exp))));
+            selectionArgsList.add(String.valueOf(new GrowthRate(growthId).getId()));
         }
 
         String generation = mExtras.getString(FILTER_GENERATION);
