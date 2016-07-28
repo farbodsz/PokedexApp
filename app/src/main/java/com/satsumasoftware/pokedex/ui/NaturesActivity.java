@@ -79,7 +79,7 @@ public class NaturesActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_natures, menu);
+        getMenuInflater().inflate(R.menu.menu_main_simple, menu);
         return true;
     }
 
