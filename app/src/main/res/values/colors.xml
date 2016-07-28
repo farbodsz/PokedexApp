@@ -26,6 +26,9 @@
     <color name="natures_primary">@color/mdu_green_500</color>
     <color name="natures_primary_dark">@color/mdu_green_700</color>
     <color name="natures_accent">@color/mdu_green_a700</color>
+    <color name="items_primary">@color/mdu_teal_500</color>
+    <color name="items_primary_dark">@color/mdu_teal_700</color>
+    <color name="items_accent">@color/mdu_blue_a200</color>
     <color name="locations_primary">@color/mdu_cyan_500</color>
     <color name="locations_primary_dark">@color/mdu_cyan_700</color>
     <color name="locations_accent">@color/mdu_pink_a200</color>

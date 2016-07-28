@@ -34,9 +34,9 @@
     </style>
 
     <style name="AppTheme.ItemDex" parent="Base.AppTheme">
-        <item name="colorPrimary">@color/natures_primary</item>
-        <item name="colorPrimaryDark">@color/natures_primary_dark</item>
-        <item name="colorAccent">@color/natures_accent</item>
+        <item name="colorPrimary">@color/items_primary</item>
+        <item name="colorPrimaryDark">@color/items_primary_dark</item>
+        <item name="colorAccent">@color/items_accent</item>
     </style>
 
     <style name="AppTheme.LocationDex" parent="Base.AppTheme">
