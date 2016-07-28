@@ -4,6 +4,7 @@ import android.content.Context
 import android.database.Cursor
 import com.satsumasoftware.pokedex.db.PokeDB
 import com.satsumasoftware.pokedex.framework.Gender
+import com.satsumasoftware.pokedex.framework.item.MiniItem
 import com.satsumasoftware.pokedex.framework.location.Location
 import com.satsumasoftware.pokedex.framework.move.MiniMove
 import com.satsumasoftware.pokedex.util.NULL_INT
@@ -61,7 +62,7 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
                     "Trade with " + MiniPokemon(context, tradeSpeciesId, false).name
                 description.append(tradeText)
             }
-            3 -> description.append("Use item #$triggerItemId")  // TODO item name
+            3 -> description.append("Use a ${MiniItem(context, triggerItemId).name}")
             4 -> description.append("By shed")
         }
 
@@ -75,7 +76,7 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
         }
 
         if (heldItemId != NULL_INT) {
-            description.append(", while holding item #$heldItemId")  // TODO item name
+            description.append(", while holding a ${MiniItem(context, heldItemId).name}")
         }
 
         if (!timeOfDay.equals("")) {
