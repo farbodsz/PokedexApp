@@ -17,12 +17,12 @@ public class CompactEncounterDataHolder {
     }
 
     public void addEncounterDataHolder(EncounterDataHolder encounterDataHolder) {
-        if (mEncounterDataHolders == null) {
-            mEncounterDataHolders = new ArrayList<>();
-        }
-
         if (encounterDataHolder.getEncounter().getPokemonId() != mPokemonId) {
             throw new IllegalArgumentException("the pokemon id must match the one previously specified");
+        }
+
+        if (mEncounterDataHolders == null) {
+            mEncounterDataHolders = new ArrayList<>();
         }
 
         Encounter encounter = encounterDataHolder.getEncounter();

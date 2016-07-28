@@ -28,8 +28,9 @@
                 android:paddingBottom="@dimen/card_padding_vertical" />
             <include android:id="@+id/card_learnset_progressBar"
                 layout="@layout/progress_indeterminate" />
-            <LinearLayout android:id="@+id/card_learnset_linearLayout"
-                style="@style/AppTheme.LinearLayout.StandardList"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                style="@style/AppTheme.RecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/card_padding_vertical" />
