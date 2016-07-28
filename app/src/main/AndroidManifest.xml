@@ -61,6 +61,10 @@
             android:label="@string/title_activity_natures"
             android:theme="@style/AppTheme.NatureDex.NavDrawer" />
         <activity
+            android:name=".ui.ItemsActivity"
+            android:label="@string/title_activity_items"
+            android:theme="@style/AppTheme.ItemDex.NavDrawer" />
+        <activity
             android:name=".ui.LocationsActivity"
             android:label="@string/title_activity_locations"
             android:theme="@style/AppTheme.LocationDex.NavDrawer" />

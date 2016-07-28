@@ -33,6 +33,12 @@
         <item name="colorAccent">@color/natures_accent</item>
     </style>
 
+    <style name="AppTheme.ItemDex" parent="Base.AppTheme">
+        <item name="colorPrimary">@color/natures_primary</item>
+        <item name="colorPrimaryDark">@color/natures_primary_dark</item>
+        <item name="colorAccent">@color/natures_accent</item>
+    </style>
+
     <style name="AppTheme.LocationDex" parent="Base.AppTheme">
         <item name="colorPrimary">@color/locations_primary</item>
         <item name="colorPrimaryDark">@color/locations_primary_dark</item>
@@ -99,6 +105,9 @@
         <item name="android:windowBackground">@color/window_background</item>
     </style>
     <style name="AppTheme.NatureDex.NavDrawer">
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
+    <style name="AppTheme.ItemDex.NavDrawer">
         <item name="android:windowBackground">@color/window_background</item>
     </style>
     <style name="AppTheme.LocationDex.NavDrawer">
