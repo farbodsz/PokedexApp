@@ -9,6 +9,8 @@ import android.util.Log;
 
 import com.satsumasoftware.pokedex.framework.ability.BaseAbility;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
+import com.satsumasoftware.pokedex.framework.item.BaseItem;
+import com.satsumasoftware.pokedex.framework.item.MiniItem;
 
 import java.util.ArrayList;
 
@@ -179,6 +181,25 @@ public class ItemsDBHelper extends SQLiteOpenHelper {
             cursor.moveToNext();
         }
         cursor.close();
+    }
+
+
+    public ArrayList<MiniItem> getAllItems() {
+        ArrayList<MiniItem> list = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(
+                TABLE_NAME,
+                BaseItem.DB_COLUMNS, null, null, null, null, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            int id = cursor.getInt(cursor.getColumnIndex(COL_ID));
+            String name = cursor.getString(cursor.getColumnIndex(COL_NAME));
+            MiniItem item = new MiniItem(id, name);
+            list.add(item);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        return list;
     }
 
 }
