@@ -4,10 +4,10 @@ import android.content.Context
 import android.database.Cursor
 import com.satsumasoftware.pokedex.db.PokeDB
 import com.satsumasoftware.pokedex.framework.Gender
+import com.satsumasoftware.pokedex.framework.Region
 import com.satsumasoftware.pokedex.framework.location.Location
 import com.satsumasoftware.pokedex.framework.move.MiniMove
 import com.satsumasoftware.pokedex.util.NULL_INT
-import com.satsumasoftware.pokedex.util.regionIdToName
 import com.satsumasoftware.pokedex.util.typeIdToName
 
 data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutionTriggerId: Int,
@@ -71,7 +71,7 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
 
         if (locationId != NULL_INT) {
             val location = Location(context, locationId)
-            description.append(", around ${location.name} (${regionIdToName(location.regionId)})")
+            description.append(", around ${location.name} (${Region(location.regionId).name})")
         }
 
         if (heldItemId != NULL_INT) {

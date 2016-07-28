@@ -223,29 +223,6 @@ fun habitatIdToName(habitatId: Int) = when (habitatId) {
 
 
 @Deprecated(deprecationUseDb)
-fun regionIdToName(regionId: Int) = when (regionId) {
-    1 -> "Kanto"
-    2 -> "Johto"
-    3 -> "Hoenn"
-    4 -> "Sinnoh"
-    5 -> "Unova"
-    6 -> "Kalos"
-    else -> throw IllegalArgumentException("invalid region id '$regionId'")
-}
-
-@Deprecated(deprecationUseDb)
-fun regionNameToId(regionName: String) = when (regionName.toLowerCase()) {
-    "kanto" -> 1
-    "johto" -> 2
-    "hoenn" -> 3
-    "sinnoh" -> 4
-    "unova" -> 5
-    "kalos" -> 6
-    else -> throw IllegalArgumentException("invalid region name '$regionName'")
-}
-
-
-@Deprecated(deprecationUseDb)
 fun pokedexIdToName(pokedexId: Int) = when (pokedexId) {
     1 -> "National"
     2 -> "Kanto"

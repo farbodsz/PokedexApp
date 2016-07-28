@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
+import com.satsumasoftware.pokedex.framework.Region;
 import com.satsumasoftware.pokedex.framework.encounter.CompactEncounterDataHolder;
 import com.satsumasoftware.pokedex.framework.encounter.Encounter;
 import com.satsumasoftware.pokedex.framework.encounter.EncounterDataHolder;
@@ -67,7 +68,7 @@ public class LocationDetailActivity extends AppCompatActivity {
 
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle(mLocation.getName());
-        getSupportActionBar().setSubtitle(DataUtilsKt.regionIdToName(mLocation.getRegionId()));
+        getSupportActionBar().setSubtitle(new Region(mLocation.getRegionId()).getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mTabLayout = (TabLayout) findViewById(R.id.locationDetail_tabs);
