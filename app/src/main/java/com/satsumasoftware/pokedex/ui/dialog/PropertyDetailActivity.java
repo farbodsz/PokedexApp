@@ -85,9 +85,11 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 break;
             case PROPERTY_EXP:
                 // mValue is the growth id
-                title = new GrowthRate(Integer.parseInt(mValue)).findMaxExperience() + " exp points";
+                GrowthRate growthRate = new GrowthRate(Integer.parseInt(mValue));
+                int experience = growthRate.findMaxExperience();
+                title = experience + " exp points";
                 propertyName = res.getString(R.string.attr_exp_growth);
-                description = res.getString(R.string.description_exp, mValue);
+                description = res.getString(R.string.description_exp, String.valueOf(experience));
                 mFilterName = FilterResultsActivity.FILTER_GROWTH;
                 break;
             case PROPERTY_GENERATION:
