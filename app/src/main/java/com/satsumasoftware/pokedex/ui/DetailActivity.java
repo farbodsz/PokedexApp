@@ -936,6 +936,8 @@ public class DetailActivity extends AppCompatActivity {
 
         private View mRootView;
 
+        private AsyncTask<Void, Void, Void> mAsyncTask;
+
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -948,27 +950,42 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private void displayEvolutions() {
-            final ArrayList<MiniPokemon> evolutions = fetchOrderedEvolutions();
+            mAsyncTask = new AsyncTask<Void, Void, Void>() {
+                ArrayList<MiniPokemon> evolutions;
 
-            RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerView);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-            EvolutionsAdapter adapter = new EvolutionsAdapter(getActivity(), evolutions, sPokemon.toMiniPokemon());
-            adapter.setOnEntryClickListener(new EvolutionsAdapter.OnEntryClickListener() {
                 @Override
-                public void onEntryClick(View view, int position) {
-                    MiniPokemon clickedPokemon = evolutions.get(position);
-                    if (clickedPokemon.getId() != sPokemon.getId()) {
-                        Intent intent = new Intent(getActivity(), DetailActivity.class);
-                        intent.putExtra(EXTRA_POKEMON, clickedPokemon);
-                        startActivity(intent);
-                        getActivity().finish();
-                    }
+                protected Void doInBackground(Void... voids) {
+                    evolutions = fetchOrderedEvolutions();
+                    return null;
                 }
-            });
 
-            recyclerView.setAdapter(adapter);
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+
+                    RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerView);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+                    EvolutionsAdapter adapter = new EvolutionsAdapter(
+                            getActivity(), evolutions, sPokemon.toMiniPokemon());
+
+                    adapter.setOnEntryClickListener(new EvolutionsAdapter.OnEntryClickListener() {
+                        @Override
+                        public void onEntryClick(View view, int position) {
+                            MiniPokemon clickedPokemon = evolutions.get(position);
+                            if (clickedPokemon.getId() != sPokemon.getId()) {
+                                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                                intent.putExtra(EXTRA_POKEMON, clickedPokemon);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
+                        }
+                    });
+
+                    recyclerView.setAdapter(adapter);
+                }
+            }.execute();
         }
 
         private ArrayList<MiniPokemon> fetchOrderedEvolutions() {
@@ -1017,6 +1034,13 @@ public class DetailActivity extends AppCompatActivity {
             return c;
         }
 
+        @Override
+        public void onStop() {
+            super.onStop();
+            if (mAsyncTask != null) {
+                mAsyncTask.cancel(true);
+            }
+        }
     }
 
     public static class MovesFragment extends Fragment implements LabelledSpinner.OnItemChosenListener {
