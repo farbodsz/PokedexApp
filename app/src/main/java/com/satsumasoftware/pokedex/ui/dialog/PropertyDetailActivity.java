@@ -11,7 +11,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
+import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
+import com.satsumasoftware.pokedex.framework.Habitat;
 import com.satsumasoftware.pokedex.framework.Shape;
 import com.satsumasoftware.pokedex.ui.filter.FilterResultsActivity;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
@@ -77,16 +79,15 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 mFilterName = FilterResultsActivity.FILTER_HAPPINESS;
                 break;
             case PROPERTY_LEVELLING_RATE:
-                // mValue is the growth id
-                title = new GrowthRate(Integer.parseInt(mValue)).getName();
+                GrowthRate levellingRate = new GrowthRate(Integer.parseInt(mValue));
+                title = levellingRate.getName();
                 propertyName = res.getString(R.string.attr_levelling_rate);
-                description = res.getString(R.string.description_levelling, mValue);
+                description = res.getString(R.string.description_levelling, levellingRate.getName());
                 mFilterName = FilterResultsActivity.FILTER_GROWTH;
                 break;
             case PROPERTY_EXP:
-                // mValue is the growth id
-                GrowthRate growthRate = new GrowthRate(Integer.parseInt(mValue));
-                int experience = growthRate.findMaxExperience();
+                GrowthRate expGrowth = new GrowthRate(Integer.parseInt(mValue));
+                int experience = expGrowth.findMaxExperience();
                 title = experience + " exp points";
                 propertyName = res.getString(R.string.attr_exp_growth);
                 description = res.getString(R.string.description_exp, String.valueOf(experience));
@@ -111,8 +112,10 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 mFilterName = FilterResultsActivity.FILTER_HEIGHT;
                 break;
             case PROPERTY_COLOUR:
+                Color color = new Color(Integer.parseInt(mValue));
+                title = color.getName();
                 propertyName = res.getString(R.string.attr_colour);
-                description = res.getString(R.string.description_colour, mValue);
+                description = res.getString(R.string.description_colour, color.getName());
                 mFilterName = FilterResultsActivity.FILTER_COLOUR;
                 break;
             case PROPERTY_SHAPE:
@@ -123,8 +126,10 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 mFilterName = FilterResultsActivity.FILTER_SHAPE;
                 break;
             case PROPERTY_HABITAT:
+                Habitat habitat = new Habitat(Integer.parseInt(mValue));
+                title = habitat.getName();
                 propertyName = res.getString(R.string.attr_habitat);
-                description = res.getString(R.string.description_habitat, mValue);
+                description = res.getString(R.string.description_habitat, habitat.getName());
                 mFilterName = FilterResultsActivity.FILTER_HABITAT;
                 break;
             case PROPERTY_EGG_STEPS:

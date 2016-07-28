@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -571,14 +572,14 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
             properties.add(res.getString(R.string.attr_colour));
-            final String color = new Color(Pokemon.getColorId(sPkmnPhysicalAttrs)).getName();
-            values.add(color);
+            final Color color = new Color(Pokemon.getColorId(sPkmnPhysicalAttrs));
+            values.add(color.getName());
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_COLOUR);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, color);
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(color.getId()));
                     startActivity(intent);
                 }
             });
@@ -776,14 +777,14 @@ public class DetailActivity extends AppCompatActivity {
 
             if (Pokemon.hasHabitatInfo(moreValues)) {
                 properties.add(res.getString(R.string.attr_habitat));
-                final String habitat = new Habitat(Pokemon.getHabitatId(moreValues)).getName();
-                values.add(habitat);
+                final Habitat habitat = new Habitat(Pokemon.getHabitatId(moreValues));
+                values.add(habitat.getName());
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_HABITAT);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, habitat);
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(habitat.getId()));
                         startActivity(intent);
                     }
                 });

@@ -375,14 +375,14 @@ public class CompareActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                final String color = new Color(Pokemon.getColorId(physicalValues)).getName();
-                values.add(color);
+                final Color color = new Color(Pokemon.getColorId(physicalValues));
+                values.add(color.getName());
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_COLOUR);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, color);
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(color.getId()));
                         startActivity(intent);
                     }
                 });
@@ -658,14 +658,14 @@ public class CompareActivity extends AppCompatActivity {
                 });
 
                 if (Pokemon.hasHabitatInfo(moreValues)) {
-                    final String habitat = new Habitat(Pokemon.getHabitatId(moreValues)).getName();
-                    values.add(habitat);
+                    final Habitat habitat = new Habitat(Pokemon.getHabitatId(moreValues));
+                    values.add(habitat.getName());
                     listeners.add(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                             intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_HABITAT);
-                            intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, habitat);
+                            intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(habitat.getId()));
                             startActivity(intent);
                         }
                     });
