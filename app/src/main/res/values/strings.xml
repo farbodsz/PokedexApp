@@ -39,6 +39,7 @@
     <string name="navigation_item_abilities" translatable="false">@string/title_activity_abilities</string>
     <string name="navigation_item_moves" translatable="false">@string/title_activity_moves</string>
     <string name="navigation_item_natures" translatable="false">@string/title_activity_natures</string>
+    <string name="navigation_item_items" translatable="false">@string/title_activity_items</string>
     <string name="navigation_item_locations" translatable="false">@string/title_activity_locations</string>
     <string name="navigation_item_favourites" translatable="false">@string/title_activity_favorites</string>
     <string name="navigation_item_experience" translatable="false">@string/title_activity_experience_calculator</string>

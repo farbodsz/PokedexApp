@@ -60,6 +60,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected static final int NAVDRAWER_ITEM_ABILITYDEX = R.id.navigation_item_abilities;
     protected static final int NAVDRAWER_ITEM_MOVEDEX = R.id.navigation_item_moves;
     protected static final int NAVDRAWER_ITEM_NATUREDEX = R.id.navigation_item_natures;
+    protected static final int NAVDRAWER_ITEM_ITEMDEX = R.id.navigation_item_items;
     protected static final int NAVDRAWER_ITEM_LOCATIONDEX = R.id.navigation_item_locations;
     protected static final int NAVDRAWER_ITEM_FAVOURITES = R.id.navigation_item_favourites;
     protected static final int NAVDRAWER_ITEM_EXPERIENCE = R.id.navigation_item_experience;
@@ -191,6 +192,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                 break;
             case NAVDRAWER_ITEM_NATUREDEX:
                 intent = new Intent(this, NaturesActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case NAVDRAWER_ITEM_ITEMDEX:
+                intent = new Intent(this, ItemsActivity.class);
                 startActivity(intent);
                 finish();
                 break;

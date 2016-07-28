@@ -29,7 +29,7 @@ public class ItemsActivity extends BaseActivity {
     @Override
     protected DrawerLayout getSelfDrawerLayout() { return (DrawerLayout) findViewById(R.id.drawerLayout); }
     @Override
-    protected int getSelfNavDrawerItem() { return BaseActivity.NAVDRAWER_ITEM_INVALID; }
+    protected int getSelfNavDrawerItem() { return NAVDRAWER_ITEM_ITEMDEX; }
     @Override
     protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.navigationView); }
 
