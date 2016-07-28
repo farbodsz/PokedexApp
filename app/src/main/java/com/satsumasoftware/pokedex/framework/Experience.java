@@ -5,7 +5,7 @@ import android.database.Cursor;
 
 import com.satsumasoftware.pokedex.db.PokeDB;
 
-public class Experience {
+public final class Experience {
 
     public static int getTotalExperience(Context context, GrowthRate growthRate, int level) {
         PokeDB pokeDB = new PokeDB(context);
