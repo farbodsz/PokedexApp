@@ -43,6 +43,7 @@ import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Habitat;
+import com.satsumasoftware.pokedex.framework.Shape;
 import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
@@ -581,15 +582,16 @@ public class DetailActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
+            final Shape shape = new Shape(Pokemon.getShapeId(sPkmnPhysicalAttrs));
             properties.add(res.getString(R.string.attr_shape));
-            values.add(DataUtilsKt.shapeIdToName(Pokemon.getShapeId(sPkmnPhysicalAttrs), true) +
-                    " (" + DataUtilsKt.shapeIdToName(Pokemon.getShapeId(sPkmnPhysicalAttrs), false) + ")");
+            values.add(shape.getTechnicalName() + " (" + shape.getSimpleName() + ")");
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_SHAPE);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, DataUtilsKt.shapeIdToName(Pokemon.getShapeId(sPkmnPhysicalAttrs), false));
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(shape.getId()));
                     startActivity(intent);
                 }
             });

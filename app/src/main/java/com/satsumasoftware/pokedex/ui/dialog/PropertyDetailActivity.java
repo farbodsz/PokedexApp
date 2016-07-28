@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
+import com.satsumasoftware.pokedex.framework.Shape;
 import com.satsumasoftware.pokedex.ui.filter.FilterResultsActivity;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
@@ -113,8 +114,10 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 mFilterName = FilterResultsActivity.FILTER_COLOUR;
                 break;
             case PROPERTY_SHAPE:
+                Shape shape = new Shape(Integer.parseInt(mValue));
+                title = shape.getSimpleName();
                 propertyName = res.getString(R.string.attr_shape);
-                description = res.getString(R.string.description_shape, mValue, DataUtilsKt.getTechnicalShapeFromSimple(mValue));
+                description = res.getString(R.string.description_shape, shape.getSimpleName(), shape.getTechnicalName());
                 mFilterName = FilterResultsActivity.FILTER_SHAPE;
                 break;
             case PROPERTY_HABITAT:
