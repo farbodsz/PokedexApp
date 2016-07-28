@@ -110,37 +110,6 @@ fun getTechnicalShapeFromSimple(simpleShapeName: String) = when (simpleShapeName
 
 
 @Deprecated(deprecationUseDb)
-fun habitatNameToId(habitat: String) = when (habitat) {
-    // Habitats are something only in Pokemon FireRed and LeafGreen
-    "Cave" -> 1
-    "Forest" -> 2
-    "Grassland" -> 3
-    "Mountain" -> 4
-    "Rare" -> 5
-    "Rough Terrain" -> 6
-    "Sea" -> 7
-    "Urban" -> 8
-    "Water's Edge" -> 9
-    else -> throw IllegalArgumentException("invalid habitat name '$habitat'")
-}
-
-@Deprecated(deprecationUseDb)
-fun habitatIdToName(habitatId: Int) = when (habitatId) {
-    // Habitats are something only in Pokemon FireRed and LeafGreen
-    1 -> "Cave"
-    2 -> "Forest"
-    3 -> "Grassland"
-    4 -> "Mountain"
-    5 -> "Rare"
-    6 -> "Rough Terrain"
-    7 -> "Sea"
-    8 -> "Urban"
-    9 -> "Water's Edge"
-    else -> throw IllegalArgumentException("invalid habitat id '$habitatId'")
-}
-
-
-@Deprecated(deprecationUseDb)
 fun pokedexIdToName(pokedexId: Int) = when (pokedexId) {
     1 -> "National"
     2 -> "Kanto"

@@ -37,6 +37,7 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
+import com.satsumasoftware.pokedex.framework.Habitat;
 import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
@@ -655,7 +656,7 @@ public class CompareActivity extends AppCompatActivity {
                 });
 
                 if (Pokemon.hasHabitatInfo(moreValues)) {
-                    final String habitat = DataUtilsKt.habitatIdToName(Pokemon.getHabitatId(moreValues));
+                    final String habitat = new Habitat(Pokemon.getHabitatId(moreValues)).getName();
                     values.add(habitat);
                     listeners.add(new View.OnClickListener() {
                         @Override

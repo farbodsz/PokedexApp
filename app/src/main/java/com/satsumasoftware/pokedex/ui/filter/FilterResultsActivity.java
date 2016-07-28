@@ -19,6 +19,7 @@ import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
+import com.satsumasoftware.pokedex.framework.Habitat;
 import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.ui.DetailActivity;
@@ -221,7 +222,7 @@ public class FilterResultsActivity extends AppCompatActivity {
         String habitat = mExtras.getString(FILTER_HABITAT);
         if (habitat != null) {
             selectionsList.add(PokemonDBHelper.COL_HABITAT_ID + "=?");
-            selectionArgsList.add(String.valueOf(DataUtilsKt.habitatNameToId(habitat)));
+            selectionArgsList.add(String.valueOf(new Habitat(habitat).getId()));
         }
 
         String eggSteps = mExtras.getString(FILTER_EGG_STEPS);
