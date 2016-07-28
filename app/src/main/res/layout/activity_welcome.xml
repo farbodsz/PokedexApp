@@ -9,7 +9,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/welcome_buttonBar"
+        android:layout_above="@+id/button_bar"
         android:layout_alignParentTop="true">
 
         <FrameLayout
@@ -88,7 +88,7 @@
     </FrameLayout>
 
     <LinearLayout
-        android:id="@+id/welcome_buttonBar"
+        android:id="@+id/button_bar"
         style="@style/AppTheme.LinearLayout.Footer"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
