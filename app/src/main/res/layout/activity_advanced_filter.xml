@@ -9,7 +9,6 @@
     tools:context=".ui.AdvancedFilterActivity">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/advancedFilter_appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
         <android.support.v7.widget.Toolbar
