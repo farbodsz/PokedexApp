@@ -9,7 +9,6 @@
     android:baselineAligned="false">
 
     <LinearLayout
-        android:id="@+id/item_form_background"
         android:orientation="horizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
