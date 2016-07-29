@@ -6,7 +6,7 @@ android {
     buildToolsVersion '24.0.1'
 
     defaultConfig {
-        applicationId "com.phoenixenterprise.pokedex"
+        applicationId "com.satsumasoftware.pokedex"
         minSdkVersion 14
         targetSdkVersion 24
         versionCode 407
