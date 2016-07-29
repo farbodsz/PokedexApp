@@ -23,16 +23,16 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
 
-        TextView tvTitle = (TextView) findViewById(R.id.welcome_title);
+        TextView tvTitle = (TextView) findViewById(R.id.title);
         String appName = getResources().getString(R.string.app_name);
         tvTitle.setText(getResources().getString(R.string.welcome_message, appName));
 
-        TextView tvSubtitle = (TextView) findViewById(R.id.welcome_subtitle);
+        TextView tvSubtitle = (TextView) findViewById(R.id.subtitle);
         String versionName = "v" + BuildConfig.VERSION_NAME;
         tvSubtitle.setText(versionName);
 
 
-        TextView tvBody = (TextView) findViewById(R.id.welcome_body);
+        TextView tvBody = (TextView) findViewById(R.id.body_text);
         StringBuilder welcomeText = new StringBuilder();
         welcomeText.append("Here is what's new:\n\n");
 
@@ -49,7 +49,7 @@ public class WelcomeActivity extends AppCompatActivity {
         tvBody.setText(welcomeText);
 
 
-        Button btnDone = (Button) findViewById(R.id.welcome_btnContinue);
+        Button btnDone = (Button) findViewById(R.id.button_continue);
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +59,7 @@ public class WelcomeActivity extends AppCompatActivity {
             }
         });
 
-        Button btnChangelog = (Button) findViewById(R.id.welcome_btnChangelog);
+        Button btnChangelog = (Button) findViewById(R.id.button_changelog);
         btnChangelog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -122,10 +122,10 @@ public class PokemonDetail implements DetailCard {
         for (int i = 0; i < mProperties.size(); i++) {
             View row = inflater.inflate(R.layout.card_pokemon_detail_row, container, false);
 
-            TextView property = (TextView) row.findViewById(R.id.pokemon_detail_row_property);
+            TextView property = (TextView) row.findViewById(R.id.text_property);
             property.setText(mProperties.get(i));
 
-            TextView value = (TextView) row.findViewById(R.id.pokemon_detail_row_value);
+            TextView value = (TextView) row.findViewById(R.id.text_value);
             value.setText(String.valueOf(mValues.get(i)));
             if (mOnClickListeners != null) {
                 value.setOnClickListener(mOnClickListeners.get(i));
@@ -251,12 +251,12 @@ public class PokemonDetail implements DetailCard {
         for (int i = 0; i < 8; i++) {
             View row = inflater.inflate(R.layout.card_pokemon_detail_row_stats, container, false);
 
-            TextView property = (TextView) row.findViewById(R.id.propertyText);
+            TextView property = (TextView) row.findViewById(R.id.text_property);
             Resources res = context.getResources();
             property.setText(res.getString(labels[i]));
 
             ProgressBar progressBar = (ProgressBar) row.findViewById(R.id.progressBar);
-            TextView value = (TextView) row.findViewById(R.id.valueText);
+            TextView value = (TextView) row.findViewById(R.id.text_value);
 
             if (i == 6) {
                 progressBar.setMax(maxTotal);

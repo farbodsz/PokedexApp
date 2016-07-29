@@ -21,7 +21,7 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.about_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -31,11 +31,11 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
 
-        AdUtils.setupAds(this, R.id.about_adView);
+        AdUtils.setupAds(this, R.id.adView);
 
         setAppInformation();
 
-        Button btnChangelog = (Button) findViewById(R.id.about_btnChangelog);
+        Button btnChangelog = (Button) findViewById(R.id.button_changelog);
         btnChangelog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,7 +43,7 @@ public class AboutActivity extends AppCompatActivity {
             }
         });
 
-        Button btnSettings = (Button) findViewById(R.id.about_btnSettings);
+        Button btnSettings = (Button) findViewById(R.id.button_settings);
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +53,7 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     private void setAppInformation() {
-        TextView appInfo = (TextView) findViewById(R.id.about_tvAppInfo);
+        TextView appInfo = (TextView) findViewById(R.id.text_app_info);
         String appName = getResources().getString(R.string.app_name);
         String versionSuffix = "";
         if (Flavours.type == Flavours.Type.FREE) {

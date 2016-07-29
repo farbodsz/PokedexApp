@@ -7,7 +7,7 @@
     android:paddingBottom="@dimen/spacing_stat_bars">
 
     <TextView
-        android:id="@+id/propertyText"
+        android:id="@+id/text_property"
         android:text="@string/attr_stat_hp"
         style="@style/AppTheme.CardView.Text.Subtitle"
         android:gravity="center"

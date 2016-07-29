@@ -207,12 +207,12 @@ public class Pokemon extends BasePokemon {
         return physicalValues;
     }
 
-    public static double getHeight(ArrayMap<String, Integer> physicalValues) {
-        return physicalValues.get("height") / 10.0;
+    public static int getHeightValue(ArrayMap<String, Integer> physicalValues) {
+        return physicalValues.get("height");
     }
 
-    public static double getWeight(ArrayMap<String, Integer> physicalValues) {
-        return physicalValues.get("weight") / 10.0;
+    public static int getWeight(ArrayMap<String, Integer> physicalValues) {
+        return physicalValues.get("weight");
     }
 
     public static int getColorId(ArrayMap<String, Integer> physicalValues) {

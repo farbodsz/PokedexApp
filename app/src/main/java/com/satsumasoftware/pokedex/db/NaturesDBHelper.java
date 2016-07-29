@@ -20,12 +20,10 @@ public class NaturesDBHelper extends SQLiteOpenHelper {
 
     /* All Column Names */
     public static final String COL_ID = "id";
-    public static final String COL_IDENTIFIER = "identifier";
     public static final String COL_DECREASED_STAT_ID = "decreased_stat_id";
     public static final String COL_INCREASED_STAT_ID = "increased_stat_id";
     public static final String COL_HATES_FLAVOR_ID = "hates_flavor_id";
     public static final String COL_LIKES_FLAVOR_ID = "likes_flavor_id";
-    public static final String COL_GAME_INDEX = "game_index";
     public static final String COL_NAME = "name_en";
     public static final String COL_NAME_JAPANESE = "name_ja";
     public static final String COL_NAME_KOREAN = "name_ko";
@@ -38,12 +36,11 @@ public class NaturesDBHelper extends SQLiteOpenHelper {
     private static final String SQL_CREATE = "CREATE TABLE " +
             TABLE_NAME + " (" +
             COL_ID + " INTEGER, " +
-            COL_IDENTIFIER + " TEXT, " +
             COL_DECREASED_STAT_ID + " INTEGER, " +
             COL_INCREASED_STAT_ID + " INTEGER, " +
             COL_HATES_FLAVOR_ID + " INTEGER, " +
             COL_LIKES_FLAVOR_ID + " INTEGER, " +
-            COL_GAME_INDEX + " INTEGER, " +
+
             COL_NAME + " TEXT, " +
             COL_NAME_JAPANESE + " TEXT, " +
             COL_NAME_KOREAN + " TEXT, " +
@@ -88,8 +85,6 @@ public class NaturesDBHelper extends SQLiteOpenHelper {
             int id = cursor.getInt(cursor.getColumnIndex(PokeDB.Natures.COL_ID));
             values.put(COL_ID, id);
 
-            values.put(COL_IDENTIFIER,
-                    cursor.getString(cursor.getColumnIndex(PokeDB.Natures.COL_IDENTIFIER)));
 
             values.put(COL_DECREASED_STAT_ID,
                     cursor.getInt(cursor.getColumnIndex(PokeDB.Natures.COL_DECREASED_STAT_ID)));
@@ -100,8 +95,6 @@ public class NaturesDBHelper extends SQLiteOpenHelper {
                     cursor.getInt(cursor.getColumnIndex(PokeDB.Natures.COL_HATES_FLAVOR_ID)));
             values.put(COL_LIKES_FLAVOR_ID,
                     cursor.getInt(cursor.getColumnIndex(PokeDB.Natures.COL_LIKES_FLAVOR_ID)));
-            values.put(COL_GAME_INDEX,
-                    cursor.getInt(cursor.getColumnIndex(PokeDB.Natures.COL_GAME_INDEX)));
 
             putNameValues(values, id, pokeDB);
 

@@ -21,7 +21,7 @@
             android:paddingLeft="@dimen/card_padding_lateral"
             android:paddingRight="@dimen/card_padding_lateral" >
             <com.satsuware.usefulviews.LabelledSpinner
-                android:id="@+id/compareL_spinnerMethod"
+                android:id="@+id/spinner_learn_method"
                 custom:labelText="@string/filter_moves_method"
                 custom:widgetColor="@color/mdu_text_white"
                 style="@style/AppTheme.HeaderBarText.Secondary.Larger"
@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
             <com.satsuware.usefulviews.LabelledSpinner
-                android:id="@+id/compareL_spinnerGame"
+                android:id="@+id/spinner_game_version"
                 custom:labelText="@string/filter_game_version"
                 custom:widgetColor="@color/mdu_text_white"
                 style="@style/AppTheme.HeaderBarText.Secondary.Larger"
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
             <Button
-                android:id="@+id/compareL_btnGo"
+                android:id="@+id/button_go"
                 android:text="@string/filter_button_go"
                 style="@style/AppTheme.Button.Raised"
                 android:layout_gravity="bottom"
@@ -53,26 +53,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp" />
             <LinearLayout
-                android:orientation="horizontal"
+                android:id="@+id/container"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false">
-                <LinearLayout
-                    android:id="@+id/compareL_llContainer_1"
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" >
-                    <!-- Cards will be added here programmatically -->
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/compareL_llContainer_2"
-                    android:orientation="vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" >
-                    <!-- Cards will be added here programmatically -->
-                </LinearLayout>
+                android:layout_height="wrap_content">
+                <!-- Cards will be added here programmatically -->
             </LinearLayout>
         </FrameLayout>
     </LinearLayout>

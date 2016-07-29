@@ -40,6 +40,13 @@ import android.widget.Toast;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
+import com.satsumasoftware.pokedex.framework.Color;
+import com.satsumasoftware.pokedex.framework.GrowthRate;
+import com.satsumasoftware.pokedex.framework.Habitat;
+import com.satsumasoftware.pokedex.framework.HeightOrMass;
+import com.satsumasoftware.pokedex.framework.Pokedex;
+import com.satsumasoftware.pokedex.framework.Shape;
+import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
@@ -52,7 +59,7 @@ import com.satsumasoftware.pokedex.ui.adapter.EvolutionsAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsTileAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
-import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesVgAdapter;
+import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesAdapter;
 import com.satsumasoftware.pokedex.ui.card.DetailCard;
 import com.satsumasoftware.pokedex.ui.card.PokemonDetail;
 import com.satsumasoftware.pokedex.ui.dialog.AbilityDetailActivity;
@@ -122,7 +129,7 @@ public class DetailActivity extends AppCompatActivity {
                 break;
         }
         setContentView(R.layout.activity_detail);
-        mRootLayout = findViewById(R.id.detail_rootLayout);
+        mRootLayout = findViewById(R.id.rootLayout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -336,7 +343,7 @@ public class DetailActivity extends AppCompatActivity {
             arrayPokemon = dbHelper.getAllPokemon();
         }
 
-        RecyclerView pokemonList = (RecyclerView) listPicker.findViewById(R.id.dialog_rv);
+        RecyclerView pokemonList = (RecyclerView) listPicker.findViewById(R.id.recyclerView);
         pokemonList.setHasFixedSize(true);
         pokemonList.setLayoutManager(new LinearLayoutManager(this));
         pokemonList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
@@ -482,9 +489,9 @@ public class DetailActivity extends AppCompatActivity {
             values.add(sPokemon.getGenera().get("en") + " Pok\u00E9mon");
             values.add(Pokemon.isFormMega(sPokemon.getFormSpecificValues()));
 
-            values.add(DataUtilsKt.typeIdToName(sPkmnTypeIds.get(1)));
+            values.add(new Type(sPkmnTypeIds.get(1)).getName());
             boolean hasSecondaryType = Pokemon.hasSecondaryType(sPkmnTypeIds);
-            values.add(hasSecondaryType ? DataUtilsKt.typeIdToName(sPkmnTypeIds.get(2)) : null);
+            values.add(hasSecondaryType ? new Type(sPkmnTypeIds.get(2)).getName() : null);
             values.add(hasSecondaryType);
 
             return new PokemonDetail(values);
@@ -547,49 +554,53 @@ public class DetailActivity extends AppCompatActivity {
             ArrayList<View.OnClickListener> listeners = new ArrayList<>();
             Resources res = getResources();
 
+            final HeightOrMass height = new HeightOrMass(Pokemon.getHeightValue(sPkmnPhysicalAttrs));
             properties.add(res.getString(R.string.attr_height));
-            values.add(Pokemon.getHeight(sPkmnPhysicalAttrs) + " m");
+            values.add(height.getDisplayedValue() + " m");
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_HEIGHT);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(Pokemon.getHeight(sPkmnPhysicalAttrs)));
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, height.getDbValue());
                     startActivity(intent);
                 }
             });
+
+            final HeightOrMass mass = new HeightOrMass(Pokemon.getWeight(sPkmnPhysicalAttrs));
             properties.add(res.getString(R.string.attr_mass));
-            values.add(Pokemon.getWeight(sPkmnPhysicalAttrs) + " kg");
+            values.add(mass.getDisplayedValue() + " kg");
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_MASS);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(Pokemon.getWeight(sPkmnPhysicalAttrs)));
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, mass.getDbValue());
                     startActivity(intent);
                 }
             });
             properties.add(res.getString(R.string.attr_colour));
-            final String color = DataUtilsKt.colorIdToName(Pokemon.getColorId(sPkmnPhysicalAttrs));
-            values.add(color);
+            final Color color = new Color(Pokemon.getColorId(sPkmnPhysicalAttrs));
+            values.add(color.getName());
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_COLOUR);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, color);
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, color.getId());
                     startActivity(intent);
                 }
             });
+
+            final Shape shape = new Shape(Pokemon.getShapeId(sPkmnPhysicalAttrs));
             properties.add(res.getString(R.string.attr_shape));
-            values.add(DataUtilsKt.shapeIdToName(Pokemon.getShapeId(sPkmnPhysicalAttrs), true) +
-                    " (" + DataUtilsKt.shapeIdToName(Pokemon.getShapeId(sPkmnPhysicalAttrs), false) + ")");
+            values.add(shape.getTechnicalName() + " (" + shape.getSimpleName() + ")");
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_SHAPE);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, DataUtilsKt.shapeIdToName(Pokemon.getShapeId(sPkmnPhysicalAttrs), false));
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, shape.getId());
                     startActivity(intent);
                 }
             });
@@ -627,8 +638,8 @@ public class DetailActivity extends AppCompatActivity {
             Resources res = getResources();
 
             properties.add(res.getString(R.string.attr_catch_rate));
-            final String captureRate = String.valueOf(Pokemon.getCaptureRate(trainingValues));
-            values.add(captureRate);
+            final int captureRate = Pokemon.getCaptureRate(trainingValues);
+            values.add(String.valueOf(captureRate));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -639,8 +650,8 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
             properties.add(res.getString(R.string.attr_base_happiness));
-            final String happiness = String.valueOf(Pokemon.getBaseHappiness(trainingValues));
-            values.add(happiness);
+            final int happiness = Pokemon.getBaseHappiness(trainingValues);
+            values.add(String.valueOf(happiness));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -650,27 +661,29 @@ public class DetailActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
+            final GrowthRate growthRate = new GrowthRate(Pokemon.getGrowthRateId(trainingValues));
+
             properties.add(res.getString(R.string.attr_levelling_rate));
-            final String levellingRate = DataUtilsKt.growthIdToName(Pokemon.getGrowthRateId(trainingValues));
-            values.add(levellingRate);
+            values.add(growthRate.getName());
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_LEVELLING_RATE);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, levellingRate);
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, growthRate.getId());
                     startActivity(intent);
                 }
             });
+
             properties.add(res.getString(R.string.attr_exp_growth_abbr));
-            final String exp = String.valueOf(DataUtilsKt.growthIdGetMaxExp(Pokemon.getGrowthRateId(trainingValues)));
-            values.add(exp);
+            values.add(String.valueOf(growthRate.findMaxExperience()));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_EXP);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, exp);
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, growthRate.getId());
                     startActivity(intent);
                 }
             });
@@ -707,7 +720,7 @@ public class DetailActivity extends AppCompatActivity {
                     continue;
                 }
 
-                properties.add(DataUtilsKt.pokedexIdToName(id));
+                properties.add(new Pokedex(id).getName());
                 values.add(DataUtilsKt.formatPokemonId(pokedexValues.get(pokedexKey)));
                 listeners.add(new View.OnClickListener() {
                     @Override
@@ -732,8 +745,8 @@ public class DetailActivity extends AppCompatActivity {
             Resources res = getResources();
 
             properties.add(res.getString(R.string.attr_generation));
-            final String generation = DataUtilsKt.genIdToRoman(Pokemon.getGenerationId(moreValues));
-            values.add(generation);
+            final int generation = Pokemon.getGenerationId(moreValues);
+            values.add(DataUtilsKt.genIdToRoman(generation));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -745,8 +758,8 @@ public class DetailActivity extends AppCompatActivity {
             });
 
             properties.add(res.getString(R.string.attr_base_egg_steps));
-            final String eggSteps = String.valueOf(Pokemon.getBaseEggSteps(moreValues));
-            values.add(eggSteps);
+            final int eggSteps = Pokemon.getBaseEggSteps(moreValues);
+            values.add(String.valueOf(eggSteps));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -758,8 +771,8 @@ public class DetailActivity extends AppCompatActivity {
             });
 
             properties.add(res.getString(R.string.attr_base_egg_cycles));
-            final String eggCycles = String.valueOf(Pokemon.getBaseEggCycles(moreValues));
-            values.add(eggCycles);
+            final int eggCycles = Pokemon.getBaseEggCycles(moreValues);
+            values.add(String.valueOf(eggCycles));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -772,14 +785,14 @@ public class DetailActivity extends AppCompatActivity {
 
             if (Pokemon.hasHabitatInfo(moreValues)) {
                 properties.add(res.getString(R.string.attr_habitat));
-                final String habitat = DataUtilsKt.habitatIdToName(Pokemon.getHabitatId(moreValues));
-                values.add(habitat);
+                final Habitat habitat = new Habitat(Pokemon.getHabitatId(moreValues));
+                values.add(habitat.getName());
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_HABITAT);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, habitat);
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, habitat.getId());
                         startActivity(intent);
                     }
                 });
@@ -905,7 +918,7 @@ public class DetailActivity extends AppCompatActivity {
                         container.removeAllViews();
                         getActivity().getLayoutInflater().inflate(R.layout.list_item_null, container, true);
                         String listMessage = getResources().getString(R.string.null_alternate_forms, sPokemon.getName());
-                        TextView tvListTxt = (TextView) mRootView.findViewById(R.id.item_null_text1);
+                        TextView tvListTxt = (TextView) mRootView.findViewById(R.id.item_null_text);
                         tvListTxt.setText(listMessage);
                     } else {
                         FormsVGAdapter adapter = new FormsVGAdapter(getActivity(), container, currForm, mAltForms);
@@ -940,6 +953,8 @@ public class DetailActivity extends AppCompatActivity {
 
         private View mRootView;
 
+        private AsyncTask<Void, Void, Void> mAsyncTask;
+
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -952,27 +967,42 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private void displayEvolutions() {
-            final ArrayList<MiniPokemon> evolutions = fetchOrderedEvolutions();
+            mAsyncTask = new AsyncTask<Void, Void, Void>() {
+                ArrayList<MiniPokemon> evolutions;
 
-            RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerView);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-            EvolutionsAdapter adapter = new EvolutionsAdapter(getActivity(), evolutions, sPokemon.toMiniPokemon());
-            adapter.setOnEntryClickListener(new EvolutionsAdapter.OnEntryClickListener() {
                 @Override
-                public void onEntryClick(View view, int position) {
-                    MiniPokemon clickedPokemon = evolutions.get(position);
-                    if (clickedPokemon.getId() != sPokemon.getId()) {
-                        Intent intent = new Intent(getActivity(), DetailActivity.class);
-                        intent.putExtra(EXTRA_POKEMON, clickedPokemon);
-                        startActivity(intent);
-                        getActivity().finish();
-                    }
+                protected Void doInBackground(Void... voids) {
+                    evolutions = fetchOrderedEvolutions();
+                    return null;
                 }
-            });
 
-            recyclerView.setAdapter(adapter);
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+
+                    RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerView);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+                    EvolutionsAdapter adapter = new EvolutionsAdapter(
+                            getActivity(), evolutions, sPokemon.toMiniPokemon());
+
+                    adapter.setOnEntryClickListener(new EvolutionsAdapter.OnEntryClickListener() {
+                        @Override
+                        public void onEntryClick(View view, int position) {
+                            MiniPokemon clickedPokemon = evolutions.get(position);
+                            if (clickedPokemon.getId() != sPokemon.getId()) {
+                                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                                intent.putExtra(EXTRA_POKEMON, clickedPokemon);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
+                        }
+                    });
+
+                    recyclerView.setAdapter(adapter);
+                }
+            }.execute();
         }
 
         private ArrayList<MiniPokemon> fetchOrderedEvolutions() {
@@ -1021,6 +1051,13 @@ public class DetailActivity extends AppCompatActivity {
             return c;
         }
 
+        @Override
+        public void onStop() {
+            super.onStop();
+            if (mAsyncTask != null) {
+                mAsyncTask.cancel(true);
+            }
+        }
     }
 
     public static class MovesFragment extends Fragment implements LabelledSpinner.OnItemChosenListener {
@@ -1083,18 +1120,18 @@ public class DetailActivity extends AppCompatActivity {
             cursor.close();
 
 
-            mSpinnerMethod = (LabelledSpinner) mRootView.findViewById(R.id.detailL_spinnerMethod);
+            mSpinnerMethod = (LabelledSpinner) mRootView.findViewById(R.id.spinner_learn_method);
             mSpinnerMethod.setItemsArray(mArrayMethodTitles);
             mSpinnerMethod.setSelection(0);
             mSpinnerMethod.setOnItemChosenListener(this);
-            mSpinnerGame = (LabelledSpinner) mRootView.findViewById(R.id.detailL_spinnerGame);
+            mSpinnerGame = (LabelledSpinner) mRootView.findViewById(R.id.spinner_game_version);
             mSpinnerGame.setItemsArray(mVersionGroupNames);
             mSpinnerGame.setSelection(mVersionGroups.size() - 1);
             mSpinnerGame.setOnItemChosenListener(this);
 
-            mContainer = (LinearLayout) mRootView.findViewById(R.id.detailL_llContainer);
+            mContainer = (LinearLayout) mRootView.findViewById(R.id.container);
 
-            mSubmitButton = (Button) mRootView.findViewById(R.id.detailL_btnGo);
+            mSubmitButton = (Button) mRootView.findViewById(R.id.button_go);
             mSubmitButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1123,10 +1160,18 @@ public class DetailActivity extends AppCompatActivity {
         private View makeCard() {
             View card = getActivity().getLayoutInflater().inflate(R.layout.card_detail_learnset, mContainer, false);
 
-            final TextView title = (TextView) card.findViewById(R.id.card_learnset_titleText);
-            final TextView subtitle = (TextView) card.findViewById(R.id.card_learnset_subtitleText);
-            final ProgressBar progressBar = (ProgressBar) card.findViewById(R.id.card_learnset_progressBar);
-            final LinearLayout itemsContainer = (LinearLayout) card.findViewById(R.id.card_learnset_linearLayout);
+            final TextView title = (TextView) card.findViewById(R.id.title);
+            final TextView subtitle = (TextView) card.findViewById(R.id.subtitle);
+            final ProgressBar progressBar = (ProgressBar) card.findViewById(R.id.progress_indeterminate);
+            final RecyclerView recyclerView = (RecyclerView) card.findViewById(R.id.recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            });
+            recyclerView.addItemDecoration(new DividerItemDecoration(
+                    getActivity(), DividerItemDecoration.VERTICAL_LIST));
 
             title.setText(mLearnMethod);
             subtitle.setText("Pok\u00E9mon " + mVersionGroupNames.get(mVGroupListPos));
@@ -1136,7 +1181,7 @@ public class DetailActivity extends AppCompatActivity {
             final VersionGroup versionGroup = mVersionGroups.get(mVGroupListPos);
 
             mAsyncTask = new AsyncTask<Void, Integer, Void>() {
-                PokemonMovesVgAdapter adapter;
+                PokemonMovesAdapter adapter;
                 @Override
                 protected void onPreExecute() {
                     super.onPreExecute();
@@ -1160,8 +1205,8 @@ public class DetailActivity extends AppCompatActivity {
                         }
                     });
                     final ArrayList<PokemonMove> arrayMovesFinal = arrayMoves;
-                    adapter = new PokemonMovesVgAdapter(getActivity(), itemsContainer, arrayMoves);
-                    adapter.setOnEntryClickListener(new PokemonMovesVgAdapter.OnEntryClickListener() {
+                    adapter = new PokemonMovesAdapter(getActivity(), arrayMoves);
+                    adapter.setOnEntryClickListener(new PokemonMovesAdapter.OnEntryClickListener() {
                         @Override
                         public void onEntryClick(View view, int position) {
                             Intent intent = new Intent(getActivity(), MoveDetailActivity.class);
@@ -1175,7 +1220,7 @@ public class DetailActivity extends AppCompatActivity {
                 @Override
                 protected void onPostExecute(Void result) {
                     super.onPostExecute(result);
-                    adapter.createListItems();
+                    recyclerView.setAdapter(adapter);
                     progressBar.setVisibility(View.GONE);
                 }
             }.execute();
@@ -1195,10 +1240,10 @@ public class DetailActivity extends AppCompatActivity {
         public void onItemChosen(View labelledSpinner, AdapterView<?> adapterView, View itemView, int position, long id) {
             String selected = adapterView.getItemAtPosition(position).toString();
             switch (labelledSpinner.getId()) {
-                case R.id.detailL_spinnerMethod:
+                case R.id.spinner_learn_method:
                     mLearnMethod = selected;
                     break;
-                case R.id.detailL_spinnerGame:
+                case R.id.spinner_game_version:
                     mVGroupListPos = position;
                     break;
             }

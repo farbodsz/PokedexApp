@@ -16,20 +16,21 @@
             android:paddingLeft="@dimen/card_padding_lateral"
             android:paddingRight="@dimen/card_padding_lateral" >
             <TextView
-                android:id="@+id/card_learnset_titleText"
+                android:id="@+id/title"
                 style="@style/AppTheme.CardView.Text.Title.Medium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
-                android:id="@+id/card_learnset_subtitleText"
+                android:id="@+id/subtitle"
                 style="@style/AppTheme.CardView.Text.Subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/card_padding_vertical" />
-            <include android:id="@+id/card_learnset_progressBar"
+            <include android:id="@+id/progress_indeterminate"
                 layout="@layout/progress_indeterminate" />
-            <LinearLayout android:id="@+id/card_learnset_linearLayout"
-                style="@style/AppTheme.LinearLayout.StandardList"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                style="@style/AppTheme.RecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/card_padding_vertical" />

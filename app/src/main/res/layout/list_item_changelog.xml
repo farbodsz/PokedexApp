@@ -11,13 +11,13 @@
         android:paddingTop="@dimen/card_padding_vertical"
         android:paddingBottom="@dimen/card_padding_vertical">
         <TextView
-            android:id="@+id/item_changelog_text1"
+            android:id="@+id/title"
             style="@style/AppTheme.CardView.Text.Title.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/card_padding_vertical" />
         <TextView
-            android:id="@+id/item_changelog_text2"
+            android:id="@+id/body_text"
             style="@style/AppTheme.CardView.Text.Supporting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

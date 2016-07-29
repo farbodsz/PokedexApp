@@ -22,7 +22,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.DetailView
 
         DetailViewHolder(View itemView) {
             super(itemView);
-            rootView = (ViewGroup) itemView.findViewById(R.id.rootView);
+            rootView = (ViewGroup) itemView.findViewById(R.id.rootLayout);
             container = (LinearLayout) itemView.findViewById(R.id.container);
         }
     }
