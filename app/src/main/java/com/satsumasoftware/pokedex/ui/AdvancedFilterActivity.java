@@ -15,8 +15,11 @@ import android.widget.EditText;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
+import com.satsumasoftware.pokedex.framework.GrowthRate;
+import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.ui.filter.FilterResultsActivity;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 import com.satsuware.usefulviews.LabelledSpinner;
 
@@ -119,19 +122,23 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
             intent.putExtra(FilterResultsActivity.FILTER_SPECIES, mFilterSpecies);
         }
         if (mFilterType1 != null && !mFilterType1.equals(getFirstOfList(R.array.filter_type))) {
-            intent.putExtra(FilterResultsActivity.FILTER_TYPE_1, mFilterType1);
+            intent.putExtra(FilterResultsActivity.FILTER_TYPE_1,
+                    String.valueOf(new Type(mFilterType1).getId()));
         }
         if (mFilterType2 != null && !mFilterType2.equals(getFirstOfList(R.array.filter_type))) {
-            intent.putExtra(FilterResultsActivity.FILTER_TYPE_2, mFilterType2);
+            intent.putExtra(FilterResultsActivity.FILTER_TYPE_2,
+                    String.valueOf(new Type(mFilterType2).getId()));
         }
         if (mFilterAbility != 0 && mFilterAbility != getFirstOfList(mArrayAbilities)) {
             intent.putExtra(FilterResultsActivity.FILTER_ABILITY, mFilterAbility);
         }
         if (mFilterGrowth != null && !mFilterGrowth.equals(getFirstOfList(R.array.filter_levellingRate))) {
-            intent.putExtra(FilterResultsActivity.FILTER_GROWTH, mFilterGrowth);
+            intent.putExtra(FilterResultsActivity.FILTER_GROWTH,
+                    String.valueOf(new GrowthRate(mFilterGrowth).getId()));
         }
         if (mFilterGen != null && !mFilterGen.equals(getFirstOfList(R.array.filter_gen))) {
-            intent.putExtra(FilterResultsActivity.FILTER_GENERATION, mFilterGen);
+            intent.putExtra(FilterResultsActivity.FILTER_GENERATION,
+                    String.valueOf(DataUtilsKt.romanToGenId(mFilterGen)));
         }
         startActivity(intent);
     }
