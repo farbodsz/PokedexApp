@@ -1,15 +1,13 @@
 package com.satsumasoftware.pokedex.framework
 
-class Shape {
+class Shape(val id: Int) {
 
-    val id: Int
     val simpleName: String
     val technicalName: String
 
-    constructor(id: Int) {
-        this.id = id
-        this.simpleName = findName(id, false)
-        this.technicalName = findName(id, true)
+    init {
+        simpleName = findName(id, false)
+        technicalName = findName(id, true)
     }
 
     private fun findName(id: Int, technicalTerm: Boolean) = when (id) {

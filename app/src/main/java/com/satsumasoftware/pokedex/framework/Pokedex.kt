@@ -1,13 +1,11 @@
 package com.satsumasoftware.pokedex.framework
 
-class Pokedex {
+class Pokedex(val id: Int) {
 
-    val id: Int
     val name: String
 
-    constructor(id: Int) {
-        this.id = id
-        this.name = findName(id)
+    init {
+        name = findName(id)
     }
 
     private fun findName(id: Int) = when (id) {
