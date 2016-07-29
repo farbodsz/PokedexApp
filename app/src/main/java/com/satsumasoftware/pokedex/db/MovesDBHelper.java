@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.satsumasoftware.pokedex.framework.move.BaseMove;
 import com.satsumasoftware.pokedex.framework.move.MiniMove;
-import com.satsumasoftware.pokedex.framework.move.Move;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ public class MovesDBHelper extends SQLiteOpenHelper {
     /* General Database and Table information */
     private static final String DATABASE_NAME = "moves.db";
     public static final String TABLE_NAME = "moves";
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 10;
 
     /* All Column Names */
     public static final String COL_ID = "id";
@@ -95,7 +94,10 @@ public class MovesDBHelper extends SQLiteOpenHelper {
     private void populateDatabase(SQLiteDatabase db) {
         PokeDB pokeDB = new PokeDB(mContext);
         Cursor cursor = pokeDB.getReadableDatabase().query(
-                PokeDB.Moves.TABLE_NAME, null, null, null, null, null, null);
+                PokeDB.Moves.TABLE_NAME,
+                null,
+                PokeDB.Moves.COL_ID + "< 10000",  // ignore shadow moves
+                null, null, null, null);
         cursor.moveToFirst();
         db.beginTransaction();
         while (!cursor.isAfterLast()) {
@@ -182,34 +184,14 @@ public class MovesDBHelper extends SQLiteOpenHelper {
                     values.put(COL_NAME, name);
                     break;
                 default:
-                    throw new IllegalArgumentException("language id '" +
-                            String.valueOf(languageId) + "' is invalid");
+                    throw new IllegalArgumentException("language id '" + languageId +
+                            "' is invalid");
             }
             cursor.moveToNext();
         }
         cursor.close();
     }
 
-    public ArrayList<Move> getAllMoves() {
-        ArrayList<Move> list = new ArrayList<>();
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.query(
-                TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Move move = new Move(cursor);
-            list.add(move);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        return list;
-    }
 
     public ArrayList<MiniMove> getAllMiniMoves() {
         ArrayList<MiniMove> list = new ArrayList<>();

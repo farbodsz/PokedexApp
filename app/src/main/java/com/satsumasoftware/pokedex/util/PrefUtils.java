@@ -24,6 +24,21 @@ public final class PrefUtils {
     }
 
 
+    /* App usage tip text */
+
+    public static final String PREF_TIPS_CONTINUE_FROM_INDEX = "pref_tips_continue_from_index";
+
+    public static int getTipsContinueFromIndex(Context context) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        return sp.getInt(PREF_TIPS_CONTINUE_FROM_INDEX, 0);
+    }
+
+    public static void setTipsContinueFromIndex(Context context, int continueFromIndex) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        sp.edit().putInt(PREF_TIPS_CONTINUE_FROM_INDEX, continueFromIndex).apply();
+    }
+
+
     /* Filter prompt */
 
     public static final String PREF_PROMPT_FILTER_DONE = "pref_prompt_filter_done";

@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.util.ActionUtils;
-import com.satsumasoftware.pokedex.util.InfoUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
 public class PokemonForm implements Parcelable {
 
@@ -119,7 +119,7 @@ public class PokemonForm implements Parcelable {
 
     public void setPokemonImage(ImageView imageView) {
         ActionUtils.setPokemonImage(mId,
-                InfoUtils.formatPokemonId(mSpeciesId),
+                DataUtilsKt.formatPokemonId(mSpeciesId),
                 mName,
                 mIsFormMega,
                 imageView);

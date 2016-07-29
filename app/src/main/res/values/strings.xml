@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name" translatable="false">Pokédex Free</string>
+    <string name="app_name" translatable="false">PokéData Free</string>
 
     <string name="title_activity_splash" translatable="false">@string/app_name</string>
     <string name="title_activity_welcome" translatable="false">@string/app_name</string>
@@ -41,6 +41,7 @@
     <string name="navigation_item_locations" translatable="false">@string/title_activity_locations</string>
     <string name="navigation_item_favourites" translatable="false">@string/title_activity_favorites</string>
     <string name="navigation_item_experience" translatable="false">@string/title_activity_experience_calculator</string>
+    <string name="navigation_item_settings" translatable="false">@string/title_activity_settings</string>
 
 
     <string name="action_settings">Settings</string>
@@ -259,11 +260,11 @@
     <string name="about_settings_action">Open settings</string>
     <string name="about_feedback">Feedback</string>
     <string name="about_feedback_desc">If you have any feedback or suggestions (for example, what you would like to see in a future release), tell us via our feedback email address:
-        \n\nfeedback.phoenixenterprise@gmail.com</string>
+        \n\napps@satsuware.com</string>
     <string name="about_feedback_action">Send feedback</string>
     <string name="about_help_translate">Help us Translate</string>
     <string name="about_help_translate_desc">You can help us translate this app into your language! If you\'re interested, let us know at our developer email address:
-        \n\ndevelopers.phoenixenterprise@gmail.com</string>
+        \n\napps@satsuware.com</string>
 
 
     <string name="initialise_title">Initialising databases</string>

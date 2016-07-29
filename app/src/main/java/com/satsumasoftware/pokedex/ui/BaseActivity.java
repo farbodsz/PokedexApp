@@ -63,6 +63,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected static final int NAVDRAWER_ITEM_LOCATIONDEX = R.id.navigation_item_locations;
     protected static final int NAVDRAWER_ITEM_FAVOURITES = R.id.navigation_item_favourites;
     protected static final int NAVDRAWER_ITEM_EXPERIENCE = R.id.navigation_item_experience;
+    protected static final int NAVDRAWER_ITEM_SETTINGS = R.id.navigation_item_settings;
     protected static final int NAVDRAWER_ITEM_INVALID = -1;
 
     /*
@@ -158,12 +159,14 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         }, NAVDRAWER_LAUNCH_DELAY);
 
-        mNavigationView.getMenu().findItem(getSelfNavDrawerItem()).setChecked(false);
-        menuItem.setChecked(true);
+        if (menuItem.isCheckable()) {
+            mNavigationView.getMenu().findItem(getSelfNavDrawerItem()).setChecked(false);
+            menuItem.setChecked(true);
 
-        mMainContent.animate()
-                .alpha(0)
-                .setDuration(MAIN_CONTENT_FADEOUT_DURATION);
+            mMainContent.animate()
+                    .alpha(0)
+                    .setDuration(MAIN_CONTENT_FADEOUT_DURATION);
+        }
 
         mDrawerLayout.closeDrawers();
     }
@@ -210,6 +213,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                 intent = new Intent(this, ExperienceCalculatorActivity.class);
                 startActivity(intent);
                 finish();
+                break;
+            case NAVDRAWER_ITEM_SETTINGS:
+                intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                // do NOT finish
                 break;
         }
     }

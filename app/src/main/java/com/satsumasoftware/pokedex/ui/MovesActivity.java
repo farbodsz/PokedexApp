@@ -22,15 +22,16 @@ import android.widget.Spinner;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.MovesDBHelper;
+import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.move.MiniMove;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.MoveDexAdapter;
+import com.satsumasoftware.pokedex.ui.dialog.MoveDetailActivity;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
-import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
-import com.satsumasoftware.pokedex.util.InfoUtils;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 
 import java.util.ArrayList;
@@ -91,7 +92,7 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
         mDrawerLayout = getSelfDrawerLayout();
         setupFilterDrawer();
 
-        mNoResults = findViewById(R.id.main_frag_noResults);
+        mNoResults = findViewById(R.id.fragment_no_results);
     }
 
     private void populateList(ArrayList<MiniMove> items) {
@@ -111,8 +112,8 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
         adapter.setOnRowClickListener(new MoveDexAdapter.OnRowClickListener() {
             @Override
             public void onRowClick(View view, int position) {
-                Intent intent = new Intent(MovesActivity.this, MovesDetailActivity.class);
-                intent.putExtra("MOVE", itemsFinal.get(position));
+                Intent intent = new Intent(MovesActivity.this, MoveDetailActivity.class);
+                intent.putExtra(MoveDetailActivity.EXTRA_MOVE, itemsFinal.get(position));
                 startActivity(intent);
             }
         });
@@ -134,7 +135,7 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
         if (Flavours.type == Flavours.Type.PAID) {
             item_buyPro.setVisible(false);
         } else {
-            item_filter.setIcon(R.drawable.ic_filter_list_grey600_48dp);
+            item_filter.setIcon(R.drawable.ic_filter_list_grey600_24dp);
         }
 
         if (mSortByName) {
@@ -197,14 +198,14 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
     }
 
     private void setupFilterDrawer() {
-        Spinner spinnerName = (Spinner) findViewById(R.id.filterDrawer_spinnerName);
-        LinearLayout llTypes = (LinearLayout) findViewById(R.id.filterDrawer_llType_content);
-        LinearLayout llGens = (LinearLayout) findViewById(R.id.filterDrawer_llGen_content);
+        Spinner spinnerName = (Spinner) findViewById(R.id.spinner_name);
+        LinearLayout llTypes = (LinearLayout) findViewById(R.id.container_types);
+        LinearLayout llGens = (LinearLayout) findViewById(R.id.container_generations);
 
-        findViewById(R.id.filterDrawer_llNameList_group).setVisibility(View.GONE);
-        findViewById(R.id.filterDrawer_llGrowth_group).setVisibility(View.GONE);
-        findViewById(R.id.filterDrawer_llAdvanced_group).setVisibility(View.GONE);
-        findViewById(R.id.filterDrawer_llLocRegions_group).setVisibility(View.GONE);
+        findViewById(R.id.viewGroup_name_list).setVisibility(View.GONE);
+        findViewById(R.id.viewGroup_growth).setVisibility(View.GONE);
+        findViewById(R.id.viewGroup_advanced).setVisibility(View.GONE);
+        findViewById(R.id.viewGroup_location_region).setVisibility(View.GONE);
 
         ArrayAdapter<CharSequence> nameAdapter = ArrayAdapter.createFromResource(this, R.array.filter_name, android.R.layout.simple_spinner_item);
         nameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -241,8 +242,8 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
     @Override
     public void onFilterItemClick(View view, int position, String text, boolean isChecked, View itemView) {
         switch (itemView.getId()) {
-            case R.id.filterDrawer_llType_content:
-                String typeQuery = "(" + MovesDBHelper.COL_TYPE_ID + "=\"" + DataUtils.typeToId(text) + "\")";
+            case R.id.container_types:
+                String typeQuery = "(" + MovesDBHelper.COL_TYPE_ID + "=\"" + new Type(text).getId() + "\")";
                 mFilterSelectionType = reformatFilterSelection(mFilterSelectionType);
                 if (isChecked) {
                     mFilterSelectionType = mFilterSelectionType + typeQuery;
@@ -257,9 +258,9 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
                 updateFilteredList();
                 break;
 
-            case R.id.filterDrawer_llGen_content:
+            case R.id.container_generations:
                 String genQuery = "(" + MovesDBHelper.COL_GENERATION_ID + "=\"" +
-                        InfoUtils.getGenFromRoman(text) + "\")";
+                        DataUtilsKt.romanToGenId(text) + "\")";
                 mFilterSelectionGen = reformatFilterSelection(mFilterSelectionGen);
                 if (isChecked) {
                     mFilterSelectionGen = mFilterSelectionGen + genQuery;

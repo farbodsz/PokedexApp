@@ -10,7 +10,7 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.util.PrefUtils;
-import com.satsumasoftware.pokedex.util.ThemeUtils;
+import com.satsumasoftware.pokedex.util.ThemeUtilsKt;
 
 import uk.co.senab.photoview.PhotoViewAttacher;
 
@@ -40,10 +40,10 @@ public class PkmnImageActivity extends AppCompatActivity {
                 // Do nothing
                 break;
             case PrefUtils.PREF_DETAIL_COLORING_VALUE_TYPE:
-                ThemeUtils.colourDetailByType(this, mPokemon.getTypeIds().get(1));
+                ThemeUtilsKt.colourDetailByType(this, mPokemon.getTypeIds().get(1));
                 break;
             case PrefUtils.PREF_DETAIL_COLORING_VALUE_COLOUR:
-                ThemeUtils.colourDetailByColour(this, Pokemon.getColorId(mPokemon.getPhysicalAttrs()));
+                ThemeUtilsKt.colourDetailByColour(this, Pokemon.getColorId(mPokemon.getPhysicalAttrs()));
                 break;
         }
         setContentView(R.layout.activity_pkmn_image);

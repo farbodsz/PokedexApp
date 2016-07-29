@@ -14,7 +14,7 @@ public class EncounterConditionsDBHelper extends SQLiteOpenHelper {
     /* General Database and Table information */
     private static final String DATABASE_NAME = "encounter_conditions.db";
     public static final String TABLE_NAME = "encounter_conditions";
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 10;
 
     /* All Column Names */
     public static final String COL_VALUE_ID = "id";
@@ -90,7 +90,7 @@ public class EncounterConditionsDBHelper extends SQLiteOpenHelper {
 
             db.insert(TABLE_NAME, null, values);
 
-            Log.d(LOG_TAG, "Added encounter condition of id " + String.valueOf(id));
+            Log.d(LOG_TAG, "Added encounter condition of id " + id);
 
             cursor.moveToNext();
         }

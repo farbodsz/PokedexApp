@@ -19,7 +19,7 @@ public class MoveDexAdapter extends RecyclerView.Adapter<MoveDexAdapter.MoveView
         MoveViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            textView = (TextView) itemView.findViewById(R.id.item_simple_text1);
+            textView = (TextView) itemView.findViewById(R.id.text1);
         }
 
         @Override

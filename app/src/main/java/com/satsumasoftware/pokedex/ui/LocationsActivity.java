@@ -21,13 +21,14 @@ import android.widget.Spinner;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.LocationsDBHelper;
+import com.satsumasoftware.pokedex.framework.Region;
 import com.satsumasoftware.pokedex.framework.location.Location;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.LocationDexAdapter;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
-import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
 
 import java.util.ArrayList;
@@ -82,7 +83,7 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
         mDrawerLayout = getSelfDrawerLayout();
         setupFilterDrawer();
 
-        mNoResults = findViewById(R.id.main_frag_noResults);
+        mNoResults = findViewById(R.id.fragment_no_results);
     }
 
     private void populateList(ArrayList<Location> items) {
@@ -119,7 +120,7 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
         if (Flavours.type == Flavours.Type.PAID) {
             item_buyPro.setVisible(false);
         } else {
-            item_filter.setIcon(R.drawable.ic_filter_list_grey600_48dp);
+            item_filter.setIcon(R.drawable.ic_filter_list_grey600_24dp);
         }
 
         menu.findItem(R.id.action_sort).setVisible(false);
@@ -152,14 +153,14 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
     }
 
     private void setupFilterDrawer() {
-        Spinner spinnerName = (Spinner) findViewById(R.id.filterDrawer_spinnerName);
-        LinearLayout llRegions = (LinearLayout) findViewById(R.id.filterDrawer_llLocRegions_content);
+        Spinner spinnerName = (Spinner) findViewById(R.id.spinner_name);
+        LinearLayout llRegions = (LinearLayout) findViewById(R.id.container_location_regions);
 
-        findViewById(R.id.filterDrawer_llNameList_group).setVisibility(View.GONE);
-        findViewById(R.id.filterDrawer_llType_group).setVisibility(View.GONE);
-        findViewById(R.id.filterDrawer_llGrowth_group).setVisibility(View.GONE);
-        findViewById(R.id.filterDrawer_llGen_group).setVisibility(View.GONE);
-        findViewById(R.id.filterDrawer_llAdvanced_group).setVisibility(View.GONE);
+        findViewById(R.id.viewGroup_name_list).setVisibility(View.GONE);
+        findViewById(R.id.viewGroup_type).setVisibility(View.GONE);
+        findViewById(R.id.viewGroup_growth).setVisibility(View.GONE);
+        findViewById(R.id.viewGroup_generation).setVisibility(View.GONE);
+        findViewById(R.id.viewGroup_advanced).setVisibility(View.GONE);
 
         ArrayAdapter<CharSequence> nameAdapter = ArrayAdapter.createFromResource(this, R.array.filter_name, android.R.layout.simple_spinner_item);
         nameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -192,8 +193,8 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
     @Override
     public void onFilterItemClick(View view, int position, String text, boolean isChecked, View itemView) {
         switch (itemView.getId()) {
-            case R.id.filterDrawer_llLocRegions_content:
-                String regionQuery = "(" + LocationsDBHelper.COL_REGION_ID + "=\"" + DataUtils.regionToId(text) + "\")";
+            case R.id.container_location_regions:
+                String regionQuery = "(" + LocationsDBHelper.COL_REGION_ID + "=\"" + new Region(text).getId() + "\")";
                 mFilterSelectionRegion = reformatFilterSelection(mFilterSelectionRegion);
                 if (isChecked) {
                     mFilterSelectionRegion = mFilterSelectionRegion + regionQuery;

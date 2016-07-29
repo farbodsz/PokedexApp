@@ -44,6 +44,12 @@ public class MiniAbility extends BaseAbility implements Parcelable {
     }
 
 
+    @Override
+    public String toString() {
+        return mName;
+    }
+
+
     protected MiniAbility(Parcel in) {
         mId = in.readInt();
         mName = in.readString();

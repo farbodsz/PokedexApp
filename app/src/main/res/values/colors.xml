@@ -141,25 +141,6 @@
     <color name="type_dark">@color/type_dark_accent</color>
     <color name="type_steel">@color/type_steel_accent</color>
     <color name="type_fairy">@color/type_fairy_accent</color>
-    <!--
-    <color name="type_normal_old">#A8A878</color>
-    <color name="type_fire_old">#F08030</color>
-    <color name="type_fighting_old">#C03028</color>
-    <color name="type_water_old">#6890F0</color>
-    <color name="type_flying_old">#A890F0</color>
-    <color name="type_grass_old">#78C850</color>
-    <color name="type_poison_old">#A040A0</color>
-    <color name="type_electric_old">#F8D030</color>
-    <color name="type_ground_old">#E0C068</color>
-    <color name="type_psychic_old">#F85888</color>
-    <color name="type_rock_old">#B8A038</color>
-    <color name="type_ice_old">#98D8D8</color>
-    <color name="type_bug_old">#A8B820</color>
-    <color name="type_dragon_old">#7038F8</color>
-    <color name="type_ghost_old">#705898</color>
-    <color name="type_dark_old">#705848</color>
-    <color name="type_steel_old">#B8B8D0</color>
-    <color name="type_fairy_old">#EE99AC</color> -->
 
     <!-- POKEMON COLOURS -->
     <color name="pkmnColor_black_primary">@color/mdu_grey_800</color>
@@ -171,8 +152,8 @@
     <color name="pkmnColor_brown_primary">@color/mdu_brown_500</color>
     <color name="pkmnColor_brown_primary_dark">@color/mdu_brown_700</color>
     <color name="pkmnColor_brown_accent">@color/mdu_blue_grey_500</color>
-    <color name="pkmnColor_grey_primary">@color/mdu_grey_500</color>
-    <color name="pkmnColor_grey_primary_dark">@color/mdu_grey_700</color>
+    <color name="pkmnColor_grey_primary">@color/mdu_grey_400</color>
+    <color name="pkmnColor_grey_primary_dark">@color/mdu_grey_500</color>
     <color name="pkmnColor_grey_accent">@color/mdu_deep_orange_500</color>
     <color name="pkmnColor_green_primary">@color/mdu_green_500</color>
     <color name="pkmnColor_green_primary_dark">@color/mdu_green_700</color>

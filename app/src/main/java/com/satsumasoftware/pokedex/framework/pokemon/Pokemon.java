@@ -2,15 +2,17 @@ package com.satsumasoftware.pokedex.framework.pokemon;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.support.annotation.Nullable;
 import android.support.v4.util.ArrayMap;
 import android.util.Log;
 import android.util.SparseIntArray;
 import android.widget.ImageView;
 
+import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AppConfig;
-import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -204,12 +206,12 @@ public class Pokemon extends BasePokemon {
         return physicalValues;
     }
 
-    public static double getHeight(ArrayMap<String, Integer> physicalValues) {
-        return physicalValues.get("height") / 10.0;
+    public static int getHeightValue(ArrayMap<String, Integer> physicalValues) {
+        return physicalValues.get("height");
     }
 
-    public static double getWeight(ArrayMap<String, Integer> physicalValues) {
-        return physicalValues.get("weight") / 10.0;
+    public static int getWeight(ArrayMap<String, Integer> physicalValues) {
+        return physicalValues.get("weight");
     }
 
     public static int getColorId(ArrayMap<String, Integer> physicalValues) {
@@ -569,7 +571,7 @@ public class Pokemon extends BasePokemon {
     }
 
     public static boolean isGenderless(ArrayMap<String, Integer> genderValues) {
-        return genderValues.get("gender_rate") == DataUtils.NULL_INT;
+        return genderValues.get("gender_rate") == DataUtilsKt.NULL_INT;
     }
 
     public static boolean isGenderless(int genderRateId) {
@@ -590,7 +592,7 @@ public class Pokemon extends BasePokemon {
     }
 
     public static boolean hasHabitatInfo(ArrayMap<String, Integer> moreValues) {
-        return Pokemon.getHabitatId(moreValues) != DataUtils.NULL_INT;
+        return Pokemon.getHabitatId(moreValues) != DataUtilsKt.NULL_INT;
     }
 
     public ArrayList<PokemonForm> getAlternateForms() {
@@ -633,6 +635,32 @@ public class Pokemon extends BasePokemon {
         }
         cursor.close();
         return list;
+    }
+
+    @Nullable
+    public ArrayList<PokemonEvolution> getEvolutionDataObjects(Context context) {
+        PokeDB pokeDB = new PokeDB(context);
+        Cursor cursor = pokeDB.getReadableDatabase().query(
+                PokeDB.PokemonEvolution.TABLE_NAME,
+                null,
+                PokeDB.PokemonEvolution.COL_EVOLVED_SPECIES_ID + "=?",
+                new String[] {String.valueOf(mSpeciesId)},
+                null, null, null);
+
+        if (cursor.getCount() == 0) {
+            cursor.close();
+            return null;
+        }
+
+        ArrayList<PokemonEvolution> evolutionDataList = new ArrayList<>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            evolutionDataList.add(new PokemonEvolution(cursor));
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return evolutionDataList;
     }
 
 

@@ -1,176 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="?colorPrimaryDark"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:fitsSystemWindows="true"
     tools:context=".ui.startup.InitializeDbActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:fitsSystemWindows="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                style="@style/AppTheme.Toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="156dp" />
-            <TextView
-                android:text="@string/initialise_title"
-                android:textSize="@dimen/text_xLarge"
-                android:textColor="@color/mdu_text_white"
-                android:layout_gravity="bottom"
-                android:paddingLeft="@dimen/mdu_keyline_1"
-                android:paddingRight="@dimen/mdu_keyline_1"
-                android:paddingTop="@dimen/mdu_padding_normal"
-                android:paddingBottom="@dimen/mdu_padding_normal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </FrameLayout>
-    </android.support.design.widget.AppBarLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
+    <TextView
+        android:text="@string/initialise_title"
+        android:textSize="@dimen/text_xLarge"
+        android:textColor="@color/mdu_text_white"
+        android:gravity="center"
+        android:paddingTop="@dimen/mdu_padding_normal"
+        android:paddingBottom="@dimen/mdu_padding_normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+        android:layout_marginTop="96dp" />
 
-        <ProgressBar
-            android:visibility="gone"
-            android:id="@+id/progress_main"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:indeterminate="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="-6dp"
-            android:layout_marginBottom="-6dp" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/mdu_keyline_1"
-            android:paddingRight="@dimen/mdu_keyline_1"
-            android:paddingTop="@dimen/mdu_padding_normal"
-            android:paddingBottom="@dimen/mdu_padding_normal">
+    <TextView
+        android:text="@string/tip_persistent_text"
+        android:textColor="@color/mdu_text_white_secondary"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="76dp" />
 
-            <TextView
-                android:text="Database:"
-                android:textSize="@dimen/text_small"
-                android:textColor="@color/mdu_text_black_secondary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/mdu_spacing_micro"/>
+    <TextView
+        android:id="@+id/tip_text"
+        android:text="@string/tip_dummy"
+        android:textColor="@color/mdu_text_white"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/mdu_spacing_normal" />
 
-            <TextView
-                android:id="@+id/current_db_name"
-                android:text="[database]"
-                android:textSize="@dimen/text_large"
-                android:textColor="@color/mdu_text_black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/mdu_spacing_normal" />
-
-            <ProgressBar
-                android:id="@+id/progress_detail"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/mdu_spacing_normal" />
-
-            <TextView
-                android:id="@+id/current_db_status"
-                android:text="[database-status]"
-                android:layout_gravity="end"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-        <include layout="@layout/divider" />
-
-        <TextView
-            android:text="@string/initialise_msg"
-            android:textColor="@color/mdu_text_black_secondary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/mdu_keyline_1"
-            android:paddingRight="@dimen/mdu_keyline_1"
-            android:paddingTop="@dimen/mdu_padding_normal"
-            android:paddingBottom="@dimen/mdu_padding_normal"/>
-
-        <include layout="@layout/divider" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/mdu_keyline_1"
-            android:paddingRight="@dimen/mdu_keyline_1"
-            android:paddingTop="@dimen/mdu_padding_normal"
-            android:paddingBottom="@dimen/mdu_padding_normal">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:text="Updated Databases:"
-                        android:textSize="@dimen/text_small"
-                        android:textColor="@color/mdu_text_black_secondary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/mdu_spacing_normal"/>
-
-                    <ScrollView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:id="@+id/updated_databases_list"
-                            android:text="[updated-databases]"
-                            android:textSize="@dimen/text_small"
-                            android:textColor="@color/mdu_text_black"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-                    </ScrollView>
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/completed_databases_num"
-                    android:text="[x-of-y]"
-                    android:textSize="@dimen/text_small"
-                    android:textColor="@color/mdu_text_black"
-                    android:layout_gravity="end"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/completed_lines"
-                    android:text="[approx-x-of-y-lines]"
-                    android:textSize="@dimen/text_small"
-                    android:textColor="@color/mdu_text_black_secondary"
-                    android:layout_gravity="end"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
-
-        </FrameLayout>
-    </LinearLayout>
-
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

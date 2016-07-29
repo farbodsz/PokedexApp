@@ -5,10 +5,12 @@ import android.database.Cursor;
 
 import com.satsumasoftware.pokedex.db.MovesDBHelper;
 import com.satsumasoftware.pokedex.db.PokeDB;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Move extends BaseMove {
-
-    // TODO FIXME descriptions need to be formatted
 
     private int mGenerationId, mTypeId, mPower, mPp, mAccuracy, mPriority, mTargetId,
             mDamageClassId, mEffectId, mEffectChance, mContestTypeId, mContestEffectId,
@@ -78,12 +80,20 @@ public class Move extends BaseMove {
         return mTypeId;
     }
 
+    public boolean hasPower() {
+        return mPower != DataUtilsKt.NULL_INT;
+    }
+
     public int getPower() {
         return mPower;
     }
 
     public int getPp() {
         return mPp;
+    }
+
+    public boolean hasAccuracy() {
+        return mAccuracy != DataUtilsKt.NULL_INT;
     }
 
     public int getAccuracy() {
@@ -106,16 +116,32 @@ public class Move extends BaseMove {
         return mEffectId;
     }
 
+    public boolean hasEffectChance() {
+        return mEffectChance != DataUtilsKt.NULL_INT;
+    }
+
     public int getEffectChance() {
         return mEffectChance;
+    }
+
+    public boolean hasContestType() {
+        return mContestTypeId != DataUtilsKt.NULL_INT;
     }
 
     public int getContestTypeId() {
         return mContestTypeId;
     }
 
+    public boolean hasContestEffect() {
+        return mContestEffectId != DataUtilsKt.NULL_INT;
+    }
+
     public int getContestEffectId() {
         return mContestEffectId;
+    }
+
+    public boolean hasSuperContestEffect() {
+        return mSuperContestEffectId != DataUtilsKt.NULL_INT;
     }
 
     public int getSuperContestEffectId() {
@@ -161,11 +187,29 @@ public class Move extends BaseMove {
                 new String[] {String.valueOf(mEffectId), String.valueOf(langId)},
                 null, null, null);
         cursor.moveToFirst();
-        String effect = shortEffect ?
+        String effectText = shortEffect ?
                 cursor.getString(cursor.getColumnIndex(PokeDB.MoveEffectProse.COL_SHORT_EFFECT)) :
                 cursor.getString(cursor.getColumnIndex(PokeDB.MoveEffectProse.COL_EFFECT));
         cursor.close();
-        return effect;
+
+        effectText = effectText.replace("$effect_chance", String.valueOf(mEffectChance));
+
+        // matching the pattern: [label]{category:target}
+        Pattern pattern = Pattern.compile("\\[(.*?)\\]\\{(.*?):(.*?)\\}");
+
+        Matcher matcher = pattern.matcher(effectText);
+        while (matcher.find()) {
+            String entirePattern = matcher.group(0);
+            String label = matcher.group(1);
+            String category = matcher.group(2);
+            String target = matcher.group(3);
+
+            String displayedText = label.equals("") ? target : label;
+
+            effectText = effectText.replace(entirePattern, displayedText);
+        }
+
+        return effectText;
     }
 
 }

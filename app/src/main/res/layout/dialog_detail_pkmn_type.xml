@@ -7,7 +7,7 @@
     app:cardUseCompatPadding="false"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ui.PkmnTypeDetailActivity">
+    tools:context=".ui.dialog.PkmnTypeDetailActivity">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

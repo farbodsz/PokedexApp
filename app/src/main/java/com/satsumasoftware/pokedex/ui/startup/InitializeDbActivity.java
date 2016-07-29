@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -23,32 +22,48 @@ import com.satsumasoftware.pokedex.db.NaturesDBHelper;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.util.DatabaseUtils;
 import com.satsumasoftware.pokedex.util.FavoriteUtils;
+import com.satsumasoftware.pokedex.util.PrefUtils;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class InitializeDbActivity extends AppCompatActivity {
 
     private static final String LOG_TAG = "InitializeDBActivity";
+
+    private Timer mTimer;
+    private int mTipIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initialise_db);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        assert getSupportActionBar() != null;
-        getSupportActionBar().setTitle("");
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setIndeterminate(true);
 
-        final ProgressBar progressMain = (ProgressBar) findViewById(R.id.progress_main);
-        final ProgressBar progressBarDetail = (ProgressBar) findViewById(R.id.progress_detail);
+        final TextView tipText = (TextView) findViewById(R.id.tip_text);
 
-        final TextView currentDbName = (TextView) findViewById(R.id.current_db_name);
-        final TextView currentDbStatus = (TextView) findViewById(R.id.current_db_status);
+        final String[] tips = getResources().getStringArray(R.array.usage_tips);
 
-        final TextView updatedDbList = (TextView) findViewById(R.id.updated_databases_list);
-        final TextView completedDbNum = (TextView) findViewById(R.id.completed_databases_num);
-        final TextView completedDbLines = (TextView) findViewById(R.id.completed_lines);
+        mTimer = new Timer(true);
+        mTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                final String tip = tips[mTipIndex];
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tipText.setText(tip);
+                    }
+                });
+
+                mTipIndex = (mTipIndex == tips.length - 1) ?
+                        0 : (mTipIndex + 1);
+            }
+        }, 0, 5000);  // every 5 seconds
 
         FavoriteUtils.doFavouritesTempConversion(this);
 
@@ -72,40 +87,8 @@ public class InitializeDbActivity extends AppCompatActivity {
                 NaturesDBHelper.TABLE_NAME,
                 PokemonDBHelper.TABLE_NAME,
         };
-        final int[] lineCounts = {
-                252, // Abilities
-                20, // Encounter Conditions
-                717, // Location Areas
-                690, // Locations
-                640, // Moves
-                26, // Natures
-                914, // Pokemon
-        };
-        // i.e. ___ database
-
-        //progressBar.setMax(100);
 
         new AsyncTask<Void, Boolean, Void>() {
-
-            private int mLoop;
-            private int mCompletedDbs = 0;
-            private int mCompletedLines = 0;
-            private int mSumOfLines;
-
-            @Override
-            protected void onPreExecute() {
-                mSumOfLines = 0;
-                for (int lineCount : lineCounts) {
-                    mSumOfLines += lineCount;
-                }
-                progressMain.setMax(mSumOfLines);
-                progressMain.setProgress(0);
-                progressBarDetail.setIndeterminate(true);
-
-                updatedDbList.setText("");
-                completedDbNum.setText("0 databases complete");
-                completedDbLines.setText("(approx. 0 lines)");
-            }
 
             @Override
             protected Void doInBackground(Void... params) {
@@ -121,8 +104,6 @@ public class InitializeDbActivity extends AppCompatActivity {
                     savedDbVersions = tempSavedDbArrayList.toArray(new String[tempSavedDbArrayList.size()]);
                 }
                 for (int i = 0; i < helpers.length; i++) {
-                    mLoop = i;
-                    publishProgress(false);
                     Log.d(LOG_TAG, "background processes - starting loop #" + i);
 
                     if (!savedDbVersions[i].equals(currentVersions[i])) {
@@ -136,7 +117,6 @@ public class InitializeDbActivity extends AppCompatActivity {
                         System.gc();
                     }
 
-                    publishProgress(true);
                     Log.d(LOG_TAG, "background processes - running total has been published - loop #" + i + " complete");
 
                     if (isCancelled()) {
@@ -147,24 +127,12 @@ public class InitializeDbActivity extends AppCompatActivity {
             }
 
             @Override
-            protected void onProgressUpdate(Boolean... values) {
-                boolean hasCompleted = values[0];
-                if (!hasCompleted) {
-                    currentDbName.setText(tableNames[mLoop]);
-                    currentDbStatus.setText("Creating db from " + lineCounts[mLoop] + "+ lines");
-                } else {
-                    mCompletedDbs++;
-                    mCompletedLines += lineCounts[mLoop];
-                    updatedDbList.setText(updatedDbList.getText().toString() + tableNames[mLoop-1] + "\n");
-                    completedDbNum.setText(mCompletedDbs + " of " + tableNames.length + " databases complete");
-                    completedDbLines.setText("(approx. " + mCompletedLines + " lines)");
-                }
-            }
-
-            @Override
             protected void onPostExecute(Void aVoid) {
                 DatabaseUtils.markDatabaseUpgraded(getBaseContext());
                 Log.d(LOG_TAG, "Completed initialising DBs");
+
+                mTimer.cancel();
+
                 startActivity(new Intent(InitializeDbActivity.this, WelcomeActivity.class));
                 finish();
             }
@@ -174,5 +142,11 @@ public class InitializeDbActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Toast.makeText(this, R.string.initialise_wait_prompt, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        PrefUtils.setTipsContinueFromIndex(this, mTipIndex);
     }
 }

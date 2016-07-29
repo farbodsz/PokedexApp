@@ -34,12 +34,6 @@
             android:entryValues="@array/pref_detailColouring_values"
             android:defaultValue="default" />
         <CheckBoxPreference
-            android:key="pref_enable_images"
-            android:title="@string/pref_enableImages"
-            android:summaryOn="@string/pref_enableImages_summaryOn"
-            android:summaryOff="@string/pref_enableImages_summaryOff"
-            android:defaultValue="false" />
-        <CheckBoxPreference
             android:key="pref_play_cry_at_start"
             android:title="@string/pref_playCry"
             android:summaryOn="@string/pref_playCry_summaryOn"

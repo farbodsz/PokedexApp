@@ -15,8 +15,11 @@ import android.widget.EditText;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
+import com.satsumasoftware.pokedex.framework.GrowthRate;
+import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.ui.filter.FilterResultsActivity;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 import com.satsuware.usefulviews.LabelledSpinner;
 
@@ -28,17 +31,17 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
 
     private View mRootLayout;
 
-    private String mFilterName, mFilterSpecies, mFilterType1, mFilterType2,
-            mFilterAbility, mFilterGrowth, mFilterGen;
+    private String mFilterName, mFilterSpecies, mFilterType1, mFilterType2, mFilterGrowth, mFilterGen;
+    private int mFilterAbility;
     private ArrayList<MiniAbility> mArrayAbilities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advanced_filter);
-        mRootLayout = findViewById(R.id.advancedFilter_rl_rootLayout);
+        mRootLayout = findViewById(R.id.rootLayout);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.advancedFilter_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -52,11 +55,11 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
     }
 
     private void setupLayouts() {
-        final CardView cvPrompt = (CardView) findViewById(R.id.advancedFilter_cvPrompt);
+        final CardView cvPrompt = (CardView) findViewById(R.id.cardView_prompt);
         if (PrefUtils.isFilterPromptDone(this)) {
             cvPrompt.setVisibility(View.GONE);
         } else {
-            Button promptBtn = (Button) findViewById(R.id.advancedFilter_btnPrompt);
+            Button promptBtn = (Button) findViewById(R.id.button_prompt);
             promptBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -66,14 +69,14 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
             });
         }
 
-        final EditText etName = (EditText) findViewById(R.id.advancedFilter_etName);
-        final EditText etSpecies = (EditText) findViewById(R.id.advancedFilter_etSpecies);
-        LabelledSpinner spinnerType1 = (LabelledSpinner) findViewById(R.id.advancedFilter_spinnerType1);
-        LabelledSpinner spinnerType2 = (LabelledSpinner) findViewById(R.id.advancedFilter_spinnerType2);
-        LabelledSpinner spinnerAbility = (LabelledSpinner) findViewById(R.id.advancedFilter_spinnerAbility);
-        LabelledSpinner spinnerGrowth = (LabelledSpinner) findViewById(R.id.advancedFilter_spinnerGrowth);
-        LabelledSpinner spinnerGen = (LabelledSpinner) findViewById(R.id.advancedFilter_spinnerGeneration);
-        Button btnFilter = (Button) findViewById(R.id.advancedFilter_btnGo);
+        final EditText etName = (EditText) findViewById(R.id.editText_name);
+        final EditText etSpecies = (EditText) findViewById(R.id.editText_species);
+        LabelledSpinner spinnerType1 = (LabelledSpinner) findViewById(R.id.spinner_type_1);
+        LabelledSpinner spinnerType2 = (LabelledSpinner) findViewById(R.id.spinner_type_2);
+        LabelledSpinner spinnerAbility = (LabelledSpinner) findViewById(R.id.spinner_ability);
+        LabelledSpinner spinnerGrowth = (LabelledSpinner) findViewById(R.id.spinner_growth);
+        LabelledSpinner spinnerGen = (LabelledSpinner) findViewById(R.id.spinner_generation);
+        Button btnFilter = (Button) findViewById(R.id.button_go);
 
         spinnerType1.setItemsArray(R.array.filter_type);
         spinnerType1.setOnItemChosenListener(this);
@@ -103,7 +106,7 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
                 && mFilterSpecies.isEmpty()
                 && (mFilterType1 == null || mFilterType1.equals(getFirstOfList(R.array.filter_type)))
                 && (mFilterType2 == null || mFilterType2.equals(getFirstOfList(R.array.filter_type)))
-                && (mFilterAbility == null || mFilterAbility.equals(getFirstOfList(mArrayAbilities)))
+                && (mFilterAbility == 0 || mFilterAbility == getFirstOfList(mArrayAbilities))
                 && (mFilterGrowth == null || mFilterGrowth.equals(getFirstOfList(R.array.filter_levellingRate)))
                 && (mFilterGen == null || mFilterGen.equals(getFirstOfList(R.array.filter_gen)))) {
             Snackbar.make(mRootLayout, R.string.filter_error, Snackbar.LENGTH_SHORT).show();
@@ -119,19 +122,23 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
             intent.putExtra(FilterResultsActivity.FILTER_SPECIES, mFilterSpecies);
         }
         if (mFilterType1 != null && !mFilterType1.equals(getFirstOfList(R.array.filter_type))) {
-            intent.putExtra(FilterResultsActivity.FILTER_TYPE_1, mFilterType1);
+            intent.putExtra(FilterResultsActivity.FILTER_TYPE_1,
+                    String.valueOf(new Type(mFilterType1).getId()));
         }
         if (mFilterType2 != null && !mFilterType2.equals(getFirstOfList(R.array.filter_type))) {
-            intent.putExtra(FilterResultsActivity.FILTER_TYPE_2, mFilterType2);
+            intent.putExtra(FilterResultsActivity.FILTER_TYPE_2,
+                    String.valueOf(new Type(mFilterType2).getId()));
         }
-        if (mFilterAbility != null && !mFilterAbility.equals(getFirstOfList(mArrayAbilities))) {
+        if (mFilterAbility != 0 && mFilterAbility != getFirstOfList(mArrayAbilities)) {
             intent.putExtra(FilterResultsActivity.FILTER_ABILITY, mFilterAbility);
         }
         if (mFilterGrowth != null && !mFilterGrowth.equals(getFirstOfList(R.array.filter_levellingRate))) {
-            intent.putExtra(FilterResultsActivity.FILTER_GROWTH, mFilterGrowth);
+            intent.putExtra(FilterResultsActivity.FILTER_GROWTH,
+                    String.valueOf(new GrowthRate(mFilterGrowth).getId()));
         }
         if (mFilterGen != null && !mFilterGen.equals(getFirstOfList(R.array.filter_gen))) {
-            intent.putExtra(FilterResultsActivity.FILTER_GENERATION, mFilterGen);
+            intent.putExtra(FilterResultsActivity.FILTER_GENERATION,
+                    String.valueOf(DataUtilsKt.romanToGenId(mFilterGen)));
         }
         startActivity(intent);
     }
@@ -144,11 +151,13 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
                 return ability1.getName().compareTo(ability2.getName()); // Ascending
             }
         });
+        MiniAbility placeHolder = new MiniAbility(0, getResources().getString(R.string.no_filter));
+        list.add(0, placeHolder);
         return list;
     }
 
-    private String getFirstOfList(ArrayList<MiniAbility> arrayList) {
-        return arrayList.get(0).getName();
+    private int getFirstOfList(ArrayList<MiniAbility> arrayList) {
+        return arrayList.get(0).getId();
     }
 
     private String getFirstOfList(int arrayResId) {
@@ -168,9 +177,9 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
             case R.id.action_help:
                 // It has already been marked done (which controls whether or not it shows
                 // on opening the activity), so we don't need to deal with this here
-                final CardView cvPrompt = (CardView) findViewById(R.id.advancedFilter_cvPrompt);
+                final CardView cvPrompt = (CardView) findViewById(R.id.cardView_prompt);
                 cvPrompt.setVisibility(View.VISIBLE);
-                Button promptBtn = (Button) findViewById(R.id.advancedFilter_btnPrompt);
+                Button promptBtn = (Button) findViewById(R.id.button_prompt);
                 promptBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -187,19 +196,19 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
     public void onItemChosen(View labelledSpinner, AdapterView<?> adapterView, View itemView, int position, long id) {
         String selected = adapterView.getItemAtPosition(position).toString();
         switch (labelledSpinner.getId()) {
-            case R.id.advancedFilter_spinnerType1:
+            case R.id.spinner_type_1:
                 mFilterType1 = selected;
                 break;
-            case R.id.advancedFilter_spinnerType2:
+            case R.id.spinner_type_2:
                 mFilterType2 = selected;
                 break;
-            case R.id.advancedFilter_spinnerAbility:
-                mFilterAbility = selected;
+            case R.id.spinner_ability:
+                mFilterAbility = mArrayAbilities.get(position).getId();
                 break;
-            case R.id.advancedFilter_spinnerGrowth:
+            case R.id.spinner_growth:
                 mFilterGrowth = selected;
                 break;
-            case R.id.advancedFilter_spinnerGeneration:
+            case R.id.spinner_generation:
                 mFilterGen = selected;
                 break;
         }

@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,7 @@ import android.widget.ProgressBar;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
-import com.satsumasoftware.pokedex.framework.detail.DetailInfo;
-import com.satsumasoftware.pokedex.framework.detail.LocationDetail;
+import com.satsumasoftware.pokedex.framework.Region;
 import com.satsumasoftware.pokedex.framework.encounter.CompactEncounterDataHolder;
 import com.satsumasoftware.pokedex.framework.encounter.Encounter;
 import com.satsumasoftware.pokedex.framework.encounter.EncounterDataHolder;
@@ -30,25 +28,20 @@ import com.satsumasoftware.pokedex.framework.encounter.EncounterSlot;
 import com.satsumasoftware.pokedex.framework.location.Location;
 import com.satsumasoftware.pokedex.framework.location.LocationArea;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
-import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.ui.card.DetailCard;
+import com.satsumasoftware.pokedex.ui.card.LocationDetail;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
 public class LocationDetailActivity extends AppCompatActivity {
 
-    private static final String LOG_TAG = "LocationDetailActivity";
-
     public static final String EXTRA_LOCATION = "LOCATION";
-
-    private static final int GAME_VERSION_ID = 14;  // TODO: replace with user input or preference
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private LocationAreaPagerAdapter mPagerAdapter;
-
-    //private ArrayList<ArrayList<EncounterInfo>> mEncounterDisplayedArrArr;
-    //private ArrayList<String> mLocationAreaTitles;
 
     private ProgressBar mProgress;
     private FrameLayout mNoPkmnMessage;
@@ -56,8 +49,6 @@ public class LocationDetailActivity extends AppCompatActivity {
     private Location mLocation;
 
     private ArrayList<LocationArea> mLocationAreas;
-
-    private int mGameVersion;
 
     private AsyncTask<Void, Integer, Void> mAsyncTask;
 
@@ -77,7 +68,7 @@ public class LocationDetailActivity extends AppCompatActivity {
 
         assert getSupportActionBar() != null;
         getSupportActionBar().setTitle(mLocation.getName());
-        getSupportActionBar().setSubtitle(DataUtils.regionIdToString(mLocation.getRegionId()));
+        getSupportActionBar().setSubtitle(new Region(mLocation.getRegionId()).getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mTabLayout = (TabLayout) findViewById(R.id.locationDetail_tabs);
@@ -92,7 +83,7 @@ public class LocationDetailActivity extends AppCompatActivity {
         // TODO: Change the database so versions correspond with edited values (i.e. ignoring Conquest series)
 
         mAsyncTask = new AsyncTask<Void, Integer, Void>() {
-            ArrayList<ArrayList<DetailInfo>> locationDetailsList;
+            ArrayList<ArrayList<DetailCard>> locationDetailsList;
 
             @Override
             protected void onPreExecute() {
@@ -119,12 +110,10 @@ public class LocationDetailActivity extends AppCompatActivity {
         }.execute();
     }
 
-    private ArrayList<ArrayList<DetailInfo>> fetchData() {
-        Log.d("LocationDetailActivity", "-------  Location : " + mLocation.getName() + " ------------");
-
+    private ArrayList<ArrayList<DetailCard>> fetchData() {
         mLocationAreas = mLocation.getLocationAreas(getBaseContext());
 
-        ArrayList<ArrayList<DetailInfo>> locationDetailsList = new ArrayList<>();
+        ArrayList<ArrayList<DetailCard>> locationDetailsList = new ArrayList<>();
 
         PokeDB pokeDB = new PokeDB(this);
 
@@ -132,8 +121,6 @@ public class LocationDetailActivity extends AppCompatActivity {
 
             ArrayList<Integer> versions = getVersionsAtLocationArea(locationArea.getId(), pokeDB);
             int versionId = versions.get(versions.size() - 1);  // by default, the selected version is the latest
-
-            Log.d("LocationDetailActivity", "-- Location area : " + locationArea.getName() + " --");
 
             // get all the encounters using locationAreaId and versionId
             ArrayList<Encounter> encounters = locationArea.findAllEncounters(this, versionId);
@@ -164,7 +151,7 @@ public class LocationDetailActivity extends AppCompatActivity {
             }
 
             // create location detail objects using the organised data
-            ArrayList<DetailInfo> locationDetails = new ArrayList<>();
+            ArrayList<DetailCard> locationDetails = new ArrayList<>();
             for (int i = 0; i < organisedEncounterData.size(); i++) {
                 int encounterMethodId = organisedEncounterData.keyAt(i);
                 String name = new EncounterMethodProse(this, encounterMethodId).getName();
@@ -224,7 +211,7 @@ public class LocationDetailActivity extends AppCompatActivity {
         return versionIds;
     }
 
-    private void setupLayouts(ArrayList<ArrayList<DetailInfo>> locationDetailsList) {
+    private void setupLayouts(ArrayList<ArrayList<DetailCard>> locationDetailsList) {
         if (locationDetailsList.isEmpty()) {
             mTabLayout.setVisibility(View.GONE);
             mViewPager.setVisibility(View.GONE);
@@ -234,7 +221,7 @@ public class LocationDetailActivity extends AppCompatActivity {
 
         for (int i = 0; i < mLocationAreas.size(); i++) {
             LocationArea locationArea = mLocationAreas.get(i);
-            ArrayList<DetailInfo> locationDetails = locationDetailsList.get(i);
+            ArrayList<DetailCard> locationDetails = locationDetailsList.get(i);
 
             View aPage = getLayoutInflater().inflate(R.layout.fragment_detail_location, null);
             RecyclerView recyclerView = (RecyclerView) aPage.findViewById(R.id.recyclerView);

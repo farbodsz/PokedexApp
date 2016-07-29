@@ -1,8 +1,6 @@
 package com.satsumasoftware.pokedex.ui.adapter;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -12,9 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
+import com.satsumasoftware.pokedex.framework.pokemon.PokemonEvolution;
+import com.satsumasoftware.pokedex.util.PrefUtils;
 
 import java.util.ArrayList;
 
@@ -45,14 +44,11 @@ public class EvolutionsAdapter extends RecyclerView.Adapter<EvolutionsAdapter.Ev
     private ArrayList<MiniPokemon> mEvolutions;
     private MiniPokemon mCurrentPokemon;
 
-    private SQLiteDatabase mDatabase;
-
     public EvolutionsAdapter(Context context, ArrayList<MiniPokemon> evolutions,
                              MiniPokemon currentPokemon) {
         mContext = context;
         mEvolutions = evolutions;
         mCurrentPokemon = currentPokemon;
-        mDatabase = new PokeDB(context).getReadableDatabase();
     }
 
     @Override
@@ -70,47 +66,33 @@ public class EvolutionsAdapter extends RecyclerView.Adapter<EvolutionsAdapter.Ev
     public void onBindViewHolder(EvolutionsViewHolder holder, int position) {
         Pokemon pokemon = mEvolutions.get(position).toPokemon(mContext);
 
-        boolean sameAsCurrent = pokemon.getId() == mCurrentPokemon.getId();
+        if (PrefUtils.showPokemonImages(mContext)) {
+            pokemon.setPokemonImage(holder.imageView);
+        } else {
+            holder.imageView.setVisibility(View.GONE);
+        }
 
-        pokemon.setPokemonImage(holder.imageView);
+        boolean sameAsCurrent = pokemon.getSpeciesId() == mCurrentPokemon.getSpeciesId();
 
         String name = pokemon.getFormAndPokemonName();
         holder.text1.setText(sameAsCurrent ? Html.fromHtml("<b>" + name + "</b>") : name);
 
-        String evolutionMethod = "";
-        Cursor cursor = mDatabase.query(
-                PokeDB.PokemonEvolution.TABLE_NAME,
-                new String[] {PokeDB.PokemonEvolution.COL_EVOLVED_SPECIES_ID,
-                        PokeDB.PokemonEvolution.COL_EVOLUTION_TRIGGER_ID},
-                PokeDB.PokemonEvolution.COL_EVOLVED_SPECIES_ID + "=?",
-                new String[] {String.valueOf(pokemon.getSpeciesId())},
-                null, null, null);
-        if (Pokemon.isFormMega(pokemon.getFormSpecificValues())) {
-            evolutionMethod = "Mega stone";
-        } else if (cursor.getCount() == 0) {
-            evolutionMethod = "Base form";
+        ArrayList<PokemonEvolution> evolutionDataList = pokemon.getEvolutionDataObjects(mContext);
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (evolutionDataList == null) {
+            stringBuilder.append("Base form");
         } else {
-            cursor.moveToFirst();
-            // TODO get values via the database, for different languages (chosen in Settings)
-            int evolutionTriggerId = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonEvolution.COL_EVOLUTION_TRIGGER_ID));
-            switch (evolutionTriggerId) {
-                case 1:
-                    evolutionMethod = "By level-up";
-                    break;
-                case 2:
-                    evolutionMethod = "By trade";
-                    break;
-                case 3:
-                    evolutionMethod = "By item";
-                    break;
-                case 4:
-                    evolutionMethod = "By shed";
-                    break;
+            for (int i = 0; i < evolutionDataList.size(); i++) {
+                stringBuilder.append(evolutionDataList.get(i).makeDescriptionText(mContext));
+                if (i != evolutionDataList.size() - 1) {
+                    stringBuilder.append(";\n");
+                }
             }
         }
-        cursor.close();
 
-        holder.text2.setText(evolutionMethod);
+        holder.text2.setText(stringBuilder);
     }
 
     @Override

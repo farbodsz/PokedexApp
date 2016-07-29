@@ -23,7 +23,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
@@ -39,54 +38,63 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
+import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
+import com.satsumasoftware.pokedex.framework.Color;
+import com.satsumasoftware.pokedex.framework.GrowthRate;
+import com.satsumasoftware.pokedex.framework.Habitat;
+import com.satsumasoftware.pokedex.framework.HeightOrMass;
+import com.satsumasoftware.pokedex.framework.Pokedex;
+import com.satsumasoftware.pokedex.framework.Shape;
+import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
-import com.satsumasoftware.pokedex.framework.detail.DetailInfo;
-import com.satsumasoftware.pokedex.framework.detail.PokemonDetail;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonForm;
-import com.satsumasoftware.pokedex.framework.pokemon.PokemonMoves;
+import com.satsumasoftware.pokedex.framework.pokemon.PokemonLearnset;
+import com.satsumasoftware.pokedex.framework.pokemon.PokemonMove;
+import com.satsumasoftware.pokedex.framework.version.VersionGroup;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.EvolutionsAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsTileAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
-import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesVgAdapter;
+import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesAdapter;
+import com.satsumasoftware.pokedex.ui.card.DetailCard;
+import com.satsumasoftware.pokedex.ui.card.PokemonDetail;
+import com.satsumasoftware.pokedex.ui.dialog.AbilityDetailActivity;
+import com.satsumasoftware.pokedex.ui.dialog.MoveDetailActivity;
+import com.satsumasoftware.pokedex.ui.dialog.PropertyDetailActivity;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
 import com.satsumasoftware.pokedex.util.AppConfig;
-import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.FavoriteUtils;
 import com.satsumasoftware.pokedex.util.Flavours;
-import com.satsumasoftware.pokedex.util.InfoUtils;
 import com.satsumasoftware.pokedex.util.PrefUtils;
-import com.satsumasoftware.pokedex.util.ThemeUtils;
+import com.satsumasoftware.pokedex.util.ThemeUtilsKt;
 import com.satsuware.usefulviews.LabelledSpinner;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Locale;
 
 public class DetailActivity extends AppCompatActivity {
 
-    public static final String EXTRA_POKEMON = "POKEMON";  // TODO implement this for all use cases
+    public static final String EXTRA_POKEMON = "POKEMON";
 
     private View mRootLayout;
 
-    private static ViewPager mViewPager;
+    private static ViewPager sViewPager;
 
-    private static Pokemon mPokemon;
-    private static int mPkmnId;
-    private static String mPkmnName;
+    private static Pokemon sPokemon;
 
-    private static SparseIntArray mPkmnTypeIds;
-    private static ArrayMap<String, Integer> mPkmnPhysicalAttrs;
+    private static SparseIntArray sPkmnTypeIds;
+    private static ArrayMap<String, Integer> sPkmnPhysicalAttrs;
 
     private MenuItem mMenuItemFavourite;
 
@@ -100,28 +108,28 @@ public class DetailActivity extends AppCompatActivity {
             throw new NullPointerException("Parcelable BasePokemon object through Intent is null");
         }
 
-        mPokemon = miniPokemon.toPokemon(this);
+        sPokemon = miniPokemon.toPokemon(this);
 
-        if (mPokemon == null) {
+        if (sPokemon == null) {
             throw new NullPointerException("Pokemon is null");
         }
 
-        mPkmnTypeIds = mPokemon.getTypeIds();
-        mPkmnPhysicalAttrs = mPokemon.getPhysicalAttrs();
+        sPkmnTypeIds = sPokemon.getTypeIds();
+        sPkmnPhysicalAttrs = sPokemon.getPhysicalAttrs();
 
         switch (PrefUtils.detailColorType(this)) {
             case PrefUtils.PREF_DETAIL_COLORING_VALUE_DEFAULT:
                 // Do nothing
                 break;
             case PrefUtils.PREF_DETAIL_COLORING_VALUE_TYPE:
-                ThemeUtils.colourDetailByType(this, mPkmnTypeIds.get(1));
+                ThemeUtilsKt.colourDetailByType(this, sPkmnTypeIds.get(1));
                 break;
             case PrefUtils.PREF_DETAIL_COLORING_VALUE_COLOUR:
-                ThemeUtils.colourDetailByColour(this, Pokemon.getColorId(mPkmnPhysicalAttrs));
+                ThemeUtilsKt.colourDetailByColour(this, Pokemon.getColorId(sPkmnPhysicalAttrs));
                 break;
         }
         setContentView(R.layout.activity_detail);
-        mRootLayout = findViewById(R.id.detail_rootLayout);
+        mRootLayout = findViewById(R.id.rootLayout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -132,22 +140,21 @@ public class DetailActivity extends AppCompatActivity {
 
         AdUtils.setupAds(this, R.id.adView);
 
-        mPkmnId = mPokemon.getId();
-        mPkmnName = mPokemon.getName();
-
-        mViewPager = (ViewPager) findViewById(R.id.viewPager);
-        mViewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
+        sViewPager = (ViewPager) findViewById(R.id.viewPager);
+        sViewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setTabTextColors(
                 ContextCompat.getColor(this, R.color.mdu_text_white_secondary),
                 ContextCompat.getColor(this, R.color.mdu_text_white));
         tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.mdu_white));
+        tabLayout.setupWithViewPager(sViewPager);
+        sViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        tabLayout.setupWithViewPager(mViewPager);
-        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setupWithViewPager(sViewPager);
+        sViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         if (PrefUtils.playPokemonCryAtStart(this)) {
-            ActionUtils.playPokemonCry(this, mPokemon);
+            ActionUtils.playPokemonCry(this, sPokemon);
         }
     }
 
@@ -161,21 +168,24 @@ public class DetailActivity extends AppCompatActivity {
         mMenuItemFavourite = menu.findItem(R.id.action_favourite);
 
         if (Flavours.type == Flavours.Type.FREE) {
-            previous.setIcon(R.drawable.ic_chevron_left_grey600_48dp);
-            next.setIcon(R.drawable.ic_chevron_right_grey600_48dp);
-            compare.setIcon(R.drawable.ic_compare_grey600_48dp);
-            mMenuItemFavourite.setIcon(R.drawable.ic_star_outline_grey600_48dp);
+            previous.setIcon(R.drawable.ic_chevron_left_grey600_24dp);
+            next.setIcon(R.drawable.ic_chevron_right_grey600_24dp);
+            compare.setIcon(R.drawable.ic_compare_grey600_24dp);
+            mMenuItemFavourite.setIcon(R.drawable.ic_star_border_grey600_24dp);
             return true;
         }
 
-        if (mPkmnId == 1) {
-            previous.setIcon(R.drawable.ic_chevron_left_grey600_48dp);
-        } else if (mPkmnId == AppConfig.MAX_NATIONAL_ID) {
-            next.setIcon(R.drawable.ic_chevron_right_grey600_48dp);
+        switch (sPokemon.getId()) {
+            case 1:
+                previous.setIcon(R.drawable.ic_chevron_left_grey600_24dp);
+                break;
+            case AppConfig.MAX_NATIONAL_ID:
+                next.setIcon(R.drawable.ic_chevron_right_grey600_24dp);
+                break;
         }
 
-        if (FavoriteUtils.isAFavouritePkmn(this, mPokemon.toMiniPokemon())) {
-            mMenuItemFavourite.setIcon(R.drawable.ic_star_white_48dp);
+        if (FavoriteUtils.isAFavouritePkmn(this, sPokemon.toMiniPokemon())) {
+            mMenuItemFavourite.setIcon(R.drawable.ic_star_white_24dp);
             mMenuItemFavourite.setTitle(R.string.action_favourite_remove);
         }
 
@@ -187,7 +197,7 @@ public class DetailActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_previous:
                 if (Flavours.type == Flavours.Type.PAID) {
-                    if (mPkmnId != 1) {
+                    if (sPokemon.getId() != 1) {
                         action_navigation(0);
                     } else {
                         Snackbar.make(mRootLayout, R.string.detail_nav_back_error, Snackbar.LENGTH_SHORT)
@@ -199,7 +209,7 @@ public class DetailActivity extends AppCompatActivity {
                 break;
             case R.id.action_next:
                 if (Flavours.type == Flavours.Type.PAID) {
-                    if (mPkmnId != AppConfig.MAX_NATIONAL_ID) {
+                    if (sPokemon.getId() != AppConfig.MAX_NATIONAL_ID) {
                         action_navigation(1);
                     } else {
                         Snackbar.make(mRootLayout, R.string.detail_nav_forward_error, Snackbar.LENGTH_SHORT)
@@ -218,12 +228,12 @@ public class DetailActivity extends AppCompatActivity {
                 break;
             case R.id.action_favourite:
                 if (Flavours.type == Flavours.Type.PAID) {
-                    FavoriteUtils.markAsFavouritePkmn(this, mPokemon.toMiniPokemon(), mRootLayout);
-                    if (FavoriteUtils.isAFavouritePkmn(this, mPokemon.toMiniPokemon())) {
-                        mMenuItemFavourite.setIcon(R.drawable.ic_star_white_48dp);
+                    FavoriteUtils.markAsFavouritePkmn(this, sPokemon.toMiniPokemon(), mRootLayout);
+                    if (FavoriteUtils.isAFavouritePkmn(this, sPokemon.toMiniPokemon())) {
+                        mMenuItemFavourite.setIcon(R.drawable.ic_star_white_24dp);
                         mMenuItemFavourite.setTitle(R.string.action_favourite_remove);
                     } else {
-                        mMenuItemFavourite.setIcon(R.drawable.ic_star_outline_white_48dp);
+                        mMenuItemFavourite.setIcon(R.drawable.ic_star_border_white_24dp);
                     }
                 } else {
                     AlertUtils.requiresProSnackbar(this, mRootLayout);
@@ -233,7 +243,7 @@ public class DetailActivity extends AppCompatActivity {
                 goToExperienceCalculator(this);
                 break;
             case R.id.action_play_cry:
-                ActionUtils.playPokemonCry(this, mPokemon);
+                ActionUtils.playPokemonCry(this, sPokemon);
                 break;
             case R.id.action_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
@@ -243,7 +253,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void action_navigation(int navigationType) {
-        int pos = mPokemon.getNationalDexNumber();
+        int pos = sPokemon.getNationalDexNumber();
 
         int newPos;
         if (navigationType == 0) {
@@ -272,7 +282,7 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void action_compare_chooser() {
-        if (Pokemon.hasSwitchableForms(mPokemon.getFormSpecificValues())) {
+        if (Pokemon.hasSwitchableForms(sPokemon.getFormSpecificValues())) {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.dialog_title_compare_pokemon_forms)
                     .setMessage(R.string.dialog_msg_compare_pokemon_forms)
@@ -320,7 +330,7 @@ public class DetailActivity extends AppCompatActivity {
                     PokemonDBHelper.TABLE_NAME,
                     MiniPokemon.DB_COLUMNS,
                     PokemonDBHelper.COL_SPECIES_ID + "=? AND " + PokemonDBHelper.COL_FORM_IS_DEFAULT + "=? AND " + PokemonDBHelper.COL_FORM_ID + "!=?",
-                    new String[] {String.valueOf(mPokemon.getSpeciesId()), String.valueOf(1), String.valueOf(mPokemon.getFormId())},
+                    new String[] {String.valueOf(sPokemon.getSpeciesId()), String.valueOf(1), String.valueOf(sPokemon.getFormId())},
                     null, null, null);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -333,7 +343,7 @@ public class DetailActivity extends AppCompatActivity {
             arrayPokemon = dbHelper.getAllPokemon();
         }
 
-        RecyclerView pokemonList = (RecyclerView) listPicker.findViewById(R.id.dialog_rv);
+        RecyclerView pokemonList = (RecyclerView) listPicker.findViewById(R.id.recyclerView);
         pokemonList.setHasFixedSize(true);
         pokemonList.setLayoutManager(new LinearLayoutManager(this));
         pokemonList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
@@ -343,7 +353,7 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onEntryClick(View view, int position) {
                 Intent intent = new Intent(getBaseContext(), CompareActivity.class);
-                intent.putExtra(CompareActivity.EXTRA_POKEMON_1, mPokemon.toMiniPokemon());
+                intent.putExtra(CompareActivity.EXTRA_POKEMON_1, sPokemon.toMiniPokemon());
                 intent.putExtra(CompareActivity.EXTRA_POKEMON_2, arrayPokemon.get(position));
                 startActivity(intent);
 
@@ -356,7 +366,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private static void goToExperienceCalculator(Context context) {
         Intent intent = new Intent(context, ExperienceCalculatorActivity.class);
-        intent.putExtra(ExperienceCalculatorActivity.EXTRA_POKEMON, mPokemon.toMiniPokemon());
+        intent.putExtra(ExperienceCalculatorActivity.EXTRA_POKEMON, sPokemon.toMiniPokemon());
         context.startActivity(intent);
     }
 
@@ -420,7 +430,7 @@ public class DetailActivity extends AppCompatActivity {
         private View mRootView;
 
         private RecyclerView mRecyclerView;
-        private ArrayList<DetailInfo> mDetails;
+        private ArrayList<DetailCard> mDetails;
 
         private AsyncTask<Void, Integer, Void> mCurrAsyncTask;
 
@@ -470,26 +480,26 @@ public class DetailActivity extends AppCompatActivity {
         private PokemonDetail fetchGeneralData() {
             ArrayList<Object> values = new ArrayList<>(7);
 
-            values.add(mPokemon.toMiniPokemon());
-            values.add(Pokemon.isDefault(mPokemon.getMiscValues()));
-            values.add(mPokemon.getGenera().get("en") + " Pok\u00E9mon");
-            values.add(Pokemon.isFormMega(mPokemon.getFormSpecificValues()));
+            values.add(sPokemon.toMiniPokemon());
+            values.add(Pokemon.isDefault(sPokemon.getMiscValues()));
+            values.add(sPokemon.getGenera().get("en") + " Pok\u00E9mon");
+            values.add(Pokemon.isFormMega(sPokemon.getFormSpecificValues()));
 
-            values.add(DataUtils.typeIdToString(mPkmnTypeIds.get(1)));
-            boolean hasSecondaryType = Pokemon.hasSecondaryType(mPkmnTypeIds);
-            values.add(hasSecondaryType ? DataUtils.typeIdToString(mPkmnTypeIds.get(2)) : null);
+            values.add(new Type(sPkmnTypeIds.get(1)).getName());
+            boolean hasSecondaryType = Pokemon.hasSecondaryType(sPkmnTypeIds);
+            values.add(hasSecondaryType ? new Type(sPkmnTypeIds.get(2)).getName() : null);
             values.add(hasSecondaryType);
 
             return new PokemonDetail(values);
         }
 
         private PokemonDetail fetchAbilityData() {
-            final SparseIntArray abilityIds = mPokemon.getAbilityIds();
+            final SparseIntArray abilityIds = sPokemon.getAbilityIds();
 
             SparseArray<MiniAbility> abilities = new SparseArray<>(3);
             for (int i = 1; i < abilityIds.size() + 1; i++) {
                 int id = abilityIds.get(i);
-                MiniAbility miniAbility = (id == DataUtils.NULL_INT) ?
+                MiniAbility miniAbility = (id == DataUtilsKt.NULL_INT) ?
                         null : new MiniAbility(getActivity(), id);
                 abilities.put(i, miniAbility);
             }
@@ -540,49 +550,53 @@ public class DetailActivity extends AppCompatActivity {
             ArrayList<View.OnClickListener> listeners = new ArrayList<>();
             Resources res = getResources();
 
+            final HeightOrMass height = new HeightOrMass(Pokemon.getHeightValue(sPkmnPhysicalAttrs));
             properties.add(res.getString(R.string.attr_height));
-            values.add(Pokemon.getHeight(mPkmnPhysicalAttrs) + " m");
+            values.add(height.getDisplayedValue() + " m");
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_HEIGHT);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(Pokemon.getHeight(mPkmnPhysicalAttrs)));
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, height.getDbValue());
                     startActivity(intent);
                 }
             });
+
+            final HeightOrMass mass = new HeightOrMass(Pokemon.getWeight(sPkmnPhysicalAttrs));
             properties.add(res.getString(R.string.attr_mass));
-            values.add(Pokemon.getWeight(mPkmnPhysicalAttrs) + " kg");
+            values.add(mass.getDisplayedValue() + " kg");
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_MASS);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(Pokemon.getWeight(mPkmnPhysicalAttrs)));
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, mass.getDbValue());
                     startActivity(intent);
                 }
             });
             properties.add(res.getString(R.string.attr_colour));
-            final String color = DataUtils.colorIdToString(Pokemon.getColorId(mPkmnPhysicalAttrs));
-            values.add(color);
+            final Color color = new Color(Pokemon.getColorId(sPkmnPhysicalAttrs));
+            values.add(color.getName());
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_COLOUR);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, color);
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, color.getId());
                     startActivity(intent);
                 }
             });
+
+            final Shape shape = new Shape(Pokemon.getShapeId(sPkmnPhysicalAttrs));
             properties.add(res.getString(R.string.attr_shape));
-            values.add(DataUtils.shapeIdToString(Pokemon.getShapeId(mPkmnPhysicalAttrs), true) +
-                    " (" + DataUtils.shapeIdToString(Pokemon.getShapeId(mPkmnPhysicalAttrs), false) + ")");
+            values.add(shape.getTechnicalName() + " (" + shape.getSimpleName() + ")");
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_SHAPE);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, DataUtils.shapeIdToString(Pokemon.getShapeId(mPkmnPhysicalAttrs), false));
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, shape.getId());
                     startActivity(intent);
                 }
             });
@@ -593,15 +607,15 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private PokemonDetail fetchGenderData() {
-            final ArrayMap<String, Integer> genderValues = mPokemon.getGenderValues();
+            final ArrayMap<String, Integer> genderValues = sPokemon.getGenderValues();
             ArrayList<Integer> values = new ArrayList<>();
             values.add(Pokemon.getGenderRate(genderValues));
 
-            return new PokemonDetail(values, mPkmnName);
+            return new PokemonDetail(values, sPokemon.getName());
         }
 
         private PokemonDetail fetchStatData() {
-            final ArrayMap<String, Integer> statValues = mPokemon.getStats();
+            final ArrayMap<String, Integer> statValues = sPokemon.getStats();
             ArrayList<Integer> values = new ArrayList<>();
 
             String[] keys = new String[] {"hp", "atk", "def", "spa", "spd", "spe"};
@@ -613,15 +627,15 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private PokemonDetail fetchTrainingData() {
-            ArrayMap<String, Integer> trainingValues = mPokemon.getTrainingValues();
+            ArrayMap<String, Integer> trainingValues = sPokemon.getTrainingValues();
             ArrayList<String> properties = new ArrayList<>();
             ArrayList<String> values = new ArrayList<>();
             ArrayList<View.OnClickListener> listeners = new ArrayList<>();
             Resources res = getResources();
 
             properties.add(res.getString(R.string.attr_catch_rate));
-            final String captureRate = String.valueOf(Pokemon.getCaptureRate(trainingValues));
-            values.add(captureRate);
+            final int captureRate = Pokemon.getCaptureRate(trainingValues);
+            values.add(String.valueOf(captureRate));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -632,8 +646,8 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
             properties.add(res.getString(R.string.attr_base_happiness));
-            final String happiness = String.valueOf(Pokemon.getBaseHappiness(trainingValues));
-            values.add(happiness);
+            final int happiness = Pokemon.getBaseHappiness(trainingValues);
+            values.add(String.valueOf(happiness));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -643,27 +657,29 @@ public class DetailActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
+            final GrowthRate growthRate = new GrowthRate(Pokemon.getGrowthRateId(trainingValues));
+
             properties.add(res.getString(R.string.attr_levelling_rate));
-            final String levellingRate = InfoUtils.idToGrowth(Pokemon.getGrowthRateId(trainingValues));
-            values.add(levellingRate);
+            values.add(growthRate.getName());
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_LEVELLING_RATE);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, levellingRate);
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, growthRate.getId());
                     startActivity(intent);
                 }
             });
+
             properties.add(res.getString(R.string.attr_exp_growth_abbr));
-            final String exp = String.valueOf(DataUtils.maxExpFromGrowthId(Pokemon.getGrowthRateId(trainingValues)));
-            values.add(exp);
+            values.add(String.valueOf(growthRate.findMaxExperience()));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_EXP);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, exp);
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, growthRate.getId());
                     startActivity(intent);
                 }
             });
@@ -683,7 +699,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private PokemonDetail fetchPokedexData() {
-            ArrayMap<String, Integer> pokedexValues = mPokemon.getPokedexNumbers();
+            ArrayMap<String, Integer> pokedexValues = sPokemon.getPokedexNumbers();
             ArrayList<String> properties = new ArrayList<>();
             ArrayList<String> values = new ArrayList<>();
             ArrayList<View.OnClickListener> listeners = new ArrayList<>();
@@ -700,8 +716,8 @@ public class DetailActivity extends AppCompatActivity {
                     continue;
                 }
 
-                properties.add(DataUtils.getPokedexNameFromId(id));
-                values.add(InfoUtils.formatPokemonId(pokedexValues.get(pokedexKey)));
+                properties.add(new Pokedex(id).getName());
+                values.add(DataUtilsKt.formatPokemonId(pokedexValues.get(pokedexKey)));
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -718,15 +734,15 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private PokemonDetail fetchMoreData() {
-            ArrayMap<String, Integer> moreValues = mPokemon.getMoreValues();
+            ArrayMap<String, Integer> moreValues = sPokemon.getMoreValues();
             ArrayList<String> properties = new ArrayList<>();
             ArrayList<String> values = new ArrayList<>();
             ArrayList<View.OnClickListener> listeners = new ArrayList<>();
             Resources res = getResources();
 
             properties.add(res.getString(R.string.attr_generation));
-            final String generation = InfoUtils.getRomanFromGen(Pokemon.getGenerationId(moreValues));
-            values.add(generation);
+            final int generation = Pokemon.getGenerationId(moreValues);
+            values.add(DataUtilsKt.genIdToRoman(generation));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -738,8 +754,8 @@ public class DetailActivity extends AppCompatActivity {
             });
 
             properties.add(res.getString(R.string.attr_base_egg_steps));
-            final String eggSteps = String.valueOf(Pokemon.getBaseEggSteps(moreValues));
-            values.add(eggSteps);
+            final int eggSteps = Pokemon.getBaseEggSteps(moreValues);
+            values.add(String.valueOf(eggSteps));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -751,8 +767,8 @@ public class DetailActivity extends AppCompatActivity {
             });
 
             properties.add(res.getString(R.string.attr_base_egg_cycles));
-            final String eggCycles = String.valueOf(Pokemon.getBaseEggCycles(moreValues));
-            values.add(eggCycles);
+            final int eggCycles = Pokemon.getBaseEggCycles(moreValues);
+            values.add(String.valueOf(eggCycles));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -765,14 +781,14 @@ public class DetailActivity extends AppCompatActivity {
 
             if (Pokemon.hasHabitatInfo(moreValues)) {
                 properties.add(res.getString(R.string.attr_habitat));
-                final String habitat = DataUtils.habitatIdToString(Pokemon.getHabitatId(moreValues));
-                values.add(habitat);
+                final Habitat habitat = new Habitat(Pokemon.getHabitatId(moreValues));
+                values.add(habitat.getName());
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_HABITAT);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, habitat);
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, habitat.getId());
                         startActivity(intent);
                     }
                 });
@@ -812,7 +828,7 @@ public class DetailActivity extends AppCompatActivity {
             mCardView = (CardView) mRootView.findViewById(R.id.cardView);
             mRecyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerView);
 
-            if (mPokemon == null) {
+            if (sPokemon == null) {
                 throw new NullPointerException("pokemon is null");
             }
 
@@ -825,7 +841,8 @@ public class DetailActivity extends AppCompatActivity {
             if (PrefUtils.showPokemonImages(getContext())) {
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mRecyclerView.setHasFixedSize(true);
-                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),
+                        getResources().getInteger(R.integer.detail_columns_tiles)));
                 displayTiles();
             } else {
                 mCardView.setVisibility(View.VISIBLE);
@@ -838,7 +855,7 @@ public class DetailActivity extends AppCompatActivity {
             mCurrAsyncTask = new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... params) {
-                    mAltForms = mPokemon.getAlternateForms();
+                    mAltForms = sPokemon.getAlternateForms();
                     return null;
                 }
 
@@ -849,8 +866,8 @@ public class DetailActivity extends AppCompatActivity {
                     adapter.setOnEntryClickListener(new FormsTileAdapter.OnEntryClickListener() {
                         @Override
                         public void onEntryClick(View view, int position) {
-                            if (mAltForms.get(position).getFormId() == mPokemon.getFormId()) {
-                                mViewPager.setCurrentItem(0);
+                            if (mAltForms.get(position).getFormId() == sPokemon.getFormId()) {
+                                sViewPager.setCurrentItem(0);
                             } else {
                                 Intent intent = new Intent(getActivity(), DetailActivity.class);
                                 intent.putExtra(EXTRA_POKEMON,
@@ -878,13 +895,13 @@ public class DetailActivity extends AppCompatActivity {
 
                 @Override
                 protected Void doInBackground(Void... params) {
-                    mAltForms = mPokemon.getAlternateForms();
-                    formSpecificVals = mPokemon.getFormSpecificValues();
-                    ArrayMap<String, Integer> miscValues = mPokemon.getMiscValues();
+                    mAltForms = sPokemon.getAlternateForms();
+                    formSpecificVals = sPokemon.getFormSpecificValues();
+                    ArrayMap<String, Integer> miscValues = sPokemon.getMiscValues();
                     currForm = new PokemonForm(
-                            mPkmnId, mPokemon.getSpeciesId(), mPokemon.getFormId(),
-                            mPkmnName, mPokemon.getFormName(), mPokemon.getFormAndPokemonName(),
-                            mPokemon.getNationalDexNumber(), mPkmnTypeIds.get(1),
+                            sPokemon.getId(), sPokemon.getSpeciesId(), sPokemon.getFormId(),
+                            sPokemon.getName(), sPokemon.getFormName(), sPokemon.getFormAndPokemonName(),
+                            sPokemon.getNationalDexNumber(), sPkmnTypeIds.get(1),
                             Pokemon.isDefault(miscValues), Pokemon.isFormDefault(formSpecificVals),
                             Pokemon.isFormMega(formSpecificVals));
                     return null;
@@ -896,8 +913,8 @@ public class DetailActivity extends AppCompatActivity {
                     if (mAltForms.isEmpty()) {
                         container.removeAllViews();
                         getActivity().getLayoutInflater().inflate(R.layout.list_item_null, container, true);
-                        String listMessage = getResources().getString(R.string.null_alternate_forms, mPkmnName);
-                        TextView tvListTxt = (TextView) mRootView.findViewById(R.id.item_null_text1);
+                        String listMessage = getResources().getString(R.string.null_alternate_forms, sPokemon.getName());
+                        TextView tvListTxt = (TextView) mRootView.findViewById(R.id.item_null_text);
                         tvListTxt.setText(listMessage);
                     } else {
                         FormsVGAdapter adapter = new FormsVGAdapter(getActivity(), container, currForm, mAltForms);
@@ -905,8 +922,8 @@ public class DetailActivity extends AppCompatActivity {
                         adapter.setOnEntryClickListener(new FormsVGAdapter.OnEntryClickListener() {
                             @Override
                             public void onEntryClick(View view, int position) {
-                                if (mAltForms.get(position).getFormId() == mPokemon.getFormId()) {
-                                    mViewPager.setCurrentItem(0);
+                                if (mAltForms.get(position).getFormId() == sPokemon.getFormId()) {
+                                    sViewPager.setCurrentItem(0);
                                 } else {
                                     Intent intent = new Intent(getActivity(), DetailActivity.class);
                                     intent.putExtra(EXTRA_POKEMON, mAltForms.get(position).toMiniPokemon(getActivity()));
@@ -932,6 +949,8 @@ public class DetailActivity extends AppCompatActivity {
 
         private View mRootView;
 
+        private AsyncTask<Void, Void, Void> mAsyncTask;
+
         @Nullable
         @Override
         public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -944,31 +963,46 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private void displayEvolutions() {
-            final ArrayList<MiniPokemon> evolutions = fetchOrderedEvolutions();
+            mAsyncTask = new AsyncTask<Void, Void, Void>() {
+                ArrayList<MiniPokemon> evolutions;
 
-            RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerView);
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-            EvolutionsAdapter adapter = new EvolutionsAdapter(getActivity(), evolutions, mPokemon.toMiniPokemon());
-            adapter.setOnEntryClickListener(new EvolutionsAdapter.OnEntryClickListener() {
                 @Override
-                public void onEntryClick(View view, int position) {
-                    MiniPokemon clickedPokemon = evolutions.get(position);
-                    if (clickedPokemon.getId() != mPkmnId) {
-                        Intent intent = new Intent(getActivity(), DetailActivity.class);
-                        intent.putExtra(EXTRA_POKEMON, clickedPokemon);
-                        startActivity(intent);
-                        getActivity().finish();
-                    }
+                protected Void doInBackground(Void... voids) {
+                    evolutions = fetchOrderedEvolutions();
+                    return null;
                 }
-            });
 
-            recyclerView.setAdapter(adapter);
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    super.onPostExecute(aVoid);
+
+                    RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerView);
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+                    EvolutionsAdapter adapter = new EvolutionsAdapter(
+                            getActivity(), evolutions, sPokemon.toMiniPokemon());
+
+                    adapter.setOnEntryClickListener(new EvolutionsAdapter.OnEntryClickListener() {
+                        @Override
+                        public void onEntryClick(View view, int position) {
+                            MiniPokemon clickedPokemon = evolutions.get(position);
+                            if (clickedPokemon.getId() != sPokemon.getId()) {
+                                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                                intent.putExtra(EXTRA_POKEMON, clickedPokemon);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
+                        }
+                    });
+
+                    recyclerView.setAdapter(adapter);
+                }
+            }.execute();
         }
 
         private ArrayList<MiniPokemon> fetchOrderedEvolutions() {
-            int evolutionChainId = Pokemon.getEvolutionChainId(mPokemon.getEvolutionInfo());
+            int evolutionChainId = Pokemon.getEvolutionChainId(sPokemon.getEvolutionInfo());
 
             ArrayList<MiniPokemon> evolutions = new ArrayList<>();
 
@@ -978,8 +1012,9 @@ public class DetailActivity extends AppCompatActivity {
                     concatenateArrays(MiniPokemon.DB_COLUMNS,
                             new String[] {PokemonDBHelper.COL_EVOLVES_FROM_SPECIES_ID,
                                     PokemonDBHelper.COL_EVOLUTION_CHAIN_ID}),
-                    PokemonDBHelper.COL_EVOLUTION_CHAIN_ID + "=?",
-                    new String[] {String.valueOf(evolutionChainId)},
+                    PokemonDBHelper.COL_EVOLUTION_CHAIN_ID + "=? AND " +
+                            PokemonDBHelper.COL_IS_DEFAULT + "=?",
+                    new String[] {String.valueOf(evolutionChainId), "1"},
                     null, null, null);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
@@ -1012,13 +1047,20 @@ public class DetailActivity extends AppCompatActivity {
             return c;
         }
 
+        @Override
+        public void onStop() {
+            super.onStop();
+            if (mAsyncTask != null) {
+                mAsyncTask.cancel(true);
+            }
+        }
     }
 
     public static class MovesFragment extends Fragment implements LabelledSpinner.OnItemChosenListener {
 
         private View mRootView;
 
-        private String mLearnMethod, mGameVersion;
+        private String mLearnMethod;
 
         private LinearLayout mContainer;
         private Button mSubmitButton;
@@ -1026,8 +1068,10 @@ public class DetailActivity extends AppCompatActivity {
 
         private ArrayList<String> mArrayMethodTitles = new ArrayList<>();
         private ArrayList<Integer> mArrayMethodTypes = new ArrayList<>();
-        private ArrayList<String> mArrayGameTitles;
-        private ArrayList<Integer> mArrayGameTypes = new ArrayList<>();
+
+        private ArrayList<VersionGroup> mVersionGroups;
+        private ArrayList<String> mVersionGroupNames;
+        private int mVGroupListPos;
 
         private AsyncTask<Void, Integer, Void> mAsyncTask;
 
@@ -1035,6 +1079,8 @@ public class DetailActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             mRootView = inflater.inflate(R.layout.fragment_detail_learnsets, container, false);
+
+            setupView();
 
             return mRootView;
         }
@@ -1048,33 +1094,40 @@ public class DetailActivity extends AppCompatActivity {
             mArrayMethodTypes.add(AppConfig.LEARN_METHOD_MACHINE);
             mArrayMethodTypes.add(AppConfig.LEARN_METHOD_TUTOR);
 
-            mArrayGameTitles = new ArrayList<>(Arrays.asList(res.getStringArray(R.array.game_versions)));
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_RED_BLUE);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_YELLOW);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_GOLD_SILVER);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_CRYSTAL);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_RUBY_SAPPHIRE);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_EMERALD);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_FIRERED_LEAFGREEN);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_DIAMOND_PEARL);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_PLATINUM);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_HEARTGOLD_SOULSILVER);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_BLACK_WHITE);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_BLACK2_WHITE2);
-            mArrayGameTypes.add(AppConfig.GAME_VERSION_X_Y); // TODO: add only what is there (i.e. Yveltal would not have Diamond and Pearl game version info)
+            int genId = Pokemon.getGenerationId(sPokemon.getMoreValues());
+            mVersionGroups = new ArrayList<>();
+            mVersionGroupNames = new ArrayList<>();
+            PokeDB pokeDB = new PokeDB(getActivity());
+            Cursor cursor = pokeDB.getReadableDatabase().query(
+                    PokeDB.VersionGroups.TABLE_NAME,
+                    null,
+                    PokeDB.VersionGroups.COL_ID + "!=? AND " +
+                            PokeDB.VersionGroups.COL_ID + "!=? AND " +
+                            PokeDB.VersionGroups.COL_GENERATION_ID + ">=?",
+                    new String[] {String.valueOf(12), String.valueOf(13), String.valueOf(genId)},
+                    null, null, null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                VersionGroup versionGroup = new VersionGroup(cursor);
+                mVersionGroups.add(versionGroup);
+                mVersionGroupNames.add(versionGroup.fetchName(getActivity()));
+                cursor.moveToNext();
+            }
+            cursor.close();
 
-            mSpinnerMethod = (LabelledSpinner) mRootView.findViewById(R.id.detailL_spinnerMethod);
+
+            mSpinnerMethod = (LabelledSpinner) mRootView.findViewById(R.id.spinner_learn_method);
             mSpinnerMethod.setItemsArray(mArrayMethodTitles);
             mSpinnerMethod.setSelection(0);
             mSpinnerMethod.setOnItemChosenListener(this);
-            mSpinnerGame = (LabelledSpinner) mRootView.findViewById(R.id.detailL_spinnerGame);
-            mSpinnerGame.setItemsArray(R.array.game_versions);
-            mSpinnerGame.setSelection(mArrayGameTitles.size() - 1);
+            mSpinnerGame = (LabelledSpinner) mRootView.findViewById(R.id.spinner_game_version);
+            mSpinnerGame.setItemsArray(mVersionGroupNames);
+            mSpinnerGame.setSelection(mVersionGroups.size() - 1);
             mSpinnerGame.setOnItemChosenListener(this);
 
-            mContainer = (LinearLayout) mRootView.findViewById(R.id.detailL_llContainer);
+            mContainer = (LinearLayout) mRootView.findViewById(R.id.container);
 
-            mSubmitButton = (Button) mRootView.findViewById(R.id.detailL_btnGo);
+            mSubmitButton = (Button) mRootView.findViewById(R.id.button_go);
             mSubmitButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -1089,8 +1142,9 @@ public class DetailActivity extends AppCompatActivity {
         @Override
         public void setUserVisibleHint(boolean isVisibleToUser) {
             super.setUserVisibleHint(isVisibleToUser);
-            if (isVisibleToUser) {
-                setupView();
+            if (isVisibleToUser && getActivity() != null) {
+                // getActivity() can give NPE when using tab buttons instead of swiping
+                loadCard();
             }
         }
 
@@ -1102,21 +1156,28 @@ public class DetailActivity extends AppCompatActivity {
         private View makeCard() {
             View card = getActivity().getLayoutInflater().inflate(R.layout.card_detail_learnset, mContainer, false);
 
-            final TextView title = (TextView) card.findViewById(R.id.card_learnset_titleText);
-            final TextView subtitle = (TextView) card.findViewById(R.id.card_learnset_subtitleText);
-            final ProgressBar progressBar = (ProgressBar) card.findViewById(R.id.card_learnset_progressBar);
-            final LinearLayout itemsContainer = (LinearLayout) card.findViewById(R.id.card_learnset_linearLayout);
+            final TextView title = (TextView) card.findViewById(R.id.title);
+            final TextView subtitle = (TextView) card.findViewById(R.id.subtitle);
+            final ProgressBar progressBar = (ProgressBar) card.findViewById(R.id.progress_indeterminate);
+            final RecyclerView recyclerView = (RecyclerView) card.findViewById(R.id.recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            });
+            recyclerView.addItemDecoration(new DividerItemDecoration(
+                    getActivity(), DividerItemDecoration.VERTICAL_LIST));
 
             title.setText(mLearnMethod);
-            subtitle.setText("Pok\u00E9mon " + mGameVersion);
+            subtitle.setText("Pok\u00E9mon " + mVersionGroupNames.get(mVGroupListPos));
 
             int methodNoInList = mArrayMethodTitles.indexOf(mLearnMethod);
             final int learnMethod = mArrayMethodTypes.get(methodNoInList);
-            int gameNoInList = mArrayGameTitles.indexOf(mGameVersion);
-            final int gameVersion = mArrayGameTypes.get(gameNoInList);
+            final VersionGroup versionGroup = mVersionGroups.get(mVGroupListPos);
 
             mAsyncTask = new AsyncTask<Void, Integer, Void>() {
-                PokemonMovesVgAdapter adapter;
+                PokemonMovesAdapter adapter;
                 @Override
                 protected void onPreExecute() {
                     super.onPreExecute();
@@ -1126,11 +1187,12 @@ public class DetailActivity extends AppCompatActivity {
                 }
                 @Override
                 protected Void doInBackground(Void... params) {
-                    PokemonMoves learnset = new PokemonMoves(getActivity(), mPokemon, learnMethod);
-                    ArrayList<PokemonMoves.PokemonMove> arrayMoves = learnset.getPokemonMoves();
-                    Collections.sort(arrayMoves, new Comparator<PokemonMoves.PokemonMove>() {
+                    PokemonLearnset learnset = new PokemonLearnset(
+                            getActivity(), sPokemon.getId(), learnMethod, versionGroup.getId());
+                    ArrayList<PokemonMove> arrayMoves = learnset.getPokemonMoves();
+                    Collections.sort(arrayMoves, new Comparator<PokemonMove>() {
                         @Override
-                        public int compare(PokemonMoves.PokemonMove lhs, PokemonMoves.PokemonMove rhs) {
+                        public int compare(PokemonMove lhs, PokemonMove rhs) {
                             if (learnMethod == AppConfig.LEARN_METHOD_LEVEL_UP) {
                                 return lhs.getLevel() - rhs.getLevel();
                             } else {
@@ -1138,13 +1200,13 @@ public class DetailActivity extends AppCompatActivity {
                             }
                         }
                     });
-                    final ArrayList<PokemonMoves.PokemonMove> arrayMovesFinal = arrayMoves;
-                    adapter = new PokemonMovesVgAdapter(getActivity(), itemsContainer, arrayMoves);
-                    adapter.setOnEntryClickListener(new PokemonMovesVgAdapter.OnEntryClickListener() {
+                    final ArrayList<PokemonMove> arrayMovesFinal = arrayMoves;
+                    adapter = new PokemonMovesAdapter(getActivity(), arrayMoves);
+                    adapter.setOnEntryClickListener(new PokemonMovesAdapter.OnEntryClickListener() {
                         @Override
                         public void onEntryClick(View view, int position) {
-                            Intent intent = new Intent(getActivity(), MovesDetailActivity.class);
-                            intent.putExtra(MovesDetailActivity.EXTRA_MOVE,
+                            Intent intent = new Intent(getActivity(), MoveDetailActivity.class);
+                            intent.putExtra(MoveDetailActivity.EXTRA_MOVE,
                                     arrayMovesFinal.get(position).toMiniMove(getActivity()));
                             startActivity(intent);
                         }
@@ -1154,7 +1216,7 @@ public class DetailActivity extends AppCompatActivity {
                 @Override
                 protected void onPostExecute(Void result) {
                     super.onPostExecute(result);
-                    adapter.createListItems();
+                    recyclerView.setAdapter(adapter);
                     progressBar.setVisibility(View.GONE);
                 }
             }.execute();
@@ -1174,11 +1236,11 @@ public class DetailActivity extends AppCompatActivity {
         public void onItemChosen(View labelledSpinner, AdapterView<?> adapterView, View itemView, int position, long id) {
             String selected = adapterView.getItemAtPosition(position).toString();
             switch (labelledSpinner.getId()) {
-                case R.id.detailL_spinnerMethod:
+                case R.id.spinner_learn_method:
                     mLearnMethod = selected;
                     break;
-                case R.id.detailL_spinnerGame:
-                    mGameVersion = selected;
+                case R.id.spinner_game_version:
+                    mVGroupListPos = position;
                     break;
             }
         }

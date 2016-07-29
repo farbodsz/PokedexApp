@@ -8,7 +8,7 @@ import android.widget.ImageView;
 
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.util.ActionUtils;
-import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
 public class MiniPokemon extends BasePokemon implements Parcelable {
 
@@ -34,7 +34,7 @@ public class MiniPokemon extends BasePokemon implements Parcelable {
         cursor.close();
     }
 
-    public MiniPokemon(Cursor cursor) {  // TODO use this more often
+    public MiniPokemon(Cursor cursor) {
         mId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_ID));
         mSpeciesId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_SPECIES_ID));
         mFormId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_ID));
@@ -55,9 +55,7 @@ public class MiniPokemon extends BasePokemon implements Parcelable {
         mNationalNumber = nationalDexNumber;
     }
 
-    @Deprecated
-    public static MiniPokemon createFromSpecies(Context context, int speciesId, boolean isFormMega) {
-        MiniPokemon miniPokemon = null;
+    public MiniPokemon(Context context, int speciesId, boolean isFormMega) {
         int isMegaAsInt = (isFormMega ? 1 : 0);
         PokemonDBHelper pokemonDBHelper = new PokemonDBHelper(context);
         Cursor cursor = pokemonDBHelper.getReadableDatabase().query(
@@ -67,12 +65,14 @@ public class MiniPokemon extends BasePokemon implements Parcelable {
                 new String[] {String.valueOf(speciesId), String.valueOf(isMegaAsInt)},
                 null, null, null);
         cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            miniPokemon = new MiniPokemon(cursor);  // TODO did I mean to use moveToNext() here?
-        }
+        mId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_ID));
+        mSpeciesId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_SPECIES_ID));
+        mFormId = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_ID));
+        mName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_NAME));
+        mFormName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_NAME));
+        mFormPokemonName = cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_POKEMON_NAME));
+        mNationalNumber = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_POKEDEX_NATIONAL));
         cursor.close();
-        return miniPokemon;
-
     }
 
     public Pokemon toPokemon(Context context) {
@@ -86,7 +86,7 @@ public class MiniPokemon extends BasePokemon implements Parcelable {
     }
 
     public boolean hasAddedAltDexInfo() {
-        return mAltDexNumber != DataUtils.NULL_INT;
+        return mAltDexNumber != DataUtilsKt.NULL_INT;
     }
 
     public int getAlternateDexId() {

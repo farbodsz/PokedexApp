@@ -5,10 +5,10 @@ import android.content.Context;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 @SuppressWarnings("unused")
-public class PokeDB extends SQLiteAssetHelper {
+public final class PokeDB extends SQLiteAssetHelper {
 
     private static final String DATABASE_NAME = "pokedex.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 10;
 
 
     public PokeDB(Context context) {
@@ -16,12 +16,12 @@ public class PokeDB extends SQLiteAssetHelper {
     }
 
 
-    public class Abilities {
-        public static final String TABLE_NAME = "abilities";
-        public static final String COL_ID = "id";
-        public static final String COL_IDENTIFIER = "identifier";
-        public static final String COL_GENERATION_ID = "generation_id";
-        public static final String COL_IS_MAIN_SERIES = "is_main_series";
+    protected class Abilities {
+        static final String TABLE_NAME = "abilities";
+        static final String COL_ID = "id";
+        static final String COL_IDENTIFIER = "identifier";
+        static final String COL_GENERATION_ID = "generation_id";
+        static final String COL_IS_MAIN_SERIES = "is_main_series";
     }
 
     public class AbilityFlavorText {
@@ -32,11 +32,11 @@ public class PokeDB extends SQLiteAssetHelper {
         public static final String COL_FLAVOR_TEXT = "flavor_text";
     }
 
-    public class AbilityNames {
-        public static final String TABLE_NAME = "ability_names";
-        public static final String COL_ABILITY_ID = "ability_id";
-        public static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
-        public static final String COL_NAME = "name";
+    protected class AbilityNames {
+        static final String TABLE_NAME = "ability_names";
+        static final String COL_ABILITY_ID = "ability_id";
+        static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
+        static final String COL_NAME = "name";
     }
 
     public class AbilityProse {
@@ -48,11 +48,11 @@ public class PokeDB extends SQLiteAssetHelper {
     }
 
 
-    public class EncounterConditionProse {
-        public static final String TABLE_NAME = "encounter_condition_prose";
-        public static final String COL_ENCOUNTER_CONDITION_ID = "encounter_condition_id";
-        public static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
-        public static final String COL_NAME = "name";
+    protected class EncounterConditionProse {
+        static final String TABLE_NAME = "encounter_condition_prose";
+        static final String COL_ENCOUNTER_CONDITION_ID = "encounter_condition_id";
+        static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
+        static final String COL_NAME = "name";
     }
 
     public class EncounterConditionValueMap {
@@ -61,19 +61,19 @@ public class PokeDB extends SQLiteAssetHelper {
         public static final String COL_ENCOUNTER_CONDITION_VALUE_ID = "encounter_condition_value_id";
     }
 
-    public class EncounterConditionValueProse {
-        public static final String TABLE_NAME = "encounter_condition_value_prose";
-        public static final String COL_ENCOUNTER_CONDITION_VALUE_ID = "encounter_condition_value_id";
-        public static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
-        public static final String COL_NAME = "name";
+    protected class EncounterConditionValueProse {
+        static final String TABLE_NAME = "encounter_condition_value_prose";
+        static final String COL_ENCOUNTER_CONDITION_VALUE_ID = "encounter_condition_value_id";
+        static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
+        static final String COL_NAME = "name";
     }
 
-    public class EncounterConditionValues {
-        public static final String TABLE_NAME = "encounter_condition_values";
-        public static final String COL_ID = "id";
-        public static final String COL_ENCOUNTER_CONDITION_ID = "encounter_condition_id";
-        public static final String COL_IDENTIFIER = "identifier";
-        public static final String COL_IS_DEFAULT = "is_default";
+    protected class EncounterConditionValues {
+        static final String TABLE_NAME = "encounter_condition_values";
+        static final String COL_ID = "id";
+        static final String COL_ENCOUNTER_CONDITION_ID = "encounter_condition_id";
+        static final String COL_IDENTIFIER = "identifier";
+        static final String COL_IS_DEFAULT = "is_default";
     }
 
     public class EncounterMethodProse {
@@ -174,33 +174,33 @@ public class PokeDB extends SQLiteAssetHelper {
         public static final String COL_RATE = "rate";
     }
 
-    public class LocationAreaProse {
-        public static final String TABLE_NAME = "location_area_prose";
-        public static final String COL_LOCATION_AREA_ID = "location_area_id";
-        public static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
-        public static final String COL_NAME = "name";
+    protected class LocationAreaProse {
+        static final String TABLE_NAME = "location_area_prose";
+        static final String COL_LOCATION_AREA_ID = "location_area_id";
+        static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
+        static final String COL_NAME = "name";
     }
 
-    public class LocationAreas {
-        public static final String TABLE_NAME = "location_areas";
-        public static final String COL_ID = "id";
-        public static final String COL_LOCATION_ID = "location_id";
-        public static final String COL_GAME_INDEX = "game_index";
-        public static final String COL_IDENTIFIER = "identifier";
+    protected class LocationAreas {
+        static final String TABLE_NAME = "location_areas";
+        static final String COL_ID = "id";
+        static final String COL_LOCATION_ID = "location_id";
+        static final String COL_GAME_INDEX = "game_index";
+        static final String COL_IDENTIFIER = "identifier";
     }
 
-    public class LocationNames {
-        public static final String TABLE_NAME = "location_names";
-        public static final String COL_LOCATION_ID = "location_id";
-        public static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
-        public static final String COL_NAME = "name";
+    protected class LocationNames {
+        static final String TABLE_NAME = "location_names";
+        static final String COL_LOCATION_ID = "location_id";
+        static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
+        static final String COL_NAME = "name";
     }
 
-    public class Locations {
-        public static final String TABLE_NAME = "locations";
-        public static final String COL_ID = "id";
-        public static final String COL_REGION_ID = "region_id";
-        public static final String COL_IDENTIFIER = "identifier";
+    protected class Locations {
+        static final String TABLE_NAME = "locations";
+        static final String COL_ID = "id";
+        static final String COL_REGION_ID = "region_id";
+        static final String COL_IDENTIFIER = "identifier";
     }
 
 
@@ -267,11 +267,11 @@ public class PokeDB extends SQLiteAssetHelper {
         public static final String COL_CHANGE = "change";
     }
 
-    public class MoveNames {
-        public static final String TABLE_NAME = "move_names";
-        public static final String COL_MOVE_ID = "move_id";
-        public static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
-        public static final String COL_NAME = "name";
+    protected class MoveNames {
+        static final String TABLE_NAME = "move_names";
+        static final String COL_MOVE_ID = "move_id";
+        static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
+        static final String COL_NAME = "name";
     }
 
     public class MoveTargetProse {
@@ -282,23 +282,23 @@ public class PokeDB extends SQLiteAssetHelper {
         public static final String COL_DESCRIPTION = "description";
     }
 
-    public class Moves {
-        public static final String TABLE_NAME = "moves";
-        public static final String COL_ID = "id";
-        public static final String COL_IDENTIFIER = "identifier";
-        public static final String COL_GENERATION_ID = "generation_id";
-        public static final String COL_TYPE_ID = "type_id";
-        public static final String COL_POWER = "power";
-        public static final String COL_PP = "pp";
-        public static final String COL_ACCURACY = "accuracy";
-        public static final String COL_PRIORITY = "priority";
-        public static final String COL_TARGET_ID = "target_id";
-        public static final String COL_DAMAGE_CLASS_ID = "damage_class_id";
-        public static final String COL_EFFECT_ID = "effect_id";
-        public static final String COL_EFFECT_CHANCE = "effect_chance";
-        public static final String COL_CONTEST_TYPE_ID = "contest_type_id";
-        public static final String COL_CONTEST_EFFECT_ID = "contest_effect_id";
-        public static final String COL_SUPER_CONTEST_EFFECT_ID = "super_contest_effect_id";
+    protected class Moves {
+        static final String TABLE_NAME = "moves";
+        static final String COL_ID = "id";
+        static final String COL_IDENTIFIER = "identifier";
+        static final String COL_GENERATION_ID = "generation_id";
+        static final String COL_TYPE_ID = "type_id";
+        static final String COL_POWER = "power";
+        static final String COL_PP = "pp";
+        static final String COL_ACCURACY = "accuracy";
+        static final String COL_PRIORITY = "priority";
+        static final String COL_TARGET_ID = "target_id";
+        static final String COL_DAMAGE_CLASS_ID = "damage_class_id";
+        static final String COL_EFFECT_ID = "effect_id";
+        static final String COL_EFFECT_CHANCE = "effect_chance";
+        static final String COL_CONTEST_TYPE_ID = "contest_type_id";
+        static final String COL_CONTEST_EFFECT_ID = "contest_effect_id";
+        static final String COL_SUPER_CONTEST_EFFECT_ID = "super_contest_effect_id";
     }
 
 
@@ -310,11 +310,11 @@ public class PokeDB extends SQLiteAssetHelper {
         public static final String COL_HIGH_HP_PREFERENCE = "high_hp_preference";
     }
 
-    public class NatureNames {
-        public static final String TABLE_NAME = "nature_names";
-        public static final String COL_NATURE_ID = "nature_id";
-        public static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
-        public static final String COL_NAME = "name";
+    protected class NatureNames {
+        static final String TABLE_NAME = "nature_names";
+        static final String COL_NATURE_ID = "nature_id";
+        static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
+        static final String COL_NAME = "name";
     }
 
     public class NaturePokeathlonStats {
@@ -324,15 +324,15 @@ public class PokeDB extends SQLiteAssetHelper {
         public static final String COL_MAX_CHANGE = "max_change";
     }
 
-    public class Natures {
-        public static final String TABLE_NAME = "natures";
-        public static final String COL_ID = "id";
-        public static final String COL_IDENTIFIER = "identifier";
-        public static final String COL_DECREASED_STAT_ID = "decreased_stat_id";
-        public static final String COL_INCREASED_STAT_ID = "increased_stat_id";
-        public static final String COL_HATES_FLAVOR_ID = "hates_flavor_id";
-        public static final String COL_LIKES_FLAVOR_ID = "likes_flavor_id";
-        public static final String COL_GAME_INDEX = "game_index";
+    protected class Natures {
+        static final String TABLE_NAME = "natures";
+        static final String COL_ID = "id";
+        static final String COL_IDENTIFIER = "identifier";
+        static final String COL_DECREASED_STAT_ID = "decreased_stat_id";
+        static final String COL_INCREASED_STAT_ID = "increased_stat_id";
+        static final String COL_HATES_FLAVOR_ID = "hates_flavor_id";
+        static final String COL_LIKES_FLAVOR_ID = "likes_flavor_id";
+        static final String COL_GAME_INDEX = "game_index";
     }
 
 
@@ -359,37 +359,37 @@ public class PokeDB extends SQLiteAssetHelper {
     }
 
 
-    public class Pokemon {
-        public static final String TABLE_NAME = "pokemon";
-        public static final String COL_ID = "id";
-        public static final String COL_IDENTIFIER = "identifier";
-        public static final String COL_SPECIES_ID = "species_id";
-        public static final String COL_HEIGHT = "height";
-        public static final String COL_WEIGHT = "weight";
-        public static final String COL_BASE_EXP = "base_experience";
-        public static final String COL_ORDER = "pokemon_order";
-        public static final String COL_IS_DEFAULT = "is_default";
+    protected class Pokemon {
+        static final String TABLE_NAME = "pokemon";
+        static final String COL_ID = "id";
+        static final String COL_IDENTIFIER = "identifier";
+        static final String COL_SPECIES_ID = "species_id";
+        static final String COL_HEIGHT = "height";
+        static final String COL_WEIGHT = "weight";
+        static final String COL_BASE_EXP = "base_experience";
+        static final String COL_ORDER = "pokemon_order";
+        static final String COL_IS_DEFAULT = "is_default";
     }
 
-    public class PokemonAbilities {
-        public static final String TABLE_NAME = "pokemon_abilities";
-        public static final String COL_POKEMON_ID = "pokemon_id";
-        public static final String COL_ABILITY_ID = "ability_id";
-        public static final String COL_IS_HIDDEN = "is_hidden";
-        public static final String COL_SLOT = "slot";
+    protected class PokemonAbilities {
+        static final String TABLE_NAME = "pokemon_abilities";
+        static final String COL_POKEMON_ID = "pokemon_id";
+        static final String COL_ABILITY_ID = "ability_id";
+        static final String COL_IS_HIDDEN = "is_hidden";
+        static final String COL_SLOT = "slot";
     }
 
-    public class PokemonDexNumbers {
-        public static final String TABLE_NAME = "pokemon_dex_numbers";
-        public static final String COL_SPECIES_ID = "species_id";
-        public static final String COL_POKEDEX_ID = "pokedex_id";
-        public static final String COL_POKEDEX_NUMBER = "pokedex_number";
+    protected class PokemonDexNumbers {
+        static final String TABLE_NAME = "pokemon_dex_numbers";
+        static final String COL_SPECIES_ID = "species_id";
+        static final String COL_POKEDEX_ID = "pokedex_id";
+        static final String COL_POKEDEX_NUMBER = "pokedex_number";
     }
 
-    public class PokemonEggGroups {
-        public static final String TABLE_NAME = "pokemon_egg_groups";
-        public static final String COL_SPECIES_ID = "species_id";
-        public static final String COL_EGG_GROUP_ID = "egg_group_id";
+    protected class PokemonEggGroups {
+        static final String TABLE_NAME = "pokemon_egg_groups";
+        static final String COL_SPECIES_ID = "species_id";
+        static final String COL_EGG_GROUP_ID = "egg_group_id";
     }
 
     public class PokemonEvolution {
@@ -416,12 +416,12 @@ public class PokeDB extends SQLiteAssetHelper {
         public static final String COL_TURN_UPSIDE_DOWN = "turn_upside_down";
     }
 
-    public class PokemonFormNames {
-        public static final String TABLE_NAME = "pokemon_form_names";
-        public static final String COL_POKEMON_FORM_ID = "pokemon_form_id";
-        public static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
-        public static final String COL_FORM_NAME = "form_name";
-        public static final String COL_POKEMON_NAME = "pokemon_name";
+    protected class PokemonFormNames {
+        static final String TABLE_NAME = "pokemon_form_names";
+        static final String COL_POKEMON_FORM_ID = "pokemon_form_id";
+        static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
+        static final String COL_FORM_NAME = "form_name";
+        static final String COL_POKEMON_NAME = "pokemon_name";
     }
 
     public class PokemonFormPokeathlonStats {
@@ -433,18 +433,18 @@ public class PokeDB extends SQLiteAssetHelper {
         public static final String COL_MAXIMUM_STAT = "maximum_stat";
     }
 
-    public class PokemonForms {
-        public static final String TABLE_NAME = "pokemon_forms";
-        public static final String COL_ID = "id";
-        public static final String COL_IDENTIFIER = "identifier";
-        public static final String COL_FORM_IDENTIFIER = "form_identifier";
-        public static final String COL_POKEMON_ID = "pokemon_id";
-        public static final String COL_INTRODUCED_IN_VERSION_GROUP_ID = "introduced_in_version_group_id";
-        public static final String COL_IS_DEFAULT = "is_default";
-        public static final String COL_IS_BATTLE_ONLY = "is_battle_only";
-        public static final String COL_IS_MEGA = "is_mega";
-        public static final String COL_FORM_ORDER = "form_order";
-        public static final String COL_ORDER = "list_order";
+    protected class PokemonForms {
+        static final String TABLE_NAME = "pokemon_forms";
+        static final String COL_ID = "id";
+        static final String COL_IDENTIFIER = "identifier";
+        static final String COL_FORM_IDENTIFIER = "form_identifier";
+        static final String COL_POKEMON_ID = "pokemon_id";
+        static final String COL_INTRODUCED_IN_VERSION_GROUP_ID = "introduced_in_version_group_id";
+        static final String COL_IS_DEFAULT = "is_default";
+        static final String COL_IS_BATTLE_ONLY = "is_battle_only";
+        static final String COL_IS_MEGA = "is_mega";
+        static final String COL_FORM_ORDER = "form_order";
+        static final String COL_ORDER = "list_order";
     }
 
     public class PokemonItems {
@@ -465,26 +465,26 @@ public class PokeDB extends SQLiteAssetHelper {
         public static final String COL_ORDER = "move_order";
     }
 
-    public class PokemonSpecies {
-        public static final String TABLE_NAME = "pokemon_species";
-        public static final String COL_ID = "id";
-        public static final String COL_IDENTIFIER = "identifier";
-        public static final String COL_GENERATION_ID = "generation_id";
-        public static final String COL_EVOLVES_FROM_SPECIES_ID = "evolves_from_species_id";
-        public static final String COL_EVOLUTION_CHAIN_ID = "evolution_chain_id";
-        public static final String COL_COLOR_ID = "color_id";
-        public static final String COL_SHAPE_ID = "shape_id";
-        public static final String COL_HABITAT_ID = "habitat_id";
-        public static final String COL_GENDER_RATE = "gender_rate";
-        public static final String COL_CAPTURE_RATE = "capture_rate";
-        public static final String COL_BASE_HAPPINESS = "base_happiness";
-        public static final String COL_IS_BABY = "is_baby";
-        public static final String COL_HATCH_COUNTER = "hatch_counter";
-        public static final String COL_HAS_GENDER_DIFFERENCES = "has_gender_differences";
-        public static final String COL_GROWTH_RATE_ID = "growth_rate_id";
-        public static final String COL_FORMS_SWITCHABLE = "forms_switchable";
-        public static final String COL_ORDER = "species_order";
-        public static final String COL_CONQUEST_ORDER = "conquest_order";
+    protected class PokemonSpecies {
+        static final String TABLE_NAME = "pokemon_species";
+        static final String COL_ID = "id";
+        static final String COL_IDENTIFIER = "identifier";
+        static final String COL_GENERATION_ID = "generation_id";
+        static final String COL_EVOLVES_FROM_SPECIES_ID = "evolves_from_species_id";
+        static final String COL_EVOLUTION_CHAIN_ID = "evolution_chain_id";
+        static final String COL_COLOR_ID = "color_id";
+        static final String COL_SHAPE_ID = "shape_id";
+        static final String COL_HABITAT_ID = "habitat_id";
+        static final String COL_GENDER_RATE = "gender_rate";
+        static final String COL_CAPTURE_RATE = "capture_rate";
+        static final String COL_BASE_HAPPINESS = "base_happiness";
+        static final String COL_IS_BABY = "is_baby";
+        static final String COL_HATCH_COUNTER = "hatch_counter";
+        static final String COL_HAS_GENDER_DIFFERENCES = "has_gender_differences";
+        static final String COL_GROWTH_RATE_ID = "growth_rate_id";
+        static final String COL_FORMS_SWITCHABLE = "forms_switchable";
+        static final String COL_ORDER = "species_order";
+        static final String COL_CONQUEST_ORDER = "conquest_order";
     }
 
     public class PokemonSpeciesFlavorText {
@@ -495,12 +495,12 @@ public class PokeDB extends SQLiteAssetHelper {
         public static final String COL_FLAVOR_TEXT = "flavor_text";
     }
 
-    public class PokemonSpeciesNames {
-        public static final String TABLE_NAME = "pokemon_species_names";
-        public static final String COL_POKEMON_SPECIES_ID = "pokemon_species_id";
-        public static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
-        public static final String COL_NAME = "name";
-        public static final String COL_GENUS = "genus";
+    protected class PokemonSpeciesNames {
+        static final String TABLE_NAME = "pokemon_species_names";
+        static final String COL_POKEMON_SPECIES_ID = "pokemon_species_id";
+        static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
+        static final String COL_NAME = "name";
+        static final String COL_GENUS = "genus";
     }
 
     public class PokemonSpeciesProse {
@@ -510,19 +510,19 @@ public class PokeDB extends SQLiteAssetHelper {
         public static final String COL_FORM_DESCRIPTION = "form_description";
     }
 
-    public class PokemonStats {
-        public static final String TABLE_NAME = "pokemon_stats";
-        public static final String COL_POKEMON_ID = "pokemon_id";
-        public static final String COL_STAT_ID = "stat_id";
-        public static final String COL_BASE_STAT = "base_stat";
-        public static final String COL_EFFORT = "effort";
+    protected class PokemonStats {
+        static final String TABLE_NAME = "pokemon_stats";
+        static final String COL_POKEMON_ID = "pokemon_id";
+        static final String COL_STAT_ID = "stat_id";
+        static final String COL_BASE_STAT = "base_stat";
+        static final String COL_EFFORT = "effort";
     }
 
-    public class PokemonTypes {
-        public static final String TABLE_NAME = "pokemon_types";
-        public static final String COL_POKEMON_ID = "pokemon_id";
-        public static final String COL_TYPE_ID = "type_id";
-        public static final String COL_SLOT = "slot";
+    protected class PokemonTypes {
+        static final String TABLE_NAME = "pokemon_types";
+        static final String COL_POKEMON_ID = "pokemon_id";
+        static final String COL_TYPE_ID = "type_id";
+        static final String COL_SLOT = "slot";
     }
 
 

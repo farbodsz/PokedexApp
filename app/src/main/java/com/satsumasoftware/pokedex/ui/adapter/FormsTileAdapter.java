@@ -10,10 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
+import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonForm;
-import com.satsumasoftware.pokedex.util.DataUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.PrefUtils;
-import com.satsumasoftware.pokedex.util.ThemeUtils;
+import com.satsumasoftware.pokedex.util.ThemeUtilsKt;
 
 import java.util.ArrayList;
 
@@ -79,7 +80,7 @@ public class FormsTileAdapter extends RecyclerView.Adapter<FormsTileAdapter.Form
         int color;
         switch (PrefUtils.detailColorType(mContext)) {
             case PrefUtils.PREF_DETAIL_COLORING_VALUE_TYPE:
-                color = ThemeUtils.getLightColourByType(mContext, DataUtils.typeIdToString(pokemonForm.getPrimaryTypeId()));
+                color = ThemeUtilsKt.getLightColourByType(mContext, new Type(pokemonForm.getPrimaryTypeId()).getName());
                 break;
             default:
                 color = R.color.theme_neutral_grey;

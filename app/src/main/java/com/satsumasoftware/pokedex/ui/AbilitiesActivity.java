@@ -22,11 +22,12 @@ import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.ui.adapter.AbilityDexAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
+import com.satsumasoftware.pokedex.ui.dialog.AbilityDetailActivity;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
-import com.satsumasoftware.pokedex.util.InfoUtils;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 
 import java.util.ArrayList;
@@ -86,7 +87,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
         mDrawerLayout = getSelfDrawerLayout();
         setupFilterDrawer();
 
-        mNoResults = findViewById(R.id.main_frag_noResults);
+        mNoResults = findViewById(R.id.fragment_no_results);
 
         updateFilteredList();
         // The above is required specifically in Abilities (filtering) as the filter
@@ -112,7 +113,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
             @Override
             public void onRowClick(View view, int position) {
                 Intent intent = new Intent(AbilitiesActivity.this, AbilityDetailActivity.class);
-                intent.putExtra("ABILITY", itemsFinal.get(position));
+                intent.putExtra(AbilityDetailActivity.EXTRA_ABILITY, itemsFinal.get(position));
                 startActivity(intent);
             }
         });
@@ -134,7 +135,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
         if (Flavours.type == Flavours.Type.PAID) {
             item_buyPro.setVisible(false);
         } else {
-            item_filter.setIcon(R.drawable.ic_filter_list_grey600_48dp);
+            item_filter.setIcon(R.drawable.ic_filter_list_grey600_24dp);
         }
 
         if (mSortByName) {
@@ -197,14 +198,14 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
     }
 
     private void setupFilterDrawer() {
-        LinearLayout llNames = (LinearLayout) findViewById(R.id.filterDrawer_llName_content);
-        LinearLayout llGens = (LinearLayout) findViewById(R.id.filterDrawer_llGen_content);
+        LinearLayout llNames = (LinearLayout) findViewById(R.id.container_name);
+        LinearLayout llGens = (LinearLayout) findViewById(R.id.container_generations);
 
-        findViewById(R.id.filterDrawer_llNameSpinners_group).setVisibility(View.GONE);
-        findViewById(R.id.filterDrawer_llType_group).setVisibility(View.GONE);
-        findViewById(R.id.filterDrawer_llGrowth_group).setVisibility(View.GONE);
-        findViewById(R.id.filterDrawer_llAdvanced_group).setVisibility(View.GONE);
-        findViewById(R.id.filterDrawer_llLocRegions_group).setVisibility(View.GONE);
+        findViewById(R.id.viewGroup_name_spinner).setVisibility(View.GONE);
+        findViewById(R.id.viewGroup_type).setVisibility(View.GONE);
+        findViewById(R.id.viewGroup_growth).setVisibility(View.GONE);
+        findViewById(R.id.viewGroup_advanced).setVisibility(View.GONE);
+        findViewById(R.id.viewGroup_location_region).setVisibility(View.GONE);
 
         FilterListItemVGAdapter nameAdapter = new FilterListItemVGAdapter(
                 this, llNames, R.array.list_letters);
@@ -220,7 +221,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
     @Override
     public void onFilterItemClick(View view, int position, String text, boolean isChecked, View itemView) {
         switch (itemView.getId()) {
-            case R.id.filterDrawer_llName_content:
+            case R.id.container_name:
                 String nameQuery = "(LOWER(" + AbilitiesDBHelper.COL_NAME + ") LIKE \"" +
                         text.toLowerCase() + "%\")";
                 mFilterSelectionName = reformatFilterSelection(mFilterSelectionName);
@@ -238,9 +239,9 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
                 updateFilteredList();
                 break;
 
-            case R.id.filterDrawer_llGen_content:
+            case R.id.container_generations:
                 String genQuery = "(" + AbilitiesDBHelper.COL_GENERATION_ID + "=\"" +
-                        InfoUtils.getGenFromRoman(text) + "\")";
+                        DataUtilsKt.romanToGenId(text) + "\")";
                 mFilterSelectionGen = reformatFilterSelection(mFilterSelectionGen);
                 if (isChecked) {
                     mFilterSelectionGen = mFilterSelectionGen + genQuery;

@@ -68,7 +68,7 @@ public final class FavoriteUtils {
                     form = details[2];
                 }
                 boolean isMega = (form.toLowerCase().contains("mega"));
-                MiniPokemon aPokemon = MiniPokemon.createFromSpecies(context, id, isMega);
+                MiniPokemon aPokemon = new MiniPokemon(context, id, isMega);
                 arrayList.add(aPokemon);
             }
         }

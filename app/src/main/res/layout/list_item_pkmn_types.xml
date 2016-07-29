@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/lv_compressed_text1"
+    android:id="@+id/text1"
     android:textSize="@dimen/text_typeDetail_text"
     android:textAllCaps="false"
     android:textColor="@color/mdu_text_white"

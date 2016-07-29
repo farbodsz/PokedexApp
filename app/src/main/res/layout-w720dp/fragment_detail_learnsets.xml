@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,21 +19,21 @@
         android:paddingBottom="@dimen/card_padding_vertical"
         android:paddingLeft="@dimen/card_padding_lateral"
         android:paddingRight="@dimen/card_padding_lateral" >
-        <com.farbod.labelledspinner.LabelledSpinner
-            android:id="@+id/detailL_spinnerMethod"
-            custom:labelText="@string/filter_moves_method"
-            custom:widgetColor="@color/mdu_text_white"
+        <com.satsuware.usefulviews.LabelledSpinner
+            android:id="@+id/spinner_learn_method"
+            app:labelText="@string/filter_moves_method"
+            app:widgetColor="@color/mdu_text_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <com.farbod.labelledspinner.LabelledSpinner
-            android:id="@+id/detailL_spinnerGame"
-            custom:labelText="@string/filter_game_version"
-            custom:widgetColor="@color/mdu_text_white"
+        <com.satsuware.usefulviews.LabelledSpinner
+            android:id="@+id/spinner_game_version"
+            app:labelText="@string/filter_game_version"
+            app:widgetColor="@color/mdu_text_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/detailL_spinnerMethod"/>
+            android:layout_below="@id/spinner_learn_method"/>
         <Button
-            android:id="@+id/detailL_btnGo"
+            android:id="@+id/button_go"
             android:text="@string/filter_button_go"
             style="@style/AppTheme.Button.Raised"
             android:layout_gravity="center_horizontal|bottom"
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                android:id="@+id/detailL_llContainer"
+                android:id="@+id/container"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
