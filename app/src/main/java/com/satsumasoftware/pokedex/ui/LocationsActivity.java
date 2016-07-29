@@ -30,6 +30,7 @@ import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
+import com.turingtechnologies.materialscrollbar.DragScrollBar;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -78,6 +79,8 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+
+        DragScrollBar scrollBar = new DragScrollBar(this, mRecyclerView, false);
 
         mDbHelper = new LocationsDBHelper(this);
         populateList(mDbHelper.getAllLocations());

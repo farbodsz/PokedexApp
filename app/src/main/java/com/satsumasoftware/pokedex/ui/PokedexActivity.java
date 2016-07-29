@@ -39,6 +39,7 @@ import com.satsumasoftware.pokedex.util.AlertUtils;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
 import com.satsumasoftware.pokedex.util.PrefUtils;
+import com.turingtechnologies.materialscrollbar.DragScrollBar;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -90,6 +91,8 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+
+        DragScrollBar scrollBar = new DragScrollBar(this, mRecyclerView, false);
 
         mDbHelper = new PokemonDBHelper(this);
         populateList(mDbHelper.getAllPokemon());
