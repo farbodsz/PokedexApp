@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/mdu_spacing_micro">
     <TextView
-        android:id="@+id/pokemon_detail_row_property"
+        android:id="@+id/text_property"
         android:text="@string/attr_ability_1"
         style="@style/AppTheme.CardView.Text.Supporting.Large"
         android:textStyle="bold"
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
     <TextView
-        android:id="@+id/pokemon_detail_row_value"
+        android:id="@+id/text_value"
         android:text="@string/dummy_ability"
         style="@style/AppTheme.CardView.Text.Supporting.Large"
         android:layout_width="0dp"

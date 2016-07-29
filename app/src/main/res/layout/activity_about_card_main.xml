@@ -8,13 +8,17 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
-            android:src="@drawable/nav_image"
-            android:contentDescription="@string/img_desc_banner"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true"
+        <FrameLayout
+            android:background="@color/theme_primary"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:src="@mipmap/ic_launcher"
+                android:contentDescription="@string/img_desc_banner"
+                android:adjustViewBounds="true"
+                android:layout_width="match_parent"
+                android:layout_height="156dp" />
+        </FrameLayout>
         <LinearLayout
             android:orientation="vertical"
             android:paddingTop="@dimen/card_padding_vertical_large"
@@ -30,7 +34,7 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <TextView
-            android:id="@+id/about_tvAppInfo"
+            android:id="@+id/text_app_info"
             style="@style/AppTheme.CardView.Text.Supporting"
             android:text="@string/dummy_about_app"
             android:paddingBottom="@dimen/card_padding_vertical_large"

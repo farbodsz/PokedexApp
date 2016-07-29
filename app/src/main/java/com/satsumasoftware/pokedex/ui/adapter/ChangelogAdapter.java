@@ -18,8 +18,8 @@ public class ChangelogAdapter extends RecyclerView.Adapter<ChangelogAdapter.Chan
 
         ChangelogViewHolder(View itemView) {
             super(itemView);
-            tvTitle = (TextView) itemView.findViewById(R.id.item_changelog_text1);
-            tvDescription = (TextView) itemView.findViewById(R.id.item_changelog_text2);
+            tvTitle = (TextView) itemView.findViewById(R.id.title);
+            tvDescription = (TextView) itemView.findViewById(R.id.body_text);
         }
     }
 

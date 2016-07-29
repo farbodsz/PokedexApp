@@ -5,11 +5,11 @@ import android.database.Cursor
 import com.satsumasoftware.pokedex.db.PokeDB
 import com.satsumasoftware.pokedex.framework.Gender
 import com.satsumasoftware.pokedex.framework.item.MiniItem
+import com.satsumasoftware.pokedex.framework.Region
+import com.satsumasoftware.pokedex.framework.Type
 import com.satsumasoftware.pokedex.framework.location.Location
 import com.satsumasoftware.pokedex.framework.move.MiniMove
 import com.satsumasoftware.pokedex.util.NULL_INT
-import com.satsumasoftware.pokedex.util.regionIdToName
-import com.satsumasoftware.pokedex.util.typeIdToName
 
 data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutionTriggerId: Int,
                             val triggerItemId: Int, val minimumLevel: Int, val genderId: Int,
@@ -72,7 +72,7 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
 
         if (locationId != NULL_INT) {
             val location = Location(context, locationId)
-            description.append(", around ${location.name} (${regionIdToName(location.regionId)})")
+            description.append(", around ${location.name} (${Region(location.regionId).name})")
         }
 
         if (heldItemId != NULL_INT) {
@@ -88,7 +88,7 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
         }
 
         if (knownMoveTypeId != NULL_INT) {
-            description.append(", while knowing a ${typeIdToName(knownMoveTypeId)}-type move")
+            description.append(", while knowing a ${Type(knownMoveTypeId).name}-type move")
         }
 
         if (minimumHappiness != NULL_INT) {
@@ -110,7 +110,7 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
         }
 
         if (partyTypeId != NULL_INT) {
-            description.append(", with a ${typeIdToName(partyTypeId)}-type Pokémon in the party")
+            description.append(", with a ${Type(partyTypeId).name}-type Pokémon in the party")
         }
 
         if (needsOverworldRain) {

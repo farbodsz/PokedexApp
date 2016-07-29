@@ -18,14 +18,14 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 style="@style/AppTheme.Toolbar"
-                android:layout_height="wrap_content"
+                android:layout_height="?actionBarSize"
                 android:layout_width="match_parent"
                 app:layout_scrollFlags="scroll|enterAlways"/>
             <include layout="@layout/blank" /> <!-- This is to prevent bugs -->
         </android.support.design.widget.AppBarLayout>
 
         <include layout="@layout/fragment_misc_no_results"
-            android:id="@+id/main_frag_noResults"/>
+            android:id="@+id/fragment_no_results"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"

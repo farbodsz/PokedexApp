@@ -44,18 +44,18 @@ public class SearchResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter_results);
-        mRootLayout = findViewById(R.id.filteredInfo_rootLayout);
+        mRootLayout = findViewById(R.id.rootLayout);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.filteredInfo_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         assert getSupportActionBar() != null;
         mActionBar = getSupportActionBar();
         mActionBar.setDisplayHomeAsUpEnabled(true);
 
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.filteredInfo_progress);
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_indeterminate);
         progressBar.setVisibility(View.GONE);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.filteredInfo_rv);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));

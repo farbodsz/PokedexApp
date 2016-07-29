@@ -321,7 +321,7 @@ public class PokemonCompareDetail implements DetailCard {
         for (int i = 0; i < 8; i++) {
             View row = inflater.inflate(R.layout.card_pokemon_detail_compare_row_stats, container, false);
 
-            TextView propertyText = (TextView) row.findViewById(R.id.propertyText);
+            TextView propertyText = (TextView) row.findViewById(R.id.text_property);
             ProgressBar[] progressBars = {
                     (ProgressBar) row.findViewById(R.id.progressBar_1),
                     (ProgressBar) row.findViewById(R.id.progressBar_2)};

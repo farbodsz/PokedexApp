@@ -25,7 +25,7 @@ public class ChangelogActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_changelog);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.changelog_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -35,11 +35,11 @@ public class ChangelogActivity extends AppCompatActivity {
             }
         });
 
-        AdUtils.setupAds(this, R.id.changelog_adView);
+        AdUtils.setupAds(this, R.id.adView);
 
-        mProgressBar = (ProgressBar) findViewById(R.id.changelog_progress);
+        mProgressBar = (ProgressBar) findViewById(R.id.progress_indeterminate);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.changelog_rv);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         setChangelogInformation();
