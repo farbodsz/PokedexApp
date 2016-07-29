@@ -52,26 +52,6 @@ fun genIdToRoman(generationId: Int) = when (generationId) {
 
 
 @Deprecated(deprecationUseDb)
-fun pokedexIdToName(pokedexId: Int) = when (pokedexId) {
-    1 -> "National"
-    2 -> "Kanto"
-    3 -> "Original Johto"
-    4 -> "Original Hoenn"
-    5 -> "Original Sinnoh"
-    6 -> "Extended Sinnoh"
-    7 -> "Updated Johto"
-    8 -> "Original Unova"
-    9 -> "Updated Unova"
-    11 -> "Conquest Gallery"
-    12 -> "Central Kalos"
-    13 -> "Coastal Kalos"
-    14 -> "Mountain Kalos"
-    15 -> "New Hoenn"
-    else -> throw IllegalArgumentException("invalid pokedex id '$pokedexId'")
-}
-
-
-@Deprecated(deprecationUseDb)
 fun pokemonStatIdToName(statId: Int) = when (statId) {
     1 -> "HP"
     2 -> "Attack"

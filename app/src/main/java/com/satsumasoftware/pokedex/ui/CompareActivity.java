@@ -38,6 +38,7 @@ import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Habitat;
+import com.satsumasoftware.pokedex.framework.Pokedex;
 import com.satsumasoftware.pokedex.framework.Shape;
 import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
@@ -551,7 +552,7 @@ public class CompareActivity extends AppCompatActivity {
                         continue;
                     }
 
-                    properties.add(DataUtilsKt.pokedexIdToName(id));
+                    properties.add(new Pokedex(id).getName());
                     values.add(DataUtilsKt.formatPokemonId(pokedexValues.get(pokedexKey)));
                     listeners.add(new View.OnClickListener() {
                         @Override
