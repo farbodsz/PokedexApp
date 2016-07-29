@@ -48,6 +48,8 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
     protected int getSelfNavDrawerItem() { return NAVDRAWER_ITEM_LOCATIONDEX; }
     @Override
     protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.navigationView); }
+    @Override
+    protected boolean disableRightDrawerSwipe() { return true; }
 
 
     private RecyclerView mRecyclerView;

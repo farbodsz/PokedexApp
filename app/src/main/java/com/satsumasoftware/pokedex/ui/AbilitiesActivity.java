@@ -47,6 +47,8 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
     protected int getSelfNavDrawerItem() { return NAVDRAWER_ITEM_ABILITYDEX; }
     @Override
     protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.navigationView); }
+    @Override
+    protected boolean disableRightDrawerSwipe() { return true; }
 
 
     private RecyclerView mRecyclerView;

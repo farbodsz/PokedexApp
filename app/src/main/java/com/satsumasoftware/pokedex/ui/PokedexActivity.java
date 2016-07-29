@@ -55,7 +55,8 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
     protected int getSelfNavDrawerItem() { return NAVDRAWER_ITEM_NATIONAL_POKEDEX; }
     @Override
     protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.navigationView); }
-
+    @Override
+    protected boolean disableRightDrawerSwipe() { return true; }
 
     private RecyclerView mRecyclerView;
     private DrawerLayout mDrawerLayout;
