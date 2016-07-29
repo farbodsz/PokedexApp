@@ -1,5 +1,6 @@
 package com.satsumasoftware.pokedex.ui.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,25 @@ import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
+import com.turingtechnologies.materialscrollbar.ICustomAdapter;
+import com.turingtechnologies.materialscrollbar.INameableAdapter;
 
 import java.util.ArrayList;
 
-public class AbilityDexAdapter extends RecyclerView.Adapter<AbilityDexAdapter.AbilityViewHolder> {
+public class AbilityDexAdapter extends RecyclerView.Adapter<AbilityDexAdapter.AbilityViewHolder>
+        implements INameableAdapter, ICustomAdapter{
+
+    @Override
+    public String getCustomStringForElement(int element) {
+        int generationId = mArrayAbilities.get(element).toAbility(mContext).getGenerationId();
+        return "Gen. " + DataUtilsKt.genIdToRoman(generationId);
+    }
+
+    @Override
+    public Character getCharacterForElement(int element) {
+        return mArrayAbilities.get(element).getName().charAt(0);
+    }
 
     public class AbilityViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView textView;
@@ -30,9 +46,11 @@ public class AbilityDexAdapter extends RecyclerView.Adapter<AbilityDexAdapter.Ab
         }
     }
 
+    private Context mContext;
     private ArrayList<MiniAbility> mArrayAbilities;
 
-    public AbilityDexAdapter(ArrayList<MiniAbility> arrayAbilities) {
+    public AbilityDexAdapter(Context context, ArrayList<MiniAbility> arrayAbilities) {
+        mContext = context;
         mArrayAbilities = arrayAbilities;
     }
 

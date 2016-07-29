@@ -29,6 +29,8 @@ import com.satsumasoftware.pokedex.util.AlertUtils;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
 import com.satsumasoftware.pokedex.util.PrefUtils;
+import com.turingtechnologies.materialscrollbar.AlphabetIndicator;
+import com.turingtechnologies.materialscrollbar.CustomIndicator;
 import com.turingtechnologies.materialscrollbar.DragScrollBar;
 
 import java.util.ArrayList;
@@ -58,6 +60,8 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
     private View mRootLayout;
     private View mNoResults;
 
+    private DragScrollBar mScrollBar;
+
     private String mFilterSelectionName = "",
             mFilterSelectionGen = "";
     private boolean mSortByName;
@@ -82,7 +86,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
-        DragScrollBar scrollBar = new DragScrollBar(this, mRecyclerView, false);
+        mScrollBar = new DragScrollBar(this, mRecyclerView, false);
 
         mSortByName = PrefUtils.sortAbilitiesAlphabetically(this);
 
@@ -113,7 +117,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
             }
         });
         final ArrayList<MiniAbility> itemsFinal = items;
-        AbilityDexAdapter adapter = new AbilityDexAdapter(itemsFinal);
+        AbilityDexAdapter adapter = new AbilityDexAdapter(this, itemsFinal);
         adapter.setOnRowClickListener(new AbilityDexAdapter.OnRowClickListener() {
             @Override
             public void onRowClick(View view, int position) {
@@ -123,6 +127,10 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
             }
         });
         mRecyclerView.setAdapter(adapter);
+
+        mScrollBar.removeIndicator()
+                .addIndicator(mSortByName ?
+                        new AlphabetIndicator(this) : new CustomIndicator(this), true);
     }
 
 
