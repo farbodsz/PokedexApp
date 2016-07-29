@@ -9,23 +9,23 @@
     <color name="theme_primary_dark">@color/mdu_red_700</color>
     <color name="theme_primary_light">@color/mdu_red_300</color>
     <color name="theme_neutral_grey">@color/mdu_grey_300</color>
-    <color name="theme_accent">@color/mdu_light_blue_500</color>
+    <color name="theme_accent">@color/mdu_light_blue_a400</color>
     <color name="theme_text_primary">@color/mdu_text_white</color>
     <color name="theme_text_secondary">@color/mdu_red_100</color>
 
     <!-- THEME COLOURS -->
     <color name="pokedex_primary">@color/theme_primary</color>
     <color name="pokedex_primary_dark">@color/theme_primary_dark</color>
-    <color name="pokedex_accent">@color/mdu_red_a700</color>
+    <color name="pokedex_accent">@color/theme_accent</color>
     <color name="abilities_primary">@color/mdu_orange_500</color>
     <color name="abilities_primary_dark">@color/mdu_orange_700</color>
-    <color name="abilities_accent">@color/mdu_orange_a700</color>
+    <color name="abilities_accent">@color/mdu_light_blue_a400</color>
     <color name="moves_primary">@color/mdu_blue_500</color>
     <color name="moves_primary_dark">@color/mdu_blue_700</color>
-    <color name="moves_accent">@color/mdu_blue_a700</color>
+    <color name="moves_accent">@color/mdu_pink_a400</color>
     <color name="natures_primary">@color/mdu_green_500</color>
     <color name="natures_primary_dark">@color/mdu_green_700</color>
-    <color name="natures_accent">@color/mdu_green_a700</color>
+    <color name="natures_accent">@color/mdu_purple_a400</color>
     <color name="locations_primary">@color/mdu_cyan_500</color>
     <color name="locations_primary_dark">@color/mdu_cyan_700</color>
     <color name="locations_accent">@color/mdu_pink_a200</color>
