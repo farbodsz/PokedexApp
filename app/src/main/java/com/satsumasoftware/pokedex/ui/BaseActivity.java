@@ -53,6 +53,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         return null;
     }
 
+    protected boolean disableRightDrawerSwipe() {
+        return false;
+    }
+
     /*
      * This is a list of all items in the nav drawer and their corresponding menu ids
      */
@@ -128,14 +132,27 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         });
 
+        if (disableRightDrawerSwipe()) {
+            mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
+        }
+
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
+
+                if (disableRightDrawerSwipe()) {
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED, GravityCompat.END);
+                }
             }
+
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+
+                if (disableRightDrawerSwipe()) {
+                    mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED, GravityCompat.END);
+                }
             }
         };
 
