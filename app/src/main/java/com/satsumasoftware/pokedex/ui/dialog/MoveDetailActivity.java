@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
+import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.move.MiniMove;
 import com.satsumasoftware.pokedex.framework.move.Move;
 import com.satsumasoftware.pokedex.ui.filter.FilterResultsActivity;
@@ -63,7 +64,7 @@ public class MoveDetailActivity extends AppCompatActivity {
 
         tvDescription.setText(mMove.getEffectProse(this, true));
 
-        tvType.setText(DataUtilsKt.typeIdToName(mMove.getTypeId()));
+        tvType.setText(new Type(mMove.getTypeId()).getName());
         tvType.setBackgroundResource(ThemeUtilsKt.getTypeBkgdColorRes(mMove.getTypeId()));
 
         setCategoryInfo();

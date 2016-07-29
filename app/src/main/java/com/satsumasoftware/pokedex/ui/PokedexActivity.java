@@ -26,6 +26,8 @@ import android.widget.Spinner;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
+import com.satsumasoftware.pokedex.framework.GrowthRate;
+import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
@@ -274,8 +276,8 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
     public void onFilterItemClick(View view, int position, String text, boolean isChecked, View itemView) {
         switch (itemView.getId()) {
             case R.id.container_types:
-                String typeQuery = "((" + PokemonDBHelper.COL_TYPE_1_ID + "=\"" + DataUtilsKt.typeNameToId(text) + "\") OR " +
-                        "(" + PokemonDBHelper.COL_TYPE_2_ID + "=\"" + DataUtilsKt.typeNameToId(text) + "\"))";
+                String typeQuery = "((" + PokemonDBHelper.COL_TYPE_1_ID + "=\"" + new Type(text).getId() + "\") OR " +
+                        "(" + PokemonDBHelper.COL_TYPE_2_ID + "=\"" + new Type(text).getId() + "\"))";
                 mFilterSelectionType = reformatFilterSelection(mFilterSelectionType);
                 if (isChecked) {
                     mFilterSelectionType = mFilterSelectionType + typeQuery;
@@ -292,7 +294,7 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
 
             case R.id.container_growth:
                 String growthQuery = "(" + PokemonDBHelper.COL_GROWTH_RATE_ID + "=\"" +
-                        DataUtilsKt.growthNameToId(text) + "\")";
+                        new GrowthRate(text).getId() + "\")";
                 mFilterSelectionGrowth = reformatFilterSelection(mFilterSelectionGrowth);
                 if (isChecked) {
                     mFilterSelectionGrowth = mFilterSelectionGrowth + growthQuery;

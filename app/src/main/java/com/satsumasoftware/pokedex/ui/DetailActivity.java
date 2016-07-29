@@ -40,6 +40,13 @@ import android.widget.Toast;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
+import com.satsumasoftware.pokedex.framework.Color;
+import com.satsumasoftware.pokedex.framework.GrowthRate;
+import com.satsumasoftware.pokedex.framework.Habitat;
+import com.satsumasoftware.pokedex.framework.HeightOrMass;
+import com.satsumasoftware.pokedex.framework.Pokedex;
+import com.satsumasoftware.pokedex.framework.Shape;
+import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
@@ -478,9 +485,9 @@ public class DetailActivity extends AppCompatActivity {
             values.add(sPokemon.getGenera().get("en") + " Pok\u00E9mon");
             values.add(Pokemon.isFormMega(sPokemon.getFormSpecificValues()));
 
-            values.add(DataUtilsKt.typeIdToName(sPkmnTypeIds.get(1)));
+            values.add(new Type(sPkmnTypeIds.get(1)).getName());
             boolean hasSecondaryType = Pokemon.hasSecondaryType(sPkmnTypeIds);
-            values.add(hasSecondaryType ? DataUtilsKt.typeIdToName(sPkmnTypeIds.get(2)) : null);
+            values.add(hasSecondaryType ? new Type(sPkmnTypeIds.get(2)).getName() : null);
             values.add(hasSecondaryType);
 
             return new PokemonDetail(values);
@@ -543,49 +550,53 @@ public class DetailActivity extends AppCompatActivity {
             ArrayList<View.OnClickListener> listeners = new ArrayList<>();
             Resources res = getResources();
 
+            final HeightOrMass height = new HeightOrMass(Pokemon.getHeightValue(sPkmnPhysicalAttrs));
             properties.add(res.getString(R.string.attr_height));
-            values.add(Pokemon.getHeight(sPkmnPhysicalAttrs) + " m");
+            values.add(height.getDisplayedValue() + " m");
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_HEIGHT);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(Pokemon.getHeight(sPkmnPhysicalAttrs)));
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, height.getDbValue());
                     startActivity(intent);
                 }
             });
+
+            final HeightOrMass mass = new HeightOrMass(Pokemon.getWeight(sPkmnPhysicalAttrs));
             properties.add(res.getString(R.string.attr_mass));
-            values.add(Pokemon.getWeight(sPkmnPhysicalAttrs) + " kg");
+            values.add(mass.getDisplayedValue() + " kg");
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_MASS);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(Pokemon.getWeight(sPkmnPhysicalAttrs)));
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, mass.getDbValue());
                     startActivity(intent);
                 }
             });
             properties.add(res.getString(R.string.attr_colour));
-            final String color = DataUtilsKt.colorIdToName(Pokemon.getColorId(sPkmnPhysicalAttrs));
-            values.add(color);
+            final Color color = new Color(Pokemon.getColorId(sPkmnPhysicalAttrs));
+            values.add(color.getName());
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_COLOUR);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, color);
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, color.getId());
                     startActivity(intent);
                 }
             });
+
+            final Shape shape = new Shape(Pokemon.getShapeId(sPkmnPhysicalAttrs));
             properties.add(res.getString(R.string.attr_shape));
-            values.add(DataUtilsKt.shapeIdToName(Pokemon.getShapeId(sPkmnPhysicalAttrs), true) +
-                    " (" + DataUtilsKt.shapeIdToName(Pokemon.getShapeId(sPkmnPhysicalAttrs), false) + ")");
+            values.add(shape.getTechnicalName() + " (" + shape.getSimpleName() + ")");
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_SHAPE);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, DataUtilsKt.shapeIdToName(Pokemon.getShapeId(sPkmnPhysicalAttrs), false));
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, shape.getId());
                     startActivity(intent);
                 }
             });
@@ -623,8 +634,8 @@ public class DetailActivity extends AppCompatActivity {
             Resources res = getResources();
 
             properties.add(res.getString(R.string.attr_catch_rate));
-            final String captureRate = String.valueOf(Pokemon.getCaptureRate(trainingValues));
-            values.add(captureRate);
+            final int captureRate = Pokemon.getCaptureRate(trainingValues);
+            values.add(String.valueOf(captureRate));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -635,8 +646,8 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
             properties.add(res.getString(R.string.attr_base_happiness));
-            final String happiness = String.valueOf(Pokemon.getBaseHappiness(trainingValues));
-            values.add(happiness);
+            final int happiness = Pokemon.getBaseHappiness(trainingValues);
+            values.add(String.valueOf(happiness));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -646,27 +657,29 @@ public class DetailActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
+            final GrowthRate growthRate = new GrowthRate(Pokemon.getGrowthRateId(trainingValues));
+
             properties.add(res.getString(R.string.attr_levelling_rate));
-            final String levellingRate = DataUtilsKt.growthIdToName(Pokemon.getGrowthRateId(trainingValues));
-            values.add(levellingRate);
+            values.add(growthRate.getName());
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_LEVELLING_RATE);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, levellingRate);
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, growthRate.getId());
                     startActivity(intent);
                 }
             });
+
             properties.add(res.getString(R.string.attr_exp_growth_abbr));
-            final String exp = String.valueOf(DataUtilsKt.growthIdGetMaxExp(Pokemon.getGrowthRateId(trainingValues)));
-            values.add(exp);
+            values.add(String.valueOf(growthRate.findMaxExperience()));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_EXP);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, exp);
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, growthRate.getId());
                     startActivity(intent);
                 }
             });
@@ -703,7 +716,7 @@ public class DetailActivity extends AppCompatActivity {
                     continue;
                 }
 
-                properties.add(DataUtilsKt.pokedexIdToName(id));
+                properties.add(new Pokedex(id).getName());
                 values.add(DataUtilsKt.formatPokemonId(pokedexValues.get(pokedexKey)));
                 listeners.add(new View.OnClickListener() {
                     @Override
@@ -728,8 +741,8 @@ public class DetailActivity extends AppCompatActivity {
             Resources res = getResources();
 
             properties.add(res.getString(R.string.attr_generation));
-            final String generation = DataUtilsKt.genIdToRoman(Pokemon.getGenerationId(moreValues));
-            values.add(generation);
+            final int generation = Pokemon.getGenerationId(moreValues);
+            values.add(DataUtilsKt.genIdToRoman(generation));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -741,8 +754,8 @@ public class DetailActivity extends AppCompatActivity {
             });
 
             properties.add(res.getString(R.string.attr_base_egg_steps));
-            final String eggSteps = String.valueOf(Pokemon.getBaseEggSteps(moreValues));
-            values.add(eggSteps);
+            final int eggSteps = Pokemon.getBaseEggSteps(moreValues);
+            values.add(String.valueOf(eggSteps));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -754,8 +767,8 @@ public class DetailActivity extends AppCompatActivity {
             });
 
             properties.add(res.getString(R.string.attr_base_egg_cycles));
-            final String eggCycles = String.valueOf(Pokemon.getBaseEggCycles(moreValues));
-            values.add(eggCycles);
+            final int eggCycles = Pokemon.getBaseEggCycles(moreValues);
+            values.add(String.valueOf(eggCycles));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -768,14 +781,14 @@ public class DetailActivity extends AppCompatActivity {
 
             if (Pokemon.hasHabitatInfo(moreValues)) {
                 properties.add(res.getString(R.string.attr_habitat));
-                final String habitat = DataUtilsKt.habitatIdToName(Pokemon.getHabitatId(moreValues));
-                values.add(habitat);
+                final Habitat habitat = new Habitat(Pokemon.getHabitatId(moreValues));
+                values.add(habitat.getName());
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_HABITAT);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, habitat);
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, habitat.getId());
                         startActivity(intent);
                     }
                 });

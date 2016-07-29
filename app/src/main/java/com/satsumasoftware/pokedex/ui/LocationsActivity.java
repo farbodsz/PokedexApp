@@ -21,6 +21,7 @@ import android.widget.Spinner;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.LocationsDBHelper;
+import com.satsumasoftware.pokedex.framework.Region;
 import com.satsumasoftware.pokedex.framework.location.Location;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.LocationDexAdapter;
@@ -193,7 +194,7 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
     public void onFilterItemClick(View view, int position, String text, boolean isChecked, View itemView) {
         switch (itemView.getId()) {
             case R.id.container_location_regions:
-                String regionQuery = "(" + LocationsDBHelper.COL_REGION_ID + "=\"" + DataUtilsKt.regionNameToId(text) + "\")";
+                String regionQuery = "(" + LocationsDBHelper.COL_REGION_ID + "=\"" + new Region(text).getId() + "\")";
                 mFilterSelectionRegion = reformatFilterSelection(mFilterSelectionRegion);
                 if (isChecked) {
                     mFilterSelectionRegion = mFilterSelectionRegion + regionQuery;

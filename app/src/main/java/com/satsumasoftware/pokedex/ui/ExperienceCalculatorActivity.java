@@ -16,9 +16,9 @@ import android.widget.TextView;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.framework.Experience;
+import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.util.AdUtils;
-import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsuware.usefulviews.LabelledSpinner;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
     protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.navigationView); }
 
 
-    private String mGrowth;
+    private GrowthRate mGrowthRate;
     private int mLevel;
 
     private boolean mEnterPokemon;
@@ -102,7 +102,7 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
         if (extras != null) {
             MiniPokemon pokemon = extras.getParcelable(EXTRA_POKEMON);
             spinnerPokemonOrGrowth.setSelection(mStrPkmnList.indexOf(pokemon.getName()));
-            mGrowth = DataUtilsKt.growthIdToName(findIntValue(this, pokemon.getName(), PokemonDBHelper.COL_GROWTH_RATE_ID));
+            mGrowthRate = new GrowthRate(findGrowthRateId(this, pokemon.getName()));
             spinnerLevel.setSelection(50-1);
             mLevel = 50;
             calculateExp();
@@ -129,16 +129,13 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
     }
 
     private void calculateExp() {
-        int exp = Experience.getTotalExperience(
-                getBaseContext(),
-                Experience.getGrowthIdFromString(mGrowth),
-                mLevel);
+        int exp = Experience.getTotalExperience(this, mGrowthRate, mLevel);
 
         TextView tvAnswer = (TextView) findViewById(R.id.text_answer);
         tvAnswer.setText(String.valueOf(exp));
 
         TextView tvDescription = (TextView) findViewById(R.id.text_description);
-        tvDescription.setText(getResources().getString(R.string.experience_description, mLevel, mGrowth));
+        tvDescription.setText(getResources().getString(R.string.experience_description, mLevel, mGrowthRate));
     }
 
     @Override
@@ -147,11 +144,10 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
         switch (labelledSpinner.getId()) {
             case R.id.spinner_pokemon_or_growth:
                 if (mEnterPokemon) {
-                    // mGrowth will be abbreviated here, thus
-                    mGrowth = DataUtilsKt.growthIdToName(findIntValue(
-                            getBaseContext(), selected, PokemonDBHelper.COL_GROWTH_RATE_ID));
+                    // mGrowthRate will be abbreviated here, thus
+                    mGrowthRate = new GrowthRate(findGrowthRateId(getBaseContext(), selected));
                 } else {
-                    mGrowth = selected;
+                    mGrowthRate = new GrowthRate(selected);
                 }
                 break;
             case R.id.spinner_level:
@@ -164,16 +160,17 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
     public void onNothingChosen(View labelledSpinner, AdapterView<?> adapterView) {}
 
 
-    public static int findIntValue(Context context, String name, String columnName) {
+    private static int findGrowthRateId(Context context, String pokemonName) {
         PokemonDBHelper helper = new PokemonDBHelper(context);
         Cursor cursor = helper.getReadableDatabase().query(
                 PokemonDBHelper.TABLE_NAME,
-                new String[] {PokemonDBHelper.COL_ID, PokemonDBHelper.COL_IS_DEFAULT, columnName},
+                new String[] {PokemonDBHelper.COL_ID, PokemonDBHelper.COL_IS_DEFAULT,
+                        PokemonDBHelper.COL_GROWTH_RATE_ID},
                 PokemonDBHelper.COL_NAME + "=? AND " + PokemonDBHelper.COL_IS_DEFAULT + "=?",
-                new String[] {String.valueOf(name), String.valueOf(1)},
+                new String[] {String.valueOf(pokemonName), String.valueOf(1)},
                 null, null, null);
         cursor.moveToFirst();
-        int value = cursor.getInt(cursor.getColumnIndex(columnName));
+        int value = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_GROWTH_RATE_ID));
         cursor.close();
         return value;
     }
