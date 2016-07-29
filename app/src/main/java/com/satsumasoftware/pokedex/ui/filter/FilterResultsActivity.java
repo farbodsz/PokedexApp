@@ -175,10 +175,10 @@ public class FilterResultsActivity extends AppCompatActivity {
             selectionArgsList.add(growthId);
         }
 
-        String generation = mExtras.getString(FILTER_GENERATION);
-        if (generation != null) {
+        String generationId = mExtras.getString(FILTER_GENERATION);
+        if (generationId != null) {
             selectionsList.add(PokemonDBHelper.COL_GENERATION_ID + "=?");
-            selectionArgsList.add(String.valueOf(DataUtilsKt.romanToGenId(generation)));
+            selectionArgsList.add(String.valueOf(generationId));
         }
 
         String catchRate = mExtras.getString(FILTER_CATCH_RATE);

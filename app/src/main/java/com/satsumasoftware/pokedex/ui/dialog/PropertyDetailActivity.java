@@ -36,7 +36,8 @@ public class PropertyDetailActivity extends AppCompatActivity {
     public static final String PROPERTY_EGG_STEPS = "base_egg_steps";
     public static final String PROPERTY_EGG_CYCLES = "base_egg_cycles";
 
-    private String mProperty, mValue;
+    private String mProperty;
+    private int mValue;
 
     private String mFilterName;
 
@@ -49,8 +50,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         mProperty = extras.getString("PROPERTY");
-        mValue = extras.getString("VALUE");
-        // The above should be converted before putting extra to this intent to a string even if it was an integer
+        mValue = extras.getInt("VALUE");
 
         setupLayouts();
     }
@@ -64,7 +64,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
         Resources res = getResources();
 
         String propertyName = "", description = "";
-        String title = mValue;
+        String title = String.valueOf(mValue);  // default title
         switch (mProperty) {
             case PROPERTY_CATCH_RATE:
                 title = "Rate: " + mValue;
@@ -79,14 +79,14 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 mFilterName = FilterResultsActivity.FILTER_HAPPINESS;
                 break;
             case PROPERTY_LEVELLING_RATE:
-                GrowthRate levellingRate = new GrowthRate(Integer.parseInt(mValue));
+                GrowthRate levellingRate = new GrowthRate(mValue);
                 title = levellingRate.getName();
                 propertyName = res.getString(R.string.attr_levelling_rate);
                 description = res.getString(R.string.description_levelling, levellingRate.getName());
                 mFilterName = FilterResultsActivity.FILTER_GROWTH;
                 break;
             case PROPERTY_EXP:
-                GrowthRate expGrowth = new GrowthRate(Integer.parseInt(mValue));
+                GrowthRate expGrowth = new GrowthRate(mValue);
                 int experience = expGrowth.findMaxExperience();
                 title = experience + " exp points";
                 propertyName = res.getString(R.string.attr_exp_growth);
@@ -100,33 +100,35 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 mFilterName = FilterResultsActivity.FILTER_GENERATION;
                 break;
             case PROPERTY_MASS:
-                title = mValue + " kg";
+                double mass = mValue / 10.0;
+                title = mass + " kg";
                 propertyName = res.getString(R.string.attr_mass);
-                description = res.getString(R.string.description_mass, mValue);
+                description = res.getString(R.string.description_mass, mass);
                 mFilterName = FilterResultsActivity.FILTER_MASS;
                 break;
             case PROPERTY_HEIGHT:
-                title = mValue + " m";
+                double height = mValue / 10.0;
+                title = height + " m";
                 propertyName = res.getString(R.string.attr_height);
-                description = res.getString(R.string.description_height, mValue);
+                description = res.getString(R.string.description_height, height);
                 mFilterName = FilterResultsActivity.FILTER_HEIGHT;
                 break;
             case PROPERTY_COLOUR:
-                Color color = new Color(Integer.parseInt(mValue));
+                Color color = new Color(mValue);
                 title = color.getName();
                 propertyName = res.getString(R.string.attr_colour);
                 description = res.getString(R.string.description_colour, color.getName());
                 mFilterName = FilterResultsActivity.FILTER_COLOUR;
                 break;
             case PROPERTY_SHAPE:
-                Shape shape = new Shape(Integer.parseInt(mValue));
+                Shape shape = new Shape(mValue);
                 title = shape.getSimpleName();
                 propertyName = res.getString(R.string.attr_shape);
                 description = res.getString(R.string.description_shape, shape.getSimpleName(), shape.getTechnicalName());
                 mFilterName = FilterResultsActivity.FILTER_SHAPE;
                 break;
             case PROPERTY_HABITAT:
-                Habitat habitat = new Habitat(Integer.parseInt(mValue));
+                Habitat habitat = new Habitat(mValue);
                 title = habitat.getName();
                 propertyName = res.getString(R.string.attr_habitat);
                 description = res.getString(R.string.description_habitat, habitat.getName());
@@ -159,7 +161,7 @@ public class PropertyDetailActivity extends AppCompatActivity {
                     return;
                 }
                 Intent intent = new Intent(PropertyDetailActivity.this, FilterResultsActivity.class);
-                intent.putExtra(mFilterName, mValue);
+                intent.putExtra(mFilterName, String.valueOf(mValue));
                 startActivity(intent);
             }
         });

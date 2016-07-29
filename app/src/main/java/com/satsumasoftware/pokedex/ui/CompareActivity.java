@@ -356,23 +356,28 @@ public class CompareActivity extends AppCompatActivity {
                 ArrayList<String> values = new ArrayList<>();
                 ArrayList<View.OnClickListener> listeners = new ArrayList<>();
 
-                values.add(Pokemon.getHeight(physicalValues) + " m");
+                final double height = Pokemon.getHeight(physicalValues);
+                values.add(height + " m");
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        int heightAsInt = (int) (height * 10);
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_HEIGHT);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(Pokemon.getHeight(physicalValues)));
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, heightAsInt);
                         startActivity(intent);
                     }
                 });
-                values.add(Pokemon.getWeight(physicalValues) + " kg");
+
+                final double mass = Pokemon.getWeight(physicalValues);
+                values.add(mass + " kg");
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        int massAsInt = (int) (mass * 10);
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_MASS);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(Pokemon.getWeight(physicalValues)));
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, massAsInt);
                         startActivity(intent);
                     }
                 });
@@ -383,7 +388,7 @@ public class CompareActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_COLOUR);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(color.getId()));
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, color.getId());
                         startActivity(intent);
                     }
                 });
@@ -395,7 +400,7 @@ public class CompareActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_SHAPE);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(shape.getId()));
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, shape.getId());
                         startActivity(intent);
                     }
                 });
@@ -458,8 +463,8 @@ public class CompareActivity extends AppCompatActivity {
                 ArrayList<String> values = new ArrayList<>();
                 ArrayList<View.OnClickListener> listeners = new ArrayList<>();
 
-                final String captureRate = String.valueOf(Pokemon.getCaptureRate(trainingValues));
-                values.add(captureRate);
+                final int captureRate = Pokemon.getCaptureRate(trainingValues);
+                values.add(String.valueOf(captureRate));
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -469,8 +474,8 @@ public class CompareActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                final String happiness = String.valueOf(Pokemon.getBaseHappiness(trainingValues));
-                values.add(happiness);
+                final int happiness = Pokemon.getBaseHappiness(trainingValues);
+                values.add(String.valueOf(happiness));
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -489,7 +494,7 @@ public class CompareActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_LEVELLING_RATE);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(growthRate.getId()));
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, growthRate.getId());
                         startActivity(intent);
                     }
                 });
@@ -499,7 +504,7 @@ public class CompareActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_EXP);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(growthRate.getId()));
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, growthRate.getId());
                         startActivity(intent);
                     }
                 });
@@ -624,19 +629,19 @@ public class CompareActivity extends AppCompatActivity {
                 ArrayList<String> values = new ArrayList<>();
                 ArrayList<View.OnClickListener> listeners = new ArrayList<>();
 
-                final String generation = DataUtilsKt.genIdToRoman(Pokemon.getGenerationId(moreValues));
-                values.add(generation);
+                final int generationId = Pokemon.getGenerationId(moreValues);
+                values.add(DataUtilsKt.genIdToRoman(generationId));
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_GENERATION);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, generation);
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, generationId);
                         startActivity(intent);
                     }
                 });
-                final String eggSteps = String.valueOf(Pokemon.getBaseEggSteps(moreValues));
-                values.add(eggSteps);
+                final int eggSteps = Pokemon.getBaseEggSteps(moreValues);
+                values.add(String.valueOf(eggSteps));
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -646,8 +651,8 @@ public class CompareActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                final String eggCycles = String.valueOf(Pokemon.getBaseEggCycles(moreValues));
-                values.add(eggCycles);
+                final int eggCycles = Pokemon.getBaseEggCycles(moreValues);
+                values.add(String.valueOf(eggCycles));
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -666,7 +671,7 @@ public class CompareActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                             intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_HABITAT);
-                            intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, String.valueOf(habitat.getId()));
+                            intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, habitat.getId());
                             startActivity(intent);
                         }
                     });
