@@ -19,8 +19,7 @@
                 android:id="@+id/toolbar"
                 style="@style/AppTheme.Toolbar"
                 android:layout_height="?actionBarSize"
-                android:layout_width="match_parent"
-                app:layout_scrollFlags="scroll|enterAlways"/>
+                android:layout_width="match_parent"/>
             <include layout="@layout/blank" /> <!-- This is to prevent bugs -->
         </android.support.design.widget.AppBarLayout>
 
