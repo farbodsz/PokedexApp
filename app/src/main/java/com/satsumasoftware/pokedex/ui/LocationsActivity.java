@@ -30,6 +30,8 @@ import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
+import com.turingtechnologies.materialscrollbar.AlphabetIndicator;
+import com.turingtechnologies.materialscrollbar.DragScrollBar;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,6 +50,8 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
     protected int getSelfNavDrawerItem() { return NAVDRAWER_ITEM_LOCATIONDEX; }
     @Override
     protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.navigationView); }
+    @Override
+    protected boolean disableRightDrawerSwipe() { return true; }
 
 
     private RecyclerView mRecyclerView;
@@ -76,6 +80,9 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+
+        DragScrollBar scrollBar = new DragScrollBar(this, mRecyclerView, false);
+        scrollBar.addIndicator(new AlphabetIndicator(this), true);
 
         mDbHelper = new LocationsDBHelper(this);
         populateList(mDbHelper.getAllLocations());

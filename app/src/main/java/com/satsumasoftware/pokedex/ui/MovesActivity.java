@@ -33,6 +33,9 @@ import com.satsumasoftware.pokedex.util.AlertUtils;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
 import com.satsumasoftware.pokedex.util.PrefUtils;
+import com.turingtechnologies.materialscrollbar.AlphabetIndicator;
+import com.turingtechnologies.materialscrollbar.CustomIndicator;
+import com.turingtechnologies.materialscrollbar.DragScrollBar;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,6 +54,8 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
     protected int getSelfNavDrawerItem() { return NAVDRAWER_ITEM_MOVEDEX; }
     @Override
     protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.navigationView); }
+    @Override
+    protected boolean disableRightDrawerSwipe() { return true; }
 
 
     private RecyclerView mRecyclerView;
@@ -58,6 +63,8 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
     private Toolbar mToolbar;
     private View mRootLayout;
     private View mNoResults;
+
+    private DragScrollBar mScrollBar;
 
     private String mFilterSelectionName = "",
             mFilterSelectionType = "",
@@ -84,6 +91,8 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
+        mScrollBar = new DragScrollBar(this, mRecyclerView, false);
+
         mSortByName = PrefUtils.sortMovesAlphabetically(this);
 
         mDbHelper = new MovesDBHelper(this);
@@ -108,7 +117,7 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
 
         });
         final ArrayList<MiniMove> itemsFinal = items;
-        MoveDexAdapter adapter = new MoveDexAdapter(itemsFinal);
+        MoveDexAdapter adapter = new MoveDexAdapter(this, itemsFinal);
         adapter.setOnRowClickListener(new MoveDexAdapter.OnRowClickListener() {
             @Override
             public void onRowClick(View view, int position) {
@@ -118,6 +127,10 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
             }
         });
         mRecyclerView.setAdapter(adapter);
+
+        mScrollBar.removeIndicator()
+                .addIndicator(mSortByName ?
+                        new AlphabetIndicator(this) : new CustomIndicator(this), true);
     }
 
 

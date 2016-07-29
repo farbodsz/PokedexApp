@@ -9,12 +9,28 @@ import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
+import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.PrefUtils;
+import com.turingtechnologies.materialscrollbar.ICustomAdapter;
+import com.turingtechnologies.materialscrollbar.INameableAdapter;
 
 import java.util.ArrayList;
 
-public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.PokedexViewHolder> {
+public class PokedexAdapter extends RecyclerView.Adapter<PokedexAdapter.PokedexViewHolder>
+        implements INameableAdapter, ICustomAdapter {
+
+    @Override
+    public Character getCharacterForElement(int element) {
+        return mArrayPokemon.get(element).getName().charAt(0);
+    }
+
+    @Override
+    public String getCustomStringForElement(int element) {
+        int generationId = Pokemon.getGenerationId(
+                mArrayPokemon.get(element).toPokemon(mContext).getMoreValues());
+        return "Gen. " + DataUtilsKt.genIdToRoman(generationId);
+    }
 
     public class PokedexViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 

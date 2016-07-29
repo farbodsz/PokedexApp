@@ -19,20 +19,24 @@
                 android:id="@+id/toolbar"
                 style="@style/AppTheme.Toolbar"
                 android:layout_height="?actionBarSize"
-                android:layout_width="match_parent"
-                app:layout_scrollFlags="scroll|enterAlways"/>
+                android:layout_width="match_parent"/>
             <include layout="@layout/blank" /> <!-- This is to prevent bugs -->
         </android.support.design.widget.AppBarLayout>
 
         <include layout="@layout/fragment_misc_no_results"
             android:id="@+id/fragment_no_results"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            style="@style/AppTheme.RecyclerView.StandardList"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <!-- the RelativeLayout parent is needed for the MaterialScrollBar -->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                style="@style/AppTheme.RecyclerView.StandardList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
     </android.support.design.widget.CoordinatorLayout>
 
     <com.google.android.gms.ads.AdView
