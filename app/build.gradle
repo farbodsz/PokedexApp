@@ -43,5 +43,5 @@ dependencies {
     compile 'com.satsuware.lib:mdutils:1.2.1'
     compile 'com.github.chrisbanes:PhotoView:1.2.6'
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
-    compile 'com.turingtechnologies.materialscrollbar:lib:10.0.3'
+    compile 'com.turingtechnologies.materialscrollbar:lib:10.1.1'
 }
