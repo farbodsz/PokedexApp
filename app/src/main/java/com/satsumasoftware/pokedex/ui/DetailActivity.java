@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.StringDef;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -24,7 +23,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
@@ -45,6 +43,7 @@ import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Habitat;
+import com.satsumasoftware.pokedex.framework.HeightOrMass;
 import com.satsumasoftware.pokedex.framework.Pokedex;
 import com.satsumasoftware.pokedex.framework.Shape;
 import com.satsumasoftware.pokedex.framework.Type;
@@ -551,30 +550,28 @@ public class DetailActivity extends AppCompatActivity {
             ArrayList<View.OnClickListener> listeners = new ArrayList<>();
             Resources res = getResources();
 
-            final double height = Pokemon.getHeight(sPkmnPhysicalAttrs);
+            final HeightOrMass height = new HeightOrMass(Pokemon.getHeightValue(sPkmnPhysicalAttrs));
             properties.add(res.getString(R.string.attr_height));
-            values.add(height + " m");
+            values.add(height.getDisplayedValue() + " m");
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int heightAsInt = (int) (height * 10);
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_HEIGHT);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, heightAsInt);
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, height.getDbValue());
                     startActivity(intent);
                 }
             });
 
-            final double mass = Pokemon.getWeight(sPkmnPhysicalAttrs);
+            final HeightOrMass mass = new HeightOrMass(Pokemon.getWeight(sPkmnPhysicalAttrs));
             properties.add(res.getString(R.string.attr_mass));
-            values.add(mass + " kg");
+            values.add(mass.getDisplayedValue() + " kg");
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int massAsInt = (int) (mass * 10);
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_MASS);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, massAsInt);
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, mass.getDbValue());
                     startActivity(intent);
                 }
             });

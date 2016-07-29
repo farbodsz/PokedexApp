@@ -14,6 +14,7 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Habitat;
+import com.satsumasoftware.pokedex.framework.HeightOrMass;
 import com.satsumasoftware.pokedex.framework.Shape;
 import com.satsumasoftware.pokedex.ui.filter.FilterResultsActivity;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
@@ -100,17 +101,17 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 mFilterName = FilterResultsActivity.FILTER_GENERATION;
                 break;
             case PROPERTY_MASS:
-                double mass = mValue / 10.0;
-                title = mass + " kg";
+                HeightOrMass mass = new HeightOrMass(mValue);
+                title = mass.getDisplayedValue() + " kg";
                 propertyName = res.getString(R.string.attr_mass);
-                description = res.getString(R.string.description_mass, mass);
+                description = res.getString(R.string.description_mass, mass.getDisplayedValue());
                 mFilterName = FilterResultsActivity.FILTER_MASS;
                 break;
             case PROPERTY_HEIGHT:
-                double height = mValue / 10.0;
-                title = height + " m";
+                HeightOrMass height = new HeightOrMass(mValue);
+                title = height.getDisplayedValue() + " m";
                 propertyName = res.getString(R.string.attr_height);
-                description = res.getString(R.string.description_height, height);
+                description = res.getString(R.string.description_height, height.getDisplayedValue());
                 mFilterName = FilterResultsActivity.FILTER_HEIGHT;
                 break;
             case PROPERTY_COLOUR:

@@ -38,6 +38,7 @@ import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Habitat;
+import com.satsumasoftware.pokedex.framework.HeightOrMass;
 import com.satsumasoftware.pokedex.framework.Pokedex;
 import com.satsumasoftware.pokedex.framework.Shape;
 import com.satsumasoftware.pokedex.framework.Type;
@@ -356,28 +357,26 @@ public class CompareActivity extends AppCompatActivity {
                 ArrayList<String> values = new ArrayList<>();
                 ArrayList<View.OnClickListener> listeners = new ArrayList<>();
 
-                final double height = Pokemon.getHeight(physicalValues);
-                values.add(height + " m");
+                final HeightOrMass height = new HeightOrMass(Pokemon.getHeightValue(physicalValues));
+                values.add(height.getDisplayedValue() + " m");
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int heightAsInt = (int) (height * 10);
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_HEIGHT);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, heightAsInt);
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, height.getDbValue());
                         startActivity(intent);
                     }
                 });
 
-                final double mass = Pokemon.getWeight(physicalValues);
-                values.add(mass + " kg");
+                final HeightOrMass mass = new HeightOrMass(Pokemon.getWeight(physicalValues));
+                values.add(mass.getDisplayedValue() + " kg");
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        int massAsInt = (int) (mass * 10);
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_MASS);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, massAsInt);
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, mass.getDbValue());
                         startActivity(intent);
                     }
                 });

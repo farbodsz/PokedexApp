@@ -20,6 +20,7 @@ import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Habitat;
+import com.satsumasoftware.pokedex.framework.HeightOrMass;
 import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.ui.DetailActivity;
@@ -196,13 +197,13 @@ public class FilterResultsActivity extends AppCompatActivity {
         String mass = mExtras.getString(FILTER_MASS);
         if (mass != null) {
             selectionsList.add(PokemonDBHelper.COL_WEIGHT + "=?");
-            selectionArgsList.add(String.valueOf(mass));
+            selectionArgsList.add(String.valueOf(new HeightOrMass(Integer.parseInt(mass)).getDbValue()));
         }
 
         String height = mExtras.getString(FILTER_HEIGHT);
         if (height != null) {
             selectionsList.add(PokemonDBHelper.COL_HEIGHT + "=?");
-            selectionArgsList.add(String.valueOf(height));
+            selectionArgsList.add(String.valueOf(new HeightOrMass(Integer.parseInt(height)).getDbValue()));
         }
 
         String colorId = mExtras.getString(FILTER_COLOUR);
