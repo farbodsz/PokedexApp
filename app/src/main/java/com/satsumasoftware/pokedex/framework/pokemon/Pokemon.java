@@ -555,19 +555,19 @@ public class Pokemon extends BasePokemon {
      */
 
     public static boolean hasSecondaryType(SparseIntArray typeIds) {
-        return typeIds.get(2) != 0;
+        return typeIds.get(2) != DataUtilsKt.NULL_INT;
     }
 
     public static boolean hasSecondaryType(int secondaryTypeId) {
-        return secondaryTypeId != 0;
+        return secondaryTypeId != DataUtilsKt.NULL_INT;
     }
 
     public static boolean hasSecondaryAbility(SparseIntArray abilityIds) {
-        return abilityIds.get(2) != 0;
+        return abilityIds.get(2) != DataUtilsKt.NULL_INT;
     }
 
     public static boolean hasHiddenAbility(SparseIntArray abilityIds) {
-        return abilityIds.get(3) != 0;
+        return abilityIds.get(3) != DataUtilsKt.NULL_INT;
     }
 
     public static boolean isGenderless(ArrayMap<String, Integer> genderValues) {
