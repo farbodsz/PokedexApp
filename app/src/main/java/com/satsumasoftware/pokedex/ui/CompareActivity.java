@@ -36,6 +36,7 @@ import android.widget.Toast;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.framework.Color;
+import com.satsumasoftware.pokedex.framework.EggGroup;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Habitat;
 import com.satsumasoftware.pokedex.framework.HeightOrMass;
@@ -618,6 +619,16 @@ public class CompareActivity extends AppCompatActivity {
             properties.add(res.getString(R.string.attr_generation));
             properties.add(res.getString(R.string.attr_base_egg_steps));
             properties.add(res.getString(R.string.attr_base_egg_cycles));
+
+            boolean hasTwoEggGroupRows = Pokemon.hasTwoEggGroups(sPokemon1.getEggGroupIds()) ||
+                    Pokemon.hasTwoEggGroups(sPokemon2.getEggGroupIds());
+            if (hasTwoEggGroupRows) {
+                properties.add(res.getString(R.string.attr_egg_group_1));
+                properties.add(res.getString(R.string.attr_egg_group_2));
+            } else {
+                properties.add(res.getString(R.string.attr_egg_group));
+            }
+
             properties.add(res.getString(R.string.attr_habitat));
 
             ArrayList<ArrayList<?>> valuesArray = new ArrayList<>(2);
@@ -661,6 +672,28 @@ public class CompareActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
+
+                SparseIntArray eggGroupIds = pokemon.getEggGroupIds();
+                values.add(new EggGroup(eggGroupIds.get(1)).getName());
+
+                View.OnClickListener temporaryToast = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getActivity(), "Information will be added soon", Toast.LENGTH_SHORT).show();
+                    }
+                };
+
+                listeners.add(temporaryToast);
+
+                if (hasTwoEggGroupRows) {
+                    if (Pokemon.hasTwoEggGroups(eggGroupIds)) {
+                        values.add(new EggGroup(eggGroupIds.get(2)).getName());
+                        listeners.add(temporaryToast);
+                    } else {
+                        values.add("-");
+                        listeners.add(null);
+                    }
+                }
 
                 if (Pokemon.hasHabitatInfo(moreValues)) {
                     final Habitat habitat = new Habitat(Pokemon.getHabitatId(moreValues));

@@ -41,6 +41,7 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.framework.Color;
+import com.satsumasoftware.pokedex.framework.EggGroup;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Habitat;
 import com.satsumasoftware.pokedex.framework.HeightOrMass;
@@ -778,6 +779,26 @@ public class DetailActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+
+            View.OnClickListener temporaryToast = new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getActivity(), "Information will be added soon", Toast.LENGTH_SHORT).show();
+                }
+            };
+            SparseIntArray eggGroupIds = sPokemon.getEggGroupIds();
+
+            values.add(new EggGroup(eggGroupIds.get(1)).getName());
+            listeners.add(temporaryToast);
+
+            if (Pokemon.hasTwoEggGroups(eggGroupIds)) {
+                properties.add(res.getString(R.string.attr_egg_group_1));
+                properties.add(res.getString(R.string.attr_egg_group_2));
+                values.add(new EggGroup(eggGroupIds.get(2)).getName());
+                listeners.add(temporaryToast);
+            } else {
+                properties.add(res.getString(R.string.attr_egg_group));
+            }
 
             if (Pokemon.hasHabitatInfo(moreValues)) {
                 properties.add(res.getString(R.string.attr_habitat));
