@@ -570,6 +570,10 @@ public class Pokemon extends BasePokemon {
         return abilityIds.get(3) != DataUtilsKt.NULL_INT;
     }
 
+    public static boolean hasTwoEggGroups(SparseIntArray eggGroupIds) {
+        return eggGroupIds.get(2) != DataUtilsKt.NULL_INT;
+    }
+
     public static boolean isGenderless(ArrayMap<String, Integer> genderValues) {
         return genderValues.get("gender_rate") == DataUtilsKt.NULL_INT;
     }
