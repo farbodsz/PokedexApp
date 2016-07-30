@@ -135,7 +135,8 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
         tvAnswer.setText(String.valueOf(exp));
 
         TextView tvDescription = (TextView) findViewById(R.id.text_description);
-        tvDescription.setText(getResources().getString(R.string.experience_description, mLevel, mGrowthRate));
+        tvDescription.setText(getResources().getString(
+                R.string.experience_description, mLevel, mGrowthRate.getName()));
     }
 
     @Override
