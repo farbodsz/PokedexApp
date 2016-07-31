@@ -517,14 +517,6 @@ public class CompareActivity extends AppCompatActivity {
 
             PokemonCompareDetail info = new PokemonCompareDetail(R.string.header_training, properties, valuesArray);
             info.addOnClickListeners(listenersArray);
-                    /*
-                    info.addButton(new View.OnClickListener() { // TODO STOPSHIP FIXME
-                        @Override
-                        public void onClick(View v) {
-                            goToExperienceCalculator(getActivity());
-                        }
-                    });
-                    */
 
             return info;
         }

@@ -80,8 +80,6 @@ public class LocationDetailActivity extends AppCompatActivity {
         mProgress = (ProgressBar) findViewById(R.id.locationDetail_progress);
         mNoPkmnMessage = (FrameLayout) findViewById(R.id.locationDetail_fl_noPokemon);
 
-        // TODO: Change the database so versions correspond with edited values (i.e. ignoring Conquest series)
-
         mAsyncTask = new AsyncTask<Void, Integer, Void>() {
             ArrayList<ArrayList<DetailCard>> locationDetailsList;
 

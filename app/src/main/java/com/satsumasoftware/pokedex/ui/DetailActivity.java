@@ -688,14 +688,6 @@ public class DetailActivity extends AppCompatActivity {
 
             PokemonDetail info = new PokemonDetail(R.string.header_training, properties, values);
             info.addOnClickListeners(listeners);
-                    /*
-                    info.addButton(new View.OnClickListener() { // TODO STOPSHIP FIXME
-                        @Override
-                        public void onClick(View v) {
-                            goToExperienceCalculator(getActivity());
-                        }
-                    });
-                    */
 
             return info;
         }
