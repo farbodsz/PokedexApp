@@ -102,14 +102,14 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 break;
             case PROPERTY_MASS:
                 Mass mass = new Mass(mValue);
-                title = mass.getDisplayedValue() + " kg";
+                title = mass.getDisplayedText();
                 propertyName = res.getString(R.string.attr_mass);
                 description = res.getString(R.string.description_mass, mass.getDisplayedValue());
                 mFilterName = FilterResultsActivity.FILTER_MASS;
                 break;
             case PROPERTY_HEIGHT:
                 Height height = new Height(mValue);
-                title = height.getDisplayedValue() + " m";
+                title = height.getDisplayedText();
                 propertyName = res.getString(R.string.attr_height);
                 description = res.getString(R.string.description_height, height.getDisplayedValue());
                 mFilterName = FilterResultsActivity.FILTER_HEIGHT;
