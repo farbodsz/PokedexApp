@@ -476,7 +476,7 @@ public class PkmnTypeDetailActivity extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
                 TextView thisItem = (TextView) view.findViewById(R.id.text1);
                 String thisType = thisItem.getText().toString();
-                thisItem.setBackgroundColor(getResources().getColor(ThemeUtilsKt.getTypeBkgdColorRes(thisType)));
+                thisItem.setBackgroundColor(getResources().getColor(ThemeUtilsKt.getTypeBkgdColorRes(PkmnTypeDetailActivity.this, thisType)));
                 return view;
             }
         };
@@ -486,7 +486,7 @@ public class PkmnTypeDetailActivity extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
                 TextView thisItem = (TextView) view.findViewById(R.id.text1);
                 String thisType = thisItem.getText().toString();
-                thisItem.setBackgroundColor(getResources().getColor(ThemeUtilsKt.getTypeBkgdColorRes(thisType)));
+                thisItem.setBackgroundColor(getResources().getColor(ThemeUtilsKt.getTypeBkgdColorRes(PkmnTypeDetailActivity.this, thisType)));
                 return view;
             }
         };
@@ -496,7 +496,7 @@ public class PkmnTypeDetailActivity extends AppCompatActivity {
                 View view = super.getView(position, convertView, parent);
                 TextView thisItem = (TextView) view.findViewById(R.id.text1);
                 String thisType = thisItem.getText().toString();
-                thisItem.setBackgroundColor(getResources().getColor(ThemeUtilsKt.getTypeBkgdColorRes(thisType)));
+                thisItem.setBackgroundColor(getResources().getColor(ThemeUtilsKt.getTypeBkgdColorRes(PkmnTypeDetailActivity.this, thisType)));
                 return view;
             }
         };
