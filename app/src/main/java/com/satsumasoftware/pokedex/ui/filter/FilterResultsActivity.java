@@ -17,10 +17,8 @@ import android.widget.ProgressBar;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
-import com.satsumasoftware.pokedex.framework.Color;
-import com.satsumasoftware.pokedex.framework.GrowthRate;
-import com.satsumasoftware.pokedex.framework.Habitat;
-import com.satsumasoftware.pokedex.framework.HeightOrMass;
+import com.satsumasoftware.pokedex.framework.Height;
+import com.satsumasoftware.pokedex.framework.Mass;
 import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.ui.DetailActivity;
@@ -28,7 +26,6 @@ import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AppConfig;
-import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -197,13 +194,13 @@ public class FilterResultsActivity extends AppCompatActivity {
         String mass = mExtras.getString(FILTER_MASS);
         if (mass != null) {
             selectionsList.add(PokemonDBHelper.COL_WEIGHT + "=?");
-            selectionArgsList.add(String.valueOf(new HeightOrMass(Integer.parseInt(mass)).getDbValue()));
+            selectionArgsList.add(String.valueOf(new Mass(Integer.parseInt(mass)).getDbValue()));
         }
 
         String height = mExtras.getString(FILTER_HEIGHT);
         if (height != null) {
             selectionsList.add(PokemonDBHelper.COL_HEIGHT + "=?");
-            selectionArgsList.add(String.valueOf(new HeightOrMass(Integer.parseInt(height)).getDbValue()));
+            selectionArgsList.add(String.valueOf(new Height(Integer.parseInt(height)).getDbValue()));
         }
 
         String colorId = mExtras.getString(FILTER_COLOUR);

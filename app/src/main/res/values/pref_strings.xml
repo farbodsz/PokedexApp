@@ -39,4 +39,11 @@
     <string name="pref_playCry_summaryOn">Pokémon cry will be played when the detail page is opened</string>
     <string name="pref_playCry_summaryOff">Pokémon cry will not be played</string>
 
+
+    <string name="prefCategory_data">Data</string>
+
+    <string name="pref_useImperial">Use imperial units</string>
+    <string name="pref_useImperial_summaryOn">Imperial units will be used (feet, pounds)</string>
+    <string name="pref_useImperial_summaryOff">Metric units will be used (metres, kilograms)</string>
+
 </resources>

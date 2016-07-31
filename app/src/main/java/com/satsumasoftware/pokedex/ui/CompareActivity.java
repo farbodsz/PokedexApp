@@ -39,7 +39,8 @@ import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.EggGroup;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Habitat;
-import com.satsumasoftware.pokedex.framework.HeightOrMass;
+import com.satsumasoftware.pokedex.framework.Height;
+import com.satsumasoftware.pokedex.framework.Mass;
 import com.satsumasoftware.pokedex.framework.Pokedex;
 import com.satsumasoftware.pokedex.framework.Shape;
 import com.satsumasoftware.pokedex.framework.Type;
@@ -358,8 +359,8 @@ public class CompareActivity extends AppCompatActivity {
                 ArrayList<String> values = new ArrayList<>();
                 ArrayList<View.OnClickListener> listeners = new ArrayList<>();
 
-                final HeightOrMass height = new HeightOrMass(Pokemon.getHeightValue(physicalValues));
-                values.add(height.getDisplayedValue() + " m");
+                final Height height = new Height(Pokemon.getHeightValue(physicalValues));
+                values.add(height.getDisplayedText(getActivity()));
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -370,8 +371,8 @@ public class CompareActivity extends AppCompatActivity {
                     }
                 });
 
-                final HeightOrMass mass = new HeightOrMass(Pokemon.getWeight(physicalValues));
-                values.add(mass.getDisplayedValue() + " kg");
+                final Mass mass = new Mass(Pokemon.getWeight(physicalValues));
+                values.add(mass.getDisplayedText(getActivity()));
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
