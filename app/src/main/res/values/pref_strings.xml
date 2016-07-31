@@ -31,9 +31,9 @@
         <item>colour</item>
     </string-array>
 
-    <string name="pref_enableImages">Enable Pokémon images</string>
-    <string name="pref_enableImages_summaryOn">Pokémon images are enabled</string>
-    <string name="pref_enableImages_summaryOff">Pokémon images are disabled</string>
+    <string name="pref_enableImages">Enhanced header</string>
+    <string name="pref_enableImages_summaryOn">An enhanced header will be shown</string>
+    <string name="pref_enableImages_summaryOff">The enhanced header is disabled</string>
 
     <string name="pref_playCry">Play Pokémon cry by default</string>
     <string name="pref_playCry_summaryOn">Pokémon cry will be played when the detail page is opened</string>
