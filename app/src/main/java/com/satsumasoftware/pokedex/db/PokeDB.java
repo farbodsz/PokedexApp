@@ -8,7 +8,7 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 public final class PokeDB extends SQLiteAssetHelper {
 
     private static final String DATABASE_NAME = "pokedex.db";
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 11;
 
 
     public PokeDB(Context context) {
