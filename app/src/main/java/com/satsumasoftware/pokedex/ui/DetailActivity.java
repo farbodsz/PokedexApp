@@ -46,6 +46,7 @@ import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Habitat;
 import com.satsumasoftware.pokedex.framework.Height;
 import com.satsumasoftware.pokedex.framework.Mass;
+import com.satsumasoftware.pokedex.framework.MoveMethod;
 import com.satsumasoftware.pokedex.framework.Pokedex;
 import com.satsumasoftware.pokedex.framework.Shape;
 import com.satsumasoftware.pokedex.framework.Type;
@@ -1074,14 +1075,13 @@ public class DetailActivity extends AppCompatActivity {
 
         private View mRootView;
 
-        private String mLearnMethod;
-
         private LinearLayout mContainer;
         private Button mSubmitButton;
         private LabelledSpinner mSpinnerMethod, mSpinnerGame;
 
-        private ArrayList<String> mArrayMethodTitles = new ArrayList<>();
-        private ArrayList<Integer> mArrayMethodTypes = new ArrayList<>();
+        private ArrayList<MoveMethod> mMoveMethods;
+        private ArrayList<String> mMoveMethodNames;
+        private int mMoveMethodListPos;
 
         private ArrayList<VersionGroup> mVersionGroups;
         private ArrayList<String> mVersionGroupNames;
@@ -1100,19 +1100,32 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private void setupView() {
-            Resources res = getActivity().getResources();
-            mArrayMethodTitles.add(res.getString(R.string.header_moves_levelup));
-            mArrayMethodTitles.add(res.getString(R.string.header_moves_machine));
-            mArrayMethodTitles.add(res.getString(R.string.header_moves_tutor));
-            mArrayMethodTypes.add(AppConfig.LEARN_METHOD_LEVEL_UP);
-            mArrayMethodTypes.add(AppConfig.LEARN_METHOD_MACHINE);
-            mArrayMethodTypes.add(AppConfig.LEARN_METHOD_TUTOR);
+            PokeDB pokeDB = new PokeDB(getActivity());
+
+            mMoveMethods = new ArrayList<>();
+            mMoveMethodNames = new ArrayList<>();
+            Cursor methodCursor = pokeDB.getReadableDatabase().query(
+                    PokeDB.PokemonMoveMethodProse.TABLE_NAME,
+                    new String[] {PokeDB.PokemonMoveMethodProse.COL_LOCAL_LANGUAGE_ID,
+                            PokeDB.PokemonMoveMethodProse.COL_POKEMON_MOVE_METHOD_ID},
+                    PokeDB.PokemonMoveMethodProse.COL_LOCAL_LANGUAGE_ID + "= 9 AND " +
+                            PokeDB.PokemonMoveMethodProse.COL_POKEMON_MOVE_METHOD_ID + "<= 4",
+                    null, null, null, null);
+            methodCursor.moveToFirst();
+            while (!methodCursor.isAfterLast()) {
+                int id = methodCursor.getInt(methodCursor.getColumnIndex(
+                        PokeDB.PokemonMoveMethodProse.COL_POKEMON_MOVE_METHOD_ID));
+                MoveMethod moveMethod = new MoveMethod(id);
+                mMoveMethods.add(moveMethod);
+                mMoveMethodNames.add(moveMethod.fetchName(getActivity()));
+                methodCursor.moveToNext();
+            }
+            methodCursor.close();
 
             int genId = Pokemon.getGenerationId(sPokemon.getMoreValues());
             mVersionGroups = new ArrayList<>();
             mVersionGroupNames = new ArrayList<>();
-            PokeDB pokeDB = new PokeDB(getActivity());
-            Cursor cursor = pokeDB.getReadableDatabase().query(
+            Cursor versionCursor = pokeDB.getReadableDatabase().query(
                     PokeDB.VersionGroups.TABLE_NAME,
                     null,
                     PokeDB.VersionGroups.COL_ID + "!=? AND " +
@@ -1120,18 +1133,18 @@ public class DetailActivity extends AppCompatActivity {
                             PokeDB.VersionGroups.COL_GENERATION_ID + ">=?",
                     new String[] {String.valueOf(12), String.valueOf(13), String.valueOf(genId)},
                     null, null, null);
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                VersionGroup versionGroup = new VersionGroup(cursor);
+            versionCursor.moveToFirst();
+            while (!versionCursor.isAfterLast()) {
+                VersionGroup versionGroup = new VersionGroup(versionCursor);
                 mVersionGroups.add(versionGroup);
                 mVersionGroupNames.add(versionGroup.fetchName(getActivity()));
-                cursor.moveToNext();
+                versionCursor.moveToNext();
             }
-            cursor.close();
+            versionCursor.close();
 
 
             mSpinnerMethod = (LabelledSpinner) mRootView.findViewById(R.id.spinner_learn_method);
-            mSpinnerMethod.setItemsArray(mArrayMethodTitles);
+            mSpinnerMethod.setItemsArray(mMoveMethodNames);
             mSpinnerMethod.setSelection(0);
             mSpinnerMethod.setOnItemChosenListener(this);
             mSpinnerGame = (LabelledSpinner) mRootView.findViewById(R.id.spinner_game_version);
@@ -1183,11 +1196,10 @@ public class DetailActivity extends AppCompatActivity {
             recyclerView.addItemDecoration(new DividerItemDecoration(
                     getActivity(), DividerItemDecoration.VERTICAL_LIST));
 
-            title.setText(mLearnMethod);
+            title.setText(mMoveMethodNames.get(mMoveMethodListPos));
             subtitle.setText("Pok\u00E9mon " + mVersionGroupNames.get(mVGroupListPos));
 
-            int methodNoInList = mArrayMethodTitles.indexOf(mLearnMethod);
-            final int learnMethod = mArrayMethodTypes.get(methodNoInList);
+            final MoveMethod learnMethod = mMoveMethods.get(mMoveMethodListPos);
             final VersionGroup versionGroup = mVersionGroups.get(mVGroupListPos);
 
             mAsyncTask = new AsyncTask<Void, Integer, Void>() {
@@ -1202,12 +1214,12 @@ public class DetailActivity extends AppCompatActivity {
                 @Override
                 protected Void doInBackground(Void... params) {
                     PokemonLearnset learnset = new PokemonLearnset(
-                            getActivity(), sPokemon.getId(), learnMethod, versionGroup.getId());
+                            getActivity(), sPokemon.getId(), learnMethod.getId(), versionGroup.getId());
                     ArrayList<PokemonMove> arrayMoves = learnset.getPokemonMoves();
                     Collections.sort(arrayMoves, new Comparator<PokemonMove>() {
                         @Override
                         public int compare(PokemonMove lhs, PokemonMove rhs) {
-                            if (learnMethod == AppConfig.LEARN_METHOD_LEVEL_UP) {
+                            if (learnMethod.isLevelUpMethod()) {
                                 return lhs.getLevel() - rhs.getLevel();
                             } else {
                                 return lhs.getMoveId() - rhs.getMoveId();
@@ -1248,10 +1260,9 @@ public class DetailActivity extends AppCompatActivity {
 
         @Override
         public void onItemChosen(View labelledSpinner, AdapterView<?> adapterView, View itemView, int position, long id) {
-            String selected = adapterView.getItemAtPosition(position).toString();
             switch (labelledSpinner.getId()) {
                 case R.id.spinner_learn_method:
-                    mLearnMethod = selected;
+                    mMoveMethodListPos = position;
                     break;
                 case R.id.spinner_game_version:
                     mVGroupListPos = position;

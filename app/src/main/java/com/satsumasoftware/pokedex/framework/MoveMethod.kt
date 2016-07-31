@@ -14,6 +14,8 @@ data class MoveMethod(val id: Int) {
         return name!!
     }
 
+    fun isLevelUpMethod() = id == 1
+
     private fun fetchNameFromDb(context: Context): String {
         val pokeDB = PokeDB(context)
         val cursor = pokeDB.readableDatabase.query(

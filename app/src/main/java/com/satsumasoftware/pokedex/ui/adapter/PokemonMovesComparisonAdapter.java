@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
+import com.satsumasoftware.pokedex.framework.MoveMethod;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonMove;
 import com.satsumasoftware.pokedex.util.AppConfig;
 
@@ -37,10 +38,10 @@ public class PokemonMovesComparisonAdapter extends RecyclerView.Adapter<PokemonM
 
     private Context mContext;
     private List<Pair<Integer, PokemonMove[]>> mPokemonMoves;
-    private int mLearnMethod;
+    private MoveMethod mLearnMethod;
 
     public PokemonMovesComparisonAdapter(Context context, List<Pair<Integer, PokemonMove[]>> pokemonMoves,
-                                         int learnMethod) {
+                                         MoveMethod learnMethod) {
         mContext = context;
         mPokemonMoves = pokemonMoves;
         mLearnMethod = learnMethod;
@@ -63,7 +64,7 @@ public class PokemonMovesComparisonAdapter extends RecyclerView.Adapter<PokemonM
         int level = (int) pair.first;
         PokemonMove[] moves = (PokemonMove[]) pair.second;
 
-        holder.level.setText(mLearnMethod == AppConfig.LEARN_METHOD_LEVEL_UP ?
+        holder.level.setText(mLearnMethod.isLevelUpMethod() ?
                 String.valueOf(level) : "-");
 
         String text1 = "";

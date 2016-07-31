@@ -287,11 +287,8 @@ public class FilterResultsActivity extends AppCompatActivity {
         final int versionGroupId = 16;  // TODO: add option to change version group
 
         String gameFilter = "(" + PokeDB.PokemonMoves.COL_VERSION_GROUP_ID + "=" + versionGroupId + ")";
-        String learnFilter = "(" + PokeDB.PokemonMoves.COL_POKEMON_MOVE_METHOD_ID + "=" + AppConfig.LEARN_METHOD_LEVEL_UP +
-                " OR " + PokeDB.PokemonMoves.COL_POKEMON_MOVE_METHOD_ID + "=" + AppConfig.LEARN_METHOD_MACHINE +
-                " OR " + PokeDB.PokemonMoves.COL_POKEMON_MOVE_METHOD_ID + "=" + AppConfig.LEARN_METHOD_TUTOR + ")";
         String moveFilter = "(" + PokeDB.PokemonMoves.COL_MOVE_ID + "=" + moveId + ")";
-        String selection = gameFilter + " AND " + learnFilter + " AND " + moveFilter;
+        String selection = gameFilter + " AND " + moveFilter;
 
         Cursor cursor = db.query(
                 PokeDB.PokemonMoves.TABLE_NAME,
