@@ -4,6 +4,8 @@ import android.text.TextUtils
 
 const val NULL_INT = 0
 
+const val MAX_NATIONAL_ID = 721
+
 private const val deprecationUseDb: String =
         "Instead use values from the relevant DB tables and objects"
 

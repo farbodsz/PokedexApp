@@ -25,7 +25,6 @@ import com.satsumasoftware.pokedex.ui.DetailActivity;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.ActionUtils;
-import com.satsumasoftware.pokedex.util.AppConfig;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,8 +49,7 @@ public class FilterResultsActivity extends AppCompatActivity {
     public static final String FILTER_COLOUR = "COLOUR";
     public static final String FILTER_SHAPE = "SHAPE";
     public static final String FILTER_HABITAT = "HABITAT";
-    public static final String FILTER_EGG_STEPS = "EGG_STEPS";
-    public static final String FILTER_EGG_CYCLES = "EGG_CYCLES";
+    public static final String FILTER_HATCH_COUNTER = "HATCH_COUNTER";
 
     private Bundle mExtras;
     private AsyncTask<Void, Integer, Void> mAsyncTask;
@@ -221,16 +219,10 @@ public class FilterResultsActivity extends AppCompatActivity {
             selectionArgsList.add(habitatId);
         }
 
-        String eggSteps = mExtras.getString(FILTER_EGG_STEPS);
-        if (eggSteps != null) {
+        String hatchCounter = mExtras.getString(FILTER_HATCH_COUNTER);
+        if (hatchCounter != null) {
             selectionsList.add(PokemonDBHelper.COL_HATCH_COUNTER + "=?");
-            selectionArgsList.add(String.valueOf(Integer.parseInt(eggSteps) / AppConfig.EGG_CYCLE_STEPS));
-        }
-
-        String eggCycles = mExtras.getString(FILTER_EGG_CYCLES);
-        if (eggCycles != null) {
-            selectionsList.add(PokemonDBHelper.COL_HATCH_COUNTER + "=?");
-            selectionArgsList.add(eggCycles);
+            selectionArgsList.add(hatchCounter);
         }
 
 
@@ -284,12 +276,11 @@ public class FilterResultsActivity extends AppCompatActivity {
         PokeDB pokeDB = new PokeDB(this);
         SQLiteDatabase db = pokeDB.getReadableDatabase();
 
-        String gameFilter = "(" + PokeDB.PokemonMoves.COL_VERSION_GROUP_ID + "=" + AppConfig.GAME_VERSION_X_Y + ")";
-        String learnFilter = "(" + PokeDB.PokemonMoves.COL_POKEMON_MOVE_METHOD_ID + "=" + AppConfig.LEARN_METHOD_LEVEL_UP +
-                " OR " + PokeDB.PokemonMoves.COL_POKEMON_MOVE_METHOD_ID + "=" + AppConfig.LEARN_METHOD_MACHINE +
-                " OR " + PokeDB.PokemonMoves.COL_POKEMON_MOVE_METHOD_ID + "=" + AppConfig.LEARN_METHOD_TUTOR + ")";
+        final int versionGroupId = 16;  // TODO: add option to change version group
+
+        String gameFilter = "(" + PokeDB.PokemonMoves.COL_VERSION_GROUP_ID + "=" + versionGroupId + ")";
         String moveFilter = "(" + PokeDB.PokemonMoves.COL_MOVE_ID + "=" + moveId + ")";
-        String selection = gameFilter + " AND " + learnFilter + " AND " + moveFilter;
+        String selection = gameFilter + " AND " + moveFilter;
 
         Cursor cursor = db.query(
                 PokeDB.PokemonMoves.TABLE_NAME,

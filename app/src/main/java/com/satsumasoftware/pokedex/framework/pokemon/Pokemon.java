@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.util.ActionUtils;
-import com.satsumasoftware.pokedex.util.AppConfig;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
 import java.util.ArrayList;
@@ -245,11 +244,7 @@ public class Pokemon extends BasePokemon {
         return moreValues.get("habitat");
     }
 
-    public static int getBaseEggSteps(ArrayMap<String, Integer> moreValues) {
-        return moreValues.get("hatch_counter") * AppConfig.EGG_CYCLE_STEPS;
-    }
-
-    public static int getBaseEggCycles(ArrayMap<String, Integer> moreValues) {
+    public static int getHatchCounter(ArrayMap<String, Integer> moreValues) {
         return moreValues.get("hatch_counter");
     }
 

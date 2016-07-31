@@ -16,6 +16,8 @@ class Type {
         this.name = name
     }
 
+    fun isMainType() = id < 10000
+
     private fun findId(name: String) = when (name.toLowerCase()) {
         "normal" -> 1
         "fighting" -> 2

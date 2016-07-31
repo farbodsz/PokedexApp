@@ -39,8 +39,10 @@ import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.EggGroup;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Habitat;
+import com.satsumasoftware.pokedex.framework.HatchCounter;
 import com.satsumasoftware.pokedex.framework.Height;
 import com.satsumasoftware.pokedex.framework.Mass;
+import com.satsumasoftware.pokedex.framework.MoveMethod;
 import com.satsumasoftware.pokedex.framework.Pokedex;
 import com.satsumasoftware.pokedex.framework.Shape;
 import com.satsumasoftware.pokedex.framework.Type;
@@ -60,7 +62,6 @@ import com.satsumasoftware.pokedex.ui.dialog.PropertyDetailActivity;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AdUtils;
-import com.satsumasoftware.pokedex.util.AppConfig;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsuware.usefulviews.LabelledSpinner;
 
@@ -517,14 +518,6 @@ public class CompareActivity extends AppCompatActivity {
 
             PokemonCompareDetail info = new PokemonCompareDetail(R.string.header_training, properties, valuesArray);
             info.addOnClickListeners(listenersArray);
-                    /*
-                    info.addButton(new View.OnClickListener() { // TODO STOPSHIP FIXME
-                        @Override
-                        public void onClick(View v) {
-                            goToExperienceCalculator(getActivity());
-                        }
-                    });
-                    */
 
             return info;
         }
@@ -651,25 +644,27 @@ public class CompareActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                final int eggSteps = Pokemon.getBaseEggSteps(moreValues);
-                values.add(String.valueOf(eggSteps));
+
+                final HatchCounter hatchCounter = new HatchCounter(Pokemon.getHatchCounter(moreValues));
+
+                values.add(String.valueOf(hatchCounter.getEggSteps()));
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_EGG_STEPS);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, eggSteps);
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, hatchCounter.getDbValue());
                         startActivity(intent);
                     }
                 });
-                final int eggCycles = Pokemon.getBaseEggCycles(moreValues);
-                values.add(String.valueOf(eggCycles));
+
+                values.add(String.valueOf(hatchCounter.getEggCycles()));
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_EGG_CYCLES);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, eggCycles);
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, hatchCounter.getDbValue());
                         startActivity(intent);
                     }
                 });
@@ -742,14 +737,13 @@ public class CompareActivity extends AppCompatActivity {
 
         private View mRootView;
 
-        private String mLearnMethod;
-
         private LinearLayout mContainer;
         private Button mSubmitButton;
         private LabelledSpinner mSpinnerMethod, mSpinnerGame;
 
-        private ArrayList<String> mArrayMethodTitles = new ArrayList<>();
-        private ArrayList<Integer> mArrayMethodTypes = new ArrayList<>();
+        private ArrayList<MoveMethod> mMoveMethods;
+        private ArrayList<String> mMoveMethodNames;
+        private int mMoveMethodListPos;
 
         private ArrayList<VersionGroup> mVersionGroups;
         private ArrayList<String> mVersionGroupNames;
@@ -768,19 +762,32 @@ public class CompareActivity extends AppCompatActivity {
         }
 
         private void loadLearnsets() {
-            Resources res = getActivity().getResources();
-            mArrayMethodTitles.add(res.getString(R.string.header_moves_levelup));
-            mArrayMethodTitles.add(res.getString(R.string.header_moves_machine));
-            mArrayMethodTitles.add(res.getString(R.string.header_moves_tutor));
-            mArrayMethodTypes.add(AppConfig.LEARN_METHOD_LEVEL_UP);
-            mArrayMethodTypes.add(AppConfig.LEARN_METHOD_MACHINE);
-            mArrayMethodTypes.add(AppConfig.LEARN_METHOD_TUTOR);
+            PokeDB pokeDB = new PokeDB(getActivity());
+
+            mMoveMethods = new ArrayList<>();
+            mMoveMethodNames = new ArrayList<>();
+            Cursor methodCursor = pokeDB.getReadableDatabase().query(
+                    PokeDB.PokemonMoveMethodProse.TABLE_NAME,
+                    new String[] {PokeDB.PokemonMoveMethodProse.COL_LOCAL_LANGUAGE_ID,
+                            PokeDB.PokemonMoveMethodProse.COL_POKEMON_MOVE_METHOD_ID},
+                    PokeDB.PokemonMoveMethodProse.COL_LOCAL_LANGUAGE_ID + "= 9 AND " +
+                            PokeDB.PokemonMoveMethodProse.COL_POKEMON_MOVE_METHOD_ID + "<= 4",
+                    null, null, null, null);
+            methodCursor.moveToFirst();
+            while (!methodCursor.isAfterLast()) {
+                int id = methodCursor.getInt(methodCursor.getColumnIndex(
+                        PokeDB.PokemonMoveMethodProse.COL_POKEMON_MOVE_METHOD_ID));
+                MoveMethod moveMethod = new MoveMethod(id);
+                mMoveMethods.add(moveMethod);
+                mMoveMethodNames.add(moveMethod.fetchName(getActivity()));
+                methodCursor.moveToNext();
+            }
+            methodCursor.close();
 
             int gen1Id = Pokemon.getGenerationId(sPokemon1.getMoreValues());
             int gen2Id = Pokemon.getGenerationId(sPokemon2.getMoreValues());
             mVersionGroups = new ArrayList<>();
             mVersionGroupNames = new ArrayList<>();
-            PokeDB pokeDB = new PokeDB(getActivity());
             Cursor cursor = pokeDB.getReadableDatabase().query(
                     PokeDB.VersionGroups.TABLE_NAME,
                     null,
@@ -802,7 +809,7 @@ public class CompareActivity extends AppCompatActivity {
 
 
             mSpinnerMethod = (LabelledSpinner) mRootView.findViewById(R.id.spinner_learn_method);
-            mSpinnerMethod.setItemsArray(mArrayMethodTitles);
+            mSpinnerMethod.setItemsArray(mMoveMethodNames);
             mSpinnerMethod.setSelection(0);
             mSpinnerMethod.setOnItemChosenListener(this);
             mSpinnerGame = (LabelledSpinner) mRootView.findViewById(R.id.spinner_game_version);
@@ -845,11 +852,10 @@ public class CompareActivity extends AppCompatActivity {
             recyclerView.addItemDecoration(new DividerItemDecoration(
                     getActivity(), DividerItemDecoration.VERTICAL_LIST));
 
-            title.setText(mLearnMethod);
+            title.setText(mMoveMethodNames.get(mMoveMethodListPos));
             subtitle.setText("Pok"+"\u00E9"+"mon " + mVersionGroupNames.get(mVGroupListPos));
 
-            int methodNoInList = mArrayMethodTitles.indexOf(mLearnMethod);
-            final int learnMethod = mArrayMethodTypes.get(methodNoInList);
+            final MoveMethod learnMethod = mMoveMethods.get(mMoveMethodListPos);
             final VersionGroup versionGroup = mVersionGroups.get(mVGroupListPos);
 
             mAsyncTask = new AsyncTask<Void, Integer, Void>() {
@@ -864,16 +870,16 @@ public class CompareActivity extends AppCompatActivity {
                 @Override
                 protected Void doInBackground(Void... params) {
                     PokemonLearnset learnset1 = new PokemonLearnset(
-                            getActivity(), sPokemon1.getId(), learnMethod, versionGroup.getId());
+                            getActivity(), sPokemon1.getId(), learnMethod.getId(), versionGroup.getId());
                     PokemonLearnset learnset2 = new PokemonLearnset(
-                            getActivity(), sPokemon2.getId(), learnMethod, versionGroup.getId());
+                            getActivity(), sPokemon2.getId(), learnMethod.getId(), versionGroup.getId());
 
                     ArrayList<PokemonMove> arrayMoves1 = learnset1.getPokemonMoves();
                     ArrayList<PokemonMove> arrayMoves2 = learnset2.getPokemonMoves();
                     Comparator<PokemonMove> learnsetComparator = new Comparator<PokemonMove>() {
                         @Override
                         public int compare(PokemonMove lhs, PokemonMove rhs) {
-                            if (learnMethod == AppConfig.LEARN_METHOD_LEVEL_UP) {
+                            if (learnMethod.isLevelUpMethod()) {
                                 return lhs.getLevel() - rhs.getLevel();
                             } else {
                                 return lhs.getMoveId() - rhs.getMoveId();
@@ -927,12 +933,12 @@ public class CompareActivity extends AppCompatActivity {
             return card;
         }
 
-        public static List<Pair<Integer, PokemonMove[]>> getCombinedMoves(int learnMethod,
+        public static List<Pair<Integer, PokemonMove[]>> getCombinedMoves(MoveMethod learnMethod,
                                                                           ArrayList<PokemonMove> sortedMoves1,
                                                                           ArrayList<PokemonMove> sortedMoves2) {
             List<Pair<Integer, PokemonMove[]>> combinedMoves = new ArrayList<>();
 
-            if (learnMethod != AppConfig.LEARN_METHOD_LEVEL_UP) {
+            if (learnMethod.isLevelUpMethod()) {
                 while (!sortedMoves1.isEmpty() || !sortedMoves2.isEmpty()) {
                     PokemonMove valuePut1 = null;
                     PokemonMove valuePut2 = null;
@@ -1032,10 +1038,9 @@ public class CompareActivity extends AppCompatActivity {
 
         @Override
         public void onItemChosen(View labelledSpinner, AdapterView<?> adapterView, View itemView, int position, long id) {
-            String selected = adapterView.getItemAtPosition(position).toString();
             switch (labelledSpinner.getId()) {
                 case R.id.spinner_learn_method:
-                    mLearnMethod = selected;
+                    mMoveMethodListPos = position;
                     break;
                 case R.id.spinner_game_version:
                     mVGroupListPos = position;

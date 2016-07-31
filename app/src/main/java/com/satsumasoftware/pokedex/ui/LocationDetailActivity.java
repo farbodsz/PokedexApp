@@ -30,7 +30,6 @@ import com.satsumasoftware.pokedex.framework.location.LocationArea;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.ui.card.DetailCard;
 import com.satsumasoftware.pokedex.ui.card.LocationDetail;
-import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -79,8 +78,6 @@ public class LocationDetailActivity extends AppCompatActivity {
 
         mProgress = (ProgressBar) findViewById(R.id.locationDetail_progress);
         mNoPkmnMessage = (FrameLayout) findViewById(R.id.locationDetail_fl_noPokemon);
-
-        // TODO: Change the database so versions correspond with edited values (i.e. ignoring Conquest series)
 
         mAsyncTask = new AsyncTask<Void, Integer, Void>() {
             ArrayList<ArrayList<DetailCard>> locationDetailsList;
