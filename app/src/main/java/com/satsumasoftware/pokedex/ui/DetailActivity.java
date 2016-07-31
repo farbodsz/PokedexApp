@@ -44,7 +44,8 @@ import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.EggGroup;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Habitat;
-import com.satsumasoftware.pokedex.framework.HeightOrMass;
+import com.satsumasoftware.pokedex.framework.Height;
+import com.satsumasoftware.pokedex.framework.Mass;
 import com.satsumasoftware.pokedex.framework.Pokedex;
 import com.satsumasoftware.pokedex.framework.Shape;
 import com.satsumasoftware.pokedex.framework.Type;
@@ -551,7 +552,7 @@ public class DetailActivity extends AppCompatActivity {
             ArrayList<View.OnClickListener> listeners = new ArrayList<>();
             Resources res = getResources();
 
-            final HeightOrMass height = new HeightOrMass(Pokemon.getHeightValue(sPkmnPhysicalAttrs));
+            final Height height = new Height(Pokemon.getHeightValue(sPkmnPhysicalAttrs));
             properties.add(res.getString(R.string.attr_height));
             values.add(height.getDisplayedValue() + " m");
             listeners.add(new View.OnClickListener() {
@@ -564,7 +565,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
 
-            final HeightOrMass mass = new HeightOrMass(Pokemon.getWeight(sPkmnPhysicalAttrs));
+            final Mass mass = new Mass(Pokemon.getWeight(sPkmnPhysicalAttrs));
             properties.add(res.getString(R.string.attr_mass));
             values.add(mass.getDisplayedValue() + " kg");
             listeners.add(new View.OnClickListener() {
