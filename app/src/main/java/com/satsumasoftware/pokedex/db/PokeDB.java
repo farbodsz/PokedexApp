@@ -13,6 +13,7 @@ public final class PokeDB extends SQLiteAssetHelper {
 
     public PokeDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        setForcedUpgrade();
     }
 
 
