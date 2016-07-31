@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.MoveMethod;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonMove;
-import com.satsumasoftware.pokedex.util.AppConfig;
 
 import java.util.List;
 
