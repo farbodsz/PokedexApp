@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonForm;
-import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.PrefUtils;
 import com.satsumasoftware.pokedex.util.ThemeUtilsKt;
 

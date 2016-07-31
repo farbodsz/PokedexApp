@@ -28,7 +28,6 @@ import com.satsumasoftware.pokedex.ui.adapter.LocationDexAdapter;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
-import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
 import com.turingtechnologies.materialscrollbar.AlphabetIndicator;
 import com.turingtechnologies.materialscrollbar.DragScrollBar;
