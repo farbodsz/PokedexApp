@@ -183,7 +183,7 @@ public class DetailActivity extends AppCompatActivity {
             case 1:
                 previous.setIcon(R.drawable.ic_chevron_left_grey600_24dp);
                 break;
-            case AppConfig.MAX_NATIONAL_ID:
+            case DataUtilsKt.MAX_NATIONAL_ID:
                 next.setIcon(R.drawable.ic_chevron_right_grey600_24dp);
                 break;
         }
@@ -213,7 +213,7 @@ public class DetailActivity extends AppCompatActivity {
                 break;
             case R.id.action_next:
                 if (Flavours.type == Flavours.Type.PAID) {
-                    if (sPokemon.getId() != AppConfig.MAX_NATIONAL_ID) {
+                    if (sPokemon.getId() != DataUtilsKt.MAX_NATIONAL_ID) {
                         action_navigation(1);
                     } else {
                         Snackbar.make(mRootLayout, R.string.detail_nav_forward_error, Snackbar.LENGTH_SHORT)
