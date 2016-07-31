@@ -50,8 +50,7 @@ public class FilterResultsActivity extends AppCompatActivity {
     public static final String FILTER_COLOUR = "COLOUR";
     public static final String FILTER_SHAPE = "SHAPE";
     public static final String FILTER_HABITAT = "HABITAT";
-    public static final String FILTER_EGG_STEPS = "EGG_STEPS";
-    public static final String FILTER_EGG_CYCLES = "EGG_CYCLES";
+    public static final String FILTER_HATCH_COUNTER = "HATCH_COUNTER";
 
     private Bundle mExtras;
     private AsyncTask<Void, Integer, Void> mAsyncTask;
@@ -221,16 +220,10 @@ public class FilterResultsActivity extends AppCompatActivity {
             selectionArgsList.add(habitatId);
         }
 
-        String eggSteps = mExtras.getString(FILTER_EGG_STEPS);
-        if (eggSteps != null) {
+        String hatchCounter = mExtras.getString(FILTER_HATCH_COUNTER);
+        if (hatchCounter != null) {
             selectionsList.add(PokemonDBHelper.COL_HATCH_COUNTER + "=?");
-            selectionArgsList.add(String.valueOf(Integer.parseInt(eggSteps) / AppConfig.EGG_CYCLE_STEPS));
-        }
-
-        String eggCycles = mExtras.getString(FILTER_EGG_CYCLES);
-        if (eggCycles != null) {
-            selectionsList.add(PokemonDBHelper.COL_HATCH_COUNTER + "=?");
-            selectionArgsList.add(eggCycles);
+            selectionArgsList.add(hatchCounter);
         }
 
 

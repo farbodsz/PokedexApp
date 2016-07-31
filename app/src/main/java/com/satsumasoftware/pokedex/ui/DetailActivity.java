@@ -44,6 +44,7 @@ import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.EggGroup;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Habitat;
+import com.satsumasoftware.pokedex.framework.HatchCounter;
 import com.satsumasoftware.pokedex.framework.Height;
 import com.satsumasoftware.pokedex.framework.Mass;
 import com.satsumasoftware.pokedex.framework.MoveMethod;
@@ -748,28 +749,28 @@ public class DetailActivity extends AppCompatActivity {
                 }
             });
 
+            final HatchCounter hatchCounter = new HatchCounter(Pokemon.getHatchCounter(moreValues));
+
             properties.add(res.getString(R.string.attr_base_egg_steps));
-            final int eggSteps = Pokemon.getBaseEggSteps(moreValues);
-            values.add(String.valueOf(eggSteps));
+            values.add(String.valueOf(hatchCounter.getEggSteps()));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_EGG_STEPS);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, eggSteps);
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, hatchCounter.getDbValue());
                     startActivity(intent);
                 }
             });
 
             properties.add(res.getString(R.string.attr_base_egg_cycles));
-            final int eggCycles = Pokemon.getBaseEggCycles(moreValues);
-            values.add(String.valueOf(eggCycles));
+            values.add(String.valueOf(hatchCounter.getEggCycles()));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                     intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_EGG_CYCLES);
-                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, eggCycles);
+                    intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, hatchCounter.getDbValue());
                     startActivity(intent);
                 }
             });

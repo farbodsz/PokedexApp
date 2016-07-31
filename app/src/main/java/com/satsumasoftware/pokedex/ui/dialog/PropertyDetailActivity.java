@@ -14,6 +14,7 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Habitat;
+import com.satsumasoftware.pokedex.framework.HatchCounter;
 import com.satsumasoftware.pokedex.framework.Height;
 import com.satsumasoftware.pokedex.framework.Mass;
 import com.satsumasoftware.pokedex.framework.Shape;
@@ -136,16 +137,18 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 mFilterName = FilterResultsActivity.FILTER_HABITAT;
                 break;
             case PROPERTY_EGG_STEPS:
-                title = mValue + " steps";
+                HatchCounter hatchCounter1 = new HatchCounter(mValue);
+                title = hatchCounter1.getEggSteps() + " steps";
                 propertyName = res.getString(R.string.attr_base_egg_steps);
-                description = res.getString(R.string.description_egg_steps, mValue);
-                mFilterName = FilterResultsActivity.FILTER_EGG_STEPS;
+                description = res.getString(R.string.description_egg_steps, hatchCounter1.getEggSteps());
+                mFilterName = FilterResultsActivity.FILTER_HATCH_COUNTER;
                 break;
             case PROPERTY_EGG_CYCLES:
-                title = mValue + " cycles";
+                HatchCounter hatchCounter2 = new HatchCounter(mValue);
+                title = hatchCounter2.getEggCycles() + " cycles";
                 propertyName = res.getString(R.string.attr_base_egg_cycles);
-                description = res.getString(R.string.description_egg_cycles, mValue);
-                mFilterName = FilterResultsActivity.FILTER_EGG_CYCLES;
+                description = res.getString(R.string.description_egg_cycles, hatchCounter2.getEggCycles());
+                mFilterName = FilterResultsActivity.FILTER_HATCH_COUNTER;
                 break;
         }
 

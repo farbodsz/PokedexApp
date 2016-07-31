@@ -39,6 +39,7 @@ import com.satsumasoftware.pokedex.framework.Color;
 import com.satsumasoftware.pokedex.framework.EggGroup;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Habitat;
+import com.satsumasoftware.pokedex.framework.HatchCounter;
 import com.satsumasoftware.pokedex.framework.Height;
 import com.satsumasoftware.pokedex.framework.Mass;
 import com.satsumasoftware.pokedex.framework.MoveMethod;
@@ -61,7 +62,6 @@ import com.satsumasoftware.pokedex.ui.dialog.PropertyDetailActivity;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.ActionUtils;
 import com.satsumasoftware.pokedex.util.AdUtils;
-import com.satsumasoftware.pokedex.util.AppConfig;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsuware.usefulviews.LabelledSpinner;
 
@@ -644,25 +644,27 @@ public class CompareActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-                final int eggSteps = Pokemon.getBaseEggSteps(moreValues);
-                values.add(String.valueOf(eggSteps));
+
+                final HatchCounter hatchCounter = new HatchCounter(Pokemon.getHatchCounter(moreValues));
+
+                values.add(String.valueOf(hatchCounter.getEggSteps()));
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_EGG_STEPS);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, eggSteps);
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, hatchCounter.getDbValue());
                         startActivity(intent);
                     }
                 });
-                final int eggCycles = Pokemon.getBaseEggCycles(moreValues);
-                values.add(String.valueOf(eggCycles));
+
+                values.add(String.valueOf(hatchCounter.getEggCycles()));
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getActivity(), PropertyDetailActivity.class);
                         intent.putExtra(PropertyDetailActivity.EXTRA_PROPERTY, PropertyDetailActivity.PROPERTY_EGG_CYCLES);
-                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, eggCycles);
+                        intent.putExtra(PropertyDetailActivity.EXTRA_VALUE, hatchCounter.getDbValue());
                         startActivity(intent);
                     }
                 });
