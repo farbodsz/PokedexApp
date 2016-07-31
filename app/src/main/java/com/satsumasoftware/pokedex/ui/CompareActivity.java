@@ -938,7 +938,7 @@ public class CompareActivity extends AppCompatActivity {
                                                                           ArrayList<PokemonMove> sortedMoves2) {
             List<Pair<Integer, PokemonMove[]>> combinedMoves = new ArrayList<>();
 
-            if (learnMethod.isLevelUpMethod()) {
+            if (!learnMethod.isLevelUpMethod()) {
                 while (!sortedMoves1.isEmpty() || !sortedMoves2.isEmpty()) {
                     PokemonMove valuePut1 = null;
                     PokemonMove valuePut2 = null;
