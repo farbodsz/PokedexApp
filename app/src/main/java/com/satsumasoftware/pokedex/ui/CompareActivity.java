@@ -360,7 +360,7 @@ public class CompareActivity extends AppCompatActivity {
                 ArrayList<View.OnClickListener> listeners = new ArrayList<>();
 
                 final Height height = new Height(Pokemon.getHeightValue(physicalValues));
-                values.add(height.getDisplayedText());
+                values.add(height.getDisplayedText(getActivity()));
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -372,7 +372,7 @@ public class CompareActivity extends AppCompatActivity {
                 });
 
                 final Mass mass = new Mass(Pokemon.getWeight(physicalValues));
-                values.add(mass.getDisplayedText());
+                values.add(mass.getDisplayedText(getActivity()));
                 listeners.add(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

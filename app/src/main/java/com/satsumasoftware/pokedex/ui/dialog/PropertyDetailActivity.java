@@ -102,16 +102,16 @@ public class PropertyDetailActivity extends AppCompatActivity {
                 break;
             case PROPERTY_MASS:
                 Mass mass = new Mass(mValue);
-                title = mass.getDisplayedText();
+                title = mass.getDisplayedText(this);
                 propertyName = res.getString(R.string.attr_mass);
-                description = res.getString(R.string.description_mass, mass.getDisplayedValue());
+                description = res.getString(R.string.description_mass, mass.getMetricValue());
                 mFilterName = FilterResultsActivity.FILTER_MASS;
                 break;
             case PROPERTY_HEIGHT:
                 Height height = new Height(mValue);
-                title = height.getDisplayedText();
+                title = height.getDisplayedText(this);
                 propertyName = res.getString(R.string.attr_height);
-                description = res.getString(R.string.description_height, height.getDisplayedValue());
+                description = res.getString(R.string.description_height, height.getMetricValue());
                 mFilterName = FilterResultsActivity.FILTER_HEIGHT;
                 break;
             case PROPERTY_COLOUR:

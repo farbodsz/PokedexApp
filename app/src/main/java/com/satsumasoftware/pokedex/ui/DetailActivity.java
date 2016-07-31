@@ -554,7 +554,7 @@ public class DetailActivity extends AppCompatActivity {
 
             final Height height = new Height(Pokemon.getHeightValue(sPkmnPhysicalAttrs));
             properties.add(res.getString(R.string.attr_height));
-            values.add(height.getDisplayedText());
+            values.add(height.getDisplayedText(getActivity()));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -567,7 +567,7 @@ public class DetailActivity extends AppCompatActivity {
 
             final Mass mass = new Mass(Pokemon.getWeight(sPkmnPhysicalAttrs));
             properties.add(res.getString(R.string.attr_mass));
-            values.add(mass.getDisplayedText());
+            values.add(mass.getDisplayedText(getActivity()));
             listeners.add(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

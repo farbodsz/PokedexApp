@@ -41,4 +41,14 @@
             android:defaultValue="false" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="@string/prefCategory_data" >
+        <CheckBoxPreference
+            android:key="pref_use_imperial_units"
+            android:title="@string/pref_useImperial"
+            android:summaryOn="@string/pref_useImperial_summaryOn"
+            android:summaryOff="@string/pref_useImperial_summaryOff"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
 </PreferenceScreen>
