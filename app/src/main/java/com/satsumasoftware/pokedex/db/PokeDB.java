@@ -455,6 +455,14 @@ public final class PokeDB extends SQLiteAssetHelper {
         public static final String COL_RARITY = "rarity";
     }
 
+    public class PokemonMoveMethodProse {
+        public static final String TABLE_NAME = "pokemon_move_method_prose";
+        public static final String COL_POKEMON_MOVE_METHOD_ID = "pokemon_move_method_id";
+        public static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
+        public static final String COL_NAME = "name";
+        public static final String COL_DESCRIPTION = "description";
+    }
+
     public class PokemonMoves {
         public static final String TABLE_NAME = "pokemon_moves";
         public static final String COL_POKEMON_ID = "pokemon_id";
