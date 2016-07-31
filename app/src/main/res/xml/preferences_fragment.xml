@@ -25,6 +25,16 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/prefCategory_data" >
+        <CheckBoxPreference
+            android:key="pref_use_imperial_units"
+            android:title="@string/pref_useImperial"
+            android:summaryOn="@string/pref_useImperial_summaryOn"
+            android:summaryOff="@string/pref_useImperial_summaryOff"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/prefCategory_detailPage" >
         <ListPreference
             android:key="pref_detail_colouring_type"
@@ -39,15 +49,11 @@
             android:summaryOn="@string/pref_playCry_summaryOn"
             android:summaryOff="@string/pref_playCry_summaryOff"
             android:defaultValue="false" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/prefCategory_data" >
         <CheckBoxPreference
-            android:key="pref_use_imperial_units"
-            android:title="@string/pref_useImperial"
-            android:summaryOn="@string/pref_useImperial_summaryOn"
-            android:summaryOff="@string/pref_useImperial_summaryOff"
+            android:key="pref_enable_images"
+            android:title="@string/pref_enableImages"
+            android:summaryOn="@string/pref_enableImages_summaryOn"
+            android:summaryOff="@string/pref_enableImages_summaryOff"
             android:defaultValue="false" />
     </PreferenceCategory>
 
