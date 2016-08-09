@@ -9,8 +9,8 @@ android {
         applicationId "com.satsumasoftware.pokedex"
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 410
-        versionName "4.1"
+        versionCode 411
+        versionName "4.1.1"
 
         vectorDrawables.useSupportLibrary = true
     }
@@ -38,7 +38,7 @@ dependencies {
     compile 'com.android.support:design:24.1.1'
     compile 'com.android.support:cardview-v7:24.1.1'
     compile 'com.android.support:recyclerview-v7:24.1.1'
-    compile 'com.google.android.gms:play-services-ads:9.2.1'
+    compile 'com.google.android.gms:play-services-ads:9.4.0'
     compile 'com.satsuware.lib:usefulviews:2.3.6'
     compile 'com.satsuware.lib:mdutils:1.2.1'
     compile 'com.github.chrisbanes:PhotoView:1.2.6'
