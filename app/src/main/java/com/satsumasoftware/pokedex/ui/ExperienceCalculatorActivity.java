@@ -61,7 +61,7 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
 
         mEnterPokemon = true;
 
-        PokemonDBHelper helper = new PokemonDBHelper(this);
+        PokemonDBHelper helper = PokemonDBHelper.getInstance(this);
         for (MiniPokemon aPokemon : helper.getAllPokemon()) {
             String name = aPokemon.getName();
             if (!mStrPkmnList.contains(name)) mStrPkmnList.add(name);
@@ -162,7 +162,7 @@ public class ExperienceCalculatorActivity extends BaseActivity implements Labell
 
 
     private static int findGrowthRateId(Context context, String pokemonName) {
-        PokemonDBHelper helper = new PokemonDBHelper(context);
+        PokemonDBHelper helper = PokemonDBHelper.getInstance(context);
         Cursor cursor = helper.getReadableDatabase().query(
                 PokemonDBHelper.TABLE_NAME,
                 new String[] {PokemonDBHelper.COL_ID, PokemonDBHelper.COL_IS_DEFAULT,

@@ -83,7 +83,7 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
         DragScrollBar scrollBar = new DragScrollBar(this, mRecyclerView, false);
         scrollBar.addIndicator(new AlphabetIndicator(this), true);
 
-        mDbHelper = new LocationsDBHelper(this);
+        mDbHelper = LocationsDBHelper.getInstance(this);
         populateList(mDbHelper.getAllLocations());
 
         mDrawerLayout = getSelfDrawerLayout();
@@ -281,7 +281,7 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
 
         ArrayList<Location> filteredList = new ArrayList<>();
 
-        mDbHelper = new LocationsDBHelper(this);
+        mDbHelper = LocationsDBHelper.getInstance(this);
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         Cursor cursor = db.query(
                 LocationsDBHelper.TABLE_NAME,

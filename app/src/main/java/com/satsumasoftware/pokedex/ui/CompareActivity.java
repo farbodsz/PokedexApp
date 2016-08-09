@@ -762,7 +762,7 @@ public class CompareActivity extends AppCompatActivity {
         }
 
         private void loadLearnsets() {
-            PokeDB pokeDB = new PokeDB(getActivity());
+            PokeDB pokeDB = PokeDB.getInstance(getActivity());
 
             mMoveMethods = new ArrayList<>();
             mMoveMethodNames = new ArrayList<>();

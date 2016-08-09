@@ -11,7 +11,16 @@ public final class PokeDB extends SQLiteAssetHelper {
     private static final int DATABASE_VERSION = 11;
 
 
-    public PokeDB(Context context) {
+    private static PokeDB sInstance;
+
+    public static synchronized PokeDB getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new PokeDB(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    private PokeDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         setForcedUpgrade();
     }

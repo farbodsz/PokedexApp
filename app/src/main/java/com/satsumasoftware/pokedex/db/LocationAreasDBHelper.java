@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class LocationAreasDBHelper extends SQLiteOpenHelper {
+public final class LocationAreasDBHelper extends SQLiteOpenHelper {
 
     /* General Database and Table information */
     private static final String DATABASE_NAME = "location_areas.db";
@@ -31,8 +31,16 @@ public class LocationAreasDBHelper extends SQLiteOpenHelper {
 
     private Context mContext;
 
+    private static LocationAreasDBHelper sInstance;
 
-    public LocationAreasDBHelper(Context context) {
+    public static synchronized LocationAreasDBHelper getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new LocationAreasDBHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    private LocationAreasDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
     }
@@ -50,7 +58,7 @@ public class LocationAreasDBHelper extends SQLiteOpenHelper {
     }
 
     private void populateDatabase(SQLiteDatabase db) {
-        PokeDB pokeDB = new PokeDB(mContext);
+        PokeDB pokeDB = PokeDB.getInstance(mContext);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.LocationAreas.TABLE_NAME, null, null, null, null, null, null);
         cursor.moveToFirst();

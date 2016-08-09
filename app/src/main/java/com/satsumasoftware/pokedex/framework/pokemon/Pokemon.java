@@ -53,7 +53,7 @@ public class Pokemon extends BasePokemon {
         Collections.addAll(colList, columnsToSearch);
 
         String[] columns = colList.toArray(new String[colList.size()]);
-        PokemonDBHelper helper = new PokemonDBHelper(mContext);
+        PokemonDBHelper helper = PokemonDBHelper.getInstance(mContext);
 
         return helper.getReadableDatabase().query(
                 PokemonDBHelper.TABLE_NAME,
@@ -596,7 +596,7 @@ public class Pokemon extends BasePokemon {
 
     public ArrayList<PokemonForm> getAlternateForms() {
         ArrayList<PokemonForm> list = new ArrayList<>();
-        PokemonDBHelper helper = new PokemonDBHelper(mContext);
+        PokemonDBHelper helper = PokemonDBHelper.getInstance(mContext);
         Cursor cursor = helper.getReadableDatabase().query(
                 PokemonDBHelper.TABLE_NAME,
                 new String[] {PokemonDBHelper.COL_ID, PokemonDBHelper.COL_SPECIES_ID,
@@ -638,7 +638,7 @@ public class Pokemon extends BasePokemon {
 
     @Nullable
     public ArrayList<PokemonEvolution> getEvolutionDataObjects(Context context) {
-        PokeDB pokeDB = new PokeDB(context);
+        PokeDB pokeDB = PokeDB.getInstance(context);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.PokemonEvolution.TABLE_NAME,
                 null,

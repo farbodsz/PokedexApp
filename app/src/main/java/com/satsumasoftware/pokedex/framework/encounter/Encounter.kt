@@ -18,7 +18,7 @@ data class Encounter(val id: Int, val versionId: Int, val locationAreaId: Int,
             cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_MAX_LEVEL)))
 
     fun getEncounterSlotObject(context: Context): EncounterSlot {
-        val pokeDB = PokeDB(context)
+        val pokeDB = PokeDB.getInstance(context)
         val cursor = pokeDB.readableDatabase.query(
                 PokeDB.EncounterSlots.TABLE_NAME,
                 null,

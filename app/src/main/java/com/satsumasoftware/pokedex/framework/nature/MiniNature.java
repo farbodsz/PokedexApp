@@ -16,7 +16,7 @@ public class MiniNature extends BaseNature implements Parcelable {
     }
 
     public Nature toNature(Context context) {
-        NaturesDBHelper helper = new NaturesDBHelper(context);
+        NaturesDBHelper helper = NaturesDBHelper.getInstance(context);
         SQLiteDatabase db = helper.getReadableDatabase();
         Cursor cursor = db.query(
                 NaturesDBHelper.TABLE_NAME,

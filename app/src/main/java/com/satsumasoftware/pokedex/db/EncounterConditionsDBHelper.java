@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class EncounterConditionsDBHelper extends SQLiteOpenHelper {
+public final class EncounterConditionsDBHelper extends SQLiteOpenHelper {
 
     private static final String LOG_TAG = "EncountersDBHelper";
 
@@ -44,8 +44,16 @@ public class EncounterConditionsDBHelper extends SQLiteOpenHelper {
 
     private Context mContext;
 
+    private static EncounterConditionsDBHelper sInstance;
 
-    public EncounterConditionsDBHelper(Context context) {
+    public static synchronized EncounterConditionsDBHelper getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new EncounterConditionsDBHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    private EncounterConditionsDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
     }
@@ -65,7 +73,7 @@ public class EncounterConditionsDBHelper extends SQLiteOpenHelper {
     }
 
     private void populateDatabase(SQLiteDatabase db) {
-        PokeDB pokeDB = new PokeDB(mContext);
+        PokeDB pokeDB = PokeDB.getInstance(mContext);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.EncounterConditionValues.TABLE_NAME, null, null, null, null, null, null);
         cursor.moveToFirst();

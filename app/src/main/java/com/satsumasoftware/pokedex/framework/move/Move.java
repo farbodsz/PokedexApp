@@ -178,7 +178,7 @@ public class Move extends BaseMove {
     }
 
     public String getEffectProse(Context context, int langId, boolean shortEffect) {
-        PokeDB pokeDB = new PokeDB(context);
+        PokeDB pokeDB = PokeDB.getInstance(context);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.MoveEffectProse.TABLE_NAME,
                 null,

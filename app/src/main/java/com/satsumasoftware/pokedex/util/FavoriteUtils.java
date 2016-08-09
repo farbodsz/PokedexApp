@@ -98,7 +98,7 @@ public final class FavoriteUtils {
                 continue;
             }
 
-            PokemonDBHelper helper = new PokemonDBHelper(context);
+            PokemonDBHelper helper = PokemonDBHelper.getInstance(context);
             Cursor cursor = helper.getReadableDatabase().query(
                     PokemonDBHelper.TABLE_NAME,
                     MiniPokemon.DB_COLUMNS,

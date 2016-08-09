@@ -90,7 +90,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
 
         mSortByName = PrefUtils.sortAbilitiesAlphabetically(this);
 
-        mDbHelper = new AbilitiesDBHelper(this);
+        mDbHelper = AbilitiesDBHelper.getInstance(this);
         populateList(mDbHelper.getAllMiniAbilities());
 
         mDrawerLayout = getSelfDrawerLayout();
@@ -335,7 +335,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
 
         ArrayList<MiniAbility> filteredList = new ArrayList<>();
 
-        mDbHelper = new AbilitiesDBHelper(this);
+        mDbHelper = AbilitiesDBHelper.getInstance(this);
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         String[] columns = new String[] {
                 AbilitiesDBHelper.COL_ID,

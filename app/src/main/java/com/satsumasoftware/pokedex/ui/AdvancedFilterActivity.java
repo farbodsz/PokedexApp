@@ -144,7 +144,7 @@ public class AdvancedFilterActivity extends AppCompatActivity implements Labelle
     }
 
     private ArrayList<MiniAbility> getSortedAbilityList() {
-        AbilitiesDBHelper helper = new AbilitiesDBHelper(this);
+        AbilitiesDBHelper helper = AbilitiesDBHelper.getInstance(this);
         ArrayList<MiniAbility> list = helper.getAllMiniAbilities();
         Collections.sort(list, new Comparator<MiniAbility>() {
             @Override public int compare(MiniAbility ability1, MiniAbility ability2) {

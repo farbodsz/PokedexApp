@@ -61,7 +61,7 @@ public class PokemonForm implements Parcelable {
     };
 
     public MiniPokemon toMiniPokemon(Context context) {
-        PokemonDBHelper helper = new PokemonDBHelper(context);
+        PokemonDBHelper helper = PokemonDBHelper.getInstance(context);
         Cursor cursor = helper.getReadableDatabase().query(
                 PokemonDBHelper.TABLE_NAME,
                 new String[] {PokemonDBHelper.COL_ID, PokemonDBHelper.COL_FORM_IS_DEFAULT},

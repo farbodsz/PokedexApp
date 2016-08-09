@@ -11,7 +11,7 @@ import com.satsumasoftware.pokedex.framework.nature.MiniNature;
 
 import java.util.ArrayList;
 
-public class NaturesDBHelper extends SQLiteOpenHelper {
+public final class NaturesDBHelper extends SQLiteOpenHelper {
 
     /* General Database and Table information */
     private static final String DATABASE_NAME = "natures.db";
@@ -55,8 +55,16 @@ public class NaturesDBHelper extends SQLiteOpenHelper {
 
     private Context mContext;
 
+    private static NaturesDBHelper sInstance;
 
-    public NaturesDBHelper(Context context) {
+    public static synchronized NaturesDBHelper getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new NaturesDBHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    private NaturesDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
     }
@@ -74,7 +82,7 @@ public class NaturesDBHelper extends SQLiteOpenHelper {
     }
 
     private void populateDatabase(SQLiteDatabase db) {
-        PokeDB pokeDB = new PokeDB(mContext);
+        PokeDB pokeDB = PokeDB.getInstance(mContext);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.Natures.TABLE_NAME, null, null, null, null, null, null);
         cursor.moveToFirst();

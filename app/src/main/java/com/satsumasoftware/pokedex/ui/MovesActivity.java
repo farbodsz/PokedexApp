@@ -95,7 +95,7 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
 
         mSortByName = PrefUtils.sortMovesAlphabetically(this);
 
-        mDbHelper = new MovesDBHelper(this);
+        mDbHelper = MovesDBHelper.getInstance(this);
         populateList(mDbHelper.getAllMiniMoves());
 
         mDrawerLayout = getSelfDrawerLayout();
@@ -361,7 +361,7 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
 
         ArrayList<MiniMove> filteredList = new ArrayList<>();
 
-        mDbHelper = new MovesDBHelper(this);
+        mDbHelper = MovesDBHelper.getInstance(this);
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         String[] columns = new String[] {
                 MovesDBHelper.COL_ID,
