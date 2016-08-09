@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class EncounterConditionsDBHelper extends SQLiteOpenHelper {
+public final class EncounterConditionsDBHelper extends SQLiteOpenHelper {
 
     private static final String LOG_TAG = "EncountersDBHelper";
 

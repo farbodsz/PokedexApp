@@ -11,7 +11,7 @@ import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 
 import java.util.ArrayList;
 
-public class PokemonDBHelper extends SQLiteOpenHelper {
+public final class PokemonDBHelper extends SQLiteOpenHelper {
 
     private static final String LOG_TAG = "PokemonDBHelper";
 

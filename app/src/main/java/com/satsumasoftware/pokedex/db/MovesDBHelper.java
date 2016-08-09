@@ -11,7 +11,7 @@ import com.satsumasoftware.pokedex.framework.move.MiniMove;
 
 import java.util.ArrayList;
 
-public class MovesDBHelper extends SQLiteOpenHelper {
+public final class MovesDBHelper extends SQLiteOpenHelper {
 
     /* General Database and Table information */
     private static final String DATABASE_NAME = "moves.db";

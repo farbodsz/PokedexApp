@@ -11,7 +11,7 @@ import com.satsumasoftware.pokedex.framework.nature.MiniNature;
 
 import java.util.ArrayList;
 
-public class NaturesDBHelper extends SQLiteOpenHelper {
+public final class NaturesDBHelper extends SQLiteOpenHelper {
 
     /* General Database and Table information */
     private static final String DATABASE_NAME = "natures.db";

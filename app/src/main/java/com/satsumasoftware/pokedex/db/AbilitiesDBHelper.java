@@ -12,7 +12,7 @@ import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 
 import java.util.ArrayList;
 
-public class AbilitiesDBHelper extends SQLiteOpenHelper {
+public final class AbilitiesDBHelper extends SQLiteOpenHelper {
 
     private static final String LOG_TAG = "AbilitiesDBHelper";
 

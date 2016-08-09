@@ -10,7 +10,7 @@ import com.satsumasoftware.pokedex.framework.location.Location;
 
 import java.util.ArrayList;
 
-public class LocationsDBHelper extends SQLiteOpenHelper {
+public final class LocationsDBHelper extends SQLiteOpenHelper {
 
     /* General Database and Table information */
     private static final String DATABASE_NAME = "locations.db";
