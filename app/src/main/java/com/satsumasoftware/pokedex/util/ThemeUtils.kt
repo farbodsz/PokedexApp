@@ -92,4 +92,8 @@ fun getTypeBkgdColorRes(context: Context, typeId: Int) = try {
 }
 
 @Deprecated("Use the function taking type id instead")
-fun getTypeBkgdColorRes(context: Context, type: String) = getTypeBkgdColorRes(context, Type(type).id)
+fun getTypeBkgdColorRes(context: Context, type: String) = if (type.toLowerCase() == "none") {
+    R.color.mdu_black
+} else {
+    getTypeBkgdColorRes(context, Type(type).id)
+}
