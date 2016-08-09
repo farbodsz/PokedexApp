@@ -12,7 +12,7 @@ public class MiniMove extends BaseMove implements Parcelable {
     public MiniMove(Context context, int id) {
         mId = id;
 
-        MovesDBHelper helper = new MovesDBHelper(context);
+        MovesDBHelper helper = MovesDBHelper.getInstance(context);
         Cursor cursor = helper.getReadableDatabase().query(
                 MovesDBHelper.TABLE_NAME,
                 new String[] {MovesDBHelper.COL_ID, MovesDBHelper.COL_NAME},
@@ -31,7 +31,7 @@ public class MiniMove extends BaseMove implements Parcelable {
     }
 
     public Move toMove(Context context) {
-        MovesDBHelper helper = new MovesDBHelper(context);
+        MovesDBHelper helper = MovesDBHelper.getInstance(context);
         Cursor cursor = helper.getReadableDatabase().query(
                 MovesDBHelper.TABLE_NAME,
                 null,

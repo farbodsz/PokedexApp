@@ -52,8 +52,16 @@ public class AbilitiesDBHelper extends SQLiteOpenHelper {
 
     private Context mContext;
 
+    private static AbilitiesDBHelper sInstance;
 
-    public AbilitiesDBHelper(Context context) {
+    public static synchronized AbilitiesDBHelper getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new AbilitiesDBHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    private AbilitiesDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
     }
@@ -73,7 +81,7 @@ public class AbilitiesDBHelper extends SQLiteOpenHelper {
     }
 
     private void populateDatabase(SQLiteDatabase db) {
-        PokeDB pokeDB = new PokeDB(mContext);
+        PokeDB pokeDB = PokeDB.getInstance(mContext);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.Abilities.TABLE_NAME,
                 null,

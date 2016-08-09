@@ -8,7 +8,7 @@ import java.util.*
 data class LocationArea(val id: Int, val locationId: Int, val name: String) {
 
     fun findEncounterGameVersions(context: Context): ArrayList<Int> {
-        val pokeDB = PokeDB(context)
+        val pokeDB = PokeDB.getInstance(context)
         val cursor = pokeDB.readableDatabase.query(
                 PokeDB.Encounters.TABLE_NAME,
                 null,
@@ -28,7 +28,7 @@ data class LocationArea(val id: Int, val locationId: Int, val name: String) {
     }
 
     fun findAllEncounters(context: Context, versionId: Int): ArrayList<Encounter> {
-        val pokeDB = PokeDB(context)
+        val pokeDB = PokeDB.getInstance(context)
         val cursor = pokeDB.readableDatabase.query(
                 PokeDB.Encounters.TABLE_NAME,
                 null,

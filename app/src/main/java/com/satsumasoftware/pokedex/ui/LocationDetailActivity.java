@@ -112,7 +112,7 @@ public class LocationDetailActivity extends AppCompatActivity {
 
         ArrayList<ArrayList<DetailCard>> locationDetailsList = new ArrayList<>();
 
-        PokeDB pokeDB = new PokeDB(this);
+        PokeDB pokeDB = PokeDB.getInstance(this);
 
         for (LocationArea locationArea : mLocationAreas) {
 

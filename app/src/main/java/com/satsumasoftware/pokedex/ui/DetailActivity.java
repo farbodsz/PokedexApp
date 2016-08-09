@@ -267,7 +267,7 @@ public class DetailActivity extends AppCompatActivity {
             newPos = pos + 1;
         }
 
-        PokemonDBHelper helper = new PokemonDBHelper(this);
+        PokemonDBHelper helper = PokemonDBHelper.getInstance(this);
         Cursor cursor = helper.getReadableDatabase().query(
                 PokemonDBHelper.TABLE_NAME,
                 MiniPokemon.DB_COLUMNS,
@@ -326,7 +326,7 @@ public class DetailActivity extends AppCompatActivity {
         final AlertDialog alertDialog = alertDialogBuilder.create();
 
         final ArrayList<MiniPokemon> arrayPokemon;
-        PokemonDBHelper dbHelper = new PokemonDBHelper(this);
+        PokemonDBHelper dbHelper = PokemonDBHelper.getInstance(this);
         if (compareToForm) {
             arrayPokemon = new ArrayList<>();
             Cursor cursor = dbHelper.getReadableDatabase().query(
@@ -1021,7 +1021,7 @@ public class DetailActivity extends AppCompatActivity {
 
             ArrayList<MiniPokemon> evolutions = new ArrayList<>();
 
-            PokemonDBHelper helper = new PokemonDBHelper(getActivity());
+            PokemonDBHelper helper = PokemonDBHelper.getInstance(getActivity());
             Cursor cursor = helper.getReadableDatabase().query(
                     PokemonDBHelper.TABLE_NAME,
                     concatenateArrays(MiniPokemon.DB_COLUMNS,
@@ -1100,7 +1100,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private void setupView() {
-            PokeDB pokeDB = new PokeDB(getActivity());
+            PokeDB pokeDB = PokeDB.getInstance(getActivity());
 
             mMoveMethods = new ArrayList<>();
             mMoveMethodNames = new ArrayList<>();

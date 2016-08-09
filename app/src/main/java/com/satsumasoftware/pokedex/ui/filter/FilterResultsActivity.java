@@ -250,7 +250,7 @@ public class FilterResultsActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "selection: " + selection);
         Log.d(LOG_TAG, "selectionArgs: " + Arrays.toString(selectionArgs));
 
-        PokemonDBHelper helper = new PokemonDBHelper(this);
+        PokemonDBHelper helper = PokemonDBHelper.getInstance(this);
         SQLiteDatabase db = helper.getReadableDatabase();
 
         Cursor cursor = db.query(
@@ -273,7 +273,7 @@ public class FilterResultsActivity extends AppCompatActivity {
     private void filterLearnsetData() {
         int moveId = mExtras.getInt(FILTER_MOVE);
 
-        PokeDB pokeDB = new PokeDB(this);
+        PokeDB pokeDB = PokeDB.getInstance(this);
         SQLiteDatabase db = pokeDB.getReadableDatabase();
 
         final int versionGroupId = 16;  // TODO: add option to change version group

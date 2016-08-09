@@ -17,7 +17,7 @@ public class MiniAbility extends BaseAbility implements Parcelable {
     public MiniAbility(Context context, int id) {
         mId = id;
 
-        AbilitiesDBHelper helper = new AbilitiesDBHelper(context);
+        AbilitiesDBHelper helper = AbilitiesDBHelper.getInstance(context);
         Cursor cursor = helper.getReadableDatabase().query(
                 AbilitiesDBHelper.TABLE_NAME,
                 BaseAbility.DB_COLUMNS,
@@ -30,7 +30,7 @@ public class MiniAbility extends BaseAbility implements Parcelable {
     }
 
     public Ability toAbility(Context context) {
-        AbilitiesDBHelper helper = new AbilitiesDBHelper(context);
+        AbilitiesDBHelper helper = AbilitiesDBHelper.getInstance(context);
         Cursor cursor = helper.getReadableDatabase().query(
                 AbilitiesDBHelper.TABLE_NAME,
                 null,

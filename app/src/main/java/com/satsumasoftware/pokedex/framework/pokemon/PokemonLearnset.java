@@ -30,7 +30,7 @@ public class PokemonLearnset {
     private void findValues() {
         ArrayList<PokemonMove> pokemonMoves = new ArrayList<>();
 
-        PokeDB pokeDB = new PokeDB(mContext);
+        PokeDB pokeDB = PokeDB.getInstance(mContext);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.PokemonMoves.TABLE_NAME,
                 null,

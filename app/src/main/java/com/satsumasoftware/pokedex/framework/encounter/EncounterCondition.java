@@ -15,7 +15,7 @@ public class EncounterCondition {
     private ArrayMap<String, String> mValueNames, mConditionNames;
 
     public EncounterCondition(Context context, int encounterConditionValueId) {
-        EncounterConditionsDBHelper helper = new EncounterConditionsDBHelper(context);
+        EncounterConditionsDBHelper helper = EncounterConditionsDBHelper.getInstance(context);
         Cursor cursor = helper.getReadableDatabase().query(
                 EncounterConditionsDBHelper.TABLE_NAME,
                 null,

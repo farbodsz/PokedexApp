@@ -22,7 +22,7 @@ data class VersionGroup(val id: Int, val generationId: Int) {
     }
 
     private fun fetchNameFromDb(context: Context): String {
-        val pokeDB = PokeDB(context)
+        val pokeDB = PokeDB.getInstance(context)
         val cursor = pokeDB.readableDatabase.query(
                 PokeDB.Versions.TABLE_NAME,
                 null,

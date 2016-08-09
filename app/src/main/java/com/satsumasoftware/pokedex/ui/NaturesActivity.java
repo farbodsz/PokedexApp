@@ -56,7 +56,7 @@ public class NaturesActivity extends BaseActivity {
 
         DragScrollBar scrollBar = new DragScrollBar(this, mRecyclerView, false);
 
-        NaturesDBHelper dbHelper = new NaturesDBHelper(this);
+        NaturesDBHelper dbHelper = NaturesDBHelper.getInstance(this);
         populateListview(dbHelper.getAllMiniNatures());
     }
 

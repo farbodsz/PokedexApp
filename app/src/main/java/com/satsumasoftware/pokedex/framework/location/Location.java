@@ -23,7 +23,7 @@ public class Location implements Parcelable {
     }
 
     public Location(Context context, int id) {
-        LocationsDBHelper dbHelper = new LocationsDBHelper(context);
+        LocationsDBHelper dbHelper = LocationsDBHelper.getInstance(context);
         Cursor cursor = dbHelper.getReadableDatabase().query(
                 LocationsDBHelper.TABLE_NAME,
                 null,
@@ -52,7 +52,7 @@ public class Location implements Parcelable {
 
 
     public ArrayList<LocationArea> getLocationAreas(Context context) {
-        LocationAreasDBHelper helper = new LocationAreasDBHelper(context);
+        LocationAreasDBHelper helper = LocationAreasDBHelper.getInstance(context);
         Cursor cursor = helper.getReadableDatabase().query(
                 LocationAreasDBHelper.TABLE_NAME,
                 null,

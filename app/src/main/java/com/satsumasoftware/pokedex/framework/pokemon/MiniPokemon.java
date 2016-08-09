@@ -16,7 +16,7 @@ public class MiniPokemon extends BasePokemon implements Parcelable {
 
 
     public MiniPokemon(Context context, int id) {
-        PokemonDBHelper helper = new PokemonDBHelper(context);
+        PokemonDBHelper helper = PokemonDBHelper.getInstance(context);
         Cursor cursor = helper.getReadableDatabase().query(
                 PokemonDBHelper.TABLE_NAME,
                 DB_COLUMNS,
@@ -57,7 +57,7 @@ public class MiniPokemon extends BasePokemon implements Parcelable {
 
     public MiniPokemon(Context context, int speciesId, boolean isFormMega) {
         int isMegaAsInt = (isFormMega ? 1 : 0);
-        PokemonDBHelper pokemonDBHelper = new PokemonDBHelper(context);
+        PokemonDBHelper pokemonDBHelper = PokemonDBHelper.getInstance(context);
         Cursor cursor = pokemonDBHelper.getReadableDatabase().query(
                 PokemonDBHelper.TABLE_NAME,
                 DB_COLUMNS,

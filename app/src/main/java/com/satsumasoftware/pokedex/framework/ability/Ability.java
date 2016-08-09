@@ -81,7 +81,7 @@ public class Ability extends BaseAbility implements Parcelable {
     }
 
     public String getFlavorText(Context context, int versionGroupId, int langId) {
-        PokeDB pokeDB = new PokeDB(context);
+        PokeDB pokeDB = PokeDB.getInstance(context);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.AbilityFlavorText.TABLE_NAME,
                 null,

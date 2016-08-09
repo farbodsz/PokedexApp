@@ -73,8 +73,16 @@ public class MovesDBHelper extends SQLiteOpenHelper {
 
     private Context mContext;
 
+    private static MovesDBHelper sInstance;
 
-    public MovesDBHelper(Context context) {
+    public static synchronized MovesDBHelper getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new MovesDBHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    private MovesDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
     }
@@ -92,7 +100,7 @@ public class MovesDBHelper extends SQLiteOpenHelper {
     }
 
     private void populateDatabase(SQLiteDatabase db) {
-        PokeDB pokeDB = new PokeDB(mContext);
+        PokeDB pokeDB = PokeDB.getInstance(mContext);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.Moves.TABLE_NAME,
                 null,

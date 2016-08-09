@@ -98,7 +98,7 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
 
         mScrollBar = new DragScrollBar(this, mRecyclerView, false);
 
-        mDbHelper = new PokemonDBHelper(this);
+        mDbHelper = PokemonDBHelper.getInstance(this);
         populateList(mDbHelper.getAllPokemon());
 
         mDrawerLayout = getSelfDrawerLayout();
@@ -410,7 +410,7 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
 
         ArrayList<MiniPokemon> filteredList = new ArrayList<>();
 
-        mDbHelper = new PokemonDBHelper(this);
+        mDbHelper = PokemonDBHelper.getInstance(this);
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         String[] columns = new String[] {
                 PokemonDBHelper.COL_ID,

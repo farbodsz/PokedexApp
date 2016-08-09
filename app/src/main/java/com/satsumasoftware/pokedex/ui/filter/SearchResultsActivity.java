@@ -82,7 +82,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     }
 
     private void doSearch(String searchQuery) {
-        PokemonDBHelper helper = new PokemonDBHelper(this);
+        PokemonDBHelper helper = PokemonDBHelper.getInstance(this);
         SQLiteDatabase db = helper.getReadableDatabase();
 
         String selection = PokemonDBHelper.COL_ID + " LIKE '%"+ DataUtilsKt.unformatPokemonId(searchQuery)+"%' OR " +

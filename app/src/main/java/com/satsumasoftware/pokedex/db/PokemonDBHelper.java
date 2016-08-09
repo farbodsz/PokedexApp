@@ -250,8 +250,17 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
 
     private Context mContext;
 
+    private static PokemonDBHelper sInstance;
 
-    public PokemonDBHelper(Context context) {
+    public static synchronized PokemonDBHelper getInstance(Context context) {
+        if (sInstance == null) {
+            // using the application context prevents accidentally leaking an Activity's context
+            sInstance = new PokemonDBHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    private PokemonDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
     }
@@ -277,7 +286,7 @@ public class PokemonDBHelper extends SQLiteOpenHelper {
          * In the first two tables, there are ids that are used to lead to the next tables
          */
 
-        PokeDB pokeDB = new PokeDB(mContext);
+        PokeDB pokeDB = PokeDB.getInstance(mContext);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.PokemonForms.TABLE_NAME, null, null, null, null, null, null);
         cursor.moveToFirst();
