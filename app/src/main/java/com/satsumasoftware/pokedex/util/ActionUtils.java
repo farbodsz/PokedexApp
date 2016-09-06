@@ -175,7 +175,11 @@ public final class ActionUtils {
                 imageView);
     }
 
-    public static void setPokemonImage(int pkmnId, String nationalIdFormatted, String name, boolean isFormMega, ImageView imageView) {
+    public static void setPokemonImage(int pkmnId, String nationalIdFormatted, String name,
+                                       boolean isFormMega, ImageView imageView) {
+        imageView.setImageResource(R.drawable.img_unknown);
+
+        /*
         int resId;
         switch (pkmnId) { // TODO: base this of form id not pokemon id
             case 29: resId = R.drawable.img_pkmn_029_nidoran; break;
@@ -247,5 +251,6 @@ public final class ActionUtils {
                 break;
         }
         imageView.setImageResource(resId);
+        */
     }
 }

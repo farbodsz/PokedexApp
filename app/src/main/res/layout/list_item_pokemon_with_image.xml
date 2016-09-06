@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:src="@drawable/img_pkmn_002_ivysaur"
+        android:src="@drawable/img_unknown"
         android:contentDescription="@string/img_desc_pokemon"
         android:scaleType="fitCenter"
         android:layout_width="@dimen/mdu_keyline_2_minus_16dp"
