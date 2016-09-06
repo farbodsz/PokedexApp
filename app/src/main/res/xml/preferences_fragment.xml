@@ -49,12 +49,14 @@
             android:summaryOn="@string/pref_playCry_summaryOn"
             android:summaryOff="@string/pref_playCry_summaryOff"
             android:defaultValue="false" />
+        <!--
         <CheckBoxPreference
             android:key="pref_enable_images"
             android:title="@string/pref_enableImages"
             android:summaryOn="@string/pref_enableImages_summaryOn"
             android:summaryOff="@string/pref_enableImages_summaryOff"
             android:defaultValue="false" />
+            -->
     </PreferenceCategory>
 
 </PreferenceScreen>
