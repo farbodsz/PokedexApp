@@ -9,8 +9,8 @@ android {
         applicationId "com.satsumasoftware.pokedex"
         minSdkVersion 14
         targetSdkVersion 24
-        versionCode 411
-        versionName "4.1.1"
+        versionCode 412
+        versionName "4.1.2"
 
         vectorDrawables.useSupportLibrary = true
     }
