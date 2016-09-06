@@ -14,11 +14,6 @@ public class PokemonLearnset {
 
     private ArrayList<PokemonMove> mPokemonMoves;
 
-    @Deprecated
-    public PokemonLearnset(Context context, Pokemon pokemon, int moveMethodId) {
-        this(context, pokemon.getId(), moveMethodId, 16);
-    }
-
     public PokemonLearnset(Context context, int pokemonId, int moveMethodId, int versionGroupId) {
         mContext = context;
         mPokemonId = pokemonId;
