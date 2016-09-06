@@ -26,7 +26,7 @@ android {
             applicationId "com.satsumasoftware.pokedex.free"
         }
         paidFlavour {
-            applicationId "com.satsumasoftware.pokedex"
+            applicationId "com.satsumasoftware.pokedex.pro"
         }
     }
 }
