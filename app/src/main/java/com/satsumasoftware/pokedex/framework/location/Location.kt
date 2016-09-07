@@ -1,11 +1,9 @@
 package com.satsumasoftware.pokedex.framework.location
 
+import android.content.Context
 import android.os.Parcel
 import android.os.Parcelable
-
-import android.content.Context
 import com.satsumasoftware.pokedex.db.LocationAreasDBHelper
-import com.satsumasoftware.pokedex.db.LocationsDBHelper
 import java.util.*
 
 class Location(val id: Int, val regionId: Int, val name: String) : Parcelable {

@@ -1,10 +1,8 @@
 package com.satsumasoftware.pokedex.framework.pokemon
 
 import android.content.Context
-import java.util.*
 import android.os.Parcel
 import android.os.Parcelable
-
 import android.widget.ImageView
 import com.satsumasoftware.pokedex.db.PokemonDBHelper
 import com.satsumasoftware.pokedex.util.ActionUtils

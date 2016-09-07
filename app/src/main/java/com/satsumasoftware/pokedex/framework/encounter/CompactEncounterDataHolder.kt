@@ -1,6 +1,6 @@
 package com.satsumasoftware.pokedex.framework.encounter
 
-import java.util.ArrayList
+import java.util.*
 
 class CompactEncounterDataHolder(val pokemonId: Int) {
 

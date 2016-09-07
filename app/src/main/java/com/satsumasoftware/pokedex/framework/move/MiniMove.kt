@@ -1,10 +1,8 @@
 package com.satsumasoftware.pokedex.framework.move
 
-import java.util.*
+import android.content.Context
 import android.os.Parcel
 import android.os.Parcelable
-
-import android.content.Context
 import com.satsumasoftware.pokedex.db.MovesDBHelper
 
 class MiniMove(val id: Int, val name: String) : Parcelable {

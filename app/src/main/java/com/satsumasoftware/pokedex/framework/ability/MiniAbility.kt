@@ -1,7 +1,6 @@
 package com.satsumasoftware.pokedex.framework.ability
 
 import android.content.Context
-import java.util.*
 import android.os.Parcel
 import android.os.Parcelable
 import com.satsumasoftware.pokedex.db.AbilitiesDBHelper
