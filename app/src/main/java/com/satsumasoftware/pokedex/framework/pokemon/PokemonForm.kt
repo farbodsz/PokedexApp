@@ -1,10 +1,12 @@
 package com.satsumasoftware.pokedex.framework.pokemon
 
+import android.content.Context
 import java.util.*
 import android.os.Parcel
 import android.os.Parcelable
 
 import android.widget.ImageView
+import com.satsumasoftware.pokedex.db.PokemonDBHelper
 import com.satsumasoftware.pokedex.util.ActionUtils
 import com.satsumasoftware.pokedex.util.formatPokemonId
 
@@ -25,6 +27,21 @@ class PokemonForm(val id: Int, val speciesId: Int, val formId: Int, val name: St
             1.equals(source.readInt()),
             1.equals(source.readInt()),
             1.equals(source.readInt()))
+
+    fun toMiniPokemon(context: Context): MiniPokemon {
+        val helper = PokemonDBHelper.getInstance(context)
+        val cursor = helper.readableDatabase.query(
+                PokemonDBHelper.TABLE_NAME,
+                arrayOf(PokemonDBHelper.COL_ID, PokemonDBHelper.COL_FORM_IS_DEFAULT),
+                "${PokemonDBHelper.COL_ID}=? AND ${PokemonDBHelper.COL_FORM_IS_DEFAULT}=?",
+                arrayOf(id.toString(), 1.toString()),
+                null, null, null)
+        cursor.moveToFirst()
+        val miniPokemon = MiniPokemon(id, speciesId, formId, name, formName, combinedName,
+                nationalDexNumber)
+        cursor.close()
+        return miniPokemon
+    }
 
     fun setPokemonImage(imageView: ImageView) {
         ActionUtils.setPokemonImage(id,
