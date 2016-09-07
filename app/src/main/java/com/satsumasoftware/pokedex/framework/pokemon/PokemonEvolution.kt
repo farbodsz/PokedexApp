@@ -10,14 +10,14 @@ import com.satsumasoftware.pokedex.framework.location.Location
 import com.satsumasoftware.pokedex.framework.move.MiniMove
 import com.satsumasoftware.pokedex.util.NULL_INT
 
-data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutionTriggerId: Int,
-                            val triggerItemId: Int, val minimumLevel: Int, val genderId: Int,
-                            val locationId: Int, val heldItemId: Int, val timeOfDay: String,
-                            val knownMoveId: Int, val knownMoveTypeId: Int,
-                            val minimumHappiness: Int, val minimumBeauty: Int,
-                            val minimumAffection: Int, val relativePhysicalStats: Int,
-                            val partySpeciesId: Int, val partyTypeId: Int, val tradeSpeciesId: Int,
-                            val needsOverworldRain: Boolean, val turnUpsideDown: Boolean) {
+class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutionTriggerId: Int,
+                       val triggerItemId: Int, val minimumLevel: Int, val genderId: Int,
+                       val locationId: Int, val heldItemId: Int, val timeOfDay: String,
+                       val knownMoveId: Int, val knownMoveTypeId: Int,
+                       val minimumHappiness: Int, val minimumBeauty: Int,
+                       val minimumAffection: Int, val relativePhysicalStats: Int,
+                       val partySpeciesId: Int, val partyTypeId: Int, val tradeSpeciesId: Int,
+                       val needsOverworldRain: Boolean, val turnUpsideDown: Boolean) {
 
     constructor(cursor: Cursor) : this(
             cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonEvolution.COL_ID)),

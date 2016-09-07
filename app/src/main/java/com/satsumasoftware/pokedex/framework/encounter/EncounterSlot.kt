@@ -3,8 +3,8 @@ package com.satsumasoftware.pokedex.framework.encounter
 import android.database.Cursor
 import com.satsumasoftware.pokedex.db.PokeDB
 
-data class EncounterSlot(val id: Int, val versionGroupId: Int, val encounterMethodId: Int,
-                         val slot: Int, val rarity: Int) {
+class EncounterSlot(val id: Int, val versionGroupId: Int, val encounterMethodId: Int,
+                    val slot: Int, val rarity: Int) {
 
     constructor(cursor: Cursor) : this(
             cursor.getInt(cursor.getColumnIndex(PokeDB.EncounterSlots.COL_ID)),
