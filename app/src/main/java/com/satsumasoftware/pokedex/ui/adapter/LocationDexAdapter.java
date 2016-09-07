@@ -1,6 +1,5 @@
 package com.satsumasoftware.pokedex.ui.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,11 +52,9 @@ public class LocationDexAdapter extends RecyclerView.Adapter<LocationDexAdapter.
         }
     }
 
-    private Context mContext;
     private ArrayList<Location> mLocations;
 
-    public LocationDexAdapter(Context context, ArrayList<Location> locations) {
-        mContext = context;
+    public LocationDexAdapter(ArrayList<Location> locations) {
         mLocations = locations;
     }
 

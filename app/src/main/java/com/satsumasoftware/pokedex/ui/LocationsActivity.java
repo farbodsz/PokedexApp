@@ -100,7 +100,7 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
             }
         });
         final ArrayList<Location> itemsFinal = items;
-        LocationDexAdapter adapter = new LocationDexAdapter(this, itemsFinal);
+        LocationDexAdapter adapter = new LocationDexAdapter(itemsFinal);
         adapter.setOnEntryClickListener(new LocationDexAdapter.OnEntryClickListener() {
             @Override
             public void onEntryClick(View view, int position) {
