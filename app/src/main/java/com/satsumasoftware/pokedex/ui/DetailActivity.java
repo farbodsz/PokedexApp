@@ -503,7 +503,7 @@ public class DetailActivity extends AppCompatActivity {
             for (int i = 1; i < abilityIds.size() + 1; i++) {
                 int id = abilityIds.get(i);
                 MiniAbility miniAbility = (id == DataUtilsKt.NULL_INT) ?
-                        null : new MiniAbility(getActivity(), id);
+                        null : MiniAbility.create(getActivity(), id);
                 abilities.put(i, miniAbility);
             }
             final SparseArray<MiniAbility> finalAbilities = abilities;
