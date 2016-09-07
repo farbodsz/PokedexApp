@@ -3,15 +3,10 @@ package com.satsumasoftware.pokedex.framework
 import android.content.Context
 import com.satsumasoftware.pokedex.db.PokeDB
 
-data class MoveMethod(val id: Int) {
+class MoveMethod(private val context: Context, val id: Int) {
 
-    private var name: String? = null
-
-    fun fetchName(context: Context): String {
-        if (name == null) {
-            name = fetchNameFromDb(context)
-        }
-        return name!!
+    val name: String by lazy {
+        fetchNameFromDb(context)
     }
 
     fun isLevelUpMethod() = id == 1

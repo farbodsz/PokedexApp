@@ -777,9 +777,9 @@ public class CompareActivity extends AppCompatActivity {
             while (!methodCursor.isAfterLast()) {
                 int id = methodCursor.getInt(methodCursor.getColumnIndex(
                         PokeDB.PokemonMoveMethodProse.COL_POKEMON_MOVE_METHOD_ID));
-                MoveMethod moveMethod = new MoveMethod(id);
+                MoveMethod moveMethod = new MoveMethod(getActivity(), id);
                 mMoveMethods.add(moveMethod);
-                mMoveMethodNames.add(moveMethod.fetchName(getActivity()));
+                mMoveMethodNames.add(moveMethod.getName());
                 methodCursor.moveToNext();
             }
             methodCursor.close();
@@ -800,9 +800,9 @@ public class CompareActivity extends AppCompatActivity {
                     null, null, null);
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                VersionGroup versionGroup = new VersionGroup(cursor);
+                VersionGroup versionGroup = new VersionGroup(getActivity(), cursor);
                 mVersionGroups.add(versionGroup);
-                mVersionGroupNames.add(versionGroup.fetchName(getActivity()));
+                mVersionGroupNames.add(versionGroup.getName());
                 cursor.moveToNext();
             }
             cursor.close();

@@ -1115,9 +1115,9 @@ public class DetailActivity extends AppCompatActivity {
             while (!methodCursor.isAfterLast()) {
                 int id = methodCursor.getInt(methodCursor.getColumnIndex(
                         PokeDB.PokemonMoveMethodProse.COL_POKEMON_MOVE_METHOD_ID));
-                MoveMethod moveMethod = new MoveMethod(id);
+                MoveMethod moveMethod = new MoveMethod(getActivity(), id);
                 mMoveMethods.add(moveMethod);
-                mMoveMethodNames.add(moveMethod.fetchName(getActivity()));
+                mMoveMethodNames.add(moveMethod.getName());
                 methodCursor.moveToNext();
             }
             methodCursor.close();
@@ -1135,9 +1135,9 @@ public class DetailActivity extends AppCompatActivity {
                     null, null, null);
             versionCursor.moveToFirst();
             while (!versionCursor.isAfterLast()) {
-                VersionGroup versionGroup = new VersionGroup(versionCursor);
+                VersionGroup versionGroup = new VersionGroup(getActivity(), versionCursor);
                 mVersionGroups.add(versionGroup);
-                mVersionGroupNames.add(versionGroup.fetchName(getActivity()));
+                mVersionGroupNames.add(versionGroup.getName());
                 versionCursor.moveToNext();
             }
             versionCursor.close();
