@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.satsumasoftware.pokedex.framework.pokemon.BasePokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 
 import java.util.ArrayList;
@@ -729,7 +730,7 @@ public final class PokemonDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(
                 TABLE_NAME,
-                MiniPokemon.DB_COLUMNS,
+                BasePokemon.DB_COLUMNS,
                 COL_FORM_IS_DEFAULT + "=1",
                 null,
                 null,

@@ -266,7 +266,7 @@ public class FilterResultsActivity extends AppCompatActivity {
         mArrayPokemon.clear();
         while (!cursor.isAfterLast()) {
             int id = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_POKEMON_ID));
-            MiniPokemon pokemon = new MiniPokemon(this, id);
+            MiniPokemon pokemon = MiniPokemon.create(this, id);
             if (!mArrayPokemon.contains(pokemon)) {
                 mArrayPokemon.add(pokemon);
             }
