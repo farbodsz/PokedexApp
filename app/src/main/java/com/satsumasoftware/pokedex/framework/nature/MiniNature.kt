@@ -33,9 +33,13 @@ class MiniNature(val id: Int, val name: String) : Parcelable {
     }
 
     companion object {
+
         @JvmField val CREATOR: Parcelable.Creator<MiniNature> = object : Parcelable.Creator<MiniNature> {
             override fun createFromParcel(source: Parcel): MiniNature = MiniNature(source)
             override fun newArray(size: Int): Array<MiniNature?> = arrayOfNulls(size)
         }
+
+        @JvmField val DB_COLUMNS = arrayOf(NaturesDBHelper.COL_ID, NaturesDBHelper.COL_NAME)
+
     }
 }
