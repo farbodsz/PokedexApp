@@ -32,8 +32,14 @@ class MiniPokemon(id: Int, speciesId: Int, formId: Int, name: String, formName: 
             source.readString(),
             source.readInt())
 
-    fun toPokemon(context: Context) =
-            Pokemon(context, id, speciesId, formId, name, formName, formAndPokemonName, nationalNumber)
+    fun toPokemon(context: Context) = Pokemon(context,
+            id,
+            speciesId,
+            formId,
+            name,
+            formName,
+            formAndPokemonName,
+            nationalDexNumber)
 
     fun setPokemonImage(imageView: ImageView) = ActionUtils.setPokemonImage(this, imageView)
 
@@ -46,7 +52,7 @@ class MiniPokemon(id: Int, speciesId: Int, formId: Int, name: String, formName: 
         dest?.writeString(name)
         dest?.writeString(formName)
         dest?.writeString(formAndPokemonName)
-        dest?.writeInt(nationalNumber)
+        dest?.writeInt(nationalDexNumber)
     }
 
     companion object {

@@ -39,6 +39,20 @@ class MiniMove(val id: Int, val name: String) : Parcelable {
 
         @JvmField val DB_COLUMNS = arrayOf(MovesDBHelper.COL_ID, MovesDBHelper.COL_NAME)
 
+        @JvmStatic
+        fun create(context: Context, id: Int): MiniMove {
+            val helper = MovesDBHelper.getInstance(context)
+            val cursor = helper.readableDatabase.query(
+                    MovesDBHelper.TABLE_NAME,
+                    arrayOf(MovesDBHelper.COL_ID, MovesDBHelper.COL_NAME),
+                    MovesDBHelper.COL_ID + "=?",
+                    arrayOf<String>(id.toString()),
+                    null, null, null)
+            cursor.moveToFirst()
+            val name = cursor.getString(cursor.getColumnIndex(MovesDBHelper.COL_NAME))
+            cursor.close()
+            return MiniMove(id, name)
+        }
     }
 
 }

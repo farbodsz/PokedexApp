@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Parcel
 import android.os.Parcelable
 import com.satsumasoftware.pokedex.db.LocationAreasDBHelper
+import com.satsumasoftware.pokedex.db.LocationsDBHelper
 import java.util.*
 
 class Location(val id: Int, val regionId: Int, val name: String) : Parcelable {
@@ -41,9 +42,27 @@ class Location(val id: Int, val regionId: Int, val name: String) : Parcelable {
     }
 
     companion object {
+
         @JvmField val CREATOR: Parcelable.Creator<Location> = object : Parcelable.Creator<Location> {
             override fun createFromParcel(source: Parcel): Location = Location(source)
             override fun newArray(size: Int): Array<Location?> = arrayOfNulls(size)
         }
+
+        @JvmStatic
+        fun create(context: Context, id: Int): Location {
+            val dbHelper = LocationsDBHelper.getInstance(context)
+            val cursor = dbHelper.readableDatabase.query(
+                    LocationsDBHelper.TABLE_NAME,
+                    null,
+                    LocationsDBHelper.COL_ID + "=?",
+                    arrayOf(id.toString()),
+                    null, null, null)
+            cursor.moveToFirst()
+            val regionId = cursor.getInt(cursor.getColumnIndex(LocationsDBHelper.COL_REGION_ID))
+            val name = cursor.getString(cursor.getColumnIndex(LocationsDBHelper.COL_NAME))
+            cursor.close()
+            return Location(id, regionId, name)
+        }
     }
+
 }

@@ -4,7 +4,7 @@ import com.satsumasoftware.pokedex.db.PokemonDBHelper
 
 open class BasePokemon(val id: Int, val speciesId: Int, val formId: Int, val name: String,
                        val formName: String, formAndPokemonName: String?,
-                       val nationalNumber: Int) {
+                       val nationalDexNumber: Int) {
 
     val formAndPokemonName: String? = formAndPokemonName
         get() = field ?: name

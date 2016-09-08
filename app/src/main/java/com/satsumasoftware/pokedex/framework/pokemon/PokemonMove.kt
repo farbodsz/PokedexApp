@@ -13,7 +13,7 @@ data class PokemonMove(val moveId: Int, val level: Int, val orderNumber: Int) {
             cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_LEVEL)),
             cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_ORDER)))
 
-    fun toMiniMove(context: Context) = MiniMove(context, moveId)
+    fun toMiniMove(context: Context) = MiniMove.create(context, moveId)
 
     fun hasLearnLevel() = level != NULL_INT
 

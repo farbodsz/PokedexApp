@@ -58,7 +58,7 @@ class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutionTrig
                 val tradeText = if (tradeSpeciesId == NULL_INT)
                     "Trade"
                 else
-                    "Trade with " + MiniPokemon(context, tradeSpeciesId, false).name
+                    "Trade with ${MiniPokemon.createFromSpecies(context, tradeSpeciesId, false).name}"
                 description.append(tradeText)
             }
             3 -> description.append("Use item #$triggerItemId")  // TODO item name
@@ -70,7 +70,7 @@ class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutionTrig
         }
 
         if (locationId != NULL_INT) {
-            val location = Location(context, locationId)
+            val location = Location.create(context, locationId)
             description.append(", around ${location.name} (${Region(location.regionId).name})")
         }
 
@@ -83,7 +83,7 @@ class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutionTrig
         }
 
         if (knownMoveId != NULL_INT) {
-            description.append(", while knowing ${MiniMove(context, knownMoveId).name}")
+            description.append(", while knowing ${MiniMove.create(context, knownMoveId).name}")
         }
 
         if (knownMoveTypeId != NULL_INT) {
@@ -105,7 +105,7 @@ class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutionTrig
         // TODO relativePhysicalStats
 
         if (partySpeciesId != NULL_INT) {
-            description.append(", with ${MiniPokemon(context, partySpeciesId, false).name} in the party")
+            description.append(", with ${MiniPokemon.createFromSpecies(context, partySpeciesId, false).name} in the party")
         }
 
         if (partyTypeId != NULL_INT) {
