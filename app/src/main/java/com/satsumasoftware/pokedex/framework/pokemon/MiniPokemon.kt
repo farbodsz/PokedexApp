@@ -9,12 +9,10 @@ import android.widget.ImageView
 import com.satsumasoftware.pokedex.db.PokemonDBHelper
 import com.satsumasoftware.pokedex.util.ActionUtils
 
-class MiniPokemon(val id: Int, val speciesId: Int, val formId: Int, val name: String,
-                  val formName: String, formAndPokemonName: String?,
-                  val nationalNumber: Int) : Parcelable {
-
-    val formAndPokemonName: String? = formAndPokemonName
-        get() = field ?: name
+class MiniPokemon(id: Int, speciesId: Int, formId: Int, name: String, formName: String,
+                  formAndPokemonName: String?, nationalNumber: Int) :
+        BasePokemon(id, speciesId, formId, name, formName, formAndPokemonName, nationalNumber),
+        Parcelable {
 
     constructor(cursor: Cursor) : this(
             cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_ID)),
