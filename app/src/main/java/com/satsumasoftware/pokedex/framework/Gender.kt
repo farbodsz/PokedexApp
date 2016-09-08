@@ -1,6 +1,6 @@
 package com.satsumasoftware.pokedex.framework
 
-data class Gender(val id: Int) {
+class Gender(val id: Int) {
 
     fun getSymbol() = when(id) {
         1 -> "\u2640"  // female

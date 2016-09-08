@@ -52,6 +52,7 @@ import com.satsumasoftware.pokedex.framework.Pokedex;
 import com.satsumasoftware.pokedex.framework.Shape;
 import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
+import com.satsumasoftware.pokedex.framework.pokemon.BasePokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonForm;
@@ -270,7 +271,7 @@ public class DetailActivity extends AppCompatActivity {
         PokemonDBHelper helper = PokemonDBHelper.getInstance(this);
         Cursor cursor = helper.getReadableDatabase().query(
                 PokemonDBHelper.TABLE_NAME,
-                MiniPokemon.DB_COLUMNS,
+                BasePokemon.DB_COLUMNS,
                 PokemonDBHelper.COL_ID + "=? AND " + PokemonDBHelper.COL_FORM_IS_DEFAULT + "=?",
                 new String[] {String.valueOf(newPos), String.valueOf(1)},
                 null, null, null);
@@ -331,7 +332,7 @@ public class DetailActivity extends AppCompatActivity {
             arrayPokemon = new ArrayList<>();
             Cursor cursor = dbHelper.getReadableDatabase().query(
                     PokemonDBHelper.TABLE_NAME,
-                    MiniPokemon.DB_COLUMNS,
+                    BasePokemon.DB_COLUMNS,
                     PokemonDBHelper.COL_SPECIES_ID + "=? AND " + PokemonDBHelper.COL_FORM_IS_DEFAULT + "=? AND " + PokemonDBHelper.COL_FORM_ID + "!=?",
                     new String[] {String.valueOf(sPokemon.getSpeciesId()), String.valueOf(1), String.valueOf(sPokemon.getFormId())},
                     null, null, null);
@@ -503,7 +504,7 @@ public class DetailActivity extends AppCompatActivity {
             for (int i = 1; i < abilityIds.size() + 1; i++) {
                 int id = abilityIds.get(i);
                 MiniAbility miniAbility = (id == DataUtilsKt.NULL_INT) ?
-                        null : new MiniAbility(getActivity(), id);
+                        null : MiniAbility.create(getActivity(), id);
                 abilities.put(i, miniAbility);
             }
             final SparseArray<MiniAbility> finalAbilities = abilities;
@@ -1024,7 +1025,7 @@ public class DetailActivity extends AppCompatActivity {
             PokemonDBHelper helper = PokemonDBHelper.getInstance(getActivity());
             Cursor cursor = helper.getReadableDatabase().query(
                     PokemonDBHelper.TABLE_NAME,
-                    concatenateArrays(MiniPokemon.DB_COLUMNS,
+                    concatenateArrays(BasePokemon.DB_COLUMNS,
                             new String[] {PokemonDBHelper.COL_EVOLVES_FROM_SPECIES_ID,
                                     PokemonDBHelper.COL_EVOLUTION_CHAIN_ID}),
                     PokemonDBHelper.COL_EVOLUTION_CHAIN_ID + "=? AND " +
@@ -1115,9 +1116,9 @@ public class DetailActivity extends AppCompatActivity {
             while (!methodCursor.isAfterLast()) {
                 int id = methodCursor.getInt(methodCursor.getColumnIndex(
                         PokeDB.PokemonMoveMethodProse.COL_POKEMON_MOVE_METHOD_ID));
-                MoveMethod moveMethod = new MoveMethod(id);
+                MoveMethod moveMethod = new MoveMethod(getActivity(), id);
                 mMoveMethods.add(moveMethod);
-                mMoveMethodNames.add(moveMethod.fetchName(getActivity()));
+                mMoveMethodNames.add(moveMethod.getName());
                 methodCursor.moveToNext();
             }
             methodCursor.close();
@@ -1135,9 +1136,9 @@ public class DetailActivity extends AppCompatActivity {
                     null, null, null);
             versionCursor.moveToFirst();
             while (!versionCursor.isAfterLast()) {
-                VersionGroup versionGroup = new VersionGroup(versionCursor);
+                VersionGroup versionGroup = new VersionGroup(getActivity(), versionCursor);
                 mVersionGroups.add(versionGroup);
-                mVersionGroupNames.add(versionGroup.fetchName(getActivity()));
+                mVersionGroupNames.add(versionGroup.getName());
                 versionCursor.moveToNext();
             }
             versionCursor.close();

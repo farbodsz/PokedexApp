@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -267,7 +266,7 @@ public class FilterResultsActivity extends AppCompatActivity {
         mArrayPokemon.clear();
         while (!cursor.isAfterLast()) {
             int id = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_POKEMON_ID));
-            MiniPokemon pokemon = new MiniPokemon(this, id);
+            MiniPokemon pokemon = MiniPokemon.create(this, id);
             if (!mArrayPokemon.contains(pokemon)) {
                 mArrayPokemon.add(pokemon);
             }

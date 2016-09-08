@@ -10,14 +10,14 @@ import com.satsumasoftware.pokedex.framework.location.Location
 import com.satsumasoftware.pokedex.framework.move.MiniMove
 import com.satsumasoftware.pokedex.util.NULL_INT
 
-data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutionTriggerId: Int,
-                            val triggerItemId: Int, val minimumLevel: Int, val genderId: Int,
-                            val locationId: Int, val heldItemId: Int, val timeOfDay: String,
-                            val knownMoveId: Int, val knownMoveTypeId: Int,
-                            val minimumHappiness: Int, val minimumBeauty: Int,
-                            val minimumAffection: Int, val relativePhysicalStats: Int,
-                            val partySpeciesId: Int, val partyTypeId: Int, val tradeSpeciesId: Int,
-                            val needsOverworldRain: Boolean, val turnUpsideDown: Boolean) {
+class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutionTriggerId: Int,
+                       val triggerItemId: Int, val minimumLevel: Int, val genderId: Int,
+                       val locationId: Int, val heldItemId: Int, val timeOfDay: String,
+                       val knownMoveId: Int, val knownMoveTypeId: Int,
+                       val minimumHappiness: Int, val minimumBeauty: Int,
+                       val minimumAffection: Int, val relativePhysicalStats: Int,
+                       val partySpeciesId: Int, val partyTypeId: Int, val tradeSpeciesId: Int,
+                       val needsOverworldRain: Boolean, val turnUpsideDown: Boolean) {
 
     constructor(cursor: Cursor) : this(
             cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonEvolution.COL_ID)),
@@ -58,7 +58,7 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
                 val tradeText = if (tradeSpeciesId == NULL_INT)
                     "Trade"
                 else
-                    "Trade with " + MiniPokemon(context, tradeSpeciesId, false).name
+                    "Trade with ${MiniPokemon.createFromSpecies(context, tradeSpeciesId, false).name}"
                 description.append(tradeText)
             }
             3 -> description.append("Use item #$triggerItemId")  // TODO item name
@@ -70,7 +70,7 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
         }
 
         if (locationId != NULL_INT) {
-            val location = Location(context, locationId)
+            val location = Location.create(context, locationId)
             description.append(", around ${location.name} (${Region(location.regionId).name})")
         }
 
@@ -83,7 +83,7 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
         }
 
         if (knownMoveId != NULL_INT) {
-            description.append(", while knowing ${MiniMove(context, knownMoveId).name}")
+            description.append(", while knowing ${MiniMove.create(context, knownMoveId).name}")
         }
 
         if (knownMoveTypeId != NULL_INT) {
@@ -105,7 +105,7 @@ data class PokemonEvolution(val id: Int, val evolvedSpeciesId: Int, val evolutio
         // TODO relativePhysicalStats
 
         if (partySpeciesId != NULL_INT) {
-            description.append(", with ${MiniPokemon(context, partySpeciesId, false).name} in the party")
+            description.append(", with ${MiniPokemon.createFromSpecies(context, partySpeciesId, false).name} in the party")
         }
 
         if (partyTypeId != NULL_INT) {

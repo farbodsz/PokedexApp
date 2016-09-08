@@ -36,7 +36,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-
 public class LocationsActivity extends BaseActivity implements FilterListItemVGAdapter.OnFilterItemClickListener {
 
     private static final String LOG_TAG = "LocationActivity.java";

@@ -5,7 +5,7 @@ import com.satsumasoftware.pokedex.db.PokeDB
 import com.satsumasoftware.pokedex.framework.encounter.Encounter
 import java.util.*
 
-data class LocationArea(val id: Int, val locationId: Int, val name: String) {
+class LocationArea(val id: Int, val locationId: Int, val name: String) {
 
     fun findEncounterGameVersions(context: Context): ArrayList<Int> {
         val pokeDB = PokeDB.getInstance(context)
