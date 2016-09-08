@@ -31,10 +31,14 @@ class MiniMove(val id: Int, val name: String) : Parcelable {
     }
 
     companion object {
+
         @JvmField val CREATOR: Parcelable.Creator<MiniMove> = object : Parcelable.Creator<MiniMove> {
             override fun createFromParcel(source: Parcel): MiniMove = MiniMove(source)
             override fun newArray(size: Int): Array<MiniMove?> = arrayOfNulls(size)
         }
+
+        @JvmField val DB_COLUMNS = arrayOf(MovesDBHelper.COL_ID, MovesDBHelper.COL_NAME)
+
     }
 
 }
