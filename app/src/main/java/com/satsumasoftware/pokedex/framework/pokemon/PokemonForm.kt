@@ -9,7 +9,7 @@ import com.satsumasoftware.pokedex.util.ActionUtils
 import com.satsumasoftware.pokedex.util.formatPokemonId
 
 class PokemonForm(val id: Int, val speciesId: Int, val formId: Int, val name: String,
-                  val formName: String, val combinedName: String, val nationalDexNumber: Int,
+                  val formName: String?, val combinedName: String?, val nationalDexNumber: Int,
                   val primaryTypeId: Int, val isDefault: Boolean, val isFormDefault: Boolean,
                   val isFormMega: Boolean) : Parcelable {
 

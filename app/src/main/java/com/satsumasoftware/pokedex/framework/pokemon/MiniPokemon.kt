@@ -9,7 +9,7 @@ import android.widget.ImageView
 import com.satsumasoftware.pokedex.db.PokemonDBHelper
 import com.satsumasoftware.pokedex.util.ActionUtils
 
-class MiniPokemon(id: Int, speciesId: Int, formId: Int, name: String, formName: String,
+class MiniPokemon(id: Int, speciesId: Int, formId: Int, name: String, formName: String?,
                   formAndPokemonName: String?, nationalNumber: Int) :
         BasePokemon(id, speciesId, formId, name, formName, formAndPokemonName, nationalNumber),
         Parcelable {
