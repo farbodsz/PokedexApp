@@ -37,12 +37,14 @@ class MiniAbility(val id: Int, val name: String) : Parcelable {
             override fun newArray(size: Int): Array<MiniAbility?> = arrayOfNulls(size)
         }
 
+        @JvmField val DB_COLUMNS = arrayOf(AbilitiesDBHelper.COL_ID, AbilitiesDBHelper.COL_NAME)
+
         @JvmStatic
         fun create(context: Context, id: Int): MiniAbility {
             val helper = AbilitiesDBHelper.getInstance(context)
             val cursor = helper.readableDatabase.query(
                     AbilitiesDBHelper.TABLE_NAME,
-                    BaseAbility.DB_COLUMNS,
+                    DB_COLUMNS,
                     "${AbilitiesDBHelper.COL_ID}=?",
                     arrayOf(id.toString()),
                     null, null, null)
