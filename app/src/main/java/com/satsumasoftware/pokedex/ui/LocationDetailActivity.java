@@ -125,7 +125,8 @@ public class LocationDetailActivity extends AppCompatActivity {
             // for each encounter, get its corresponding encounter slot - put these into the data holder
             ArrayList<EncounterDataHolder> encounterDataList = new ArrayList<>();
             for (Encounter encounter : encounters) {
-                EncounterSlot encounterSlot = encounter.getEncounterSlotObject(this);
+                EncounterSlot encounterSlot =
+                        EncounterSlot.create(this, encounter.getEncounterSlotId());
                 encounterDataList.add(new EncounterDataHolder(encounter, encounterSlot));
             }
 
