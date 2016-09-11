@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
+import com.satsumasoftware.pokedex.framework.pokemon.BasePokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public final class FavoriteUtils {
                     form = details[2];
                 }
                 boolean isMega = (form.toLowerCase().contains("mega"));
-                MiniPokemon aPokemon = new MiniPokemon(context, id, isMega);
+                MiniPokemon aPokemon = MiniPokemon.createFromSpecies(context, id, isMega);
                 arrayList.add(aPokemon);
             }
         }
@@ -98,10 +99,10 @@ public final class FavoriteUtils {
                 continue;
             }
 
-            PokemonDBHelper helper = new PokemonDBHelper(context);
+            PokemonDBHelper helper = PokemonDBHelper.getInstance(context);
             Cursor cursor = helper.getReadableDatabase().query(
                     PokemonDBHelper.TABLE_NAME,
-                    MiniPokemon.DB_COLUMNS,
+                    BasePokemon.DB_COLUMNS,
                     PokemonDBHelper.COL_ID + "=? AND " + PokemonDBHelper.COL_FORM_IS_DEFAULT + "=?",
                     new String[] {anId, String.valueOf(1)},
                     null, null, null);

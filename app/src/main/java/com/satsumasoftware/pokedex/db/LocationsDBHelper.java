@@ -10,7 +10,7 @@ import com.satsumasoftware.pokedex.framework.location.Location;
 
 import java.util.ArrayList;
 
-public class LocationsDBHelper extends SQLiteOpenHelper {
+public final class LocationsDBHelper extends SQLiteOpenHelper {
 
     /* General Database and Table information */
     private static final String DATABASE_NAME = "locations.db";
@@ -35,8 +35,16 @@ public class LocationsDBHelper extends SQLiteOpenHelper {
 
     private Context mContext;
 
+    private static LocationsDBHelper sInstance;
 
-    public LocationsDBHelper(Context context) {
+    public static synchronized LocationsDBHelper getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new LocationsDBHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    private LocationsDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
     }
@@ -54,7 +62,7 @@ public class LocationsDBHelper extends SQLiteOpenHelper {
     }
 
     private void populateDatabase(SQLiteDatabase db) {
-        PokeDB pokeDB = new PokeDB(mContext);
+        PokeDB pokeDB = PokeDB.getInstance(mContext);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.Locations.TABLE_NAME,
                 null,

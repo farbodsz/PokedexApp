@@ -28,13 +28,13 @@ import com.satsumasoftware.pokedex.ui.adapter.LocationDexAdapter;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.AdUtils;
 import com.satsumasoftware.pokedex.util.AlertUtils;
-import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
+import com.turingtechnologies.materialscrollbar.AlphabetIndicator;
+import com.turingtechnologies.materialscrollbar.DragScrollBar;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
 
 public class LocationsActivity extends BaseActivity implements FilterListItemVGAdapter.OnFilterItemClickListener {
 
@@ -48,6 +48,8 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
     protected int getSelfNavDrawerItem() { return NAVDRAWER_ITEM_LOCATIONDEX; }
     @Override
     protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.navigationView); }
+    @Override
+    protected boolean disableRightDrawerSwipe() { return true; }
 
 
     private RecyclerView mRecyclerView;
@@ -77,7 +79,10 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
-        mDbHelper = new LocationsDBHelper(this);
+        DragScrollBar scrollBar = new DragScrollBar(this, mRecyclerView, false);
+        scrollBar.addIndicator(new AlphabetIndicator(this), true);
+
+        mDbHelper = LocationsDBHelper.getInstance(this);
         populateList(mDbHelper.getAllLocations());
 
         mDrawerLayout = getSelfDrawerLayout();
@@ -94,7 +99,7 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
             }
         });
         final ArrayList<Location> itemsFinal = items;
-        LocationDexAdapter adapter = new LocationDexAdapter(this, itemsFinal);
+        LocationDexAdapter adapter = new LocationDexAdapter(itemsFinal);
         adapter.setOnEntryClickListener(new LocationDexAdapter.OnEntryClickListener() {
             @Override
             public void onEntryClick(View view, int position) {
@@ -275,7 +280,7 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
 
         ArrayList<Location> filteredList = new ArrayList<>();
 
-        mDbHelper = new LocationsDBHelper(this);
+        mDbHelper = LocationsDBHelper.getInstance(this);
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         Cursor cursor = db.query(
                 LocationsDBHelper.TABLE_NAME,

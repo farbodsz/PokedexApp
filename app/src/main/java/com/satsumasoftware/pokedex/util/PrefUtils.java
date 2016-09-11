@@ -115,4 +115,14 @@ public final class PrefUtils {
         return sp.getBoolean(PREF_PLAY_CRY_AT_START, false);
     }
 
+
+    /* Use imperial units */
+
+    public static final String PREF_USE_IMPERIAL_UNITS = "pref_use_imperial_units";
+
+    public static boolean useImperialUnits(Context context) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        return sp.getBoolean(PREF_USE_IMPERIAL_UNITS, false);
+    }
+
 }

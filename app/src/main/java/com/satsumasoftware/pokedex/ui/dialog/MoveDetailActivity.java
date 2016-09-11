@@ -65,7 +65,7 @@ public class MoveDetailActivity extends AppCompatActivity {
         tvDescription.setText(mMove.getEffectProse(this, true));
 
         tvType.setText(new Type(mMove.getTypeId()).getName());
-        tvType.setBackgroundResource(ThemeUtilsKt.getTypeBkgdColorRes(mMove.getTypeId()));
+        tvType.setBackgroundResource(ThemeUtilsKt.getTypeBkgdColorRes(this, mMove.getTypeId()));
 
         setCategoryInfo();
 

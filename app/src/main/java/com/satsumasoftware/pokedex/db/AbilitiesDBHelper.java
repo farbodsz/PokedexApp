@@ -7,12 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.satsumasoftware.pokedex.framework.ability.BaseAbility;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 
 import java.util.ArrayList;
 
-public class AbilitiesDBHelper extends SQLiteOpenHelper {
+public final class AbilitiesDBHelper extends SQLiteOpenHelper {
 
     private static final String LOG_TAG = "AbilitiesDBHelper";
 
@@ -52,8 +51,16 @@ public class AbilitiesDBHelper extends SQLiteOpenHelper {
 
     private Context mContext;
 
+    private static AbilitiesDBHelper sInstance;
 
-    public AbilitiesDBHelper(Context context) {
+    public static synchronized AbilitiesDBHelper getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new AbilitiesDBHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    private AbilitiesDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
     }
@@ -73,7 +80,7 @@ public class AbilitiesDBHelper extends SQLiteOpenHelper {
     }
 
     private void populateDatabase(SQLiteDatabase db) {
-        PokeDB pokeDB = new PokeDB(mContext);
+        PokeDB pokeDB = PokeDB.getInstance(mContext);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.Abilities.TABLE_NAME,
                 null,
@@ -157,7 +164,7 @@ public class AbilitiesDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(
                 TABLE_NAME,
-                BaseAbility.DB_COLUMNS,
+                MiniAbility.DB_COLUMNS,
                 null,
                 null,
                 null,

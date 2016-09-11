@@ -16,7 +16,6 @@ import com.satsumasoftware.pokedex.util.AlertUtils;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
 
-
 public class AbilityDetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_ABILITY = "ABILITY";

@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -17,26 +16,19 @@ import android.widget.ProgressBar;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
-import com.satsumasoftware.pokedex.framework.Color;
-import com.satsumasoftware.pokedex.framework.GrowthRate;
-import com.satsumasoftware.pokedex.framework.Habitat;
-import com.satsumasoftware.pokedex.framework.HeightOrMass;
+import com.satsumasoftware.pokedex.framework.Height;
+import com.satsumasoftware.pokedex.framework.Mass;
 import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.ui.DetailActivity;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.util.ActionUtils;
-import com.satsumasoftware.pokedex.util.AppConfig;
-import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
+import java.util.Collections;
 
 public class FilterResultsActivity extends AppCompatActivity {
-
-    private final static String LOG_TAG = "FilterResultsActivity";
 
     public static final String FILTER_MOVE = "MOVE_ID";
     public static final String FILTER_NAME = "NAME";
@@ -53,8 +45,7 @@ public class FilterResultsActivity extends AppCompatActivity {
     public static final String FILTER_COLOUR = "COLOUR";
     public static final String FILTER_SHAPE = "SHAPE";
     public static final String FILTER_HABITAT = "HABITAT";
-    public static final String FILTER_EGG_STEPS = "EGG_STEPS";
-    public static final String FILTER_EGG_CYCLES = "EGG_CYCLES";
+    public static final String FILTER_HATCH_COUNTER = "HATCH_COUNTER";
 
     private Bundle mExtras;
     private AsyncTask<Void, Integer, Void> mAsyncTask;
@@ -109,173 +100,143 @@ public class FilterResultsActivity extends AppCompatActivity {
             return;
         }
 
-        ArrayList<String> selectionsList = new ArrayList<>();
-        ArrayList<String> selectionArgsList = new ArrayList<>();
+        Filters filters = new Filters();
 
         String name = mExtras.getString(FILTER_NAME);
         if (name != null) {
-            selectionsList.add("LOWER("+ PokemonDBHelper.COL_NAME+") LIKE '%'||?||'%'"); // http://stackoverflow.com/a/9438823/4230345
-            selectionArgsList.add(name.toLowerCase());
-            // Note 'toLowerCase' because we are ignoring case by also doing "LOWER(column_name)"
+            // see http://stackoverflow.com/a/9438823/4230345 about the stuff after LIKE
+            filters.addSelection("LOWER("+PokemonDBHelper.COL_NAME+") LIKE '%'||?||'%'");
+            filters.addArguments(name.toLowerCase());
         }
 
-        String species = mExtras.getString(FILTER_SPECIES); // This will not be null (we checked for it in the Filter Activity)
+        String species = mExtras.getString(FILTER_SPECIES);
         if (species != null) {
-            selectionsList.add("LOWER("+ PokemonDBHelper.COL_GENUS+") LIKE '%'||?||'%'");
-            selectionArgsList.add(species.toLowerCase());
+            filters.addSelection("LOWER("+PokemonDBHelper.COL_GENUS+") LIKE '%'||?||'%'");
+            filters.addArguments(species.toLowerCase());
         }
 
         // TODO: Add option for type filtering to be more specific
         // e.g. checkbox that will make sure type 1 is type1 of the pokemon rather than accepting them swapped around
+
         String type1 = mExtras.getString(FILTER_TYPE_1);
         String type2 = mExtras.getString(FILTER_TYPE_2);
-        if ((type1 != null) && (type2 == null)) {
-            //conditionType = line[10].equalsIgnoreCase(type1) || line[11].equalsIgnoreCase(type1);
-            selectionsList.add(PokemonDBHelper.COL_TYPE_1_ID +" LIKE ? " +
+
+        if (type1 != null && type2 == null) {
+            filters.addSelection(
+                    PokemonDBHelper.COL_TYPE_1_ID +" LIKE ? " +
                     "OR "+ PokemonDBHelper.COL_TYPE_2_ID +" LIKE ?");
-            selectionArgsList.add(String.valueOf(new Type(type1).getId()));
-            selectionArgsList.add(String.valueOf(new Type(type1).getId()));
-        } else if ((type1 == null) && (type2 != null)) {
-            //conditionType = line[10].equalsIgnoreCase(type2) || line[11].equalsIgnoreCase(type2);
-            selectionsList.add(PokemonDBHelper.COL_TYPE_1_ID +" LIKE ? " +
+            filters.addArguments(
+                    String.valueOf(new Type(type1).getId()),
+                    String.valueOf(new Type(type1).getId()));
+
+        } else if (type1 == null && type2 != null) {
+            filters.addSelection(
+                    PokemonDBHelper.COL_TYPE_1_ID +" LIKE ? " +
                     "OR "+ PokemonDBHelper.COL_TYPE_2_ID +" LIKE ?");
-            selectionArgsList.add(String.valueOf(new Type(type2).getId()));
-            selectionArgsList.add(String.valueOf(new Type(type2).getId()));
-        } else if ((type1 != null) && (type2 != null)) {
-            //conditionType = (line[10].equalsIgnoreCase(type1) || line[11].equalsIgnoreCase(type1)) &&
-                    //(line[10].equalsIgnoreCase(type2) || line[11].equalsIgnoreCase(type2));
-            selectionsList.add("("+ PokemonDBHelper.COL_TYPE_1_ID +" LIKE ? " +
+            filters.addArguments(
+                    String.valueOf(new Type(type2).getId()),
+                    String.valueOf(new Type(type2).getId()));
+
+        } else if (type1 != null && type2 != null) {
+            filters.addSelection(
+                    "("+ PokemonDBHelper.COL_TYPE_1_ID +" LIKE ? " +
                     "OR "+ PokemonDBHelper.COL_TYPE_2_ID +" LIKE ?) " +
                     "AND ("+ PokemonDBHelper.COL_TYPE_1_ID +" LIKE ? " +
                     "OR "+ PokemonDBHelper.COL_TYPE_2_ID +" LIKE ?)");
-            selectionArgsList.add(String.valueOf(new Type(type1).getId()));
-            selectionArgsList.add(String.valueOf(new Type(type1).getId()));
-            selectionArgsList.add(String.valueOf(new Type(type2).getId()));
-            selectionArgsList.add(String.valueOf(new Type(type2).getId()));
+            filters.addArguments(
+                    String.valueOf(new Type(type1).getId()),
+                    String.valueOf(new Type(type1).getId()),
+                    String.valueOf(new Type(type2).getId()),
+                    String.valueOf(new Type(type2).getId()));
         }
 
         int abilityId = mExtras.getInt(FILTER_ABILITY);
-        if (abilityId != 0) {
-            //conditionAbility = line[12].equalsIgnoreCase(ability) ||
-                    //line[13].equalsIgnoreCase(ability) ||
-                    //line[14].equalsIgnoreCase(ability);
-            selectionsList.add(PokemonDBHelper.COL_ABILITY_1_ID +" LIKE ? " +
-                    "OR "+ PokemonDBHelper.COL_ABILITY_2_ID +" LIKE ? " +
-                    "OR "+ PokemonDBHelper.COL_ABILITY_HIDDEN_ID+" LIKE ?");
-            // FIXME optimise
-            selectionArgsList.add(String.valueOf(abilityId));
-            selectionArgsList.add(String.valueOf(abilityId));
-            selectionArgsList.add(String.valueOf(abilityId));
-        }
 
-        //TODO: Add filtering for statistics
+        if (abilityId != 0) {
+            filters.addSelection(PokemonDBHelper.COL_ABILITY_1_ID + " LIKE ? " +
+                    "OR " + PokemonDBHelper.COL_ABILITY_2_ID + " LIKE ? " +
+                    "OR " + PokemonDBHelper.COL_ABILITY_HIDDEN_ID + " LIKE ?");
+            filters.addArguments(String.valueOf(abilityId),
+                    String.valueOf(abilityId),
+                    String.valueOf(abilityId));
+        }
 
         String growthId = mExtras.getString(FILTER_GROWTH);
         if (growthId != null) {
-            selectionsList.add(PokemonDBHelper.COL_GROWTH_RATE_ID+" LIKE ?");
-            selectionArgsList.add(growthId);
+            filters.addSelection(PokemonDBHelper.COL_GROWTH_RATE_ID+" LIKE ?");
+            filters.addArguments(growthId);
         }
 
         String generationId = mExtras.getString(FILTER_GENERATION);
         if (generationId != null) {
-            selectionsList.add(PokemonDBHelper.COL_GENERATION_ID + "=?");
-            selectionArgsList.add(String.valueOf(generationId));
+            filters.addSelection(PokemonDBHelper.COL_GENERATION_ID + "=?");
+            filters.addArguments(generationId);
         }
 
         String catchRate = mExtras.getString(FILTER_CATCH_RATE);
         if (catchRate != null) {
-            selectionsList.add(PokemonDBHelper.COL_CAPTURE_RATE + "=?");
-            selectionArgsList.add(String.valueOf(catchRate));
+            filters.addSelection(PokemonDBHelper.COL_CAPTURE_RATE + "=?");
+            filters.addArguments(catchRate);
         }
 
         String baseHappiness = mExtras.getString(FILTER_HAPPINESS);
         if (baseHappiness != null) {
-            selectionsList.add(PokemonDBHelper.COL_BASE_HAPPINESS + "=?");
-            selectionArgsList.add(String.valueOf(baseHappiness));
+            filters.addSelection(PokemonDBHelper.COL_BASE_HAPPINESS + "=?");
+            filters.addArguments(baseHappiness);
         }
 
         String mass = mExtras.getString(FILTER_MASS);
         if (mass != null) {
-            selectionsList.add(PokemonDBHelper.COL_WEIGHT + "=?");
-            selectionArgsList.add(String.valueOf(new HeightOrMass(Integer.parseInt(mass)).getDbValue()));
+            filters.addSelection(PokemonDBHelper.COL_WEIGHT + "=?");
+            filters.addArguments(String.valueOf(new Mass(Integer.parseInt(mass)).getDbValue()));
         }
 
         String height = mExtras.getString(FILTER_HEIGHT);
         if (height != null) {
-            selectionsList.add(PokemonDBHelper.COL_HEIGHT + "=?");
-            selectionArgsList.add(String.valueOf(new HeightOrMass(Integer.parseInt(height)).getDbValue()));
+            filters.addSelection(PokemonDBHelper.COL_HEIGHT + "=?");
+            filters.addArguments(String.valueOf(new Height(Integer.parseInt(height)).getDbValue()));
         }
 
         String colorId = mExtras.getString(FILTER_COLOUR);
         if (colorId != null) {
-            selectionsList.add(PokemonDBHelper.COL_COLOR_ID + "=?");
-            selectionArgsList.add(colorId);
+            filters.addSelection(PokemonDBHelper.COL_COLOR_ID + "=?");
+            filters.addArguments(colorId);
         }
 
         String shapeId = mExtras.getString(FILTER_SHAPE);
         if (shapeId != null) {
-            selectionsList.add(PokemonDBHelper.COL_SHAPE_ID + "=?");
-            selectionArgsList.add(shapeId);
+            filters.addSelection(PokemonDBHelper.COL_SHAPE_ID + "=?");
+            filters.addArguments(shapeId);
         }
 
         String habitatId = mExtras.getString(FILTER_HABITAT);
         if (habitatId != null) {
-            selectionsList.add(PokemonDBHelper.COL_HABITAT_ID + "=?");
-            selectionArgsList.add(habitatId);
+            filters.addSelection(PokemonDBHelper.COL_HABITAT_ID + "=?");
+            filters.addArguments(habitatId);
         }
 
-        String eggSteps = mExtras.getString(FILTER_EGG_STEPS);
-        if (eggSteps != null) {
-            selectionsList.add(PokemonDBHelper.COL_HATCH_COUNTER + "=?");
-            selectionArgsList.add(String.valueOf(Integer.parseInt(eggSteps) / AppConfig.EGG_CYCLE_STEPS));
+        String hatchCounter = mExtras.getString(FILTER_HATCH_COUNTER);
+        if (hatchCounter != null) {
+            filters.addSelection(PokemonDBHelper.COL_HATCH_COUNTER + "=?");
+            filters.addArguments(hatchCounter);
         }
 
-        String eggCycles = mExtras.getString(FILTER_EGG_CYCLES);
-        if (eggCycles != null) {
-            selectionsList.add(PokemonDBHelper.COL_HATCH_COUNTER + "=?");
-            selectionArgsList.add(eggCycles);
-        }
-
-
-        Log.d(LOG_TAG, "selectionsList.size(): " + selectionsList.size());
-        Log.d(LOG_TAG, "selectionArgsList.size(): " + selectionArgsList.size());
-
-
-        if (selectionsList.size() == 0) {
+        if (filters.size() == 0) {
             return;
         }
 
-        String selection = "";
-        for (int i = 0; i < selectionsList.size(); i++) {
-            selection = selection + "("+selectionsList.get(i)+")";
-            if (i != selectionsList.size()-1) { // If not last point
-                selection = selection + " AND ";
-            }
-        }
-        String[] selectionArgs = new String[selectionArgsList.size()];
-        for (int i = 0; i < selectionArgsList.size(); i++) {
-            selectionArgs[i] = selectionArgsList.get(i);
-        }
         mArrayPokemon.clear();
 
-        Log.d(LOG_TAG, "selection: " + selection);
-        Log.d(LOG_TAG, "selectionArgs: " + Arrays.toString(selectionArgs));
-
-        PokemonDBHelper helper = new PokemonDBHelper(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
-
-        Cursor cursor = db.query(
+        PokemonDBHelper helper = PokemonDBHelper.getInstance(this);
+        Cursor cursor = helper.getReadableDatabase().query(
                 PokemonDBHelper.TABLE_NAME,
                 null,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null);
+                filters.selectionAsString(),
+                filters.selectionArgsAsArray(),
+                null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            MiniPokemon pokemon = new MiniPokemon(cursor);
-            mArrayPokemon.add(pokemon);
+            mArrayPokemon.add(new MiniPokemon(cursor));
             cursor.moveToNext();
         }
         cursor.close();
@@ -284,15 +245,14 @@ public class FilterResultsActivity extends AppCompatActivity {
     private void filterLearnsetData() {
         int moveId = mExtras.getInt(FILTER_MOVE);
 
-        PokeDB pokeDB = new PokeDB(this);
+        PokeDB pokeDB = PokeDB.getInstance(this);
         SQLiteDatabase db = pokeDB.getReadableDatabase();
 
-        String gameFilter = "(" + PokeDB.PokemonMoves.COL_VERSION_GROUP_ID + "=" + AppConfig.GAME_VERSION_X_Y + ")";
-        String learnFilter = "(" + PokeDB.PokemonMoves.COL_POKEMON_MOVE_METHOD_ID + "=" + AppConfig.LEARN_METHOD_LEVEL_UP +
-                " OR " + PokeDB.PokemonMoves.COL_POKEMON_MOVE_METHOD_ID + "=" + AppConfig.LEARN_METHOD_MACHINE +
-                " OR " + PokeDB.PokemonMoves.COL_POKEMON_MOVE_METHOD_ID + "=" + AppConfig.LEARN_METHOD_TUTOR + ")";
+        final int versionGroupId = 16;  // TODO: add option to change version group
+
+        String gameFilter = "(" + PokeDB.PokemonMoves.COL_VERSION_GROUP_ID + "=" + versionGroupId + ")";
         String moveFilter = "(" + PokeDB.PokemonMoves.COL_MOVE_ID + "=" + moveId + ")";
-        String selection = gameFilter + " AND " + learnFilter + " AND " + moveFilter;
+        String selection = gameFilter + " AND " + moveFilter;
 
         Cursor cursor = db.query(
                 PokeDB.PokemonMoves.TABLE_NAME,
@@ -306,7 +266,7 @@ public class FilterResultsActivity extends AppCompatActivity {
         mArrayPokemon.clear();
         while (!cursor.isAfterLast()) {
             int id = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_POKEMON_ID));
-            MiniPokemon pokemon = new MiniPokemon(this, id);
+            MiniPokemon pokemon = MiniPokemon.create(this, id);
             if (!mArrayPokemon.contains(pokemon)) {
                 mArrayPokemon.add(pokemon);
             }
@@ -317,10 +277,10 @@ public class FilterResultsActivity extends AppCompatActivity {
 
     private void populateList(final ArrayList<MiniPokemon> pokemonList) {
         if (pokemonList.isEmpty()) {
-            Log.d("LIST IS EMPTY", "MHM");
             ViewGroup viewGroup = (ViewGroup) mRecyclerView.getParent();
             viewGroup.removeView(mRecyclerView);
             viewGroup.addView(getLayoutInflater().inflate(R.layout.fragment_misc_no_results, viewGroup, false));
+
         } else {
             PokedexAdapter adapter = new PokedexAdapter(this, pokemonList);
             adapter.setOnEntryClickListener(new PokedexAdapter.OnEntryClickListener() {
@@ -349,4 +309,51 @@ public class FilterResultsActivity extends AppCompatActivity {
             mAsyncTask.cancel(true);
         }
     }
+
+
+    private class Filters {
+
+        ArrayList<String> mSelectionList;
+        ArrayList<String> mSelectionArgsList;
+
+        Filters() {
+            mSelectionList = new ArrayList<>();
+            mSelectionArgsList = new ArrayList<>();
+        }
+
+        void addSelection(String selection) {
+            mSelectionList.add(selection);
+        }
+
+        void addArguments(String... args) {
+            Collections.addAll(mSelectionArgsList, args);
+        }
+
+        int size() {
+            return mSelectionList.size();
+        }
+
+        String selectionAsString() {
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < mSelectionList.size(); i++) {
+                builder.append("(")
+                        .append(mSelectionList.get(i))
+                        .append(")");
+
+                if (i != mSelectionList.size() - 1) {
+                    builder.append(" AND ");
+                }
+            }
+            return builder.toString();
+        }
+
+        String[] selectionArgsAsArray() {
+            String[] selectionArgs = new String[mSelectionArgsList.size()];
+            for (int i = 0; i < mSelectionArgsList.size(); i++) {
+                selectionArgs[i] = mSelectionArgsList.get(i);
+            }
+            return selectionArgs;
+        }
+    }
+
 }

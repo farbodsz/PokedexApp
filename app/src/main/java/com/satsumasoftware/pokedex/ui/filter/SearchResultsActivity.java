@@ -19,6 +19,7 @@ import android.widget.ProgressBar;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
+import com.satsumasoftware.pokedex.framework.pokemon.BasePokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.ui.AboutActivity;
 import com.satsumasoftware.pokedex.ui.DetailActivity;
@@ -82,7 +83,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     }
 
     private void doSearch(String searchQuery) {
-        PokemonDBHelper helper = new PokemonDBHelper(this);
+        PokemonDBHelper helper = PokemonDBHelper.getInstance(this);
         SQLiteDatabase db = helper.getReadableDatabase();
 
         String selection = PokemonDBHelper.COL_ID + " LIKE '%"+ DataUtilsKt.unformatPokemonId(searchQuery)+"%' OR " +
@@ -98,7 +99,7 @@ public class SearchResultsActivity extends AppCompatActivity {
 
         Cursor cursor = db.query(
                 PokemonDBHelper.TABLE_NAME,
-                MiniPokemon.DB_COLUMNS,
+                BasePokemon.DB_COLUMNS,
                 selection,
                 null,
                 null,

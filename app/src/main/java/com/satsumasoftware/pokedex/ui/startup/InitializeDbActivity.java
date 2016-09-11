@@ -70,13 +70,13 @@ public class InitializeDbActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "Starting to initialise DBs");
 
         final SQLiteOpenHelper[] helpers = {
-                new AbilitiesDBHelper(this),
-                new EncounterConditionsDBHelper(this),
-                new LocationAreasDBHelper(this),
-                new LocationsDBHelper(this),
-                new MovesDBHelper(this),
-                new NaturesDBHelper(this),
-                new PokemonDBHelper(this),
+                AbilitiesDBHelper.getInstance(this),
+                EncounterConditionsDBHelper.getInstance(this),
+                LocationAreasDBHelper.getInstance(this),
+                LocationsDBHelper.getInstance(this),
+                MovesDBHelper.getInstance(this),
+                NaturesDBHelper.getInstance(this),
+                PokemonDBHelper.getInstance(this),
         };
         final String[] tableNames = {
                 AbilitiesDBHelper.TABLE_NAME,

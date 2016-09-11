@@ -15,7 +15,7 @@ import static android.support.v4.app.ActivityCompat.startActivity;
 public final class AlertUtils {
 
     public static void buyPro(Activity activity) {
-        final String appPackageName = "com.satsumasoftware.pokedex";
+        final String appPackageName = "com.satsumasoftware.pokedex.pro";
         //final String appPackageName = getPackageName(); // Gets name from Context or Activity object
         try {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName));

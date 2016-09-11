@@ -41,7 +41,7 @@ public class LocationDetail implements DetailCard {
 
             View row = inflater.inflate(R.layout.list_item_encounter, container, false);
 
-            final MiniPokemon pokemonObject = new MiniPokemon(context, compactHolder.getPokemonId());
+            final MiniPokemon pokemonObject = MiniPokemon.create(context, compactHolder.getPokemonId());
 
             ImageView imageView = (ImageView) row.findViewById(R.id.imageView);
             if (PrefUtils.showPokemonImages(context)) {

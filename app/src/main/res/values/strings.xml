@@ -141,6 +141,10 @@
     <string name="attr_base_egg_steps">Base Egg Steps</string>
     <string name="attr_base_egg_cycles">Base Egg Cycles</string>
 
+    <string name="attr_egg_group">Egg Group</string>
+    <string name="attr_egg_group_1">Egg Group 1</string>
+    <string name="attr_egg_group_2">Egg Group 2</string>
+
     <string name="header_more_information">More information</string>
     <string name="attr_generation">Generation</string>
     <string name="attr_introduced_in_gen">Introduced in gen</string>

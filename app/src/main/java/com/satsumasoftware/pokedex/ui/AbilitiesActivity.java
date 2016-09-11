@@ -29,6 +29,9 @@ import com.satsumasoftware.pokedex.util.AlertUtils;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 import com.satsumasoftware.pokedex.util.Flavours;
 import com.satsumasoftware.pokedex.util.PrefUtils;
+import com.turingtechnologies.materialscrollbar.AlphabetIndicator;
+import com.turingtechnologies.materialscrollbar.CustomIndicator;
+import com.turingtechnologies.materialscrollbar.DragScrollBar;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,6 +50,8 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
     protected int getSelfNavDrawerItem() { return NAVDRAWER_ITEM_ABILITYDEX; }
     @Override
     protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.navigationView); }
+    @Override
+    protected boolean disableRightDrawerSwipe() { return true; }
 
 
     private RecyclerView mRecyclerView;
@@ -54,6 +59,8 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
     private Toolbar mToolbar;
     private View mRootLayout;
     private View mNoResults;
+
+    private DragScrollBar mScrollBar;
 
     private String mFilterSelectionName = "",
             mFilterSelectionGen = "";
@@ -79,9 +86,11 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
+        mScrollBar = new DragScrollBar(this, mRecyclerView, false);
+
         mSortByName = PrefUtils.sortAbilitiesAlphabetically(this);
 
-        mDbHelper = new AbilitiesDBHelper(this);
+        mDbHelper = AbilitiesDBHelper.getInstance(this);
         populateList(mDbHelper.getAllMiniAbilities());
 
         mDrawerLayout = getSelfDrawerLayout();
@@ -108,7 +117,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
             }
         });
         final ArrayList<MiniAbility> itemsFinal = items;
-        AbilityDexAdapter adapter = new AbilityDexAdapter(itemsFinal);
+        AbilityDexAdapter adapter = new AbilityDexAdapter(this, itemsFinal);
         adapter.setOnRowClickListener(new AbilityDexAdapter.OnRowClickListener() {
             @Override
             public void onRowClick(View view, int position) {
@@ -118,6 +127,10 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
             }
         });
         mRecyclerView.setAdapter(adapter);
+
+        mScrollBar.removeIndicator()
+                .addIndicator(mSortByName ?
+                        new AlphabetIndicator(this) : new CustomIndicator(this), true);
     }
 
 
@@ -322,7 +335,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
 
         ArrayList<MiniAbility> filteredList = new ArrayList<>();
 
-        mDbHelper = new AbilitiesDBHelper(this);
+        mDbHelper = AbilitiesDBHelper.getInstance(this);
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         String[] columns = new String[] {
                 AbilitiesDBHelper.COL_ID,

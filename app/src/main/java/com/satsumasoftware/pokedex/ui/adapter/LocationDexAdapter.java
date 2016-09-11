@@ -1,6 +1,5 @@
 package com.satsumasoftware.pokedex.ui.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,10 +9,17 @@ import android.widget.TextView;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.Region;
 import com.satsumasoftware.pokedex.framework.location.Location;
+import com.turingtechnologies.materialscrollbar.INameableAdapter;
 
 import java.util.ArrayList;
 
-public class LocationDexAdapter extends RecyclerView.Adapter<LocationDexAdapter.LocationViewHolder> {
+public class LocationDexAdapter extends RecyclerView.Adapter<LocationDexAdapter.LocationViewHolder>
+        implements INameableAdapter {
+
+    @Override
+    public Character getCharacterForElement(int element) {
+        return mLocations.get(element).getName().charAt(0);
+    }
 
     public class LocationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
@@ -46,11 +52,9 @@ public class LocationDexAdapter extends RecyclerView.Adapter<LocationDexAdapter.
         }
     }
 
-    private Context mContext;
     private ArrayList<Location> mLocations;
 
-    public LocationDexAdapter(Context context, ArrayList<Location> locations) {
-        mContext = context;
+    public LocationDexAdapter(ArrayList<Location> locations) {
         mLocations = locations;
     }
 

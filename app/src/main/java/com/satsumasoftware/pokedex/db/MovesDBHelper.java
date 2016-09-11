@@ -6,12 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.satsumasoftware.pokedex.framework.move.BaseMove;
 import com.satsumasoftware.pokedex.framework.move.MiniMove;
 
 import java.util.ArrayList;
 
-public class MovesDBHelper extends SQLiteOpenHelper {
+public final class MovesDBHelper extends SQLiteOpenHelper {
 
     /* General Database and Table information */
     private static final String DATABASE_NAME = "moves.db";
@@ -73,8 +72,16 @@ public class MovesDBHelper extends SQLiteOpenHelper {
 
     private Context mContext;
 
+    private static MovesDBHelper sInstance;
 
-    public MovesDBHelper(Context context) {
+    public static synchronized MovesDBHelper getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new MovesDBHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    private MovesDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         mContext = context;
     }
@@ -92,7 +99,7 @@ public class MovesDBHelper extends SQLiteOpenHelper {
     }
 
     private void populateDatabase(SQLiteDatabase db) {
-        PokeDB pokeDB = new PokeDB(mContext);
+        PokeDB pokeDB = PokeDB.getInstance(mContext);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.Moves.TABLE_NAME,
                 null,
@@ -198,7 +205,7 @@ public class MovesDBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(
                 TABLE_NAME,
-                BaseMove.DB_COLUMNS,
+                MiniMove.DB_COLUMNS,
                 null,
                 null,
                 null,

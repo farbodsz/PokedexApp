@@ -12,7 +12,6 @@ import com.satsumasoftware.pokedex.db.PokeDB;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.framework.encounter.Encounter;
 import com.satsumasoftware.pokedex.util.ActionUtils;
-import com.satsumasoftware.pokedex.util.AppConfig;
 import com.satsumasoftware.pokedex.util.DataUtilsKt;
 
 import java.util.ArrayList;
@@ -26,20 +25,14 @@ public class Pokemon extends BasePokemon {
 
     public Pokemon(Context context, int id, int speciesId, int formId, String name,
                    String formName, String formPokemonName, int nationalNumber) {
+        super(id, speciesId, formId, name, formName, formPokemonName, nationalNumber);
         mContext = context;
-        mId = id;
-        mSpeciesId = speciesId;
-        mFormId = formId;
-        mName = name;
-        mFormName = formName;
-        mFormPokemonName = formPokemonName;
-        mNationalNumber = nationalNumber;
     }
 
 
     public MiniPokemon toMiniPokemon() {
-        return new MiniPokemon(mId, mSpeciesId, mFormId, mName, mFormName, mFormPokemonName,
-                mNationalNumber);
+        return new MiniPokemon(getId(), getSpeciesId(), getFormId(), getName(), getFormName(),
+                getFormAndPokemonName(), getNationalDexNumber());
     }
 
 
@@ -55,13 +48,13 @@ public class Pokemon extends BasePokemon {
         Collections.addAll(colList, columnsToSearch);
 
         String[] columns = colList.toArray(new String[colList.size()]);
-        PokemonDBHelper helper = new PokemonDBHelper(mContext);
+        PokemonDBHelper helper = PokemonDBHelper.getInstance(mContext);
 
         return helper.getReadableDatabase().query(
                 PokemonDBHelper.TABLE_NAME,
                 columns,
                 PokemonDBHelper.COL_ID + "=? AND " + PokemonDBHelper.COL_FORM_ID + "=?",
-                new String[] {String.valueOf(mId), String.valueOf(mFormId)},
+                new String[] {String.valueOf(getId()), String.valueOf(getFormId())},
                 null, null, null);
     }
 
@@ -246,11 +239,7 @@ public class Pokemon extends BasePokemon {
         return moreValues.get("habitat");
     }
 
-    public static int getBaseEggSteps(ArrayMap<String, Integer> moreValues) {
-        return moreValues.get("hatch_counter") * AppConfig.EGG_CYCLE_STEPS;
-    }
-
-    public static int getBaseEggCycles(ArrayMap<String, Integer> moreValues) {
+    public static int getHatchCounter(ArrayMap<String, Integer> moreValues) {
         return moreValues.get("hatch_counter");
     }
 
@@ -399,7 +388,7 @@ public class Pokemon extends BasePokemon {
                 PokemonDBHelper.COL_NAME_SPANISH,
                 PokemonDBHelper.COL_NAME_ITALIAN});
         cursor.moveToFirst();
-        nameValues.put("en", mName);
+        nameValues.put("en", getName());
         nameValues.put("ja", cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_NAME_JAPANESE)));
         nameValues.put("romaji", cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_NAME_ROMAJI)));
         nameValues.put("ko", cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_NAME_KOREAN)));
@@ -450,7 +439,7 @@ public class Pokemon extends BasePokemon {
                 PokemonDBHelper.COL_FORM_NAME_SPANISH,
                 PokemonDBHelper.COL_FORM_NAME_ITALIAN});
         cursor.moveToFirst();
-        formNameValues.put("en", mFormName);
+        formNameValues.put("en", getFormName());
         formNameValues.put("ja", cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_NAME_JAPANESE)));
         formNameValues.put("ko", cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_NAME_KOREAN)));
         formNameValues.put("fr", cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_NAME_FRENCH)));
@@ -523,7 +512,7 @@ public class Pokemon extends BasePokemon {
                 PokemonDBHelper.COL_FORM_NAME_SPANISH,
                 PokemonDBHelper.COL_FORM_NAME_ITALIAN});
         cursor.moveToFirst();
-        combinedNameValues.put("en", mFormPokemonName);
+        combinedNameValues.put("en", getFormAndPokemonName());
         combinedNameValues.put("fr", cursor.getString(cursor.getColumnIndex(PokemonDBHelper.COL_FORM_POKEMON_NAME_FRENCH)));
         cursor.close();
         return combinedNameValues;
@@ -556,19 +545,23 @@ public class Pokemon extends BasePokemon {
      */
 
     public static boolean hasSecondaryType(SparseIntArray typeIds) {
-        return typeIds.get(2) != 0;
+        return typeIds.get(2) != DataUtilsKt.NULL_INT;
     }
 
     public static boolean hasSecondaryType(int secondaryTypeId) {
-        return secondaryTypeId != 0;
+        return secondaryTypeId != DataUtilsKt.NULL_INT;
     }
 
     public static boolean hasSecondaryAbility(SparseIntArray abilityIds) {
-        return abilityIds.get(2) != 0;
+        return abilityIds.get(2) != DataUtilsKt.NULL_INT;
     }
 
     public static boolean hasHiddenAbility(SparseIntArray abilityIds) {
-        return abilityIds.get(3) != 0;
+        return abilityIds.get(3) != DataUtilsKt.NULL_INT;
+    }
+
+    public static boolean hasTwoEggGroups(SparseIntArray eggGroupIds) {
+        return eggGroupIds.get(2) != DataUtilsKt.NULL_INT;
     }
 
     public static boolean isGenderless(ArrayMap<String, Integer> genderValues) {
@@ -598,7 +591,7 @@ public class Pokemon extends BasePokemon {
 
     public ArrayList<PokemonForm> getAlternateForms() {
         ArrayList<PokemonForm> list = new ArrayList<>();
-        PokemonDBHelper helper = new PokemonDBHelper(mContext);
+        PokemonDBHelper helper = PokemonDBHelper.getInstance(mContext);
         Cursor cursor = helper.getReadableDatabase().query(
                 PokemonDBHelper.TABLE_NAME,
                 new String[] {PokemonDBHelper.COL_ID, PokemonDBHelper.COL_SPECIES_ID,
@@ -607,7 +600,7 @@ public class Pokemon extends BasePokemon {
                         PokemonDBHelper.COL_TYPE_1_ID, PokemonDBHelper.COL_IS_DEFAULT,
                         PokemonDBHelper.COL_FORM_IS_DEFAULT, PokemonDBHelper.COL_FORM_IS_MEGA},
                 PokemonDBHelper.COL_SPECIES_ID + "=?",
-                new String[] {String.valueOf(mSpeciesId)},
+                new String[] {String.valueOf(getSpeciesId())},
                 null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -629,8 +622,8 @@ public class Pokemon extends BasePokemon {
 
             Log.d("New addition", ": " + formPokemonName);
 
-            list.add(new PokemonForm(id, mSpeciesId, formId, mName, formName, formPokemonName,
-                    pokedexNumber, typeId, isDefault, isFormDefault, isFormMega));
+            list.add(new PokemonForm(id, getSpeciesId(), formId, getName(), formName,
+                    formPokemonName, pokedexNumber, typeId, isDefault, isFormDefault, isFormMega));
 
             cursor.moveToNext();
         }
@@ -640,12 +633,12 @@ public class Pokemon extends BasePokemon {
 
     @Nullable
     public ArrayList<PokemonEvolution> getEvolutionDataObjects(Context context) {
-        PokeDB pokeDB = new PokeDB(context);
+        PokeDB pokeDB = PokeDB.getInstance(context);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.PokemonEvolution.TABLE_NAME,
                 null,
                 PokeDB.PokemonEvolution.COL_EVOLVED_SPECIES_ID + "=?",
-                new String[] {String.valueOf(mSpeciesId)},
+                new String[] {String.valueOf(getSpeciesId())},
                 null, null, null);
 
         if (cursor.getCount() == 0) {

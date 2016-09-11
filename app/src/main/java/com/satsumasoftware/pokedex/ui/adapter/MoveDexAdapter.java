@@ -1,5 +1,6 @@
 package com.satsumasoftware.pokedex.ui.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,25 @@ import android.widget.TextView;
 
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.framework.move.MiniMove;
+import com.satsumasoftware.pokedex.util.DataUtilsKt;
+import com.turingtechnologies.materialscrollbar.ICustomAdapter;
+import com.turingtechnologies.materialscrollbar.INameableAdapter;
 
 import java.util.ArrayList;
 
-public class MoveDexAdapter extends RecyclerView.Adapter<MoveDexAdapter.MoveViewHolder> {
+public class MoveDexAdapter extends RecyclerView.Adapter<MoveDexAdapter.MoveViewHolder>
+        implements INameableAdapter, ICustomAdapter {
+
+    @Override
+    public String getCustomStringForElement(int element) {
+        int generationId = mArrayMoves.get(element).toMove(mContext).getGenerationId();
+        return "Gen. " + DataUtilsKt.genIdToRoman(generationId);
+    }
+
+    @Override
+    public Character getCharacterForElement(int element) {
+        return mArrayMoves.get(element).getName().charAt(0);
+    }
 
     public static class MoveViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView textView;
@@ -30,9 +46,11 @@ public class MoveDexAdapter extends RecyclerView.Adapter<MoveDexAdapter.MoveView
         }
     }
 
+    private Context mContext;
     private ArrayList<MiniMove> mArrayMoves;
 
-    public MoveDexAdapter(ArrayList<MiniMove> arrayMoves) {
+    public MoveDexAdapter(Context context, ArrayList<MiniMove> arrayMoves) {
+        mContext = context;
         mArrayMoves = arrayMoves;
     }
 

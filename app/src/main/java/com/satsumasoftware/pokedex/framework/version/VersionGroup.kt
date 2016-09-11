@@ -5,24 +5,19 @@ import android.database.Cursor
 import com.satsumasoftware.pokedex.db.PokeDB
 import java.util.*
 
-data class VersionGroup(val id: Int, val generationId: Int) {
+data class VersionGroup(private val context: Context, val id: Int, val generationId: Int) {
 
-    private var name: String? = null
+    val name: String by lazy {
+        fetchNameFromDb(context)
+    }
 
-    constructor(cursor: Cursor) : this(
+    constructor(context: Context, cursor: Cursor) : this(
+            context,
             cursor.getInt(cursor.getColumnIndex(PokeDB.VersionGroups.COL_ID)),
             cursor.getInt(cursor.getColumnIndex(PokeDB.VersionGroups.COL_GENERATION_ID)))
 
-
-    fun fetchName(context: Context): String {
-        if (name == null) {
-            name = fetchNameFromDb(context)
-        }
-        return name!!
-    }
-
     private fun fetchNameFromDb(context: Context): String {
-        val pokeDB = PokeDB(context)
+        val pokeDB = PokeDB.getInstance(context)
         val cursor = pokeDB.readableDatabase.query(
                 PokeDB.Versions.TABLE_NAME,
                 null,
@@ -32,7 +27,7 @@ data class VersionGroup(val id: Int, val generationId: Int) {
         val versionNames = ArrayList<String>()
         cursor.moveToFirst()
         while (!cursor.isAfterLast) {
-            versionNames.add(Version(cursor).fetchName(context))
+            versionNames.add(Version(context, cursor).name)
             cursor.moveToNext()
         }
         cursor.close()

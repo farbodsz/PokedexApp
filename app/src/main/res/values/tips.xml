@@ -6,9 +6,10 @@
         \nAnd it runs on two lines</string>
 
     <string-array name="usage_tips">
+
         <item>Tap on details in the Pokémon detail page to view more information</item>
 
-        <item>Swipe from right to left in the Pokédex to filter (or click the filter icon)</item>
+        <item>You can filter the Pokédex by tapping the filter icon</item>
 
         <item>Buy the Pro version to compare Pokémon, make a Favourites list, filter and search, and more!</item>
 
@@ -26,7 +27,10 @@
 
         <item>Looking for Pokémon images? Go to Settings and check \"Enable Pokémon images\"</item>
 
+        <item>You can find type effectiveness details by tapping on the Pokémon\'s type in the details</item>
+
         <item>To view a Pokémon image more closely, tap on it</item>
+
     </string-array>
 
 </resources>

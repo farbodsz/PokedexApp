@@ -8,11 +8,21 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 public final class PokeDB extends SQLiteAssetHelper {
 
     private static final String DATABASE_NAME = "pokedex.db";
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 11;
 
 
-    public PokeDB(Context context) {
+    private static PokeDB sInstance;
+
+    public static synchronized PokeDB getInstance(Context context) {
+        if (sInstance == null) {
+            sInstance = new PokeDB(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+    private PokeDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        setForcedUpgrade();
     }
 
 
@@ -453,6 +463,14 @@ public final class PokeDB extends SQLiteAssetHelper {
         public static final String COL_VERSION_ID = "version_id";
         public static final String COL_ITEM_ID = "item_id";
         public static final String COL_RARITY = "rarity";
+    }
+
+    public class PokemonMoveMethodProse {
+        public static final String TABLE_NAME = "pokemon_move_method_prose";
+        public static final String COL_POKEMON_MOVE_METHOD_ID = "pokemon_move_method_id";
+        public static final String COL_LOCAL_LANGUAGE_ID = "local_language_id";
+        public static final String COL_NAME = "name";
+        public static final String COL_DESCRIPTION = "description";
     }
 
     public class PokemonMoves {

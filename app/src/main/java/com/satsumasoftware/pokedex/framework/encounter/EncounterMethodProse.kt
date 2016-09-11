@@ -11,7 +11,7 @@ data class EncounterMethodProse(val encounterMethodId: Int, val name: String) {
 }
 
 private fun Context.fetchName(encounterMethodId: Int): String {
-    val pokeDB = PokeDB(this)
+    val pokeDB = PokeDB.getInstance(this)
     val cursor = pokeDB.readableDatabase.query(
             PokeDB.EncounterMethodProse.TABLE_NAME,
             null,
