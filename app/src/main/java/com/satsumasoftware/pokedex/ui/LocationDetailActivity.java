@@ -152,7 +152,7 @@ public class LocationDetailActivity extends AppCompatActivity {
             ArrayList<DetailCard> locationDetails = new ArrayList<>();
             for (int i = 0; i < organisedEncounterData.size(); i++) {
                 int encounterMethodId = organisedEncounterData.keyAt(i);
-                String name = new EncounterMethodProse(this, encounterMethodId).getName();
+                String name = EncounterMethodProse.create(this, encounterMethodId).getName();
 
                 // make encounter data holder lists into shorter 'compact' data list(s) -
                 // each compact holder object represents many encounter data holder objects
