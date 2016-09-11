@@ -52,18 +52,21 @@ import com.satsumasoftware.pokedex.framework.Pokedex;
 import com.satsumasoftware.pokedex.framework.Shape;
 import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
+import com.satsumasoftware.pokedex.framework.encounter.Encounter;
 import com.satsumasoftware.pokedex.framework.pokemon.BasePokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonForm;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonLearnset;
 import com.satsumasoftware.pokedex.framework.pokemon.PokemonMove;
+import com.satsumasoftware.pokedex.framework.version.Version;
 import com.satsumasoftware.pokedex.framework.version.VersionGroup;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.EvolutionsAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsTileAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
+import com.satsumasoftware.pokedex.ui.adapter.PokemonLocationsAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokemonMovesAdapter;
 import com.satsumasoftware.pokedex.ui.card.DetailCard;
 import com.satsumasoftware.pokedex.ui.card.PokemonDetail;
@@ -1279,17 +1282,178 @@ public class DetailActivity extends AppCompatActivity {
         public void onNothingChosen(View labelledSpinner, AdapterView<?> adapterView) {}
     }
 
-    public static class LocationsFragment extends Fragment {
+    public static class LocationsFragment extends Fragment implements
+            LabelledSpinner.OnItemChosenListener {
 
         private View mRootView;
 
-        @Nullable
+        private ArrayList<Version> mVersions;
+        private ArrayList<String> mVersionNames;
+        private int mVersionListPos;
+
+        private LinearLayout mContainer;
+
+        private AsyncTask<Void, Integer, Void> mAsyncTask;
+
         @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            mRootView = inflater.inflate(R.layout.empty_view, container, false);  // TODO create layout
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            mRootView = inflater.inflate(R.layout.fragment_detail_learnsets, container, false);
+
+            mRootView.findViewById(R.id.spinner_learn_method).setVisibility(View.GONE);
+
+            PokeDB pokeDB = PokeDB.getInstance(getActivity());
+
+            int genId = Pokemon.getGenerationId(sPokemon.getMoreValues());
+            Cursor versionGroupCursor = pokeDB.getReadableDatabase().query(
+                    PokeDB.VersionGroups.TABLE_NAME,
+                    null,
+                    PokeDB.VersionGroups.COL_GENERATION_ID + "=?",
+                    new String[] {String.valueOf(genId)},
+                    null, null, null);
+            versionGroupCursor.moveToFirst();
+            // Take the first version group
+            VersionGroup versionGroup = new VersionGroup(getActivity(), versionGroupCursor);
+            versionGroupCursor.close();
+
+            mVersions = new ArrayList<>();
+            mVersionNames = new ArrayList<>();
+            Cursor cursor = pokeDB.getReadableDatabase().query(
+                    PokeDB.Versions.TABLE_NAME,
+                    null,
+                    PokeDB.Versions.COL_VERSION_GROUP_ID + "!=? AND " +
+                            PokeDB.Versions.COL_VERSION_GROUP_ID + "!=? AND " +
+                            PokeDB.Versions.COL_VERSION_GROUP_ID + ">=?",
+                    new String[] {String.valueOf(12), String.valueOf(13),
+                            String.valueOf(versionGroup.getId())},
+                    null, null, null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Version version = new Version(getActivity(), cursor);
+                mVersions.add(version);
+                mVersionNames.add(version.getName());
+                cursor.moveToNext();
+            }
+            cursor.close();
+
+            LabelledSpinner spinner =
+                    (LabelledSpinner) mRootView.findViewById(R.id.spinner_game_version);
+            spinner.setItemsArray(mVersionNames);
+            spinner.setSelection(mVersions.size() - 1);
+            spinner.setOnItemChosenListener(this);
+
+            mContainer = (LinearLayout) mRootView.findViewById(R.id.container);
+
+            Button submitButton = (Button) mRootView.findViewById(R.id.button_go);
+            submitButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mAsyncTask != null) {
+                        mAsyncTask.cancel(true);
+                    }
+                    loadCard();
+                }
+            });
 
             return mRootView;
         }
+
+        private void loadCard() {
+            mContainer.removeAllViews();
+            mContainer.addView(makeCard());
+        }
+
+        // TODO / FIXME: For some reason we have "RecyclerView: no adapter skipping layout" ?...
+
+        private View makeCard() {
+            View card = getActivity().getLayoutInflater().inflate(R.layout.card_detail_learnset, mContainer, false);
+
+            final TextView title = (TextView) card.findViewById(R.id.title);
+            final TextView subtitle = (TextView) card.findViewById(R.id.subtitle);
+            final ProgressBar progressBar = (ProgressBar) card.findViewById(R.id.progress_indeterminate);
+            final RecyclerView recyclerView = (RecyclerView) card.findViewById(R.id.recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
+                @Override
+                public boolean canScrollVertically() {
+                    return false;
+                }
+            });
+            recyclerView.addItemDecoration(new DividerItemDecoration(
+                    getActivity(), DividerItemDecoration.VERTICAL_LIST));
+
+            title.setText(getString(R.string.tab_pkmn_detail_locations));
+            subtitle.setText("Pok\u00E9mon " + mVersionNames.get(mVersionListPos));
+
+            final Version version = mVersions.get(mVersionListPos);
+
+            mAsyncTask = new AsyncTask<Void, Integer, Void>() {
+                PokemonLocationsAdapter adapter;
+                @Override
+                protected void onPreExecute() {
+                    super.onPreExecute();
+                    if (progressBar.getVisibility() != View.VISIBLE) {
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+                }
+                @Override
+                protected Void doInBackground(Void... params) {
+                    final ArrayList<Encounter> encounters =
+                            sPokemon.findAllEncounters(getActivity(), version.getId());
+                    adapter = new PokemonLocationsAdapter(getActivity(), encounters);
+                    adapter.setOnRowClickListener(new PokemonLocationsAdapter.OnRowClickListener() {
+                        @Override
+                        public void onRowClick(View view, int position) {
+                            /*
+                            Intent intent = new Intent(getActivity(), MoveDetailActivity.class);
+                            intent.putExtra(LocationDetailActivity.EXTRA_LOCATION,
+                                    arrayMovesFinal.get(position).toMiniMove(getActivity()));
+                            startActivity(intent);*/
+                        }
+                    });
+                    return null;
+                }
+                @Override
+                protected void onPostExecute(Void result) {
+                    super.onPostExecute(result);
+                    recyclerView.setAdapter(adapter);
+                    progressBar.setVisibility(View.GONE);
+                }
+            }.execute();
+
+            return card;
+        }
+
+        @Override
+        public void setUserVisibleHint(boolean isVisibleToUser) {
+            super.setUserVisibleHint(isVisibleToUser);
+            if (isVisibleToUser && getActivity() != null) {
+                // getActivity() can give NPE when using tab buttons instead of swiping
+                loadCard();
+            }
+        }
+
+        @Override
+        public void onDestroyView() {
+            super.onDestroyView();
+            if (mAsyncTask != null) {
+                mAsyncTask.cancel(true);
+            }
+        }
+
+        @Override
+        public void onItemChosen(View labelledSpinner, AdapterView<?> adapterView, View itemView,
+                                 int position, long id) {
+            switch (labelledSpinner.getId()) {
+                case R.id.spinner_game_version:
+                    mVersionListPos = position;
+                    break;
+            }
+        }
+
+        @Override
+        public void onNothingChosen(View labelledSpinner, AdapterView<?> adapterView) {
+        }
+
     }
 
 }
