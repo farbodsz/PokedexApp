@@ -658,13 +658,13 @@ public class Pokemon extends BasePokemon {
     }
 
     public ArrayList<Encounter> findAllEncounters(Context context, int versionId) {
-        PokeDB pokeDB = new PokeDB(context);
+        PokeDB pokeDB = PokeDB.getInstance(context);
         Cursor cursor = pokeDB.getReadableDatabase().query(
                 PokeDB.Encounters.TABLE_NAME,
                 null,
                 PokeDB.Encounters.COL_POKEMON_ID + "=? AND " +
                         PokeDB.Encounters.COL_VERSION_ID + "=?",
-                new String[] {String.valueOf(mId), String.valueOf(versionId)},
+                new String[] {String.valueOf(getId()), String.valueOf(versionId)},
                 null, null, null);
         cursor.moveToFirst();
 
