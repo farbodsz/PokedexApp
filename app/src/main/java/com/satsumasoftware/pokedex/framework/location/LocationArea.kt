@@ -27,6 +27,8 @@ class LocationArea(val id: Int, val locationId: Int, val name: String) {
         }
     }
 
+    fun hasName() = name.trim().length != 0
+
     fun findEncounterGameVersions(context: Context): ArrayList<Int> {
         val pokeDB = PokeDB.getInstance(context)
         val cursor = pokeDB.readableDatabase.query(
