@@ -53,6 +53,8 @@ import com.satsumasoftware.pokedex.framework.Shape;
 import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
 import com.satsumasoftware.pokedex.framework.encounter.Encounter;
+import com.satsumasoftware.pokedex.framework.location.Location;
+import com.satsumasoftware.pokedex.framework.location.LocationArea;
 import com.satsumasoftware.pokedex.framework.pokemon.BasePokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.Pokemon;
@@ -1403,11 +1405,15 @@ public class DetailActivity extends AppCompatActivity {
                     adapter.setOnRowClickListener(new PokemonLocationsAdapter.OnRowClickListener() {
                         @Override
                         public void onRowClick(View view, int position) {
-                            /*
-                            Intent intent = new Intent(getActivity(), MoveDetailActivity.class);
-                            intent.putExtra(LocationDetailActivity.EXTRA_LOCATION,
-                                    arrayMovesFinal.get(position).toMiniMove(getActivity()));
-                            startActivity(intent);*/
+                            Encounter encounter = encounters.get(position);
+                            LocationArea locationArea = LocationArea.create(
+                                    getActivity(), encounter.getLocationAreaId());
+                            Location location = Location.create(
+                                    getActivity(), locationArea.getLocationId());
+
+                            Intent intent = new Intent(getActivity(), LocationDetailActivity.class);
+                            intent.putExtra(LocationDetailActivity.EXTRA_LOCATION, location);
+                            startActivity(intent);
                         }
                     });
                     return null;
