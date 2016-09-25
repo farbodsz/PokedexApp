@@ -21,7 +21,11 @@ class LocationArea(val id: Int, val locationId: Int, val name: String) {
             cursor.moveToFirst()
             val locationId = cursor.getInt(cursor.getColumnIndex(
                     LocationAreasDBHelper.COL_LOCATION_ID))
-            val name = cursor.getString(cursor.getColumnIndex(LocationAreasDBHelper.COL_NAME))
+            val name = if (cursor.isNull(cursor.getColumnIndex(LocationAreasDBHelper.COL_NAME))) {
+                ""
+            } else {
+                cursor.getString(cursor.getColumnIndex(LocationAreasDBHelper.COL_NAME))
+            }
             cursor.close()
             return LocationArea(id, locationId, name)
         }
