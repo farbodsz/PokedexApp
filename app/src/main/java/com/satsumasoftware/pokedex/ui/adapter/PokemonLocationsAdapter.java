@@ -68,7 +68,7 @@ public class PokemonLocationsAdapter extends
         Encounter encounter = mEncounters.get(position);
 
         LocationArea locationArea = LocationArea.create(mContext, encounter.getLocationAreaId());
-        Location location = Location.create(mContext, locationArea.getId());
+        Location location = Location.create(mContext, locationArea.getLocationId());
 
         String name = locationArea.hasName() ? locationArea.getName() + ", " + location.getName() :
                 location.getName();
