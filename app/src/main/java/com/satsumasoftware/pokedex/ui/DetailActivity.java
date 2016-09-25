@@ -1191,11 +1191,15 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private View makeCard() {
-            View card = getActivity().getLayoutInflater().inflate(R.layout.card_detail_learnset, mContainer, false);
+            View card = getActivity().getLayoutInflater().inflate(
+                    R.layout.card_detail_learnset,
+                    mContainer,
+                    false);
 
             final TextView title = (TextView) card.findViewById(R.id.title);
             final TextView subtitle = (TextView) card.findViewById(R.id.subtitle);
-            final ProgressBar progressBar = (ProgressBar) card.findViewById(R.id.progress_indeterminate);
+            final ProgressBar progressBar =
+                    (ProgressBar) card.findViewById(R.id.progress_indeterminate);
             final RecyclerView recyclerView = (RecyclerView) card.findViewById(R.id.recyclerView);
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()) {
                 @Override
@@ -1224,7 +1228,10 @@ public class DetailActivity extends AppCompatActivity {
                 @Override
                 protected Void doInBackground(Void... params) {
                     PokemonLearnset learnset = new PokemonLearnset(
-                            getActivity(), sPokemon.getId(), learnMethod.getId(), versionGroup.getId());
+                            getActivity(),
+                            sPokemon.getId(),
+                            learnMethod.getId(),
+                            versionGroup.getId());
                     ArrayList<PokemonMove> arrayMoves = learnset.getPokemonMoves();
                     Collections.sort(arrayMoves, new Comparator<PokemonMove>() {
                         @Override
@@ -1269,7 +1276,8 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onItemChosen(View labelledSpinner, AdapterView<?> adapterView, View itemView, int position, long id) {
+        public void onItemChosen(View labelledSpinner, AdapterView<?> adapterView, View itemView,
+                                 int position, long id) {
             switch (labelledSpinner.getId()) {
                 case R.id.spinner_learn_method:
                     mMoveMethodListPos = position;
@@ -1365,10 +1373,11 @@ public class DetailActivity extends AppCompatActivity {
             mContainer.addView(makeCard());
         }
 
-        // TODO / FIXME: For some reason we have "RecyclerView: no adapter skipping layout" ?...
-
         private View makeCard() {
-            View card = getActivity().getLayoutInflater().inflate(R.layout.card_detail_learnset, mContainer, false);
+            View card = getActivity().getLayoutInflater().inflate(
+                    R.layout.card_detail_learnset,
+                    mContainer,
+                    false);
 
             final TextView title = (TextView) card.findViewById(R.id.title);
             final TextView subtitle = (TextView) card.findViewById(R.id.subtitle);
