@@ -74,7 +74,7 @@ public class PokemonLocationsAdapter extends
                 location.getName();
         holder.mLocationName.setText(name);
 
-        EncounterSlot encounterSlot = EncounterSlot.create(mContext, encounter.getId());
+        EncounterSlot encounterSlot = EncounterSlot.create(mContext, encounter.getEncounterSlotId());
         EncounterMethodProse encounterMethod = EncounterMethodProse.create(
                 mContext, encounterSlot.getEncounterMethodId());
 
