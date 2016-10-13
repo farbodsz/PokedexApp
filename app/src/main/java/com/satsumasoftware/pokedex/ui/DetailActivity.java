@@ -1397,44 +1397,32 @@ public class DetailActivity extends AppCompatActivity {
 
             final Version version = mVersions.get(mVersionListPos);
 
-            mAsyncTask = new AsyncTask<Void, Integer, Void>() {
-                PokemonLocationsAdapter adapter;
-                @Override
-                protected void onPreExecute() {
-                    super.onPreExecute();
-                    if (progressBar.getVisibility() != View.VISIBLE) {
-                        progressBar.setVisibility(View.VISIBLE);
-                    }
-                }
-                @Override
-                protected Void doInBackground(Void... params) {
-                    final ArrayList<Encounter> encounters =
-                            sPokemon.findAllEncounters(getActivity(), version.getId());
-                    adapter = new PokemonLocationsAdapter(getActivity(), encounters);
-                    adapter.setOnRowClickListener(new PokemonLocationsAdapter.OnRowClickListener() {
-                        @Override
-                        public void onRowClick(View view, int position) {
-                            Encounter encounter = encounters.get(position);
-                            LocationArea locationArea = LocationArea.create(
-                                    getActivity(), encounter.getLocationAreaId());
-                            Location location = Location.create(
-                                    getActivity(), locationArea.getLocationId());
+            PokemonLocationsAdapter adapter;
 
-                            Intent intent = new Intent(getActivity(), LocationDetailActivity.class);
-                            intent.putExtra(LocationDetailActivity.EXTRA_LOCATION, location);
-                            startActivity(intent);
-                        }
-                    });
-                    return null;
-                }
-                @Override
-                protected void onPostExecute(Void result) {
-                    super.onPostExecute(result);
-                    recyclerView.setAdapter(adapter);
-                    progressBar.setVisibility(View.GONE);
-                }
-            }.execute();
+            if (progressBar.getVisibility() != View.VISIBLE) {
+                progressBar.setVisibility(View.VISIBLE);
+            }
 
+            final ArrayList<Encounter> encounters =
+                    sPokemon.findAllEncounters(getActivity(), version.getId());
+            adapter = new PokemonLocationsAdapter(getActivity(), encounters);
+            adapter.setOnRowClickListener(new PokemonLocationsAdapter.OnRowClickListener() {
+                @Override
+                public void onRowClick(View view, int position) {
+                    Encounter encounter = encounters.get(position);
+                    LocationArea locationArea = LocationArea.create(
+                            getActivity(), encounter.getLocationAreaId());
+                    Location location = Location.create(
+                            getActivity(), locationArea.getLocationId());
+
+                    Intent intent = new Intent(getActivity(), LocationDetailActivity.class);
+                    intent.putExtra(LocationDetailActivity.EXTRA_LOCATION, location);
+                    startActivity(intent);
+                }
+            });
+
+            progressBar.setVisibility(View.GONE);
+            recyclerView.setAdapter(adapter);
             return card;
         }
 
