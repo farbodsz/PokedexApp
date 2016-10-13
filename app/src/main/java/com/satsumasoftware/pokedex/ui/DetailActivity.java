@@ -1422,6 +1422,15 @@ public class DetailActivity extends AppCompatActivity {
             });
 
             progressBar.setVisibility(View.GONE);
+
+            if (adapter.getItemCount() == 0) {
+                // Return an empty placeholder if there are no items to display
+                return getActivity().getLayoutInflater().inflate(
+                        R.layout.card_empty_placeholder,
+                        mContainer,
+                        false);
+            }
+
             recyclerView.setAdapter(adapter);
             return card;
         }
