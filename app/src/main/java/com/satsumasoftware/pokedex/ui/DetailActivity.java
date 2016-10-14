@@ -119,10 +119,6 @@ public class DetailActivity extends AppCompatActivity {
 
         sPokemon = miniPokemon.toPokemon(this);
 
-        if (sPokemon == null) {
-            throw new NullPointerException("Pokemon is null");
-        }
-
         sPkmnTypeIds = sPokemon.getTypeIds();
         sPkmnPhysicalAttrs = sPokemon.getPhysicalAttrs();
 
@@ -379,14 +375,9 @@ public class DetailActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-
-    /*
-     * VIEW PAGER ADAPTER
-     */
-
     public class ViewPagerAdapter extends FragmentPagerAdapter {
 
-        public ViewPagerAdapter(FragmentManager fm) {
+        ViewPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
@@ -432,11 +423,6 @@ public class DetailActivity extends AppCompatActivity {
             return null;
         }
     }
-
-
-    /*
-     * FRAGMENTS
-     */
 
     public static class MainFragment extends Fragment {
 
@@ -1303,8 +1289,6 @@ public class DetailActivity extends AppCompatActivity {
 
         private LinearLayout mContainer;
 
-        private AsyncTask<Void, Integer, Void> mAsyncTask;
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -1358,9 +1342,6 @@ public class DetailActivity extends AppCompatActivity {
             submitButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mAsyncTask != null) {
-                        mAsyncTask.cancel(true);
-                    }
                     loadCard();
                 }
             });
@@ -1441,14 +1422,6 @@ public class DetailActivity extends AppCompatActivity {
             if (isVisibleToUser && getActivity() != null) {
                 // getActivity() can give NPE when using tab buttons instead of swiping
                 loadCard();
-            }
-        }
-
-        @Override
-        public void onDestroyView() {
-            super.onDestroyView();
-            if (mAsyncTask != null) {
-                mAsyncTask.cancel(true);
             }
         }
 
