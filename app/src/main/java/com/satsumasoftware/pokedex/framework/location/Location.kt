@@ -21,9 +21,7 @@ class Location(val id: Int, val regionId: Int, val name: String) : Parcelable {
 
         val locationAreas = ArrayList<LocationArea>(cursor.count)
         while (!cursor.isAfterLast) {
-            val areaId = cursor.getInt(cursor.getColumnIndex(LocationAreasDBHelper.COL_ID))
-            val areaName = cursor.getString(cursor.getColumnIndex(LocationAreasDBHelper.COL_NAME))
-            locationAreas.add(LocationArea(areaId, id, areaName))
+            locationAreas.add(LocationArea(cursor))
             cursor.moveToNext()
         }
         cursor.close()

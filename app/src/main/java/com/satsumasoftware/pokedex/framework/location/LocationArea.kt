@@ -1,11 +1,43 @@
 package com.satsumasoftware.pokedex.framework.location
 
 import android.content.Context
+import android.database.Cursor
+import android.util.Log
+import com.satsumasoftware.pokedex.db.LocationAreasDBHelper
 import com.satsumasoftware.pokedex.db.PokeDB
 import com.satsumasoftware.pokedex.framework.encounter.Encounter
 import java.util.*
 
 class LocationArea(val id: Int, val locationId: Int, val name: String) {
+
+    constructor(cursor: Cursor) : this(
+            cursor.getInt(cursor.getColumnIndex(LocationAreasDBHelper.COL_ID)),
+            cursor.getInt(cursor.getColumnIndex(LocationAreasDBHelper.COL_LOCATION_ID)),
+            if (cursor.isNull(cursor.getColumnIndex(LocationAreasDBHelper.COL_NAME))) {
+                ""
+            } else {
+                cursor.getString(cursor.getColumnIndex(LocationAreasDBHelper.COL_NAME))
+            })
+
+    companion object {
+        @JvmStatic
+        fun create(context: Context, id: Int): LocationArea {
+            Log.d("LA", "id : " + id)
+            val db = LocationAreasDBHelper.getInstance(context)
+            val cursor = db.readableDatabase.query(
+                    LocationAreasDBHelper.TABLE_NAME,
+                    null,
+                    LocationAreasDBHelper.COL_ID + "=?",
+                    arrayOf(id.toString()),
+                    null, null, null)
+            cursor.moveToFirst()
+            val locationArea = LocationArea(cursor)
+            cursor.close()
+            return locationArea
+        }
+    }
+
+    fun hasName() = name.trim().length != 0
 
     fun findEncounterGameVersions(context: Context): ArrayList<Int> {
         val pokeDB = PokeDB.getInstance(context)

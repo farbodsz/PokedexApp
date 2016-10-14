@@ -92,6 +92,7 @@
     <string name="tab_pkmn_detail_forms" translatable="false">@string/header_forms</string>
     <string name="tab_pkmn_detail_evolutions" translatable="false">@string/header_evolutions</string>
     <string name="tab_pkmn_detail_moves" translatable="false">@string/header_moves</string>
+    <string name="tab_pkmn_detail_locations" translatable="false">@string/title_activity_locations</string>
 
 
     <string name="header_general_info">General Information</string>

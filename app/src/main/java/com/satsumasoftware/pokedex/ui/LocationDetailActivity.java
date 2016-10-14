@@ -125,7 +125,8 @@ public class LocationDetailActivity extends AppCompatActivity {
             // for each encounter, get its corresponding encounter slot - put these into the data holder
             ArrayList<EncounterDataHolder> encounterDataList = new ArrayList<>();
             for (Encounter encounter : encounters) {
-                EncounterSlot encounterSlot = encounter.getEncounterSlotObject(this);
+                EncounterSlot encounterSlot =
+                        EncounterSlot.create(this, encounter.getEncounterSlotId());
                 encounterDataList.add(new EncounterDataHolder(encounter, encounterSlot));
             }
 
@@ -151,7 +152,7 @@ public class LocationDetailActivity extends AppCompatActivity {
             ArrayList<DetailCard> locationDetails = new ArrayList<>();
             for (int i = 0; i < organisedEncounterData.size(); i++) {
                 int encounterMethodId = organisedEncounterData.keyAt(i);
-                String name = new EncounterMethodProse(this, encounterMethodId).getName();
+                String name = EncounterMethodProse.create(this, encounterMethodId).getName();
 
                 // make encounter data holder lists into shorter 'compact' data list(s) -
                 // each compact holder object represents many encounter data holder objects

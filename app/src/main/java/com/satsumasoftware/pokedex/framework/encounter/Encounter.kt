@@ -1,6 +1,5 @@
 package com.satsumasoftware.pokedex.framework.encounter
 
-import android.content.Context
 import android.database.Cursor
 import com.satsumasoftware.pokedex.db.PokeDB
 
@@ -16,19 +15,5 @@ class Encounter(val id: Int, val versionId: Int, val locationAreaId: Int,
             cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_POKEMON_ID)),
             cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_MIN_LEVEL)),
             cursor.getInt(cursor.getColumnIndex(PokeDB.Encounters.COL_MAX_LEVEL)))
-
-    fun getEncounterSlotObject(context: Context): EncounterSlot {
-        val pokeDB = PokeDB.getInstance(context)
-        val cursor = pokeDB.readableDatabase.query(
-                PokeDB.EncounterSlots.TABLE_NAME,
-                null,
-                "${PokeDB.EncounterSlots.COL_ID} = ?",
-                arrayOf(encounterSlotId.toString()),
-                null, null, null)
-        cursor.moveToFirst()
-        val encounterSlot = EncounterSlot(cursor)
-        cursor.close()
-        return encounterSlot
-    }
 
 }

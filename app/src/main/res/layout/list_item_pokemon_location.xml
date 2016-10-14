@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/background"
+    android:orientation="vertical"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_width="match_parent"
+    android:layout_height="92dp"
+    android:gravity="center_vertical"
+    android:paddingLeft="@dimen/mdu_keyline_1"
+    android:paddingRight="@dimen/mdu_keyline_1">
+
+    <TextView
+        android:id="@+id/text1"
+        android:text="Some cave, place A"
+        android:textSize="@dimen/list_text_size"
+        android:textColor="@color/mdu_text_black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp">
+        <TextView
+            android:id="@+id/text2"
+            android:text="Fishing rod"
+            android:textSize="14sp"
+            android:textColor="@color/mdu_text_black_secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/text3"
+            android:text="55%"
+            android:textSize="14sp"
+            android:textColor="@color/mdu_text_black_secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:progressDrawable="@drawable/progress_stats_comparison"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_marginTop="@dimen/mdu_spacing_micro"/>
+
+    <TextView
+        android:id="@+id/text4"
+        android:text="Lv. 53 - 57"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:textColor="@color/mdu_text_black_secondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/mdu_spacing_micro" />
+
+</LinearLayout>
