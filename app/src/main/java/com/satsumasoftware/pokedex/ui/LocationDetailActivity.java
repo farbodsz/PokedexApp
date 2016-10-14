@@ -49,9 +49,6 @@ public class LocationDetailActivity extends AppCompatActivity {
 
     private ArrayList<LocationArea> mLocationAreas;
 
-    private AsyncTask<Void, Integer, Void> mAsyncTask;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,32 +76,16 @@ public class LocationDetailActivity extends AppCompatActivity {
         mProgress = (ProgressBar) findViewById(R.id.locationDetail_progress);
         mNoPkmnMessage = (FrameLayout) findViewById(R.id.locationDetail_fl_noPokemon);
 
-        mAsyncTask = new AsyncTask<Void, Integer, Void>() {
-            ArrayList<ArrayList<DetailCard>> locationDetailsList;
+        mProgress.setVisibility(View.VISIBLE);
+        mTabLayout.setVisibility(View.INVISIBLE);
+        mViewPager.setVisibility(View.INVISIBLE);
 
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-                mProgress.setVisibility(View.VISIBLE);
-                mTabLayout.setVisibility(View.INVISIBLE);
-                mViewPager.setVisibility(View.INVISIBLE);
-            }
+        ArrayList<ArrayList<DetailCard>> locationDetailsList = fetchData();
 
-            @Override
-            protected Void doInBackground(Void... voids) {
-                locationDetailsList = fetchData();
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(Void aVoid) {
-                super.onPostExecute(aVoid);
-                mProgress.setVisibility(View.GONE);
-                mTabLayout.setVisibility(View.VISIBLE);
-                mViewPager.setVisibility(View.VISIBLE);
-                setupLayouts(locationDetailsList);
-            }
-        }.execute();
+        mProgress.setVisibility(View.GONE);
+        mTabLayout.setVisibility(View.VISIBLE);
+        mViewPager.setVisibility(View.VISIBLE);
+        setupLayouts(locationDetailsList);
     }
 
     private ArrayList<ArrayList<DetailCard>> fetchData() {
@@ -249,15 +230,6 @@ public class LocationDetailActivity extends AppCompatActivity {
             mTabLayout.setVisibility(View.GONE);
         }
     }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (mAsyncTask != null) {
-            mAsyncTask.cancel(true);
-        }
-    }
-
 
     public class LocationAreaPagerAdapter extends PagerAdapter {
 
