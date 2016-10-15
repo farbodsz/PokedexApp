@@ -3,7 +3,6 @@ package com.satsumasoftware.pokedex.ui.filter;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -48,7 +47,6 @@ public class FilterResultsActivity extends AppCompatActivity {
     public static final String FILTER_HATCH_COUNTER = "HATCH_COUNTER";
 
     private Bundle mExtras;
-    private AsyncTask<Void, Integer, Void> mAsyncTask;
 
     private ArrayList<MiniPokemon> mArrayPokemon = new ArrayList<>();
 
@@ -78,20 +76,11 @@ public class FilterResultsActivity extends AppCompatActivity {
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
 
         final ProgressBar progress = (ProgressBar) findViewById(R.id.progress_indeterminate);
-        mAsyncTask = new AsyncTask<Void, Integer, Void>() {
-            @Override
-            protected Void doInBackground(Void... params) {
-                loadFilteredData();
-                return null;
-            }
-            @Override
-            protected void onPostExecute(Void result) {
-                super.onPostExecute(result);
-                populateList(mArrayPokemon);
-                progress.setVisibility(View.GONE);
-                mRecyclerView.setVisibility(View.VISIBLE);
-            }
-        }.execute();
+        loadFilteredData();
+
+        populateList(mArrayPokemon);
+        progress.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.VISIBLE);
     }
 
     private void loadFilteredData() {
@@ -301,15 +290,6 @@ public class FilterResultsActivity extends AppCompatActivity {
             mRecyclerView.setAdapter(adapter);
         }
     }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (mAsyncTask != null) {
-            mAsyncTask.cancel(true);
-        }
-    }
-
 
     private class Filters {
 
