@@ -3,7 +3,6 @@ package com.satsumasoftware.pokedex.ui;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -217,9 +216,6 @@ public class CompareActivity extends AppCompatActivity {
         private RecyclerView mRecyclerView;
         private ArrayList<DetailCard> mDetails;
 
-        private AsyncTask<Void, Integer, Void> mCurrAsyncTask;
-
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             mRootView = inflater.inflate(R.layout.fragment_detail_main, container, false);
@@ -233,31 +229,20 @@ public class CompareActivity extends AppCompatActivity {
             PokemonCompareDetail mainInfo = fetchGeneralData();
             mainInfo.setupCard(getActivity(), secondaryToolbar);
 
-            mCurrAsyncTask = new AsyncTask<Void, Integer, Void>() {
-                @Override
-                protected Void doInBackground(Void... params) {
-                    mDetails.add(fetchAbilityData());
-                    mDetails.add(fetchAppearanceData());
-                    mDetails.add(fetchGenderData());
-                    mDetails.add(fetchStatData());
-                    mDetails.add(fetchTrainingData());
-                    mDetails.add(fetchPokedexData());
-                    mDetails.add(fetchMoreData());
-                    return null;
-                }
+            mDetails.add(fetchAbilityData());
+            mDetails.add(fetchAppearanceData());
+            mDetails.add(fetchGenderData());
+            mDetails.add(fetchStatData());
+            mDetails.add(fetchTrainingData());
+            mDetails.add(fetchPokedexData());
+            mDetails.add(fetchMoreData());
 
-                @Override
-                protected void onPostExecute(Void aVoid) {
-                    super.onPostExecute(aVoid);
+            // Stop recycling of views (which causes a bug where views are merged together)
+            mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
-                    // stop recycling of views (which causes a bug where views are merged together)
-                    mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
-
-                    // setup RecyclerView
-                    DetailAdapter adapter = new DetailAdapter(getActivity(), mDetails);
-                    mRecyclerView.setAdapter(adapter);
-                }
-            }.execute();
+            // Setup RecyclerView
+            DetailAdapter adapter = new DetailAdapter(getActivity(), mDetails);
+            mRecyclerView.setAdapter(adapter);
 
             return mRootView;
         }
@@ -722,14 +707,6 @@ public class CompareActivity extends AppCompatActivity {
             PokemonCompareDetail info = new PokemonCompareDetail(R.string.header_more_information, properties, valuesArray);
             info.addOnClickListeners(listenersArray);
             return info;
-        }
-
-        @Override
-        public void onStop() {
-            super.onStop();
-            if (mCurrAsyncTask != null) {
-                mCurrAsyncTask.cancel(true);
-            }
         }
     }
 

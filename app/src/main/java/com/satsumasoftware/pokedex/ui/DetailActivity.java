@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -431,8 +430,6 @@ public class DetailActivity extends AppCompatActivity {
         private RecyclerView mRecyclerView;
         private ArrayList<DetailCard> mDetails;
 
-        private AsyncTask<Void, Integer, Void> mCurrAsyncTask;
-
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -447,31 +444,20 @@ public class DetailActivity extends AppCompatActivity {
             PokemonDetail mainInfo = fetchGeneralData();
             mainInfo.setupCard(getActivity(), secondaryToolbar);
 
-            mCurrAsyncTask = new AsyncTask<Void, Integer, Void>() {
-                @Override
-                protected Void doInBackground(Void... params) {
-                    mDetails.add(fetchAbilityData());
-                    mDetails.add(fetchAppearanceData());
-                    mDetails.add(fetchGenderData());
-                    mDetails.add(fetchStatData());
-                    mDetails.add(fetchTrainingData());
-                    mDetails.add(fetchPokedexData());
-                    mDetails.add(fetchMoreData());
-                    return null;
-                }
+            mDetails.add(fetchAbilityData());
+            mDetails.add(fetchAppearanceData());
+            mDetails.add(fetchGenderData());
+            mDetails.add(fetchStatData());
+            mDetails.add(fetchTrainingData());
+            mDetails.add(fetchPokedexData());
+            mDetails.add(fetchMoreData());
 
-                @Override
-                protected void onPostExecute(Void aVoid) {
-                    super.onPostExecute(aVoid);
+            // Stop recycling of views (which causes a bug where views are merged together)
+            mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
-                    // stop recycling of views (which causes a bug where views are merged together)
-                    mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
-
-                    // setup RecyclerView
-                    DetailAdapter adapter = new DetailAdapter(getActivity(), mDetails, true);
-                    mRecyclerView.setAdapter(adapter);
-                }
-            }.execute();
+            // Setup RecyclerView
+            DetailAdapter adapter = new DetailAdapter(getActivity(), mDetails, true);
+            mRecyclerView.setAdapter(adapter);
 
             return mRootView;
         }
@@ -808,14 +794,6 @@ public class DetailActivity extends AppCompatActivity {
             PokemonDetail info = new PokemonDetail(R.string.header_more_information, properties, values);
             info.addOnClickListeners(listeners);
             return info;
-        }
-
-        @Override
-        public void onStop() {
-            super.onStop();
-            if (mCurrAsyncTask != null) {
-                mCurrAsyncTask.cancel(true);
-            }
         }
     }
 
