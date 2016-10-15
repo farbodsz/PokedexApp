@@ -54,5 +54,5 @@ dependencies {
     compile 'com.satsuware.lib:usefulviews:2.3.6'
     compile 'com.satsuware.lib:mdutils:1.2.1'
     compile 'com.github.chrisbanes:PhotoView:1.3.0'
-    compile 'com.turingtechnologies.materialscrollbar:lib:10.1.1'
+    compile 'com.turingtechnologies.materialscrollbar:lib:10.1.3'
 }
