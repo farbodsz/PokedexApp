@@ -45,7 +45,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.0.1'
 
     // Google Play services
-    compile 'com.google.android.gms:play-services-ads:9.6.1'
+    compile 'com.google.android.gms:play-services-ads:10.0.1'
 
     // For using database files from the assets directory
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
