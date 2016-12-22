@@ -7,7 +7,7 @@ class Query(val filter: Filter) {
 
     class Builder {
 
-        internal var filter: Filter? = null
+        private var filter: Filter? = null
 
         fun addFilter(filter: Filter): Builder {
             this.filter = if (this.filter != null) {
