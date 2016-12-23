@@ -28,13 +28,25 @@ class Filters {
         }
 
         @JvmStatic
-        fun and(filter1: Filter, filter2: Filter): Filter {
-            return Filter("$filter1 AND $filter2")
+        fun and(filter1: Filter, filter2: Filter, vararg moreFilters: Filter): Filter {
+            var sql: String = "$filter1 AND $filter2"
+
+            for (filter in moreFilters) {
+                sql = "$sql AND $filter"
+            }
+
+            return Filter(sql)
         }
 
         @JvmStatic
-        fun or(filter1: Filter, filter2: Filter): Filter {
-            return Filter("$filter1 OR $filter2")
+        fun or(filter1: Filter, filter2: Filter, vararg moreFilters: Filter): Filter {
+            var sql: String = "$filter1 OR $filter2"
+
+            for (filter in moreFilters) {
+                sql = "$sql OR $filter"
+            }
+
+            return Filter(sql)
         }
 
         @JvmStatic
