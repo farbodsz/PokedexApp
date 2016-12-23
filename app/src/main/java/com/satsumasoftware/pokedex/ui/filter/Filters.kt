@@ -23,6 +23,11 @@ class Filters {
         }
 
         @JvmStatic
+        fun likeIgnoreCase(property: String, value: String): Filter {
+            return Filter("LOWER($property) LIKE ${value.toLowerCase()}")
+        }
+
+        @JvmStatic
         fun and(filter1: Filter, filter2: Filter): Filter {
             return Filter("$filter1 AND $filter2")
         }
