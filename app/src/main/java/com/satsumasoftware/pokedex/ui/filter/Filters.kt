@@ -29,10 +29,10 @@ class Filters {
 
         @JvmStatic
         fun and(filter1: Filter, filter2: Filter, vararg moreFilters: Filter): Filter {
-            var sql: String = "$filter1 AND $filter2"
+            var sql: String = "${filter1.sqlStatement} AND ${filter2.sqlStatement}"
 
             for (filter in moreFilters) {
-                sql = "$sql AND $filter"
+                sql = "$sql AND ${filter.sqlStatement}"
             }
 
             return Filter(sql)
@@ -40,10 +40,10 @@ class Filters {
 
         @JvmStatic
         fun or(filter1: Filter, filter2: Filter, vararg moreFilters: Filter): Filter {
-            var sql: String = "$filter1 OR $filter2"
+            var sql: String = "${filter1.sqlStatement} OR ${filter2.sqlStatement}"
 
             for (filter in moreFilters) {
-                sql = "$sql OR $filter"
+                sql = "$sql OR ${filter.sqlStatement}"
             }
 
             return Filter(sql)
