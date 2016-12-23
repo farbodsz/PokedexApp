@@ -19,6 +19,8 @@ class Query(val filter: Filter) {
             return this
         }
 
+        fun hasNoFilters() = filter == null
+
         fun build(): Query {
             if (filter == null) {
                 throw IllegalStateException("you must add at least one filter to the query builder")
