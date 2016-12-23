@@ -19,12 +19,12 @@ class Filters {
 
         @JvmStatic
         fun like(property: String, value: String): Filter {
-            return Filter("$property LIKE $value")
+            return Filter("$property LIKE '$value'")
         }
 
         @JvmStatic
         fun likeIgnoreCase(property: String, value: String): Filter {
-            return Filter("LOWER($property) LIKE ${value.toLowerCase()}")
+            return Filter("LOWER($property) LIKE '${value.toLowerCase()}'")
         }
 
         @JvmStatic
