@@ -49,10 +49,5 @@ class Filters {
             return Filter(sql)
         }
 
-        @JvmStatic
-        fun lowercase(property: String): Filter {
-            return Filter("LOWER($property)")
-        }
-
     }
 }
