@@ -1,4 +1,4 @@
-package com.satsumasoftware.pokedex.ui.filter
+package com.satsumasoftware.pokedex.query
 
 /**
  * A collection of static helper functions for creating or combining filters

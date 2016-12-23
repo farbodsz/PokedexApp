@@ -1,4 +1,4 @@
-package com.satsumasoftware.pokedex.ui.filter
+package com.satsumasoftware.pokedex.query
 
 import android.util.Log
 import java.util.*
