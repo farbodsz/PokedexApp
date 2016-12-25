@@ -28,6 +28,11 @@ class Filters {
         }
 
         @JvmStatic
+        fun contains(property: String, value: String): Filter {
+            return Filter("LOWER($property) LIKE '%${value.toLowerCase()}%'")
+        }
+
+        @JvmStatic
         fun startsWith(property: String, value: String): Filter {
             val nameQuery = "LOWER($property) LIKE \"${value.toLowerCase()}%\""
             return Filter(nameQuery)
