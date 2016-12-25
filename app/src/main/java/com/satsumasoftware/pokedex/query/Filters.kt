@@ -28,6 +28,12 @@ class Filters {
         }
 
         @JvmStatic
+        fun startsWith(property: String, value: String): Filter {
+            val nameQuery = "LOWER($property) LIKE \"${value.toLowerCase()}%\""
+            return Filter(nameQuery)
+        }
+
+        @JvmStatic
         fun and(filter1: Filter, filter2: Filter, vararg moreFilters: Filter): Filter {
             var sql: String = "${filter1.sqlStatement} AND ${filter2.sqlStatement}"
 

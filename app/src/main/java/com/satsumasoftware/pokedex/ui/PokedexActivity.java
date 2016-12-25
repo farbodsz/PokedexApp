@@ -240,8 +240,7 @@ public class PokedexActivity extends BaseActivity
                 String text = array[position];
                 mQueryBuilder.removePropertyFilters(PokemonDBHelper.COL_NAME);
                 if (!text.equalsIgnoreCase("no filter")) {
-                    // TODO filtering letters doesn't work - check SQLite statement
-                    mQueryBuilder.addFilter(Filters.likeIgnoreCase(PokemonDBHelper.COL_NAME, text));
+                    mQueryBuilder.addFilter(Filters.startsWith(PokemonDBHelper.COL_NAME, text));
                 }
                 updateFilteredList();
             }
