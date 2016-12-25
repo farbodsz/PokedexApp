@@ -11,7 +11,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +23,9 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.MovesDBHelper;
 import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.move.MiniMove;
+import com.satsumasoftware.pokedex.query.Filter;
+import com.satsumasoftware.pokedex.query.Filters;
+import com.satsumasoftware.pokedex.query.Query;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.MoveDexAdapter;
 import com.satsumasoftware.pokedex.ui.dialog.MoveDetailActivity;
@@ -41,22 +43,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-
-public class MovesActivity extends BaseActivity implements FilterListItemVGAdapter.OnFilterItemClickListener {
-
-    private static final String LOG_TAG = "MovesActivity.java";
-
-    @Override
-    protected Toolbar getSelfToolbar() { return (Toolbar) findViewById(R.id.toolbar); }
-    @Override
-    protected DrawerLayout getSelfDrawerLayout() { return (DrawerLayout) findViewById(R.id.drawerLayout); }
-    @Override
-    protected int getSelfNavDrawerItem() { return NAVDRAWER_ITEM_MOVEDEX; }
-    @Override
-    protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.navigationView); }
-    @Override
-    protected boolean disableRightDrawerSwipe() { return true; }
-
+public class MovesActivity extends BaseActivity
+        implements FilterListItemVGAdapter.OnFilterItemClickListener {
 
     private RecyclerView mRecyclerView;
     private DrawerLayout mDrawerLayout;
@@ -66,9 +54,7 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
 
     private DragScrollBar mScrollBar;
 
-    private String mFilterSelectionName = "",
-            mFilterSelectionType = "",
-            mFilterSelectionGen = "";
+    private Query.Builder mQueryBuilder = new Query.Builder();
     private boolean mSortByName;
 
     private ArrayList<MiniMove> mCurrList;
@@ -228,11 +214,9 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String[] array = getResources().getStringArray(R.array.filter_name);
                 String text = array[position];
-                if (text.equalsIgnoreCase("no filter")) {
-                    mFilterSelectionName = "";
-                } else {
-                    mFilterSelectionName = "(LOWER(" + MovesDBHelper.COL_NAME + ") LIKE \"" +
-                            text.toLowerCase() + "%\")";
+                mQueryBuilder.removePropertyFilters(MovesDBHelper.COL_NAME);
+                if (!text.equalsIgnoreCase("no filter")) {
+                    mQueryBuilder.addFilter(Filters.startsWith(MovesDBHelper.COL_NAME, text));
                 }
                 updateFilteredList();
             }
@@ -256,100 +240,31 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
     public void onFilterItemClick(View view, int position, String text, boolean isChecked, View itemView) {
         switch (itemView.getId()) {
             case R.id.container_types:
-                String typeQuery = "(" + MovesDBHelper.COL_TYPE_ID + "=\"" + new Type(text).getId() + "\")";
-                mFilterSelectionType = reformatFilterSelection(mFilterSelectionType);
+                Filter typeFilter = Filters.equal(MovesDBHelper.COL_TYPE_ID,
+                        String.valueOf(new Type(text).getId()));
                 if (isChecked) {
-                    mFilterSelectionType = mFilterSelectionType + typeQuery;
+                    mQueryBuilder.addFilter(typeFilter);
                 } else {
-                    if (mFilterSelectionType.contains(" OR " + typeQuery)) {
-                        mFilterSelectionType = mFilterSelectionType.replace(" OR " + typeQuery, "");
-                    } else {
-                        mFilterSelectionType = mFilterSelectionType.replace(typeQuery, "");
-                    }
+                    mQueryBuilder.removeFilter(typeFilter);
                 }
-                mFilterSelectionType = reformatFilterSelectionFinal(mFilterSelectionType);
                 updateFilteredList();
                 break;
 
             case R.id.container_generations:
-                String genQuery = "(" + MovesDBHelper.COL_GENERATION_ID + "=\"" +
-                        DataUtilsKt.romanToGenId(text) + "\")";
-                mFilterSelectionGen = reformatFilterSelection(mFilterSelectionGen);
+                Filter genFilter = Filters.equal(MovesDBHelper.COL_GENERATION_ID,
+                        String.valueOf(DataUtilsKt.romanToGenId(text)));
                 if (isChecked) {
-                    mFilterSelectionGen = mFilterSelectionGen + genQuery;
+                    mQueryBuilder.addFilter(genFilter);
                 } else {
-                    if (mFilterSelectionGen.contains(" OR " + genQuery)) {
-                        mFilterSelectionGen = mFilterSelectionGen.replace(" OR " + genQuery, "");
-                    } else {
-                        mFilterSelectionGen = mFilterSelectionGen.replace(genQuery, "");
-                    }
+                    mQueryBuilder.removeFilter(genFilter);
                 }
-                mFilterSelectionGen = reformatFilterSelectionFinal(mFilterSelectionGen);
                 updateFilteredList();
                 break;
         }
     }
 
-    private String reformatFilterSelection(String selection) {
-        Log.d(LOG_TAG, "reformatFilterSelection | [start]: " + selection);
-        if (!selection.trim().equals("")) {
-            selection = selection + " OR ";
-        }
-        if (selection.trim().startsWith("OR ")) {
-            selection = selection.replaceFirst("OR ", "");
-        }
-        Log.d(LOG_TAG, "reformatFilterSelection | [end]: " + selection);
-        return selection;
-    }
-
-    private String reformatFilterSelectionFinal(String firstSelection) {
-        Log.d(LOG_TAG, "reformatFilterSelectionFinal -- START");
-        String selection = reformatFilterSelection(firstSelection);
-        Log.d(LOG_TAG, "reformatFilterSelectionFinal | selection: " + selection);
-        Log.d(LOG_TAG, "reformatFilterSelectionFinal | sele...endsWith('OR')?: " + selection.trim().endsWith("OR"));
-        while (selection.trim().endsWith("OR")) {
-            String[] words = selection.split(" ");
-            String lastWord = words[words.length-1].trim();
-            Log.d(LOG_TAG, "reformatFilterSelectionFinal | lastWord: " + lastWord);
-            words[words.length-1] = lastWord.replace("OR", "");
-            //selection = "";
-            StringBuilder newSelection = new StringBuilder();
-            for (String word : words) {
-                newSelection.append(word).append(" ");
-            }
-            selection = newSelection.toString().trim();
-        }
-        Log.d(LOG_TAG, "reformatFilterSelectionFinal -- DONE");
-        return selection;
-    }
-
     private void updateFilteredList() {
-        StringBuilder stringBuilder = new StringBuilder();
-        int filterCounter = 0;
-        if (mFilterSelectionName != null && !mFilterSelectionName.trim().equals("")) {
-            stringBuilder.append("(").append(mFilterSelectionName).append(")");
-            filterCounter++;
-        }
-        if (mFilterSelectionType != null && !mFilterSelectionType.trim().equals("")) {
-            if (filterCounter > 0) {
-                stringBuilder.append(" AND ");
-            }
-            stringBuilder.append("(").append(mFilterSelectionType).append(")");
-            filterCounter++;
-        }
-        if (mFilterSelectionGen != null && !mFilterSelectionGen.trim().equals("")) {
-            if (filterCounter > 0) {
-                stringBuilder.append(" AND ");
-            }
-            stringBuilder.append("(").append(mFilterSelectionGen).append(")");
-            // filterCounter++; <-- doesn't make a difference
-        }
-
-        String selection = stringBuilder.toString();
-
-        Log.d(LOG_TAG, "updateFilteredList | selection [middle]: " + selection);
-
-        if (selection.trim().equals("")) {
+        if (mQueryBuilder.hasNoFilters()) {
             mToolbar.setTitle(getResources().getString(R.string.title_activity_moves));
             mRecyclerView.setVisibility(View.VISIBLE);
             mNoResults.setVisibility(View.GONE);
@@ -369,13 +284,12 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
                 MovesDBHelper.COL_TYPE_ID,
                 MovesDBHelper.COL_GENERATION_ID
         };
+
         Cursor cursor = db.query(
                 MovesDBHelper.TABLE_NAME,
                 columns,
-                selection,
-                null,
-                null, null, null
-        );
+                mQueryBuilder.build().getFilter().getSqlStatement(),
+                null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             int id = cursor.getInt(cursor.getColumnIndex(MovesDBHelper.COL_ID));
@@ -404,6 +318,31 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected Toolbar getSelfToolbar() {
+        return (Toolbar) findViewById(R.id.toolbar);
+    }
+
+    @Override
+    protected DrawerLayout getSelfDrawerLayout() {
+        return (DrawerLayout) findViewById(R.id.drawerLayout);
+    }
+
+    @Override
+    protected int getSelfNavDrawerItem() {
+        return NAVDRAWER_ITEM_MOVEDEX;
+    }
+
+    @Override
+    protected NavigationView getSelfNavigationView() {
+        return (NavigationView) findViewById(R.id.navigationView);
+    }
+
+    @Override
+    protected boolean disableRightDrawerSwipe() {
+        return true;
     }
 
 }
