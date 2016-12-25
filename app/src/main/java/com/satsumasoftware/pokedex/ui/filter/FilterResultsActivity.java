@@ -99,12 +99,21 @@ public class FilterResultsActivity extends AppCompatActivity {
     }
 
     private void loadFilteredData() {
-        if (mExtras.containsKey(FILTER_MOVE)) {
-            filterLearnsetData();
-            return;
-        }
+        boolean isMoveQuery = mExtras.containsKey(FILTER_MOVE);
 
-        Query query = makeFilterQuery();
+        Query query;
+        SQLiteDatabase db;
+        String tableName;
+
+        if (isMoveQuery) {
+            query = makeMoveQuery();
+            db = PokeDB.getInstance(this).getReadableDatabase();
+            tableName = PokeDB.PokemonMoves.TABLE_NAME;
+        } else {
+            query = makePokedexFilterQuery();
+            db = PokemonDBHelper.getInstance(this).getReadableDatabase();
+            tableName = PokemonDBHelper.TABLE_NAME;
+        }
 
         if (query == null) {
             Log.d(LOG_TAG, "No filters specified.");
@@ -112,25 +121,35 @@ public class FilterResultsActivity extends AppCompatActivity {
         }
 
         String sqlSelection = query.getFilter().getSqlStatement();
-        logQuery(sqlSelection);
+        Log.d(LOG_TAG, "Querying in '" + tableName + "' with SQL statement:\n" + sqlSelection);
 
         mArrayPokemon.clear();
 
-        PokemonDBHelper helper = PokemonDBHelper.getInstance(this);
-        Cursor cursor = helper.getReadableDatabase().query(
-                PokemonDBHelper.TABLE_NAME,
+        Cursor cursor = db.query(
+                tableName,
                 null,
                 sqlSelection,
                 null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            mArrayPokemon.add(new MiniPokemon(cursor));
+            MiniPokemon pokemon;
+
+            if (isMoveQuery) {
+                int id = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_POKEMON_ID));
+                pokemon = MiniPokemon.create(this, id);
+                if (!mArrayPokemon.contains(pokemon)) {
+                    mArrayPokemon.add(pokemon);
+                }
+            } else {
+                pokemon = new MiniPokemon(cursor);
+                mArrayPokemon.add(pokemon);
+            }
             cursor.moveToNext();
         }
         cursor.close();
     }
 
-    private Query makeFilterQuery() {
+    private Query makePokedexFilterQuery() {
         Query.Builder builder = new Query.Builder();
 
         String name = mExtras.getString(FILTER_NAME);
@@ -238,42 +257,15 @@ public class FilterResultsActivity extends AppCompatActivity {
         return builder.build();
     }
 
-    private void filterLearnsetData() {
+    private Query makeMoveQuery() {
         int moveId = mExtras.getInt(FILTER_MOVE);
-
-        PokeDB pokeDB = PokeDB.getInstance(this);
-        SQLiteDatabase db = pokeDB.getReadableDatabase();
 
         final int versionGroupId = 16;  // TODO: add option to change version group
 
-        Query query = new Query.Builder().addFilter(Filters.and(
+        return new Query.Builder().addFilter(Filters.and(
                 Filters.equal(PokeDB.PokemonMoves.COL_VERSION_GROUP_ID, String.valueOf(versionGroupId)),
                 Filters.equal(PokeDB.PokemonMoves.COL_MOVE_ID, String.valueOf(moveId))))
                 .build();
-
-        String sqlSelection = query.getFilter().getSqlStatement();
-        logQuery(sqlSelection);
-
-        Cursor cursor = db.query(
-                PokeDB.PokemonMoves.TABLE_NAME,
-                null,
-                sqlSelection,
-                null, null, null, null);
-        cursor.moveToFirst();
-        mArrayPokemon.clear();
-        while (!cursor.isAfterLast()) {
-            int id = cursor.getInt(cursor.getColumnIndex(PokeDB.PokemonMoves.COL_POKEMON_ID));
-            MiniPokemon pokemon = MiniPokemon.create(this, id);
-            if (!mArrayPokemon.contains(pokemon)) {
-                mArrayPokemon.add(pokemon);
-            }
-            cursor.moveToNext();
-        }
-        cursor.close();
-    }
-
-    private void logQuery(String sqlSelection) {
-        Log.d(LOG_TAG, "Querying with SQL statement:\n" + sqlSelection);
     }
 
     private void populateList(final ArrayList<MiniPokemon> pokemonList) {
