@@ -16,6 +16,8 @@ class Query(val filter: Filter) {
 
         private val filters: ArrayList<Filter> = ArrayList()
 
+        private var combineFiltersWithOr = false
+
         fun addFilter(filter: Filter): Builder {
             filters.add(filter)
             Log.v(LOG_TAG, "Added filter: ${filter.sqlStatement}")
@@ -39,19 +41,31 @@ class Query(val filter: Filter) {
             }
         }
 
+        fun combineFiltersWithOr(boolean: Boolean): Builder {
+            combineFiltersWithOr = boolean
+            return this
+        }
+
         fun hasNoFilters() = filters.isEmpty()
 
         private fun combineFilters(): Filter {
-            Log.v(LOG_TAG, "@combineFilters [start], size = " + filters.size)
             when (filters.size) {
                 0 -> throw IllegalStateException("you must add at least one filter to the query builder")
                 1 -> return filters[0]
-                2 -> return Filters.and(filters[0], filters[1])
+                2 -> return if (combineFiltersWithOr) {
+                    Filters.or(filters[0], filters[1])
+                } else {
+                    Filters.and(filters[0], filters[1])
+                }
                 else -> {
                     // We need to make an array excluding the first two elements for the vararg
                     val moreFilters = filters.slice(IntRange(2, filters.size - 1)).toTypedArray()
 
-                    return Filters.and(filters[0], filters[1], *moreFilters)
+                    return if (combineFiltersWithOr) {
+                        Filters.or(filters[0], filters[1], *moreFilters)
+                    } else {
+                        Filters.and(filters[0], filters[1], *moreFilters)
+                    }
                 }
             }
         }
