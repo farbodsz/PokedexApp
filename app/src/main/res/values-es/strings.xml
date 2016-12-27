@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- TODO STOPSHIP test Spanish translations, make localized screenshots, etc -->
-    <!-- also, for some, I need to resend them with some context to Esteban to translate -->
-
     <string name="title_activity_initialise">Datos iniciales</string> <!-- todo context -->
 
     <string name="title_activity_natures">Naturalezas</string>
-    <string name="title_activity_locations">Localizaciones</string>
-    <string name="title_activity_compare">Comparación </string> <!-- todo context -->
+    <string name="title_activity_locations">Ubicaciones</string>
+    <string name="title_activity_compare">Comparación</string>
     <string name="title_activity_favorites">Favoritos</string>
     <string name="title_activity_experience_calculator">Calculador de Experiencia</string>
 
@@ -17,9 +14,9 @@
 
     <string name="title_activity_moves_detail">Movimiento</string>
     <string name="title_activity_nature_detail">Naturaleza</string>
-    <string name="title_activity_property_detail">Propiedad</string>  <!-- todo context -->
-    <string name="title_activity_location_detail">Localizacion</string>  <!-- todo correct? -->
-    <string name="title_activity_pkmn_type_detail">Eficacia de tipo</string>  <!-- todo context -->
+    <string name="title_activity_property_detail">Propiedad</string>
+    <string name="title_activity_location_detail">Posición</string>
+    <string name="title_activity_pkmn_type_detail">Eficacia de tipo</string>
 
 
     <string name="action_settings">Configuraciones</string>
@@ -27,7 +24,7 @@
     <string name="action_help">Ayuda</string>
     <string name="action_search">Buscar</string>
     <string name="action_compare">Comparar</string>
-    <string name="action_filter">Filtrar</string>  <!-- todo context -->
+    <string name="action_filter">Filtrar</string>
     <string name="action_sort">Ordenar</string>
     <string name="action_sort_id">Por ID</string>
     <string name="action_sort_name">Por nombre</string>
@@ -51,7 +48,7 @@
     <string name="action_calculate_experience_of">EXP de %1$s</string>
 
 
-    <string name="dialog_ok_got_it">OK, lo tengo</string> <!-- todo context -->
+    <string name="dialog_ok_got_it">OK</string>
     <string name="dialog_cancel">Cancelar</string>
     <string name="dialog_yes">Sí</string>
     <string name="dialog_no">No</string>
@@ -154,6 +151,78 @@
     <string name="header_location_regions">Regiones</string>
 
 
-    <!-- TODO STOPSHIP not finished with translations -->
+    <string name="title_filtered_pokedex">Pokémon filtradas</string>
+    <string name="title_filtered_abilities">Habilidades filtradas</string>
+    <string name="title_filtered_moves">Movimientos filtradas</string>
+    <string name="title_filtered_locations">Ubicaciones filtradas</string>
+
+
+    <string name="search_hint_pokedex">Buscar por ID o nombre</string>
+    <string name="sort_by_id">Ordenado por ID</string>
+    <string name="sort_by_name">Ordenado por nombre</string>
+    <string name="sort_by_id_already">Ya se ha ordenado por ID</string>
+    <string name="sort_by_name_already">Ya se ha ordenado por nombre</string>
+    <string name="filter_advanced_prompt">Enter the details of the Pokémon and press \'Filter\' to filter the results.
+        You do not have to enter all details, just the ones you want to filter by.</string>
+    <string name="filter_name">Nombre</string>
+    <string name="filter_stats_avg">Estadísticas medias</string>
+    <string name="filter_stats_avg_method">Tipo de filtro</string>
+    <string name="filter_stats_avg_value">Valor estadístico</string>
+    <string name="filter_levelling">Growth</string> <!-- TODO STOPSHIP NOT DONE -->
+    <string name="filter_button_advanced">Advanced Search</string>
+    <string name="filter_moves_method">Learn method</string>
+    <string name="filter_game_version">Game version</string>
+    <string name="filter_button_go">Go</string>
+
+
+    <string name="misc_requires_pro">Esta característica requiere la versión completa de la aplicación</string>
+    <string name="misc_no_results">Sin resultados</string>
+    <string name="add_favourites">Añadir Pokémon favorito</string>
+    <string name="add_favourites_description">Puedes añadir un Pokémon a la lista de favoritos</string>
+    <string name="favourites_error">Error: Este Pokémon no está en la lista de favoritos</string>
+    <string name="favourites_cleared">Se han borrado los favoritos</string>
+    <string name="filter_error">Debe especificar al menos un filtro</string>
+    <string name="mark_favourites">---</string> <!-- POKEMON has been MARK_TYPE favourites --> <!-- TODO change to two separate strings -->
+    <string name="mark_favourites_added">%1$s ha sido añadido a favoritos</string> <!-- POKEMON has been MARK_TYPE favourites --> <!-- TODO change to two separate strings -->
+    <string name="mark_favourite_removed">%1$s ha sido removido de favoritos</string> <!-- TODO STOPSHIP change to two seperate strings -->
+    <string name="null_alternate_forms">%1$s does not have any alternate forms</string>
+    <string name="location_no_pokemon">Ningún Pokémon encontrado en esta localización</string>
+
+    <!-- TODO STOPSHIP not done -->
+    <string name="detail_nav_back_error">You cannot navigate further back</string>
+    <string name="detail_nav_forward_error">You cannot navigate further forward</string>
+
+
+    <string name="experience_select_pokemon">Selecciona un Pokémon</string>
+    <string name="experience_select_levelling_rate">Elige la tasa de nivelación</string>
+    <string name="experience_calculate">Calcular</string>
+    <string name="experience_description">experiencia total para estar en el nivel %1$s con crecimiento %2$s</string>
+
+
+    <string name="welcome_message">¡Bienvenido a %1$s!</string>
+    <string name="about_app_info">%1$s \nVersión: %2$s</string>
+    <string name="about_copyrights">Aviso de copyright</string>
+    <string name="about_changelog">Ver todos los cambios y mejoras realizadas desde las primeras versiones beta.</string>
+    <string name="about_changelog_action">Ver lista de cambios</string>
+    <string name="about_settings">Ir a la página de configuración de la Pokédex.</string>
+    <string name="about_settings_action">Abrir ajustes</string>
+    <string name="about_feedback">Contacto</string>
+    <string name="about_feedback_desc">Si tienes comentarios o sugerencias (por ejemplo, qué te gustaría ver en la próxima versión), háganos saber a través de nuestro correo electrónico:
+        \n\nfeedback.phoenixenterprise@gmail.com</string>
+    <string name="about_feedback_action">Enviar comentarios</string>
+    <string name="about_help_translate">Ayúdanos a traducir</string>
+    <string name="about_help_translate_desc">¡Puedes ayudarnos a traducir esta aplicación a tu idioma! Si estás interesado, háganoslo saber por correo electrónico:
+        \n\ndevelopers.phoenixenterprise@gmail.com</string>
+
+
+    <string name="initialise_title">Initialising databases</string>
+    <string name="initialise_msg">Please wait whilst we load the databases for the first time, in order for searching and filtering to be as fast as possible.
+        This may take up to 10 minutes.
+        To make sure your experience is as fast as possible, we need to do this just for the first time (and if any of the databases get updated).</string>
+    <string name="initialise_loading">Loading (%1$s)</string>
+    <string name="initialise_wait_prompt">Please wait until the loading has finished to avoid crashes</string>
+    <string name="initialise_setup_desc">Creating databases for %1$s…</string>
+    <string name="initialise_finished">Initialisation completed</string>
+
 
 </resources>
