@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="title_activity_initialise">Datos iniciales</string> <!-- todo context -->
+
+    <string name="title_activity_natures">Naturalezas</string>
+    <string name="title_activity_locations">Ubicaciones</string>
+    <string name="title_activity_compare">Comparación</string>
+    <string name="title_activity_favorites">Favoritos</string>
+    <string name="title_activity_experience_calculator">Calculador de Experiencia</string>
+
+    <string name="title_activity_changelog">Cambios</string>
+    <string name="title_activity_advanced_filter">Filtro avanzado</string>
+
+    <string name="title_activity_moves_detail">Movimiento</string>
+    <string name="title_activity_nature_detail">Naturaleza</string>
+    <string name="title_activity_property_detail">Propiedad</string>
+    <string name="title_activity_location_detail">Posición</string>
+    <string name="title_activity_pkmn_type_detail">Eficacia de tipo</string>
+
+
+    <string name="action_settings">Configuraciones</string>
+    <string name="action_about">Acerca de</string> <!-- todo is this correct? -->
+    <string name="action_help">Ayuda</string>
+    <string name="action_search">Buscar</string>
+    <string name="action_compare">Comparar</string>
+    <string name="action_filter">Filtrar</string>
+    <string name="action_sort">Ordenar</string>
+    <string name="action_sort_id">Por ID</string>
+    <string name="action_sort_name">Por nombre</string>
+
+    <string name="action_play_cry">Reproducir grito</string>
+    <string name="action_play_cry_of">Reproducir grito de %1$s</string>
+
+    <string name="action_previous">Anterior</string>
+    <string name="action_next">Siguiente</string>
+
+    <string name="action_favourite_add">Agregar a favoritos</string>
+    <string name="action_favourite_remove">Remover de favoritos</string>
+
+    <string name="action_clear_all">Limpiar todo</string>
+    <string name="action_add">Agregar</string>
+    <string name="action_undo">Deshacer</string>
+
+    <string name="action_buyPro">Comprar Pro</string>
+
+    <string name="action_calculate_experience">Calcular EXP</string>
+    <string name="action_calculate_experience_of">EXP de %1$s</string>
+
+
+    <string name="dialog_ok_got_it">OK</string>
+    <string name="dialog_cancel">Cancelar</string>
+    <string name="dialog_yes">Sí</string>
+    <string name="dialog_no">No</string>
+    <string name="dialog_title_compare_pokemon">Escoger un Pokémon para comprar nuevamente</string>
+    <string name="dialog_title_compare_pokemon_forms">Comprar formas de Pokémon?</string> <!-- todo context -->
+    <string name="dialog_msg_compare_pokemon_forms">Este Pokémon tiene una forma alternativa. ¿Quieres comprar con una de sus otras formas?</string>
+    <string name="dialog_title_clear_favourites">¿Limpiar Favoritos?</string>
+    <string name="dialog_msg_clear_favourites">Estás seguro de que quieres remover todos los Pokémon de la lista de favoritos?</string>
+
+
+    <string name="show_pokemon">Mostrar Pokémon</string>
+    <string name="show_pokemon_moves">Mostrar Movimientos de Pokémon</string>
+
+
+    <string name="tab_pkmn_detail_general">General</string>
+
+
+    <string name="header_general_info">Información General</string>
+    <string name="attr_classification">Clasificación</string>
+
+    <string name="header_abilities">Habilidad Oculta</string>
+    <string name="attr_ability">Habilidades</string>
+    <string name="attr_ability_1">Habilidad 1</string>
+    <string name="attr_ability_2">Habilidad 2</string>
+    <string name="attr_ability_hidden">Habilidad Oculta</string>
+
+    <string name="header_types">Tipos</string>
+    <string name="attr_type">Tipo</string>
+    <string name="attr_type_1">Tipo 1</string>
+    <string name="attr_type_2">Tipo 2</string>
+
+    <string name="header_physical_attrs">Atributos Psíquicos</string> <!-- todo correct? -->
+    <string name="attr_height">Altura</string>
+    <string name="attr_mass">Peso</string>
+
+    <string name="header_stats">Estadísticas</string> <!-- todo context -->
+    <string name="header_stats_ev">Puntos de esfuerzo</string> <!-- todo context -->
+    <string name="attr_stat_hp">HP</string>
+    <string name="attr_stat_atk">Ataque</string>
+    <string name="attr_stat_def">Defensa</string>
+    <string name="attr_stat_spA">Atq. Esp</string>
+    <string name="attr_stat_spD">Def. Esp</string>
+    <string name="attr_stat_spe">Velocidad</string>
+    <string name="attr_stat_total">Total</string>
+    <string name="attr_stat_average">Promedio</string>
+    <string name="attr_stat_spA_noAbbr">Ataque Especial</string>
+    <string name="attr_stat_spD_noAbbr">Defensa Especial</string>
+
+    <string name="header_gender_ratio">Ratio de Genero</string>
+    <string name="gender_male">Macho</string>
+    <string name="gender_female">Hembra</string>
+
+    <string name="header_training">Entrenamiento</string>
+    <string name="attr_catch_rate">Ratio de captura</string>
+    <string name="attr_levelling_rate">Ratio de nivel</string>
+    <string name="attr_base_happiness">Amistad Base</string> <!-- todo context -->
+    <string name="attr_exp_growth">Experiencia en Nivel 100</string>
+    <string name="attr_exp_growth_abbr">EXP en Nivel 100</string>
+
+    <string name="attr_base_egg_steps">Pasos para eclosión</string>
+    <string name="attr_base_egg_cycles">Ciclo de huevo</string>
+
+    <string name="header_more_information">Más información</string>
+    <string name="attr_generation">Generación</string>
+    <string name="attr_introduced_in_gen">@string/attr_generation</string>
+    <string name="attr_colour">Color</string>
+    <string name="attr_shape">Aspecto</string> <!-- todo context -->
+    <string name="attr_habitat">Habitad</string> <!-- todo context -->
+
+    <string name="header_pokedex_numbers">Números de Pokédex</string> <!-- todo context -->
+
+
+    <string name="attr_move_category">Categoría</string>
+    <string name="attr_move_contest">Concurso</string> <!-- todo context -->
+    <string name="attr_move_pp">PP</string>
+    <string name="attr_move_power">Poder</string>
+    <string name="attr_move_accuracy">Presición</string>
+
+
+    <string name="nature_stat_increased">Aumento de Estadísticas</string>
+    <string name="nature_stat_decreased">Disminución de Estadísticas</string>
+
+
+    <string name="type_comparison_immune">Inmune</string>
+    <string name="type_comparison_strong">Fuerza</string>
+    <string name="type_comparison_weak">Debilidad</string> <!-- todo context -->
+
+
+    <string name="header_evolutions">Evoluciones</string>
+
+    <string name="header_tools">Herramientas</string>
+    <string name="header_tools_experience">@string/action_calculate_experience</string>
+    <string name="header_forms">Formas</string>
+    <string name="header_moves">Movimientos</string>
+    <string name="header_moves_levelup">Por nivel</string>
+    <string name="header_moves_tutor">Por tutor</string>
+    <string name="header_moves_machine">Por MT/MO</string>
+    <string name="header_moves_form">Por cambio de forma</string> <!-- todo context -->
+    <string name="header_level">Nivel</string>
+    <string name="header_location_regions">Regiones</string>
+
+
+    <string name="title_filtered_pokedex">Pokémon filtradas</string>
+    <string name="title_filtered_abilities">Habilidades filtradas</string>
+    <string name="title_filtered_moves">Movimientos filtradas</string>
+    <string name="title_filtered_locations">Ubicaciones filtradas</string>
+
+
+    <string name="search_hint_pokedex">Buscar por ID o nombre</string>
+    <string name="sort_by_id">Ordenado por ID</string>
+    <string name="sort_by_name">Ordenado por nombre</string>
+    <string name="sort_by_id_already">Ya se ha ordenado por ID</string>
+    <string name="sort_by_name_already">Ya se ha ordenado por nombre</string>
+    <string name="filter_advanced_prompt">Enter the details of the Pokémon and press \'Filter\' to filter the results.
+        You do not have to enter all details, just the ones you want to filter by.</string>
+    <string name="filter_name">Nombre</string>
+    <string name="filter_stats_avg">Estadísticas medias</string>
+    <string name="filter_stats_avg_method">Tipo de filtro</string>
+    <string name="filter_stats_avg_value">Valor estadístico</string>
+    <string name="filter_levelling">Growth</string> <!-- TODO STOPSHIP NOT DONE -->
+    <string name="filter_button_advanced">Advanced Search</string>
+    <string name="filter_moves_method">Learn method</string>
+    <string name="filter_game_version">Game version</string>
+    <string name="filter_button_go">Go</string>
+
+
+    <string name="misc_requires_pro">Esta característica requiere la versión completa de la aplicación</string>
+    <string name="misc_no_results">Sin resultados</string>
+    <string name="add_favourites">Añadir Pokémon favorito</string>
+    <string name="add_favourites_description">Puedes añadir un Pokémon a la lista de favoritos</string>
+    <string name="favourites_error">Error: Este Pokémon no está en la lista de favoritos</string>
+    <string name="favourites_cleared">Se han borrado los favoritos</string>
+    <string name="filter_error">Debe especificar al menos un filtro</string>
+    <string name="mark_favourites">---</string> <!-- POKEMON has been MARK_TYPE favourites --> <!-- TODO change to two separate strings -->
+    <string name="mark_favourites_added">%1$s ha sido añadido a favoritos</string> <!-- POKEMON has been MARK_TYPE favourites --> <!-- TODO change to two separate strings -->
+    <string name="mark_favourite_removed">%1$s ha sido removido de favoritos</string> <!-- TODO STOPSHIP change to two seperate strings -->
+    <string name="null_alternate_forms">%1$s does not have any alternate forms</string>
+    <string name="location_no_pokemon">Ningún Pokémon encontrado en esta localización</string>
+
+    <!-- TODO STOPSHIP not done -->
+    <string name="detail_nav_back_error">You cannot navigate further back</string>
+    <string name="detail_nav_forward_error">You cannot navigate further forward</string>
+
+
+    <string name="experience_select_pokemon">Selecciona un Pokémon</string>
+    <string name="experience_select_levelling_rate">Elige la tasa de nivelación</string>
+    <string name="experience_calculate">Calcular</string>
+    <string name="experience_description">experiencia total para estar en el nivel %1$s con crecimiento %2$s</string>
+
+
+    <string name="welcome_message">¡Bienvenido a %1$s!</string>
+    <string name="about_app_info">%1$s \nVersión: %2$s</string>
+    <string name="about_copyrights">Aviso de copyright</string>
+    <string name="about_changelog">Ver todos los cambios y mejoras realizadas desde las primeras versiones beta.</string>
+    <string name="about_changelog_action">Ver lista de cambios</string>
+    <string name="about_settings">Ir a la página de configuración de la Pokédex.</string>
+    <string name="about_settings_action">Abrir ajustes</string>
+    <string name="about_feedback">Contacto</string>
+    <string name="about_feedback_desc">Si tienes comentarios o sugerencias (por ejemplo, qué te gustaría ver en la próxima versión), háganos saber a través de nuestro correo electrónico:
+        \n\nfeedback.phoenixenterprise@gmail.com</string>
+    <string name="about_feedback_action">Enviar comentarios</string>
+    <string name="about_help_translate">Ayúdanos a traducir</string>
+    <string name="about_help_translate_desc">¡Puedes ayudarnos a traducir esta aplicación a tu idioma! Si estás interesado, háganoslo saber por correo electrónico:
+        \n\ndevelopers.phoenixenterprise@gmail.com</string>
+
+
+    <string name="initialise_title">Initialising databases</string>
+    <string name="initialise_msg">Please wait whilst we load the databases for the first time, in order for searching and filtering to be as fast as possible.
+        This may take up to 10 minutes.
+        To make sure your experience is as fast as possible, we need to do this just for the first time (and if any of the databases get updated).</string>
+    <string name="initialise_loading">Loading (%1$s)</string>
+    <string name="initialise_wait_prompt">Please wait until the loading has finished to avoid crashes</string>
+    <string name="initialise_setup_desc">Creating databases for %1$s…</string>
+    <string name="initialise_finished">Initialisation completed</string>
+
+
+</resources>
