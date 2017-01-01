@@ -1,6 +1,8 @@
 package com.satsumasoftware.pokedex.ui;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +11,9 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
 import com.satsumasoftware.pokedex.R;
+import com.satsumasoftware.pokedex.util.PrefUtils;
+
+import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -43,6 +48,29 @@ public class SettingsActivity extends AppCompatActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences_fragment);
+
+            setupLanguagePref();
+        }
+
+        private void setupLanguagePref() {
+            findPreference(PrefUtils.PREF_APP_LOCALE).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    String language = (String) newValue;
+                    Locale newLocale = new Locale(language);
+
+                    Locale.setDefault(newLocale);
+                    Configuration configuration = new Configuration();
+                    configuration.locale = newLocale;
+
+                    getResources().updateConfiguration(configuration,
+                            getResources().getDisplayMetrics());
+
+                    getActivity().recreate();
+
+                    return true;
+                }
+            });
         }
     }
 }
