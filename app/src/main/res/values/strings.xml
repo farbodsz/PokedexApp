@@ -71,9 +71,6 @@
 
 
     <string name="dialog_ok_got_it">OK, got it</string>
-    <string name="dialog_cancel">Cancel</string>
-    <string name="dialog_yes">Yes</string>
-    <string name="dialog_no">No</string>
     <string name="dialog_title_compare_pokemon">Choose a Pokémon to compare against</string>
     <string name="dialog_title_compare_pokemon_forms">Compare Pokémon forms?</string>
     <string name="dialog_msg_compare_pokemon_forms">This Pokémon has alternate forms. Do you want to compare to one of its other forms?</string>

@@ -172,7 +172,7 @@ public class FavoritesActivity extends BaseActivity {
                                 .show();
                     }
                 })
-                .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Does nothing
                     }

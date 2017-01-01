@@ -36,7 +36,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.entities.ability.MiniAbility;
 import com.satsumasoftware.pokedex.entities.detail.DetailInfo;
@@ -45,6 +44,7 @@ import com.satsumasoftware.pokedex.entities.pokemon.MiniPokemon;
 import com.satsumasoftware.pokedex.entities.pokemon.Pokemon;
 import com.satsumasoftware.pokedex.entities.pokemon.PokemonForm;
 import com.satsumasoftware.pokedex.entities.pokemon.PokemonMoves;
+import com.satsumasoftware.pokedex.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.ui.adapter.DetailAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsTileAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FormsVGAdapter;
@@ -279,18 +279,18 @@ public class DetailActivity extends AppCompatActivity {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.dialog_title_compare_pokemon_forms)
                     .setMessage(R.string.dialog_msg_compare_pokemon_forms)
-                    .setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             action_compare(true);
                         }
                     })
-                    .setNegativeButton(R.string.dialog_no, new DialogInterface.OnClickListener() {
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             action_compare(false);
                         }
                     })
-                    .setNeutralButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+                    .setNeutralButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // Do nothing
                         }
@@ -308,7 +308,7 @@ public class DetailActivity extends AppCompatActivity {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(listPicker)
                 .setTitle(title)
-                .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing
                     }

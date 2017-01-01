@@ -49,9 +49,6 @@
 
 
     <string name="dialog_ok_got_it">OK</string>
-    <string name="dialog_cancel">Cancelar</string>
-    <string name="dialog_yes">Sí</string>
-    <string name="dialog_no">No</string>
     <string name="dialog_title_compare_pokemon">Escoger un Pokémon para comprar nuevamente</string>
     <string name="dialog_title_compare_pokemon_forms">Comprar formas de Pokémon?</string> <!-- todo context -->
     <string name="dialog_msg_compare_pokemon_forms">Este Pokémon tiene una forma alternativa. ¿Quieres comprar con una de sus otras formas?</string>
