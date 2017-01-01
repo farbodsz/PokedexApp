@@ -43,7 +43,6 @@
 
     <string name="pref_appLanguage">App language</string>
     <string-array name="pref_appLanguage_entries">
-        <item>System language</item>
         <item>English</item>
         <item>Spanish</item>
     </string-array>
