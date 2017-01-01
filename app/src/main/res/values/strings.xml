@@ -268,6 +268,57 @@
     <string name="initialise_finished">Initialisation completed</string>
 
 
+    <string name="prefCategory_dexes">Dexes and lists</string>
+
+    <string name="pref_combinedNames">Combined Pokémon name</string>
+    <string name="pref_combinedNames_summaryOn">Pokémon name and form will be combined on Pokédex lists - e.g. Mega Venusaur</string>
+    <string name="pref_combinedNames_summaryOff">Pokémon name and form will be separate on Pokédex lists - e.g. Venusaur (Mega Evolution)</string>
+
+    <string name="pref_sortAbilities">Sort Abilities alphabetically</string>
+    <string name="pref_sortAbilities_summaryOn">The Abilities list will be sorted alphabetically by default</string>
+    <string name="pref_sortAbilities_summaryOff">The Abilities list will be sorted by ID by default</string>
+
+    <string name="pref_sortMoves">Sort Moves alphabetically</string>
+    <string name="pref_sortMoves_summaryOn">The Moves list will be sorted alphabetically by default</string>
+    <string name="pref_sortMoves_summaryOff">The Moves list will be sorted by ID by default</string>
+
+
+    <string name="prefCategory_detailPage">Pokémon detail page</string>
+
+    <string name="pref_detailColouring">Detail page colouring</string>
+    <string name="pref_detailColouring_summary">Choose how you want the detail page to be coloured</string>
+    <string-array name="pref_detailColouring_entries">
+        <item>Default (red)</item>
+        <item>By Pokémon type</item>
+        <item>By Pokémon colour</item>
+    </string-array>
+    <string-array name="pref_detailColouring_values" translatable="false">
+        <item>default</item>
+        <item>type</item>
+        <item>colour</item>
+    </string-array>
+
+    <string name="pref_enableImages">Enable Pokémon images</string>
+    <string name="pref_enableImages_summaryOn">Pokémon images are enabled</string>
+    <string name="pref_enableImages_summaryOff">Pokémon images are disabled</string>
+
+    <string name="pref_playCry">Play Pokémon cry by default</string>
+    <string name="pref_playCry_summaryOn">Pokémon cry will be played when the detail page is opened</string>
+    <string name="pref_playCry_summaryOff">Pokémon cry will not be played</string>
+
+    <string name="prefCategory_language">Language</string>
+
+    <string name="pref_appLanguage">App language</string>
+    <string-array name="pref_appLanguage_entries">
+        <item>English</item>
+        <item>Spanish</item>
+    </string-array>
+    <string-array name="pref_appLanguage_values" translatable="false">
+        <item>en</item>
+        <item>es</item>
+    </string-array>
+
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 

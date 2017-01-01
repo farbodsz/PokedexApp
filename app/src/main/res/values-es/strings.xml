@@ -221,4 +221,50 @@
     <string name="initialise_finished">Initialisation completed</string>
 
 
+    <string name="prefCategory_dexes">Dexes y listas</string>
+
+    <string name="pref_combinedNames">Nombre del Pokémon combinado</string>
+    <string name="pref_combinedNames_summaryOn">El nombre y la forma del Pokémon estarán separados en las listas de la Pokédex - e.j. Venusaur (Mega Evolución)</string>
+    <string name="pref_combinedNames_summaryOff">El nombre y la forma del Pokémon se combinarán en las listas de la Pokédex - e.j. Mega Venusaur</string>
+
+    <string name="pref_sortAbilities">Ordenar habilidades alfabéticamente</string>
+    <string name="pref_sortAbilities_summaryOn">La lista de habilidades se clasificará alfabéticamente de forma predeterminada</string>
+    <string name="pref_sortAbilities_summaryOff">La lista de habilidades se clasificará por ID de forma predeterminada</string>
+
+    <string name="pref_sortMoves">Ordenar movimientos alfabéticamente</string>
+    <string name="pref_sortMoves_summaryOn">La lista de movimientos se clasificará alfabéticamente de forma predeterminada</string>
+    <string name="pref_sortMoves_summaryOff">La lista de movimientos se clasificará por ID de forma predeterminada</string>
+
+
+    <string name="prefCategory_detailPage">Página de detalles del Pokémon</string>
+
+    <string name="pref_detailColouring">Color de la página de detalles</string>
+    <string name="pref_detailColouring_summary">Elije cómo quieres que se vean las páginas de detalles</string>
+    <string-array name="pref_detailColouring_entries">
+        <item>El defecto (rojo)</item>
+        <item>Por el tipo del Pokémon</item>
+        <item>Por el color del Pokémon</item>
+    </string-array>
+    <string-array name="pref_detailColouring_values" translatable="false">
+        <item>default</item>
+        <item>type</item>
+        <item>colour</item>
+    </string-array>
+
+    <string name="pref_enableImages">Habilitar las imágenes de Pokémon</string>
+    <string name="pref_enableImages_summaryOn">Las imágenes de Pokémon están activadas</string>
+    <string name="pref_enableImages_summaryOff">Las imágenes de Pokémon están desactivadas</string>
+
+    <string name="pref_playCry">Reproducir grito del Pokémon por defecto</string>
+    <string name="pref_playCry_summaryOn">Se reproducirá el grito del Pokémon cuando se abra la página de detalles</string>
+    <string name="pref_playCry_summaryOff">El grito del Pokémon no se reproducirá</string>
+
+    <string name="prefCategory_language">Idioma</string>
+
+    <string name="pref_appLanguage">Idioma de la aplicación</string>
+    <string-array name="pref_appLanguage_entries">
+        <item>Inglés</item>
+        <item>Español</item>
+    </string-array>
+
 </resources>
