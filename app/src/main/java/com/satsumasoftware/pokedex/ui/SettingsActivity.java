@@ -2,6 +2,7 @@ package com.satsumasoftware.pokedex.ui;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.design.widget.AppBarLayout;
@@ -53,7 +54,11 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         private void setupLanguagePref() {
-            findPreference(PrefUtils.PREF_APP_LOCALE).setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            ListPreference localePref = (ListPreference) findPreference(PrefUtils.PREF_APP_LOCALE);
+
+            localePref.setSummary(localePref.getEntry());
+
+            localePref.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     String language = (String) newValue;
