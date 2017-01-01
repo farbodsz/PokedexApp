@@ -66,12 +66,14 @@
     <string name="action_calculate_experience_of">%1$s\'s EXP</string>
 
 
-    <string name="dialog_ok_got_it">OK, got it</string>
-    <string name="dialog_title_compare_pokemon">Choose a Pokémon to compare against</string>
-    <string name="dialog_title_compare_pokemon_forms">Compare Pokémon forms?</string>
-    <string name="dialog_msg_compare_pokemon_forms">This Pokémon has alternate forms. Do you want to compare to one of its other forms?</string>
-    <string name="dialog_title_clear_favourites">Clear Favourites?</string>
-    <string name="dialog_msg_clear_favourites">Are you sure you want to remove all Pokémon from the Favourites list?</string>
+    <string name="got_it">OK, got it</string>
+
+    <string name="choose_comparison_pokemon">Choose a Pokémon to compare against</string>
+    <string name="compare_pokemon_forms_hint">Compare Pokémon forms?</string>
+    <string name="compare_alternate_forms_hint">This Pokémon has alternate forms. Do you want to compare to one of its other forms?</string>
+
+    <string name="clear_favorites_title">Clear Favourites?</string>
+    <string name="clear_favorites_description">Are you sure you want to remove all Pokémon from the Favourites list?</string>
 
 
     <string name="show_pokemon">Show Pokémon</string>
