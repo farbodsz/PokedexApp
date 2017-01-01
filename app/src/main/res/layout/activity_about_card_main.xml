@@ -25,7 +25,7 @@
             android:layout_height="wrap_content" >
             <TextView
                 style="@style/AppTheme.CardView.Text.Title"
-                android:text="@string/title_activity_about"
+                android:text="@string/title_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>

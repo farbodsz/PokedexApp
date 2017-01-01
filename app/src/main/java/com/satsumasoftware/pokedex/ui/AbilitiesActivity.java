@@ -18,9 +18,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.satsumasoftware.pokedex.R;
-import com.satsumasoftware.pokedex.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
 import com.satsumasoftware.pokedex.entities.ability.MiniAbility;
+import com.satsumasoftware.pokedex.misc.DividerItemDecoration;
 import com.satsumasoftware.pokedex.ui.adapter.AbilityDexAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
 import com.satsumasoftware.pokedex.util.AdUtils;
@@ -310,7 +310,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
         Log.d(LOG_TAG, "updateFilteredList | selection [middle]: " + selection);
 
         if (selection.trim().equals("")) {
-            mToolbar.setTitle(getResources().getString(R.string.title_activity_abilities));
+            mToolbar.setTitle(getResources().getString(R.string.title_abilities));
             mRecyclerView.setVisibility(View.VISIBLE);
             mNoResults.setVisibility(View.GONE);
             populateList(mDbHelper.getAllMiniAbilities());

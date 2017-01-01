@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="@string/title_activity_nature_detail"
+                android:text="@string/title_nature_detail"
                 style="@style/AppTheme.CardView.Text.Subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

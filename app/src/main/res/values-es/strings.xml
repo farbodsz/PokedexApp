@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="title_activity_initialise">Datos iniciales</string> <!-- todo context -->
+    <string name="title_initialize_database">Datos iniciales</string> <!-- todo context -->
 
-    <string name="title_activity_natures">Naturalezas</string>
-    <string name="title_activity_locations">Ubicaciones</string>
-    <string name="title_activity_compare">Comparación</string>
-    <string name="title_activity_favorites">Favoritos</string>
-    <string name="title_activity_experience_calculator">Calculador de Experiencia</string>
+    <string name="title_natures">Naturalezas</string>
+    <string name="title_locations">Ubicaciones</string>
+    <string name="title_comparison">Comparación</string>
+    <string name="title_favorites">Favoritos</string>
+    <string name="title_experience_calculator">Calculador de Experiencia</string>
 
-    <string name="title_activity_changelog">Cambios</string>
-    <string name="title_activity_advanced_filter">Filtro avanzado</string>
+    <string name="title_changelog">Cambios</string>
+    <string name="title_advanced_filter">Filtro avanzado</string>
 
-    <string name="title_activity_moves_detail">Movimiento</string>
-    <string name="title_activity_nature_detail">Naturaleza</string>
-    <string name="title_activity_property_detail">Propiedad</string>
-    <string name="title_activity_location_detail">Posición</string>
-    <string name="title_activity_pkmn_type_detail">Eficacia de tipo</string>
+    <string name="title_move_detail">Movimiento</string>
+    <string name="title_nature_detail">Naturaleza</string>
+    <string name="title_property_detail">Propiedad</string>
+    <string name="title_location_detail">Posición</string>
+    <string name="title_type_effectiveness">Eficacia de tipo</string>
 
 
     <string name="action_settings">Configuraciones</string>

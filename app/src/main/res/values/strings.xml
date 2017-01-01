@@ -3,42 +3,38 @@
 
     <string name="app_name" translatable="false">Pokédex Free</string>
 
-    <string name="title_activity_initialise">Initialising databases</string>
+    <string name="title_initialize_database">Initialising databases</string>
 
-    <string name="title_activity_pokedex" translatable="false">Pokédex</string>
-    <string name="title_activity_abilities" translatable="false">@string/header_abilities</string>
-    <string name="title_activity_moves" translatable="false">@string/header_moves</string>
+    <string name="title_pokedex" translatable="false">Pokédex</string>
+    <string name="title_abilities" translatable="false">@string/header_abilities</string>
+    <string name="title_moves" translatable="false">@string/header_moves</string>
 
-    <string name="title_activity_natures">Natures</string>
-    <string name="title_activity_locations">Locations</string>
-    <string name="title_activity_compare">Comparison</string>
-    <string name="title_activity_favorites">Favourites</string>
-    <string name="title_activity_experience_calculator">Experience Calculator</string>
+    <string name="title_natures">Natures</string>
+    <string name="title_locations">Locations</string>
+    <string name="title_comparison">Comparison</string>
+    <string name="title_favorites">Favourites</string>
+    <string name="title_experience_calculator">Experience Calculator</string>
 
-    <string name="title_activity_settings" translatable="false">@string/action_settings</string>
-    <string name="title_activity_about" translatable="false">@string/action_about</string>
+    <string name="title_settings" translatable="false">@string/action_settings</string>
+    <string name="title_about" translatable="false">@string/action_about</string>
 
-    <string name="title_activity_changelog">Changelog</string>
-    <string name="title_activity_advanced_filter">Advanced Filter</string>
-    <string name="title_activity_filter_results" translatable="false">@string/title_activity_advanced_filter</string>
-    <string name="title_activity_search_results" translatable="false">@string/action_search</string>
+    <string name="title_changelog">Changelog</string>
+    <string name="title_advanced_filter">Advanced Filter</string>
 
-    <string name="title_activity_pokemon_detail" translatable="false">@string/attr_pokemon</string>
-    <string name="title_activity_ability_detail" translatable="false">@string/attr_ability</string>
-    <string name="title_activity_moves_detail">Move</string>
-    <string name="title_activity_nature_detail">Nature</string>
-    <string name="title_activity_property_detail">Property</string>
-    <string name="title_activity_location_detail">Location</string>
-    <string name="title_activity_pkmn_type_detail">Type effectiveness</string>
+    <string name="title_move_detail">Move</string>
+    <string name="title_nature_detail">Nature</string>
+    <string name="title_property_detail">Property</string>
+    <string name="title_location_detail">Location</string>
+    <string name="title_type_effectiveness">Type effectiveness</string>
 
 
-    <string name="navigation_item_pokedex" translatable="false">@string/title_activity_pokedex</string>
-    <string name="navigation_item_abilities" translatable="false">@string/title_activity_abilities</string>
-    <string name="navigation_item_moves" translatable="false">@string/title_activity_moves</string>
-    <string name="navigation_item_natures" translatable="false">@string/title_activity_natures</string>
-    <string name="navigation_item_locations" translatable="false">@string/title_activity_locations</string>
-    <string name="navigation_item_favourites" translatable="false">@string/title_activity_favorites</string>
-    <string name="navigation_item_experience" translatable="false">@string/title_activity_experience_calculator</string>
+    <string name="navigation_item_pokedex" translatable="false">@string/title_pokedex</string>
+    <string name="navigation_item_abilities" translatable="false">@string/title_abilities</string>
+    <string name="navigation_item_moves" translatable="false">@string/title_moves</string>
+    <string name="navigation_item_natures" translatable="false">@string/title_natures</string>
+    <string name="navigation_item_locations" translatable="false">@string/title_locations</string>
+    <string name="navigation_item_favourites" translatable="false">@string/title_favorites</string>
+    <string name="navigation_item_experience" translatable="false">@string/title_experience_calculator</string>
 
 
     <string name="action_settings">Settings</string>

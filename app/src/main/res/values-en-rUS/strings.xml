@@ -2,8 +2,8 @@
 <resources>
 
 
-    <string name="title_activity_initialise">Initializing databases</string>
-    <string name="title_activity_favorites">Favorites</string>
+    <string name="title_initialize_database">Initializing databases</string>
+    <string name="title_favorites">Favorites</string>
 
 
     <string name="action_favourite_add">Add to favorites</string>

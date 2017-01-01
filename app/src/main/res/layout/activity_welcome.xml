@@ -97,7 +97,7 @@
         android:layout_alignParentEnd="true">
         <Button
             android:id="@+id/welcome_btnChangelog"
-            android:text="@string/title_activity_changelog"
+            android:text="@string/title_changelog"
             android:textColor="?android:textColorSecondary"
             style="@style/AppTheme.Button.Flat"
             android:layout_width="wrap_content"

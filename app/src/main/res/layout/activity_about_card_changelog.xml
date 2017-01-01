@@ -10,7 +10,7 @@
         android:layout_height="wrap_content">
         <TextView
             style="@style/AppTheme.CardView.Text.Title"
-            android:text="@string/title_activity_changelog"
+            android:text="@string/title_changelog"
             android:paddingTop="@dimen/card_padding_vertical_large"
             android:paddingBottom="@dimen/card_padding_vertical"
             android:paddingLeft="@dimen/card_padding_lateral"

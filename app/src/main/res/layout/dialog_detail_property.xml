@@ -30,7 +30,7 @@
 
             <TextView
                 android:id="@+id/propertyDetail_tvDetailType"
-                android:text="@string/title_activity_property_detail"
+                android:text="@string/title_property_detail"
                 style="@style/AppTheme.CardView.Text.Subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
