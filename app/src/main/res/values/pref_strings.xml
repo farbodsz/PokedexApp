@@ -39,4 +39,16 @@
     <string name="pref_playCry_summaryOn">Pokémon cry will be played when the detail page is opened</string>
     <string name="pref_playCry_summaryOff">Pokémon cry will not be played</string>
 
+    <string name="prefCategory_language">Language</string>
+
+    <string name="pref_appLanguage">App language</string>
+    <string-array name="pref_appLanguage_entries">
+        <item>English</item>
+        <item>Spanish</item>
+    </string-array>
+    <string-array name="pref_appLanguage_values" translatable="false">
+        <item>en</item>
+        <item>es</item>
+    </string-array>
+
 </resources>

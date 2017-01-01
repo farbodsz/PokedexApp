@@ -47,4 +47,14 @@
             android:defaultValue="false" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="@string/prefCategory_language">
+        <ListPreference
+            android:key="pref_app_language"
+            android:title="@string/pref_appLanguage"
+            android:entries="@array/pref_appLanguage_entries"
+            android:entryValues="@array/pref_appLanguage_values"
+            android:defaultValue="en" />
+    </PreferenceCategory>
+
 </PreferenceScreen>
