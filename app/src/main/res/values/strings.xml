@@ -3,8 +3,6 @@
 
     <string name="app_name" translatable="false">Pokédex Free</string>
 
-    <string name="title_activity_splash" translatable="false">@string/app_name</string>
-    <string name="title_activity_welcome" translatable="false">@string/app_name</string>
     <string name="title_activity_initialise">Initialising databases</string>
 
     <string name="title_activity_pokedex" translatable="false">Pokédex</string>

@@ -25,7 +25,6 @@
             android:theme="@android:style/Theme.Translucent" />
         <activity
             android:name=".ui.startup.SplashActivity"
-            android:label="@string/title_activity_splash"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,8 +37,7 @@
             android:label="@string/title_activity_initialise"
             android:screenOrientation="locked" />
         <activity
-            android:name=".ui.startup.WelcomeActivity"
-            android:label="@string/title_activity_welcome" />
+            android:name=".ui.startup.WelcomeActivity" />
         <activity
             android:name=".ui.PokedexActivity"
             android:label="@string/title_activity_pokedex"
