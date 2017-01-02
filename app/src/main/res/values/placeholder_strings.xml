@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- These placeholder strings are used for the layout editor. When running the app, the content
+     would be dynamically loaded. -->
+<resources>
+
+    <string name="hello_world" translatable="false">Hello world!</string>
+
+    <string name="dummy_id" translatable="false"># 537</string>
+    <string name="dummy_pokemon" translatable="false">A Pokémon</string>
+    <string name="dummy_form" translatable="false">A Form</string>
+    <string name="dummy_ability" translatable="false">An ability</string>
+    <string name="dummy_gender" translatable="false">Gender</string>
+    <string name="dummy_classification" translatable="false">A classification</string>
+    <string name="dummy_type" translatable="false">Type</string>
+    <string name="dummy_height" translatable="false">12.3 m</string>
+    <string name="dummy_weight" translatable="false">109 kg</string>
+    <string name="dummy_stat" translatable="false">AZ</string>
+    <string name="dummy_catch_rate" translatable="false">A catch rate</string>
+    <string name="dummy_levelling_rate" translatable="false">A levelling rate</string>
+    <string name="dummy_happiness" translatable="false">Quite happy</string>
+    <string name="dummy_exp_growth" translatable="false">Exp growth</string>
+    <string name="dummy_egg_steps" translatable="false">Egg steps</string>
+    <string name="dummy_egg_cycles" translatable="false">Egg cycles</string>
+    <string name="dummy_generation" translatable="false">Gen</string>
+    <string name="dummy_color" translatable="false">Some color</string>
+    <string name="dummy_shape" translatable="false">A shape</string>
+    <string name="dummy_habitat" translatable="false">Habitat</string>
+    <string name="dummy_description" translatable="false">Lorem ipsum text or whatever it is meant to be</string>
+    <string name="dummy_move" translatable="false">A move</string>
+    <string name="dummy_nature" translatable="false">A nature</string>
+    <string name="dummy_property" translatable="false">A property</string>
+    <string name="dummy_about_app" translatable="false">App Info</string>
+
+</resources>
