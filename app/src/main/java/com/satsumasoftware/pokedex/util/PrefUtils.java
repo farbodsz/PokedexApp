@@ -6,6 +6,8 @@ import android.preference.PreferenceManager;
 
 import com.satsumasoftware.pokedex.BuildConfig;
 
+import java.util.Locale;
+
 public final class PrefUtils {
 
 
@@ -123,6 +125,17 @@ public final class PrefUtils {
     public static boolean useImperialUnits(Context context) {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         return sp.getBoolean(PREF_USE_IMPERIAL_UNITS, false);
+    }
+
+
+    /* Language */
+
+    public static final String PREF_APP_LOCALE = "pref_app_language";
+
+    public static Locale getAppLocale(Context context) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        String language = sp.getString(PREF_APP_LOCALE, "en");
+        return new Locale(language);
     }
 
 }

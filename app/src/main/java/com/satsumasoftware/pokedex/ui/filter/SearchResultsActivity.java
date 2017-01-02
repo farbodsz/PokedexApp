@@ -74,8 +74,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     private void handleSearchIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             final String query = intent.getStringExtra(SearchManager.QUERY).trim();
-            mActionBar.setTitle(
-                    getResources().getString(R.string.title_activity_search_results) + " \"" + query + "\"");
+            mActionBar.setTitle(" \"" + query + "\"");
             doSearch(query);
             populateList(mArrayPokemon);
             mRecyclerView.setVisibility(View.VISIBLE);

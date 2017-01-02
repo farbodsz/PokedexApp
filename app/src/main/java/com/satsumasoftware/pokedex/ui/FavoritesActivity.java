@@ -154,8 +154,8 @@ public class FavoritesActivity extends BaseActivity {
 
     private void confirmClearList() {
         new AlertDialog.Builder(this)
-                .setTitle(R.string.dialog_title_clear_favourites)
-                .setMessage(R.string.dialog_msg_clear_favourites)
+                .setTitle(R.string.clear_favorites_title)
+                .setMessage(R.string.clear_favorites_description)
                 .setPositiveButton(R.string.action_clear_all, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         FavoriteUtils.clearFavouritePkmnList(FavoritesActivity.this);
@@ -171,7 +171,7 @@ public class FavoritesActivity extends BaseActivity {
                                 .show();
                     }
                 })
-                .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Does nothing
                     }

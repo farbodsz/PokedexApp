@@ -269,7 +269,7 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
         Log.d(LOG_TAG, "updateFilteredList | selection [middle]: " + selection);
 
         if (selection.trim().equals("")) {
-            mToolbar.setTitle(getResources().getString(R.string.title_activity_locations));
+            mToolbar.setTitle(getResources().getString(R.string.title_locations));
             mRecyclerView.setVisibility(View.VISIBLE);
             mNoResults.setVisibility(View.GONE);
             populateList(mDbHelper.getAllLocations());

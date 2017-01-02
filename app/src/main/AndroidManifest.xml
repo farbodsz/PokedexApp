@@ -25,7 +25,6 @@
             android:theme="@android:style/Theme.Translucent" />
         <activity
             android:name=".ui.startup.SplashActivity"
-            android:label="@string/title_activity_splash"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,14 +34,13 @@
         </activity>
         <activity
             android:name=".ui.startup.InitializeDbActivity"
-            android:label="@string/title_activity_initialise"
+            android:label="@string/title_initialize_database"
             android:screenOrientation="locked" />
         <activity
-            android:name=".ui.startup.WelcomeActivity"
-            android:label="@string/title_activity_welcome" />
+            android:name=".ui.startup.WelcomeActivity" />
         <activity
             android:name=".ui.PokedexActivity"
-            android:label="@string/title_activity_pokedex"
+            android:label="@string/title_pokedex"
             android:theme="@style/AppTheme.NavDrawer">
             <meta-data
                 android:name="android.app.default_searchable"
@@ -50,31 +48,30 @@
         </activity>
         <activity
             android:name=".ui.AbilitiesActivity"
-            android:label="@string/title_activity_abilities"
+            android:label="@string/title_abilities"
             android:theme="@style/AppTheme.AbilityDex.NavDrawer" />
         <activity
             android:name=".ui.MovesActivity"
-            android:label="@string/title_activity_moves"
+            android:label="@string/title_moves"
             android:theme="@style/AppTheme.MoveDex.NavDrawer" />
         <activity
             android:name=".ui.NaturesActivity"
-            android:label="@string/title_activity_natures"
+            android:label="@string/title_natures"
             android:theme="@style/AppTheme.NatureDex.NavDrawer" />
         <activity
             android:name=".ui.LocationsActivity"
-            android:label="@string/title_activity_locations"
+            android:label="@string/title_locations"
             android:theme="@style/AppTheme.LocationDex.NavDrawer" />
         <activity
             android:name=".ui.FavoritesActivity"
-            android:label="@string/title_activity_favorites"
+            android:label="@string/title_favorites"
             android:theme="@style/AppTheme.Favourites.NavDrawer" />
         <activity
             android:name=".ui.ExperienceCalculatorActivity"
-            android:label="@string/title_activity_experience_calculator"
+            android:label="@string/title_experience_calculator"
             android:theme="@style/AppTheme.Tools.NavDrawer" />
         <activity
             android:name=".ui.DetailActivity"
-            android:label="@string/title_activity_pokemon_detail"
             android:parentActivityName=".ui.PokedexActivity"
             android:theme="@style/AppTheme.Detail">
             <meta-data
@@ -83,11 +80,11 @@
         </activity>
         <activity
             android:name=".ui.CompareActivity"
-            android:label="@string/title_activity_compare"
+            android:label="@string/title_comparison"
             android:theme="@style/AppTheme.Comparison" />
         <activity
             android:name=".ui.LocationDetailActivity"
-            android:label="@string/title_activity_location_detail"
+            android:label="@string/title_location_detail"
             android:parentActivityName=".ui.PokedexActivity"
             android:theme="@style/AppTheme.LocationDex">
             <meta-data
@@ -96,7 +93,7 @@
         </activity>
         <activity
             android:name=".ui.AdvancedFilterActivity"
-            android:label="@string/title_activity_advanced_filter"
+            android:label="@string/title_advanced_filter"
             android:parentActivityName=".ui.PokedexActivity"
             android:windowSoftInputMode="stateHidden">
             <!-- This hides the keyboard upon entering the activity -->
@@ -106,7 +103,7 @@
         </activity>
         <activity
             android:name=".ui.filter.FilterResultsActivity"
-            android:label="@string/title_activity_filter_results"
+            android:label="@string/title_advanced_filter"
             android:parentActivityName=".ui.PokedexActivity"
             android:theme="@style/AppTheme.Filter">
             <meta-data
@@ -115,7 +112,7 @@
         </activity>
         <activity
             android:name=".ui.filter.SearchResultsActivity"
-            android:label="@string/title_activity_search_results"
+            android:label="@android:string/search_go"
             android:parentActivityName=".ui.PokedexActivity"
             android:theme="@style/AppTheme.Search">
             <meta-data
@@ -132,7 +129,7 @@
         </activity>
         <activity
             android:name=".ui.SettingsActivity"
-            android:label="@string/title_activity_settings"
+            android:label="@string/title_settings"
             android:parentActivityName=".ui.PokedexActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -140,31 +137,31 @@
         </activity>
         <activity
             android:name=".ui.AboutActivity"
-            android:label="@string/title_activity_about"
+            android:label="@string/title_about"
             android:theme="@style/AppTheme.About" />
         <activity
             android:name=".ui.ChangelogActivity"
-            android:label="@string/title_activity_changelog"
+            android:label="@string/title_changelog"
             android:theme="@style/AppTheme.Changelog" />
         <activity
             android:name=".ui.dialog.PkmnTypeDetailActivity"
-            android:label="@string/title_activity_pkmn_type_detail"
+            android:label="@string/title_type_effectiveness"
             android:theme="@style/AppTheme.Dialog.PokemonDetail" />
         <activity
             android:name=".ui.dialog.AbilityDetailActivity"
-            android:label="@string/title_activity_ability_detail"
+            android:label="@string/title_ability_detail"
             android:theme="@style/AppTheme.Dialog.AbilityDetail" />
         <activity
             android:name=".ui.dialog.MoveDetailActivity"
-            android:label="@string/title_activity_moves_detail"
+            android:label="@string/title_move_detail"
             android:theme="@style/AppTheme.Dialog.MoveDetail" />
         <activity
             android:name=".ui.dialog.NatureDetailActivity"
-            android:label="@string/title_activity_nature_detail"
+            android:label="@string/title_nature_detail"
             android:theme="@style/AppTheme.Dialog.NatureDetail" />
         <activity
             android:name=".ui.dialog.PropertyDetailActivity"
-            android:label="@string/title_activity_property_detail"
+            android:label="@string/title_property_detail"
             android:theme="@style/AppTheme.Dialog.PropertyDetail" />
         <activity android:name=".ui.PkmnImageActivity" />
     </application>

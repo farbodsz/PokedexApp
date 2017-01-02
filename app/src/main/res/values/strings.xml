@@ -3,45 +3,39 @@
 
     <string name="app_name" translatable="false">PokéData Free</string>
 
-    <string name="title_activity_splash" translatable="false">@string/app_name</string>
-    <string name="title_activity_welcome" translatable="false">@string/app_name</string>
-    <string name="title_activity_initialise">Initialising databases</string>
+    <string name="title_initialize_database">Initialising databases</string>
 
-    <string name="title_activity_pokedex" translatable="false">Pokédex</string>
-    <string name="title_activity_abilities" translatable="false">@string/header_abilities</string>
-    <string name="title_activity_moves" translatable="false">@string/header_moves</string>
+    <string name="title_pokedex" translatable="false">Pokédex</string>
+    <string name="title_abilities" translatable="false">@string/header_abilities</string>
+    <string name="title_moves" translatable="false">@string/header_moves</string>
 
-    <string name="title_activity_natures">Natures</string>
-    <string name="title_activity_locations">Locations</string>
-    <string name="title_activity_compare">Comparison</string>
-    <string name="title_activity_favorites">Favourites</string>
-    <string name="title_activity_experience_calculator">Experience Calculator</string>
+    <string name="title_natures">Natures</string>
+    <string name="title_locations">Locations</string>
+    <string name="title_comparison">Comparison</string>
+    <string name="title_favorites">Favourites</string>
+    <string name="title_experience_calculator">Experience Calculator</string>
 
-    <string name="title_activity_settings" translatable="false">@string/action_settings</string>
-    <string name="title_activity_about" translatable="false">@string/action_about</string>
+    <string name="title_settings" translatable="false">@string/action_settings</string>
+    <string name="title_about" translatable="false">@string/action_about</string>
 
-    <string name="title_activity_changelog">Changelog</string>
-    <string name="title_activity_advanced_filter">Advanced Filter</string>
-    <string name="title_activity_filter_results" translatable="false">@string/title_activity_advanced_filter</string>
-    <string name="title_activity_search_results" translatable="false">@string/action_search</string>
+    <string name="title_changelog">Changelog</string>
+    <string name="title_advanced_filter">Advanced Filter</string>
 
-    <string name="title_activity_pokemon_detail" translatable="false">@string/attr_pokemon</string>
-    <string name="title_activity_ability_detail" translatable="false">@string/attr_ability</string>
-    <string name="title_activity_moves_detail">Move</string>
-    <string name="title_activity_nature_detail">Nature</string>
-    <string name="title_activity_property_detail">Property</string>
-    <string name="title_activity_location_detail">Location</string>
-    <string name="title_activity_pkmn_type_detail">Type effectiveness</string>
+    <string name="title_move_detail">Move</string>
+    <string name="title_nature_detail">Nature</string>
+    <string name="title_property_detail">Property</string>
+    <string name="title_location_detail">Location</string>
+    <string name="title_type_effectiveness">Type effectiveness</string>
 
 
-    <string name="navigation_item_pokedex" translatable="false">@string/title_activity_pokedex</string>
-    <string name="navigation_item_abilities" translatable="false">@string/title_activity_abilities</string>
-    <string name="navigation_item_moves" translatable="false">@string/title_activity_moves</string>
-    <string name="navigation_item_natures" translatable="false">@string/title_activity_natures</string>
-    <string name="navigation_item_locations" translatable="false">@string/title_activity_locations</string>
-    <string name="navigation_item_favourites" translatable="false">@string/title_activity_favorites</string>
-    <string name="navigation_item_experience" translatable="false">@string/title_activity_experience_calculator</string>
-    <string name="navigation_item_settings" translatable="false">@string/title_activity_settings</string>
+    <string name="navigation_item_pokedex" translatable="false">@string/title_pokedex</string>
+    <string name="navigation_item_abilities" translatable="false">@string/title_abilities</string>
+    <string name="navigation_item_moves" translatable="false">@string/title_moves</string>
+    <string name="navigation_item_natures" translatable="false">@string/title_natures</string>
+    <string name="navigation_item_locations" translatable="false">@string/title_locations</string>
+    <string name="navigation_item_favourites" translatable="false">@string/title_favorites</string>
+    <string name="navigation_item_experience" translatable="false">@string/title_experience_calculator</string>
+    <string name="navigation_item_settings" translatable="false">@string/title_settings</string>
 
 
     <string name="action_settings">Settings</string>
@@ -73,15 +67,14 @@
     <string name="action_calculate_experience_of">%1$s\'s EXP</string>
 
 
-    <string name="dialog_ok_got_it">OK, got it</string>
-    <string name="dialog_cancel">Cancel</string>
-    <string name="dialog_yes">Yes</string>
-    <string name="dialog_no">No</string>
-    <string name="dialog_title_compare_pokemon">Choose a Pokémon to compare against</string>
-    <string name="dialog_title_compare_pokemon_forms">Compare Pokémon forms?</string>
-    <string name="dialog_msg_compare_pokemon_forms">This Pokémon has alternate forms. Do you want to compare to one of its other forms?</string>
-    <string name="dialog_title_clear_favourites">Clear Favourites?</string>
-    <string name="dialog_msg_clear_favourites">Are you sure you want to remove all Pokémon from the Favourites list?</string>
+    <string name="got_it">OK, got it</string>
+
+    <string name="choose_comparison_pokemon">Choose a Pokémon to compare against</string>
+    <string name="compare_pokemon_forms_hint">Compare Pokémon forms?</string>
+    <string name="compare_alternate_forms_hint">This Pokémon has alternate forms. Do you want to compare to one of its other forms?</string>
+
+    <string name="clear_favorites_title">Clear Favourites?</string>
+    <string name="clear_favorites_description">Are you sure you want to remove all Pokémon from the Favourites list?</string>
 
 
     <string name="show_pokemon">Show Pokémon</string>
@@ -90,9 +83,7 @@
 
     <string name="tab_pkmn_detail_general">General</string>
     <string name="tab_pkmn_detail_forms" translatable="false">@string/header_forms</string>
-    <string name="tab_pkmn_detail_evolutions" translatable="false">@string/header_evolutions</string>
     <string name="tab_pkmn_detail_moves" translatable="false">@string/header_moves</string>
-    <string name="tab_pkmn_detail_locations" translatable="false">@string/title_activity_locations</string>
 
 
     <string name="header_general_info">General Information</string>
@@ -280,6 +271,63 @@
     <string name="initialise_wait_prompt">Please wait until the loading has finished to avoid crashes</string>
     <string name="initialise_setup_desc">Creating databases for %1$s…</string>
     <string name="initialise_finished">Initialisation completed</string>
+
+
+    <string name="prefCategory_dexes">Dexes and lists</string>
+
+    <string name="pref_combinedNames">Combined Pokémon name</string>
+    <string name="pref_combinedNames_summaryOn">Pokémon name and form will be combined on Pokédex lists - e.g. Mega Venusaur</string>
+    <string name="pref_combinedNames_summaryOff">Pokémon name and form will be separate on Pokédex lists - e.g. Venusaur (Mega Evolution)</string>
+
+    <string name="pref_sortAbilities">Sort Abilities alphabetically</string>
+    <string name="pref_sortAbilities_summaryOn">The Abilities list will be sorted alphabetically by default</string>
+    <string name="pref_sortAbilities_summaryOff">The Abilities list will be sorted by ID by default</string>
+
+    <string name="pref_sortMoves">Sort Moves alphabetically</string>
+    <string name="pref_sortMoves_summaryOn">The Moves list will be sorted alphabetically by default</string>
+    <string name="pref_sortMoves_summaryOff">The Moves list will be sorted by ID by default</string>
+
+
+    <string name="prefCategory_detailPage">Pokémon detail page</string>
+
+    <string name="pref_detailColouring">Detail page colouring</string>
+    <string name="pref_detailColouring_summary">Choose how you want the detail page to be coloured</string>
+    <string-array name="pref_detailColouring_entries">
+        <item>Default (red)</item>
+        <item>By Pokémon type</item>
+        <item>By Pokémon colour</item>
+    </string-array>
+    <string-array name="pref_detailColouring_values" translatable="false">
+        <item>default</item>
+        <item>type</item>
+        <item>colour</item>
+    </string-array>
+
+    <string name="pref_enableImages">Enable Pokémon images</string>
+    <string name="pref_enableImages_summaryOn">Pokémon images are enabled</string>
+    <string name="pref_enableImages_summaryOff">Pokémon images are disabled</string>
+
+    <string name="pref_playCry">Play Pokémon cry by default</string>
+    <string name="pref_playCry_summaryOn">Pokémon cry will be played when the detail page is opened</string>
+    <string name="pref_playCry_summaryOff">Pokémon cry will not be played</string>
+
+    <string name="prefCategory_data">Data</string>
+
+    <string name="pref_useImperial">Use imperial units</string>
+    <string name="pref_useImperial_summaryOn">Imperial units will be used (feet, pounds)</string>
+    <string name="pref_useImperial_summaryOff">Metric units will be used (metres, kilograms)</string>
+
+    <string name="prefCategory_language">Language</string>
+
+    <string name="pref_appLanguage">App language</string>
+    <string-array name="pref_appLanguage_entries">
+        <item>English</item>
+        <item>Spanish</item>
+    </string-array>
+    <string-array name="pref_appLanguage_values" translatable="false">
+        <item>en</item>
+        <item>es</item>
+    </string-array>
 
 
     <string name="drawer_open">Open navigation drawer</string>

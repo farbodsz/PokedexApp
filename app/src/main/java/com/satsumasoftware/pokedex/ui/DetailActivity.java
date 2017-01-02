@@ -289,20 +289,20 @@ public class DetailActivity extends AppCompatActivity {
     private void action_compare_chooser() {
         if (Pokemon.hasSwitchableForms(sPokemon.getFormSpecificValues())) {
             new AlertDialog.Builder(this)
-                    .setTitle(R.string.dialog_title_compare_pokemon_forms)
-                    .setMessage(R.string.dialog_msg_compare_pokemon_forms)
-                    .setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.compare_pokemon_forms_hint)
+                    .setMessage(R.string.compare_alternate_forms_hint)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             action_compare(true);
                         }
                     })
-                    .setNegativeButton(R.string.dialog_no, new DialogInterface.OnClickListener() {
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             action_compare(false);
                         }
                     })
-                    .setNeutralButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+                    .setNeutralButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // Do nothing
                         }
@@ -314,13 +314,13 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void action_compare(boolean compareToForm) {
-        String title = getResources().getString(R.string.dialog_title_compare_pokemon);
+        String title = getResources().getString(R.string.choose_comparison_pokemon);
         LayoutInflater inflater = getLayoutInflater();
         View listPicker = inflater.inflate(R.layout.dialog_list, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
         alertDialogBuilder.setView(listPicker)
                 .setTitle(title)
-                .setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Do nothing
                     }
