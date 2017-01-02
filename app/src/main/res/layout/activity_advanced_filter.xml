@@ -46,7 +46,7 @@
                         android:paddingRight="@dimen/card_padding_lateral"/>
                     <Button
                         android:id="@+id/button_prompt"
-                        android:text="@string/dialog_ok_got_it"
+                        android:text="@string/got_it"
                         style="@style/AppTheme.Button.Flat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

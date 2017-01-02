@@ -399,7 +399,7 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
         String selection = stringBuilder.toString();
 
         if (selection.trim().equals("")) {
-            mToolbar.setTitle(getResources().getString(R.string.title_activity_pokedex));
+            mToolbar.setTitle(getResources().getString(R.string.title_pokedex));
             mRecyclerView.setVisibility(View.VISIBLE);
             mNoResults.setVisibility(View.GONE);
             populateList(mDbHelper.getAllPokemon());

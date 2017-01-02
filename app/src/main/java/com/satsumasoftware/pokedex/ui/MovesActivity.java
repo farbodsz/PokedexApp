@@ -350,7 +350,7 @@ public class MovesActivity extends BaseActivity implements FilterListItemVGAdapt
         Log.d(LOG_TAG, "updateFilteredList | selection [middle]: " + selection);
 
         if (selection.trim().equals("")) {
-            mToolbar.setTitle(getResources().getString(R.string.title_activity_moves));
+            mToolbar.setTitle(getResources().getString(R.string.title_moves));
             mRecyclerView.setVisibility(View.VISIBLE);
             mNoResults.setVisibility(View.GONE);
             populateList(mDbHelper.getAllMiniMoves());
