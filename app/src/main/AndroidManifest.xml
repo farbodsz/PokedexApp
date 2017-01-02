@@ -149,7 +149,6 @@
             android:theme="@style/AppTheme.Dialog.PokemonDetail" />
         <activity
             android:name=".ui.dialog.AbilityDetailActivity"
-            android:label="@string/title_ability_detail"
             android:theme="@style/AppTheme.Dialog.AbilityDetail" />
         <activity
             android:name=".ui.dialog.MoveDetailActivity"
