@@ -22,7 +22,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -447,8 +446,6 @@ public class DetailActivity extends AppCompatActivity {
         private RecyclerView mRecyclerView;
         private ArrayList<DetailCard> mDetails;
 
-        private AsyncTask<Void, Integer, Void> mCurrAsyncTask;
-
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -463,31 +460,20 @@ public class DetailActivity extends AppCompatActivity {
             PokemonDetail mainInfo = fetchGeneralData();
             mainInfo.setupCard(getActivity(), secondaryToolbar);
 
-            mCurrAsyncTask = new AsyncTask<Void, Integer, Void>() {
-                @Override
-                protected Void doInBackground(Void... params) {
-                    mDetails.add(fetchAbilityData());
-                    mDetails.add(fetchAppearanceData());
-                    mDetails.add(fetchGenderData());
-                    mDetails.add(fetchStatData());
-                    mDetails.add(fetchTrainingData());
-                    mDetails.add(fetchPokedexData());
-                    mDetails.add(fetchMoreData());
-                    return null;
-                }
+            mDetails.add(fetchAbilityData());
+            mDetails.add(fetchAppearanceData());
+            mDetails.add(fetchGenderData());
+            mDetails.add(fetchStatData());
+            mDetails.add(fetchTrainingData());
+            mDetails.add(fetchPokedexData());
+            mDetails.add(fetchMoreData());
 
-                @Override
-                protected void onPostExecute(Void aVoid) {
-                    super.onPostExecute(aVoid);
+            // Stop recycling of views (which causes a bug where views are merged together)
+            mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
-                    // stop recycling of views (which causes a bug where views are merged together)
-                    mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
-
-                    // setup RecyclerView
-                    DetailAdapter adapter = new DetailAdapter(getActivity(), mDetails, true);
-                    mRecyclerView.setAdapter(adapter);
-                }
-            }.execute();
+            // Setup RecyclerView
+            DetailAdapter adapter = new DetailAdapter(getActivity(), mDetails, true);
+            mRecyclerView.setAdapter(adapter);
 
             return mRootView;
         }
@@ -825,14 +811,6 @@ public class DetailActivity extends AppCompatActivity {
             info.addOnClickListeners(listeners);
             return info;
         }
-
-        @Override
-        public void onStop() {
-            super.onStop();
-            if (mCurrAsyncTask != null) {
-                mCurrAsyncTask.cancel(true);
-            }
-        }
     }
 
     public static class FormsFragment extends Fragment {
@@ -843,9 +821,6 @@ public class DetailActivity extends AppCompatActivity {
         private RecyclerView mRecyclerView;
 
         private ArrayList<PokemonForm> mAltForms;
-
-        private AsyncTask<Void, Void, Void> mCurrAsyncTask;
-
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -877,97 +852,61 @@ public class DetailActivity extends AppCompatActivity {
             }
         }
 
-
         private void displayTiles() {
-            mCurrAsyncTask = new AsyncTask<Void, Void, Void>() {
-                @Override
-                protected Void doInBackground(Void... params) {
-                    mAltForms = sPokemon.getAlternateForms();
-                    return null;
-                }
+            mAltForms = sPokemon.getAlternateForms();
 
+            FormsTileAdapter adapter = new FormsTileAdapter(getActivity(), mAltForms);
+            adapter.setOnEntryClickListener(new FormsTileAdapter.OnEntryClickListener() {
                 @Override
-                protected void onPostExecute(Void aVoid) {
-                    super.onPostExecute(aVoid);
-                    FormsTileAdapter adapter = new FormsTileAdapter(getActivity(), mAltForms);
-                    adapter.setOnEntryClickListener(new FormsTileAdapter.OnEntryClickListener() {
-                        @Override
-                        public void onEntryClick(View view, int position) {
-                            if (mAltForms.get(position).getFormId() == sPokemon.getFormId()) {
-                                sViewPager.setCurrentItem(0);
-                            } else {
-                                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                                intent.putExtra(EXTRA_POKEMON,
-                                        mAltForms.get(position).toMiniPokemon(getActivity()));
-                                startActivity(intent);
-                            }
-                        }
-                    });
-                    mRecyclerView.setAdapter(adapter);
+                public void onEntryClick(View view, int position) {
+                    if (mAltForms.get(position).getFormId() == sPokemon.getFormId()) {
+                        sViewPager.setCurrentItem(0);
+                    } else {
+                        Intent intent = new Intent(getActivity(), DetailActivity.class);
+                        intent.putExtra(EXTRA_POKEMON,
+                                mAltForms.get(position).toMiniPokemon(getActivity()));
+                        startActivity(intent);
+                    }
                 }
-            }.execute();
+            });
+
+            mRecyclerView.setAdapter(adapter);
         }
 
         private void setupFormsList() {
-            mCurrAsyncTask = new AsyncTask<Void, Void, Void>() {
-                LinearLayout container;
-                ArrayMap<String, Integer> formSpecificVals;
-                PokemonForm currForm;
+            LinearLayout container = (LinearLayout) mRootView.findViewById(R.id.container);
 
-                @Override
-                protected void onPreExecute() {
-                    super.onPreExecute();
-                    container = (LinearLayout) mRootView.findViewById(R.id.container);
-                }
+            mAltForms = sPokemon.getAlternateForms();
+            ArrayMap<String, Integer> formSpecificVals = sPokemon.getFormSpecificValues();
+            ArrayMap<String, Integer> miscValues = sPokemon.getMiscValues();
+            PokemonForm currForm = new PokemonForm(
+                    sPokemon.getId(), sPokemon.getSpeciesId(), sPokemon.getFormId(),
+                    sPokemon.getName(), sPokemon.getFormName(), sPokemon.getFormAndPokemonName(),
+                    sPokemon.getNationalDexNumber(), sPkmnTypeIds.get(1),
+                    Pokemon.isDefault(miscValues), Pokemon.isFormDefault(formSpecificVals),
+                    Pokemon.isFormMega(formSpecificVals));
 
-                @Override
-                protected Void doInBackground(Void... params) {
-                    mAltForms = sPokemon.getAlternateForms();
-                    formSpecificVals = sPokemon.getFormSpecificValues();
-                    ArrayMap<String, Integer> miscValues = sPokemon.getMiscValues();
-                    currForm = new PokemonForm(
-                            sPokemon.getId(), sPokemon.getSpeciesId(), sPokemon.getFormId(),
-                            sPokemon.getName(), sPokemon.getFormName(), sPokemon.getFormAndPokemonName(),
-                            sPokemon.getNationalDexNumber(), sPkmnTypeIds.get(1),
-                            Pokemon.isDefault(miscValues), Pokemon.isFormDefault(formSpecificVals),
-                            Pokemon.isFormMega(formSpecificVals));
-                    return null;
-                }
-
-                @Override
-                protected void onPostExecute(Void aVoid) {
-                    super.onPostExecute(aVoid);
-                    if (mAltForms.isEmpty()) {
-                        container.removeAllViews();
-                        getActivity().getLayoutInflater().inflate(R.layout.list_item_null, container, true);
-                        String listMessage = getResources().getString(R.string.null_alternate_forms, sPokemon.getName());
-                        TextView tvListTxt = (TextView) mRootView.findViewById(R.id.item_null_text);
-                        tvListTxt.setText(listMessage);
-                    } else {
-                        FormsVGAdapter adapter = new FormsVGAdapter(getActivity(), container, currForm, mAltForms);
-                        adapter.createListItems();
-                        adapter.setOnEntryClickListener(new FormsVGAdapter.OnEntryClickListener() {
-                            @Override
-                            public void onEntryClick(View view, int position) {
-                                if (mAltForms.get(position).getFormId() == sPokemon.getFormId()) {
-                                    sViewPager.setCurrentItem(0);
-                                } else {
-                                    Intent intent = new Intent(getActivity(), DetailActivity.class);
-                                    intent.putExtra(EXTRA_POKEMON, mAltForms.get(position).toMiniPokemon(getActivity()));
-                                    startActivity(intent);
-                                }
-                            }
-                        });
+            if (mAltForms.isEmpty()) {
+                container.removeAllViews();
+                getActivity().getLayoutInflater().inflate(R.layout.list_item_null, container, true);
+                String listMessage = getResources().getString(R.string.null_alternate_forms, sPokemon.getName());
+                TextView tvListTxt = (TextView) mRootView.findViewById(R.id.item_null_text);
+                tvListTxt.setText(listMessage);
+            } else {
+                FormsVGAdapter adapter = new FormsVGAdapter(getActivity(), container, currForm, mAltForms);
+                adapter.createListItems();
+                adapter.setOnEntryClickListener(new FormsVGAdapter.OnEntryClickListener() {
+                    @Override
+                    public void onEntryClick(View view, int position) {
+                        if (mAltForms.get(position).getFormId() == sPokemon.getFormId()) {
+                            sViewPager.setCurrentItem(0);
+                        } else {
+                            Intent intent = new Intent(getActivity(), DetailActivity.class);
+                            intent.putExtra(EXTRA_POKEMON, mAltForms.get(position).toMiniPokemon(getActivity()));
+                            startActivity(intent);
+                        }
                     }
-                }
-            }.execute();
-        }
-
-        @Override
-        public void onStop() {
-            super.onStop();
-            if (mCurrAsyncTask != null) {
-                mCurrAsyncTask.cancel(true);
+                });
             }
         }
     }
@@ -975,8 +914,6 @@ public class DetailActivity extends AppCompatActivity {
     public static class EvolutionsFragment extends Fragment {
 
         private View mRootView;
-
-        private AsyncTask<Void, Void, Void> mAsyncTask;
 
         @Nullable
         @Override
@@ -990,42 +927,29 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         private void displayEvolutions() {
-            mAsyncTask = new AsyncTask<Void, Void, Void>() {
-                ArrayList<MiniPokemon> evolutions;
+            final ArrayList<MiniPokemon> evolutions = fetchOrderedEvolutions();
 
+            RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerView);
+            recyclerView.setHasFixedSize(true);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+            EvolutionsAdapter adapter = new EvolutionsAdapter(
+                    getActivity(), evolutions, sPokemon.toMiniPokemon());
+
+            adapter.setOnEntryClickListener(new EvolutionsAdapter.OnEntryClickListener() {
                 @Override
-                protected Void doInBackground(Void... voids) {
-                    evolutions = fetchOrderedEvolutions();
-                    return null;
+                public void onEntryClick(View view, int position) {
+                    MiniPokemon clickedPokemon = evolutions.get(position);
+                    if (clickedPokemon.getId() != sPokemon.getId()) {
+                        Intent intent = new Intent(getActivity(), DetailActivity.class);
+                        intent.putExtra(EXTRA_POKEMON, clickedPokemon);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
                 }
+            });
 
-                @Override
-                protected void onPostExecute(Void aVoid) {
-                    super.onPostExecute(aVoid);
-
-                    RecyclerView recyclerView = (RecyclerView) mRootView.findViewById(R.id.recyclerView);
-                    recyclerView.setHasFixedSize(true);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-                    EvolutionsAdapter adapter = new EvolutionsAdapter(
-                            getActivity(), evolutions, sPokemon.toMiniPokemon());
-
-                    adapter.setOnEntryClickListener(new EvolutionsAdapter.OnEntryClickListener() {
-                        @Override
-                        public void onEntryClick(View view, int position) {
-                            MiniPokemon clickedPokemon = evolutions.get(position);
-                            if (clickedPokemon.getId() != sPokemon.getId()) {
-                                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                                intent.putExtra(EXTRA_POKEMON, clickedPokemon);
-                                startActivity(intent);
-                                getActivity().finish();
-                            }
-                        }
-                    });
-
-                    recyclerView.setAdapter(adapter);
-                }
-            }.execute();
+            recyclerView.setAdapter(adapter);
         }
 
         private ArrayList<MiniPokemon> fetchOrderedEvolutions() {
@@ -1073,14 +997,6 @@ public class DetailActivity extends AppCompatActivity {
 
             return c;
         }
-
-        @Override
-        public void onStop() {
-            super.onStop();
-            if (mAsyncTask != null) {
-                mAsyncTask.cancel(true);
-            }
-        }
     }
 
     public static class MovesFragment extends Fragment implements LabelledSpinner.OnItemChosenListener {
@@ -1098,9 +1014,6 @@ public class DetailActivity extends AppCompatActivity {
         private ArrayList<VersionGroup> mVersionGroups;
         private ArrayList<String> mVersionGroupNames;
         private int mVGroupListPos;
-
-        private AsyncTask<Void, Integer, Void> mAsyncTask;
-
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -1170,9 +1083,6 @@ public class DetailActivity extends AppCompatActivity {
             mSubmitButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mAsyncTask != null) {
-                        mAsyncTask.cancel(true);
-                    }
                     loadCard();
                 }
             });
@@ -1218,63 +1128,44 @@ public class DetailActivity extends AppCompatActivity {
             final MoveMethod learnMethod = mMoveMethods.get(mMoveMethodListPos);
             final VersionGroup versionGroup = mVersionGroups.get(mVGroupListPos);
 
-            mAsyncTask = new AsyncTask<Void, Integer, Void>() {
-                PokemonMovesAdapter adapter;
+            PokemonMovesAdapter adapter;
+
+            if (progressBar.getVisibility() != View.VISIBLE) {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+
+            PokemonLearnset learnset = new PokemonLearnset(
+                    getActivity(),
+                    sPokemon.getId(),
+                    learnMethod.getId(),
+                    versionGroup.getId());
+            ArrayList<PokemonMove> arrayMoves = learnset.getPokemonMoves();
+            Collections.sort(arrayMoves, new Comparator<PokemonMove>() {
                 @Override
-                protected void onPreExecute() {
-                    super.onPreExecute();
-                    if (progressBar.getVisibility() != View.VISIBLE) {
-                        progressBar.setVisibility(View.VISIBLE);
+                public int compare(PokemonMove lhs, PokemonMove rhs) {
+                    if (learnMethod.isLevelUpMethod()) {
+                        return lhs.getLevel() - rhs.getLevel();
+                    } else {
+                        return lhs.getMoveId() - rhs.getMoveId();
                     }
                 }
+            });
+            final ArrayList<PokemonMove> arrayMovesFinal = arrayMoves;
+            adapter = new PokemonMovesAdapter(getActivity(), arrayMoves);
+            adapter.setOnEntryClickListener(new PokemonMovesAdapter.OnEntryClickListener() {
                 @Override
-                protected Void doInBackground(Void... params) {
-                    PokemonLearnset learnset = new PokemonLearnset(
-                            getActivity(),
-                            sPokemon.getId(),
-                            learnMethod.getId(),
-                            versionGroup.getId());
-                    ArrayList<PokemonMove> arrayMoves = learnset.getPokemonMoves();
-                    Collections.sort(arrayMoves, new Comparator<PokemonMove>() {
-                        @Override
-                        public int compare(PokemonMove lhs, PokemonMove rhs) {
-                            if (learnMethod.isLevelUpMethod()) {
-                                return lhs.getLevel() - rhs.getLevel();
-                            } else {
-                                return lhs.getMoveId() - rhs.getMoveId();
-                            }
-                        }
-                    });
-                    final ArrayList<PokemonMove> arrayMovesFinal = arrayMoves;
-                    adapter = new PokemonMovesAdapter(getActivity(), arrayMoves);
-                    adapter.setOnEntryClickListener(new PokemonMovesAdapter.OnEntryClickListener() {
-                        @Override
-                        public void onEntryClick(View view, int position) {
-                            Intent intent = new Intent(getActivity(), MoveDetailActivity.class);
-                            intent.putExtra(MoveDetailActivity.EXTRA_MOVE,
-                                    arrayMovesFinal.get(position).toMiniMove(getActivity()));
-                            startActivity(intent);
-                        }
-                    });
-                    return null;
+                public void onEntryClick(View view, int position) {
+                    Intent intent = new Intent(getActivity(), MoveDetailActivity.class);
+                    intent.putExtra(MoveDetailActivity.EXTRA_MOVE,
+                            arrayMovesFinal.get(position).toMiniMove(getActivity()));
+                    startActivity(intent);
                 }
-                @Override
-                protected void onPostExecute(Void result) {
-                    super.onPostExecute(result);
-                    recyclerView.setAdapter(adapter);
-                    progressBar.setVisibility(View.GONE);
-                }
-            }.execute();
+            });
+
+            recyclerView.setAdapter(adapter);
+            progressBar.setVisibility(View.GONE);
 
             return card;
-        }
-
-        @Override
-        public void onDestroyView() {
-            super.onDestroyView();
-            if (mAsyncTask != null) {
-                mAsyncTask.cancel(true);
-            }
         }
 
         @Override

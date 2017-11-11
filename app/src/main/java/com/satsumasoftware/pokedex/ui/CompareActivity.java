@@ -19,7 +19,6 @@ package com.satsumasoftware.pokedex.ui;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -233,9 +232,6 @@ public class CompareActivity extends AppCompatActivity {
         private RecyclerView mRecyclerView;
         private ArrayList<DetailCard> mDetails;
 
-        private AsyncTask<Void, Integer, Void> mCurrAsyncTask;
-
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             mRootView = inflater.inflate(R.layout.fragment_detail_main, container, false);
@@ -249,31 +245,20 @@ public class CompareActivity extends AppCompatActivity {
             PokemonCompareDetail mainInfo = fetchGeneralData();
             mainInfo.setupCard(getActivity(), secondaryToolbar);
 
-            mCurrAsyncTask = new AsyncTask<Void, Integer, Void>() {
-                @Override
-                protected Void doInBackground(Void... params) {
-                    mDetails.add(fetchAbilityData());
-                    mDetails.add(fetchAppearanceData());
-                    mDetails.add(fetchGenderData());
-                    mDetails.add(fetchStatData());
-                    mDetails.add(fetchTrainingData());
-                    mDetails.add(fetchPokedexData());
-                    mDetails.add(fetchMoreData());
-                    return null;
-                }
+            mDetails.add(fetchAbilityData());
+            mDetails.add(fetchAppearanceData());
+            mDetails.add(fetchGenderData());
+            mDetails.add(fetchStatData());
+            mDetails.add(fetchTrainingData());
+            mDetails.add(fetchPokedexData());
+            mDetails.add(fetchMoreData());
 
-                @Override
-                protected void onPostExecute(Void aVoid) {
-                    super.onPostExecute(aVoid);
+            // Stop recycling of views (which causes a bug where views are merged together)
+            mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
-                    // stop recycling of views (which causes a bug where views are merged together)
-                    mRecyclerView.getRecycledViewPool().setMaxRecycledViews(0, 0);
-
-                    // setup RecyclerView
-                    DetailAdapter adapter = new DetailAdapter(getActivity(), mDetails);
-                    mRecyclerView.setAdapter(adapter);
-                }
-            }.execute();
+            // Setup RecyclerView
+            DetailAdapter adapter = new DetailAdapter(getActivity(), mDetails);
+            mRecyclerView.setAdapter(adapter);
 
             return mRootView;
         }
@@ -739,14 +724,6 @@ public class CompareActivity extends AppCompatActivity {
             info.addOnClickListeners(listenersArray);
             return info;
         }
-
-        @Override
-        public void onStop() {
-            super.onStop();
-            if (mCurrAsyncTask != null) {
-                mCurrAsyncTask.cancel(true);
-            }
-        }
     }
 
     public static class MovesFragment extends Fragment implements LabelledSpinner.OnItemChosenListener {
@@ -764,9 +741,6 @@ public class CompareActivity extends AppCompatActivity {
         private ArrayList<VersionGroup> mVersionGroups;
         private ArrayList<String> mVersionGroupNames;
         private int mVGroupListPos;
-
-        private AsyncTask<Void, Integer, Void> mAsyncTask;
-
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -839,9 +813,6 @@ public class CompareActivity extends AppCompatActivity {
             mSubmitButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mAsyncTask != null) {
-                        mAsyncTask.cancel(true);
-                    }
                     loadCard();
                 }
             });
@@ -874,77 +845,65 @@ public class CompareActivity extends AppCompatActivity {
             final MoveMethod learnMethod = mMoveMethods.get(mMoveMethodListPos);
             final VersionGroup versionGroup = mVersionGroups.get(mVGroupListPos);
 
-            mAsyncTask = new AsyncTask<Void, Integer, Void>() {
-                PokemonMovesComparisonAdapter adapter;
+            PokemonMovesComparisonAdapter adapter;
+
+            if (progressBar.getVisibility() != View.VISIBLE) {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+
+            PokemonLearnset learnset1 = new PokemonLearnset(
+                    getActivity(), sPokemon1.getId(), learnMethod.getId(), versionGroup.getId());
+            PokemonLearnset learnset2 = new PokemonLearnset(
+                    getActivity(), sPokemon2.getId(), learnMethod.getId(), versionGroup.getId());
+
+            ArrayList<PokemonMove> arrayMoves1 = learnset1.getPokemonMoves();
+            ArrayList<PokemonMove> arrayMoves2 = learnset2.getPokemonMoves();
+            Comparator<PokemonMove> learnsetComparator = new Comparator<PokemonMove>() {
                 @Override
-                protected void onPreExecute() {
-                    super.onPreExecute();
-                    if (progressBar.getVisibility() != View.VISIBLE) {
-                        progressBar.setVisibility(View.VISIBLE);
+                public int compare(PokemonMove lhs, PokemonMove rhs) {
+                    if (learnMethod.isLevelUpMethod()) {
+                        return lhs.getLevel() - rhs.getLevel();
+                    } else {
+                        return lhs.getMoveId() - rhs.getMoveId();
                     }
                 }
+            };
+            Collections.sort(arrayMoves1, learnsetComparator);
+            Collections.sort(arrayMoves2, learnsetComparator);
+
+            final List<Pair<Integer, PokemonMove[]>> pokemonMoves =
+                    getCombinedMoves(learnMethod, arrayMoves1, arrayMoves2);
+
+            adapter = new PokemonMovesComparisonAdapter(getActivity(), pokemonMoves, learnMethod);
+
+            adapter.setOnEntryClickListener(new PokemonMovesComparisonAdapter.OnEntryClickListener() {
                 @Override
-                protected Void doInBackground(Void... params) {
-                    PokemonLearnset learnset1 = new PokemonLearnset(
-                            getActivity(), sPokemon1.getId(), learnMethod.getId(), versionGroup.getId());
-                    PokemonLearnset learnset2 = new PokemonLearnset(
-                            getActivity(), sPokemon2.getId(), learnMethod.getId(), versionGroup.getId());
+                public void onEntryClick(View view, int position) {
+                    Pair<Integer, PokemonMove[]> pair = pokemonMoves.get(position);
+                    final PokemonMove[] moveArray = pair.second;
 
-                    ArrayList<PokemonMove> arrayMoves1 = learnset1.getPokemonMoves();
-                    ArrayList<PokemonMove> arrayMoves2 = learnset2.getPokemonMoves();
-                    Comparator<PokemonMove> learnsetComparator = new Comparator<PokemonMove>() {
-                        @Override
-                        public int compare(PokemonMove lhs, PokemonMove rhs) {
-                            if (learnMethod.isLevelUpMethod()) {
-                                return lhs.getLevel() - rhs.getLevel();
-                            } else {
-                                return lhs.getMoveId() - rhs.getMoveId();
-                            }
-                        }
-                    };
-                    Collections.sort(arrayMoves1, learnsetComparator);
-                    Collections.sort(arrayMoves2, learnsetComparator);
+                    PokemonMove chosenMove;
 
-                    final List<Pair<Integer, PokemonMove[]>> pokemonMoves =
-                            getCombinedMoves(learnMethod, arrayMoves1, arrayMoves2);
+                    if (moveArray[0] != null && moveArray[1] == null) {
+                        chosenMove = moveArray[0];
 
-                    adapter = new PokemonMovesComparisonAdapter(
-                            getActivity(), pokemonMoves, learnMethod);
+                    } else if (moveArray[0] == null && moveArray[1] != null) {
+                        chosenMove = moveArray[1];
 
-                    adapter.setOnEntryClickListener(new PokemonMovesComparisonAdapter.OnEntryClickListener() {
-                        @Override
-                        public void onEntryClick(View view, int position) {
-                            Pair<Integer, PokemonMove[]> pair = pokemonMoves.get(position);
-                            final PokemonMove[] moveArray = pair.second;
+                    } else {
+                        // both are not null
+                        chosenMove = moveArray[0];
+                    }
 
-                            PokemonMove chosenMove;
-
-                            if (moveArray[0] != null && moveArray[1] == null) {
-                                chosenMove = moveArray[0];
-
-                            } else if (moveArray[0] == null && moveArray[1] != null) {
-                                chosenMove = moveArray[1];
-
-                            } else {
-                                // both are not null
-                                chosenMove = moveArray[0];
-                            }
-
-                            Intent intent = new Intent(getActivity(), MoveDetailActivity.class);
-                            intent.putExtra(MoveDetailActivity.EXTRA_MOVE,
-                                    chosenMove.toMiniMove(getActivity()));
-                            startActivity(intent);
-                        }
-                    });
-                    return null;
+                    Intent intent = new Intent(getActivity(), MoveDetailActivity.class);
+                    intent.putExtra(MoveDetailActivity.EXTRA_MOVE,
+                            chosenMove.toMiniMove(getActivity()));
+                    startActivity(intent);
                 }
-                @Override
-                protected void onPostExecute(Void result) {
-                    super.onPostExecute(result);
-                    recyclerView.setAdapter(adapter);
-                    progressBar.setVisibility(View.GONE);
-                }
-            }.execute();
+            });
+
+            recyclerView.setAdapter(adapter);
+            progressBar.setVisibility(View.GONE);
 
             return card;
         }
@@ -1041,15 +1000,6 @@ public class CompareActivity extends AppCompatActivity {
             }
 
             return combinedMoves;
-        }
-
-
-        @Override
-        public void onDestroyView() {
-            super.onDestroyView();
-            if (mAsyncTask != null) {
-                mAsyncTask.cancel(true);
-            }
         }
 
         @Override
