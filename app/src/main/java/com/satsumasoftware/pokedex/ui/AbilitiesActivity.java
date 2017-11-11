@@ -27,7 +27,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +35,9 @@ import android.widget.LinearLayout;
 import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.AbilitiesDBHelper;
 import com.satsumasoftware.pokedex.framework.ability.MiniAbility;
+import com.satsumasoftware.pokedex.query.Filter;
+import com.satsumasoftware.pokedex.query.Filters;
+import com.satsumasoftware.pokedex.query.Query;
 import com.satsumasoftware.pokedex.ui.adapter.AbilityDexAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
 import com.satsumasoftware.pokedex.ui.dialog.AbilityDetailActivity;
@@ -53,22 +55,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-
-public class AbilitiesActivity extends BaseActivity implements FilterListItemVGAdapter.OnFilterItemClickListener {
-
-    private static final String LOG_TAG = "AbilitiesActivity.java";
-
-    @Override
-    protected Toolbar getSelfToolbar() { return (Toolbar) findViewById(R.id.toolbar); }
-    @Override
-    protected DrawerLayout getSelfDrawerLayout() { return (DrawerLayout) findViewById(R.id.drawerLayout); }
-    @Override
-    protected int getSelfNavDrawerItem() { return NAVDRAWER_ITEM_ABILITYDEX; }
-    @Override
-    protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.navigationView); }
-    @Override
-    protected boolean disableRightDrawerSwipe() { return true; }
-
+public class AbilitiesActivity extends BaseActivity
+        implements FilterListItemVGAdapter.OnFilterItemClickListener {
 
     private RecyclerView mRecyclerView;
     private DrawerLayout mDrawerLayout;
@@ -78,8 +66,7 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
 
     private DragScrollBar mScrollBar;
 
-    private String mFilterSelectionName = "",
-            mFilterSelectionGen = "";
+    private Query.Builder mQueryBuilder = new Query.Builder();
     private boolean mSortByName;
 
     private ArrayList<MiniAbility> mCurrList;
@@ -248,98 +235,34 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
     }
 
     @Override
-    public void onFilterItemClick(View view, int position, String text, boolean isChecked, View itemView) {
+    public void onFilterItemClick(View view, int position, String text, boolean isChecked,
+                                  View itemView) {
         switch (itemView.getId()) {
             case R.id.container_name:
-                String nameQuery = "(LOWER(" + AbilitiesDBHelper.COL_NAME + ") LIKE \"" +
-                        text.toLowerCase() + "%\")";
-                mFilterSelectionName = reformatFilterSelection(mFilterSelectionName);
+                Filter nameFilter = Filters.startsWith(AbilitiesDBHelper.COL_NAME, text);
                 if (isChecked) {
-                    mFilterSelectionName = mFilterSelectionName + nameQuery;
+                    mQueryBuilder.addFilter(nameFilter);
                 } else {
-                    if (mFilterSelectionName.contains(" OR " + nameQuery)) {
-                        mFilterSelectionName = mFilterSelectionName.replace(" OR " + nameQuery, "");
-                    } else {
-                        mFilterSelectionName = mFilterSelectionName.replace(nameQuery, "");
-                    }
+                    mQueryBuilder.removeFilter(nameFilter);
                 }
-                mFilterSelectionName = reformatFilterSelectionFinal(mFilterSelectionName);
-                Log.d(LOG_TAG, "About to do updateFilteredList");
                 updateFilteredList();
                 break;
 
             case R.id.container_generations:
-                String genQuery = "(" + AbilitiesDBHelper.COL_GENERATION_ID + "=\"" +
-                        DataUtilsKt.romanToGenId(text) + "\")";
-                mFilterSelectionGen = reformatFilterSelection(mFilterSelectionGen);
+                Filter genFilter = Filters.equal(AbilitiesDBHelper.COL_GENERATION_ID,
+                        String.valueOf(DataUtilsKt.romanToGenId(text)));
                 if (isChecked) {
-                    mFilterSelectionGen = mFilterSelectionGen + genQuery;
+                    mQueryBuilder.addFilter(genFilter);
                 } else {
-                    if (mFilterSelectionGen.contains(" OR " + genQuery)) {
-                        mFilterSelectionGen = mFilterSelectionGen.replace(" OR " + genQuery, "");
-                    } else {
-                        mFilterSelectionGen = mFilterSelectionGen.replace(genQuery, "");
-                    }
+                    mQueryBuilder.removeFilter(genFilter);
                 }
-                mFilterSelectionGen = reformatFilterSelectionFinal(mFilterSelectionGen);
-                Log.d(LOG_TAG, "About to do updateFilteredList");
                 updateFilteredList();
                 break;
         }
     }
 
-    private String reformatFilterSelection(String selection) {
-        Log.d(LOG_TAG, "reformatFilterSelection | [start]: " + selection);
-        if (!selection.trim().equals("")) {
-            selection = selection + " OR ";
-        }
-        if (selection.trim().startsWith("OR ")) {
-            selection = selection.replaceFirst("OR ", "");
-        }
-        Log.d(LOG_TAG, "reformatFilterSelection | [end]: " + selection);
-        return selection;
-    }
-
-    private String reformatFilterSelectionFinal(String firstSelection) {
-        Log.d(LOG_TAG, "reformatFilterSelectionFinal -- START");
-        String selection = reformatFilterSelection(firstSelection);
-        Log.d(LOG_TAG, "reformatFilterSelectionFinal | selection: " + selection);
-        Log.d(LOG_TAG, "reformatFilterSelectionFinal | sele...endsWith('OR')?: " + selection.trim().endsWith("OR"));
-        while (selection.trim().endsWith("OR")) {
-            String[] words = selection.split(" ");
-            String lastWord = words[words.length-1].trim();
-            Log.d(LOG_TAG, "reformatFilterSelectionFinal | lastWord: " + lastWord);
-            words[words.length-1] = lastWord.replace("OR", "");
-            StringBuilder newSelection = new StringBuilder();
-            for (String word : words) {
-                newSelection.append(word).append(" ");
-            }
-            selection = newSelection.toString().trim();
-        }
-        Log.d(LOG_TAG, "reformatFilterSelectionFinal -- DONE");
-        return selection;
-    }
-
     private void updateFilteredList() {
-        StringBuilder stringBuilder = new StringBuilder();
-        int filterCounter = 0;
-        if (mFilterSelectionName != null && !mFilterSelectionName.trim().equals("")) {
-            stringBuilder.append("(").append(mFilterSelectionName).append(")");
-            filterCounter++;
-        }
-        if (mFilterSelectionGen != null && !mFilterSelectionGen.trim().equals("")) {
-            if (filterCounter > 0) {
-                stringBuilder.append(" AND ");
-            }
-            stringBuilder.append("(").append(mFilterSelectionGen).append(")");
-            // filterCounter++; <-- doesn't make a difference
-        }
-
-        String selection = stringBuilder.toString();
-
-        Log.d(LOG_TAG, "updateFilteredList | selection [middle]: " + selection);
-
-        if (selection.trim().equals("")) {
+        if (mQueryBuilder.hasNoFilters()) {
             mToolbar.setTitle(getResources().getString(R.string.title_activity_abilities));
             mRecyclerView.setVisibility(View.VISIBLE);
             mNoResults.setVisibility(View.GONE);
@@ -358,12 +281,12 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
                 AbilitiesDBHelper.COL_NAME,
                 AbilitiesDBHelper.COL_GENERATION_ID
         };
+
         Cursor cursor = db.query(
                 AbilitiesDBHelper.TABLE_NAME,
                 columns,
-                selection,
-                null,
-                null, null, null
+                mQueryBuilder.build().getFilter().getSqlStatement(),
+                null, null, null, null
         );
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -394,4 +317,30 @@ public class AbilitiesActivity extends BaseActivity implements FilterListItemVGA
             super.onBackPressed();
         }
     }
+
+    @Override
+    protected Toolbar getSelfToolbar() {
+        return (Toolbar) findViewById(R.id.toolbar);
+    }
+
+    @Override
+    protected DrawerLayout getSelfDrawerLayout() {
+        return (DrawerLayout) findViewById(R.id.drawerLayout);
+    }
+
+    @Override
+    protected int getSelfNavDrawerItem() {
+        return NAVDRAWER_ITEM_ABILITYDEX;
+    }
+
+    @Override
+    protected NavigationView getSelfNavigationView() {
+        return (NavigationView) findViewById(R.id.navigationView);
+    }
+
+    @Override
+    protected boolean disableRightDrawerSwipe() {
+        return true;
+    }
+
 }

@@ -45,6 +45,9 @@ import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.framework.GrowthRate;
 import com.satsumasoftware.pokedex.framework.Type;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
+import com.satsumasoftware.pokedex.query.Filter;
+import com.satsumasoftware.pokedex.query.Filters;
+import com.satsumasoftware.pokedex.query.Query;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
 import com.satsumasoftware.pokedex.ui.filter.SearchResultsActivity;
@@ -63,19 +66,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-
-public class PokedexActivity extends BaseActivity implements FilterListItemVGAdapter.OnFilterItemClickListener {
-
-    @Override
-    protected Toolbar getSelfToolbar() { return (Toolbar) findViewById(R.id.toolbar); }
-    @Override
-    protected DrawerLayout getSelfDrawerLayout() { return (DrawerLayout) findViewById(R.id.drawerLayout); }
-    @Override
-    protected int getSelfNavDrawerItem() { return NAVDRAWER_ITEM_NATIONAL_POKEDEX; }
-    @Override
-    protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.navigationView); }
-    @Override
-    protected boolean disableRightDrawerSwipe() { return true; }
+public class PokedexActivity extends BaseActivity
+        implements FilterListItemVGAdapter.OnFilterItemClickListener {
 
     private RecyclerView mRecyclerView;
     private DrawerLayout mDrawerLayout;
@@ -85,10 +77,7 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
 
     private DragScrollBar mScrollBar;
 
-    private String mFilterSelectionName = "",
-            mFilterSelectionType = "",
-            mFilterSelectionGrowth = "",
-            mFilterSelectionGen = "";
+    private Query.Builder mQueryBuilder = new Query.Builder();
 
     private boolean mSortByName = false;
 
@@ -265,11 +254,9 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String[] array = getResources().getStringArray(R.array.filter_name);
                 String text = array[position];
-                if (text.equalsIgnoreCase("no filter")) {
-                    mFilterSelectionName = "";
-                } else {
-                    mFilterSelectionName = "(LOWER(" + PokemonDBHelper.COL_NAME + ") LIKE \"" +
-                            text.toLowerCase() + "%\")";
+                mQueryBuilder.removePropertyFilters(PokemonDBHelper.COL_NAME);
+                if (!text.equalsIgnoreCase("no filter")) {
+                    mQueryBuilder.addFilter(Filters.startsWith(PokemonDBHelper.COL_NAME, text));
                 }
                 updateFilteredList();
             }
@@ -304,117 +291,46 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
     public void onFilterItemClick(View view, int position, String text, boolean isChecked, View itemView) {
         switch (itemView.getId()) {
             case R.id.container_types:
-                String typeQuery = "((" + PokemonDBHelper.COL_TYPE_1_ID + "=\"" + new Type(text).getId() + "\") OR " +
-                        "(" + PokemonDBHelper.COL_TYPE_2_ID + "=\"" + new Type(text).getId() + "\"))";
-                mFilterSelectionType = reformatFilterSelection(mFilterSelectionType);
+                String typeId = String.valueOf(new Type(text).getId());
+                Filter typeFilter = Filters.or(Filters.equal(PokemonDBHelper.COL_TYPE_1_ID, typeId),
+                        Filters.equal(PokemonDBHelper.COL_TYPE_2_ID, typeId));
+
                 if (isChecked) {
-                    mFilterSelectionType = mFilterSelectionType + typeQuery;
+                    mQueryBuilder.addFilter(typeFilter);
                 } else {
-                    if (mFilterSelectionType.contains(" OR " + typeQuery)) {
-                        mFilterSelectionType = mFilterSelectionType.replace(" OR " + typeQuery, "");
-                    } else {
-                        mFilterSelectionType = mFilterSelectionType.replace(typeQuery, "");
-                    }
+                    mQueryBuilder.removeFilter(typeFilter);
                 }
-                mFilterSelectionType = reformatFilterSelectionFinal(mFilterSelectionType);
                 updateFilteredList();
                 break;
 
             case R.id.container_growth:
-                String growthQuery = "(" + PokemonDBHelper.COL_GROWTH_RATE_ID + "=\"" +
-                        new GrowthRate(text).getId() + "\")";
-                mFilterSelectionGrowth = reformatFilterSelection(mFilterSelectionGrowth);
+                String growthId = String.valueOf(new GrowthRate(text).getId());
+                Filter growthFilter = Filters.equal(PokemonDBHelper.COL_GROWTH_RATE_ID, growthId);
+
                 if (isChecked) {
-                    mFilterSelectionGrowth = mFilterSelectionGrowth + growthQuery;
+                    mQueryBuilder.addFilter(growthFilter);
                 } else {
-                    if (mFilterSelectionGrowth.contains(" OR " + growthQuery)) {
-                        mFilterSelectionGrowth = mFilterSelectionGrowth.replace(" OR " + growthQuery, "");
-                    } else {
-                        mFilterSelectionGrowth = mFilterSelectionGrowth.replace(growthQuery, "");
-                    }
+                    mQueryBuilder.removeFilter(growthFilter);
                 }
-                mFilterSelectionGrowth = reformatFilterSelectionFinal(mFilterSelectionGrowth);
                 updateFilteredList();
                 break;
-
 
             case R.id.container_generations:
-                String genQuery = "(" + PokemonDBHelper.COL_GENERATION_ID + "=\"" +
-                        DataUtilsKt.romanToGenId(text) + "\")";
-                mFilterSelectionGen = reformatFilterSelection(mFilterSelectionGen);
+                String generation = String.valueOf(DataUtilsKt.romanToGenId(text));
+                Filter genFilter = Filters.equal(PokemonDBHelper.COL_GENERATION_ID, generation);
+
                 if (isChecked) {
-                    mFilterSelectionGen = mFilterSelectionGen + genQuery;
+                    mQueryBuilder.addFilter(genFilter);
                 } else {
-                    if (mFilterSelectionGen.contains(" OR " + genQuery)) {
-                        mFilterSelectionGen = mFilterSelectionGen.replace(" OR " + genQuery, "");
-                    } else {
-                        mFilterSelectionGen = mFilterSelectionGen.replace(genQuery, "");
-                    }
+                    mQueryBuilder.removeFilter(genFilter);
                 }
-                mFilterSelectionGen = reformatFilterSelectionFinal(mFilterSelectionGen);
                 updateFilteredList();
                 break;
         }
-    }
-
-    private String reformatFilterSelection(String selection) {
-        if (!selection.trim().equals("")) {
-            selection = selection + " OR ";
-        }
-        if (selection.trim().startsWith("OR ")) {
-            selection = selection.replaceFirst("OR ", "");
-        }
-        return selection;
-    }
-
-    private String reformatFilterSelectionFinal(String firstSelection) {
-        String selection = reformatFilterSelection(firstSelection);
-        while (selection.trim().endsWith("OR")) {
-            String[] words = selection.split(" ");
-            String lastWord = words[words.length-1].trim();
-            words[words.length-1] = lastWord.replace("OR", "");
-            //selection = "";
-            StringBuilder newSelection = new StringBuilder();
-            for (String word : words) {
-                newSelection.append(word).append(" ");
-            }
-            selection = newSelection.toString().trim();
-        }
-        return selection;
     }
 
     private void updateFilteredList() {
-        StringBuilder stringBuilder = new StringBuilder();
-        int filterCounter = 0;
-        if (mFilterSelectionName != null && !mFilterSelectionName.trim().equals("")) {
-            stringBuilder.append("(").append(mFilterSelectionName).append(")");
-            filterCounter++;
-        }
-        if (mFilterSelectionType != null && !mFilterSelectionType.trim().equals("")) {
-            if (filterCounter > 0) {
-                stringBuilder.append(" AND ");
-            }
-            stringBuilder.append("(").append(mFilterSelectionType).append(")");
-            filterCounter++;
-        }
-        if (mFilterSelectionGrowth != null && !mFilterSelectionGrowth.trim().equals("")) {
-            if (filterCounter > 0) {
-                stringBuilder.append(" AND ");
-            }
-            stringBuilder.append("(").append(mFilterSelectionGrowth).append(")");
-            filterCounter++;
-        }
-        if (mFilterSelectionGen != null && !mFilterSelectionGen.trim().equals("")) {
-            if (filterCounter > 0) {
-                stringBuilder.append(" AND ");
-            }
-            stringBuilder.append("(").append(mFilterSelectionGen).append(")");
-            filterCounter++;
-        }
-
-        String selection = stringBuilder.toString();
-
-        if (selection.trim().equals("")) {
+        if (mQueryBuilder.hasNoFilters()) {
             mToolbar.setTitle(getResources().getString(R.string.title_activity_pokedex));
             mRecyclerView.setVisibility(View.VISIBLE);
             mNoResults.setVisibility(View.GONE);
@@ -428,6 +344,9 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
 
         mDbHelper = PokemonDBHelper.getInstance(this);
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        String sqlSelection = mQueryBuilder.build().getFilter().getSqlStatement();
+
         String[] columns = new String[] {
                 PokemonDBHelper.COL_ID,
                 PokemonDBHelper.COL_SPECIES_ID,
@@ -446,10 +365,8 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
         Cursor cursor = db.query(
                 PokemonDBHelper.TABLE_NAME,
                 columns,
-                selection + " AND (" + PokemonDBHelper.COL_FORM_IS_DEFAULT + "=1)",
-                null,
-                null, null, null
-        );
+                sqlSelection + " AND (" + PokemonDBHelper.COL_FORM_IS_DEFAULT + "=1)",
+                null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             MiniPokemon pokemon = new MiniPokemon(cursor);
@@ -478,4 +395,30 @@ public class PokedexActivity extends BaseActivity implements FilterListItemVGAda
             super.onBackPressed();
         }
     }
+
+    @Override
+    protected Toolbar getSelfToolbar() {
+        return (Toolbar) findViewById(R.id.toolbar);
+    }
+
+    @Override
+    protected DrawerLayout getSelfDrawerLayout() {
+        return (DrawerLayout) findViewById(R.id.drawerLayout);
+    }
+
+    @Override
+    protected int getSelfNavDrawerItem() {
+        return NAVDRAWER_ITEM_NATIONAL_POKEDEX;
+    }
+
+    @Override
+    protected NavigationView getSelfNavigationView() {
+        return (NavigationView) findViewById(R.id.navigationView);
+    }
+
+    @Override
+    protected boolean disableRightDrawerSwipe() {
+        return true;
+    }
+
 }

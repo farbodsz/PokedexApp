@@ -26,7 +26,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +38,9 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.LocationsDBHelper;
 import com.satsumasoftware.pokedex.framework.Region;
 import com.satsumasoftware.pokedex.framework.location.Location;
+import com.satsumasoftware.pokedex.query.Filter;
+import com.satsumasoftware.pokedex.query.Filters;
+import com.satsumasoftware.pokedex.query.Query;
 import com.satsumasoftware.pokedex.ui.adapter.FilterListItemVGAdapter;
 import com.satsumasoftware.pokedex.ui.adapter.LocationDexAdapter;
 import com.satsumasoftware.pokedex.ui.misc.DividerItemDecoration;
@@ -52,21 +54,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class LocationsActivity extends BaseActivity implements FilterListItemVGAdapter.OnFilterItemClickListener {
-
-    private static final String LOG_TAG = "LocationActivity.java";
-
-    @Override
-    protected Toolbar getSelfToolbar() { return (Toolbar) findViewById(R.id.toolbar); }
-    @Override
-    protected DrawerLayout getSelfDrawerLayout() { return (DrawerLayout) findViewById(R.id.drawerLayout); }
-    @Override
-    protected int getSelfNavDrawerItem() { return NAVDRAWER_ITEM_LOCATIONDEX; }
-    @Override
-    protected NavigationView getSelfNavigationView() { return (NavigationView) findViewById(R.id.navigationView); }
-    @Override
-    protected boolean disableRightDrawerSwipe() { return true; }
-
+public class LocationsActivity extends BaseActivity
+        implements FilterListItemVGAdapter.OnFilterItemClickListener {
 
     private RecyclerView mRecyclerView;
     private DrawerLayout mDrawerLayout;
@@ -74,8 +63,7 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
     private View mRootLayout;
     private View mNoResults;
 
-    private String mFilterSelectionName = "",
-            mFilterSelectionRegion = "";
+    private Query.Builder mQueryBuilder = new Query.Builder();
 
     private LocationsDBHelper mDbHelper;
 
@@ -191,11 +179,9 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String[] array = getResources().getStringArray(R.array.filter_name);
                 String text = array[position];
-                if (text.equalsIgnoreCase("no filter")) {
-                    mFilterSelectionName = "";
-                } else {
-                    mFilterSelectionName = "(LOWER(" + LocationsDBHelper.COL_NAME + ") LIKE \"" +
-                            text.toLowerCase() + "%\")";
+                mQueryBuilder.removePropertyFilters(LocationsDBHelper.COL_NAME);
+                if (!text.equalsIgnoreCase("no filter")) {
+                    mQueryBuilder.addFilter(Filters.startsWith(LocationsDBHelper.COL_NAME, text));
                 }
                 updateFilteredList();
             }
@@ -215,76 +201,20 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
     public void onFilterItemClick(View view, int position, String text, boolean isChecked, View itemView) {
         switch (itemView.getId()) {
             case R.id.container_location_regions:
-                String regionQuery = "(" + LocationsDBHelper.COL_REGION_ID + "=\"" + new Region(text).getId() + "\")";
-                mFilterSelectionRegion = reformatFilterSelection(mFilterSelectionRegion);
+                Filter regionFilter = Filters.equal(LocationsDBHelper.COL_REGION_ID,
+                        String.valueOf(new Region(text).getId()));
                 if (isChecked) {
-                    mFilterSelectionRegion = mFilterSelectionRegion + regionQuery;
+                    mQueryBuilder.addFilter(regionFilter);
                 } else {
-                    if (mFilterSelectionRegion.contains(" OR " + regionQuery)) {
-                        mFilterSelectionRegion = mFilterSelectionRegion.replace(" OR " + regionQuery, "");
-                    } else {
-                        mFilterSelectionRegion = mFilterSelectionRegion.replace(regionQuery, "");
-                    }
+                    mQueryBuilder.removeFilter(regionFilter);
                 }
-                mFilterSelectionRegion = reformatFilterSelectionFinal(mFilterSelectionRegion);
                 updateFilteredList();
                 break;
         }
     }
 
-    private String reformatFilterSelection(String selection) {
-        Log.d(LOG_TAG, "reformatFilterSelection | [start]: " + selection);
-        if (!selection.trim().equals("")) {
-            selection = selection + " OR ";
-        }
-        if (selection.trim().startsWith("OR ")) {
-            selection = selection.replaceFirst("OR ", "");
-        }
-        Log.d(LOG_TAG, "reformatFilterSelection | [end]: " + selection);
-        return selection;
-    }
-
-    private String reformatFilterSelectionFinal(String firstSelection) {
-        Log.d(LOG_TAG, "reformatFilterSelectionFinal -- START");
-        String selection = reformatFilterSelection(firstSelection);
-        Log.d(LOG_TAG, "reformatFilterSelectionFinal | selection: " + selection);
-        Log.d(LOG_TAG, "reformatFilterSelectionFinal | sele...endsWith('OR')?: " + selection.trim().endsWith("OR"));
-        while (selection.trim().endsWith("OR")) {
-            String[] words = selection.split(" ");
-            String lastWord = words[words.length-1].trim();
-            Log.d(LOG_TAG, "reformatFilterSelectionFinal | lastWord: " + lastWord);
-            words[words.length-1] = lastWord.replace("OR", "");
-            //selection = "";
-            StringBuilder newSelection = new StringBuilder();
-            for (String word : words) {
-                newSelection.append(word).append(" ");
-            }
-            selection = newSelection.toString().trim();
-        }
-        Log.d(LOG_TAG, "reformatFilterSelectionFinal -- DONE");
-        return selection;
-    }
-
     private void updateFilteredList() {
-        StringBuilder stringBuilder = new StringBuilder();
-        int filterCounter = 0;
-        if (mFilterSelectionName != null && !mFilterSelectionName.trim().equals("")) {
-            stringBuilder.append("(").append(mFilterSelectionName).append(")");
-            filterCounter++;
-        }
-        if (mFilterSelectionRegion != null && !mFilterSelectionRegion.trim().equals("")) {
-            if (filterCounter > 0) {
-                stringBuilder.append(" AND ");
-            }
-            stringBuilder.append("(").append(mFilterSelectionRegion).append(")");
-            // filterCounter++; <-- doesn't make a difference
-        }
-
-        String selection = stringBuilder.toString();
-
-        Log.d(LOG_TAG, "updateFilteredList | selection [middle]: " + selection);
-
-        if (selection.trim().equals("")) {
+        if (mQueryBuilder.hasNoFilters()) {
             mToolbar.setTitle(getResources().getString(R.string.title_activity_locations));
             mRecyclerView.setVisibility(View.VISIBLE);
             mNoResults.setVisibility(View.GONE);
@@ -298,13 +228,12 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
 
         mDbHelper = LocationsDBHelper.getInstance(this);
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
         Cursor cursor = db.query(
                 LocationsDBHelper.TABLE_NAME,
                 null,
-                selection,
-                null,
-                null, null, null
-        );
+                mQueryBuilder.build().getFilter().getSqlStatement(),
+                null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             int id = cursor.getInt(cursor.getColumnIndex(LocationsDBHelper.COL_ID));
@@ -326,4 +255,39 @@ public class LocationsActivity extends BaseActivity implements FilterListItemVGA
 
         populateList(filteredList);
     }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.END)) {
+            mDrawerLayout.closeDrawer(GravityCompat.END);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected Toolbar getSelfToolbar() {
+        return (Toolbar) findViewById(R.id.toolbar);
+    }
+
+    @Override
+    protected DrawerLayout getSelfDrawerLayout() {
+        return (DrawerLayout) findViewById(R.id.drawerLayout);
+    }
+
+    @Override
+    protected int getSelfNavDrawerItem() {
+        return NAVDRAWER_ITEM_LOCATIONDEX;
+    }
+
+    @Override
+    protected NavigationView getSelfNavigationView() {
+        return (NavigationView) findViewById(R.id.navigationView);
+    }
+
+    @Override
+    protected boolean disableRightDrawerSwipe() {
+        return true;
+    }
+
 }

@@ -19,7 +19,6 @@ package com.satsumasoftware.pokedex.ui.filter;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +36,8 @@ import com.satsumasoftware.pokedex.R;
 import com.satsumasoftware.pokedex.db.PokemonDBHelper;
 import com.satsumasoftware.pokedex.framework.pokemon.BasePokemon;
 import com.satsumasoftware.pokedex.framework.pokemon.MiniPokemon;
+import com.satsumasoftware.pokedex.query.Filters;
+import com.satsumasoftware.pokedex.query.Query;
 import com.satsumasoftware.pokedex.ui.AboutActivity;
 import com.satsumasoftware.pokedex.ui.DetailActivity;
 import com.satsumasoftware.pokedex.ui.adapter.PokedexAdapter;
@@ -99,28 +100,27 @@ public class SearchResultsActivity extends AppCompatActivity {
     }
 
     private void doSearch(String searchQuery) {
+        Query query = new Query.Builder()
+                .combineFiltersWithOr(true)
+                .addFilter(Filters.contains(
+                        PokemonDBHelper.COL_ID, DataUtilsKt.unformatPokemonId(searchQuery)))
+                .addFilter(Filters.contains(PokemonDBHelper.COL_NAME, searchQuery))
+                .addFilter(Filters.contains(PokemonDBHelper.COL_NAME_JAPANESE, searchQuery))
+                .addFilter(Filters.contains(PokemonDBHelper.COL_NAME_ROMAJI, searchQuery))
+                .addFilter(Filters.contains(PokemonDBHelper.COL_NAME_KOREAN, searchQuery))
+                .addFilter(Filters.contains(PokemonDBHelper.COL_NAME_CHINESE, searchQuery))
+                .addFilter(Filters.contains(PokemonDBHelper.COL_NAME_FRENCH, searchQuery))
+                .addFilter(Filters.contains(PokemonDBHelper.COL_NAME_GERMAN, searchQuery))
+                .addFilter(Filters.contains(PokemonDBHelper.COL_NAME_SPANISH, searchQuery))
+                .addFilter(Filters.contains(PokemonDBHelper.COL_NAME_ITALIAN, searchQuery))
+                .build();
+
         PokemonDBHelper helper = PokemonDBHelper.getInstance(this);
-        SQLiteDatabase db = helper.getReadableDatabase();
-
-        String selection = PokemonDBHelper.COL_ID + " LIKE '%"+ DataUtilsKt.unformatPokemonId(searchQuery)+"%' OR " +
-                "LOWER("+ PokemonDBHelper.COL_NAME+") LIKE '%"+searchQuery.toLowerCase()+"%' OR " +
-                "LOWER("+ PokemonDBHelper.COL_NAME_JAPANESE+") LIKE '%"+searchQuery.toLowerCase()+"%' OR " +
-                "LOWER("+ PokemonDBHelper.COL_NAME_ROMAJI+") LIKE '%"+searchQuery.toLowerCase()+"%' OR " +
-                "LOWER("+ PokemonDBHelper.COL_NAME_KOREAN+") LIKE '%"+searchQuery.toLowerCase()+"%' OR " +
-                "LOWER("+ PokemonDBHelper.COL_NAME_CHINESE+") LIKE '%"+searchQuery.toLowerCase()+"%' OR " +
-                "LOWER("+ PokemonDBHelper.COL_NAME_FRENCH+") LIKE '%"+searchQuery.toLowerCase()+"%' OR " +
-                "LOWER("+ PokemonDBHelper.COL_NAME_GERMAN+") LIKE '%"+searchQuery.toLowerCase()+"%' OR " +
-                "LOWER("+ PokemonDBHelper.COL_NAME_SPANISH+") LIKE '%"+searchQuery.toLowerCase()+"%' OR " +
-                "LOWER("+ PokemonDBHelper.COL_NAME_ITALIAN+") LIKE '%"+searchQuery.toLowerCase()+"%'";
-
-        Cursor cursor = db.query(
+        Cursor cursor = helper.getReadableDatabase().query(
                 PokemonDBHelper.TABLE_NAME,
                 BasePokemon.DB_COLUMNS,
-                selection,
-                null,
-                null,
-                null,
-                null);
+                query.getFilter().getSqlStatement(),
+                null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             int pokedexNumber = cursor.getInt(cursor.getColumnIndex(PokemonDBHelper.COL_POKEDEX_NATIONAL));
